@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Officer in charge name" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur1/oic-name-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="form-1">
+          <fieldset class="govuk-fieldset">
+  
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Who is the officer in charge?
+              </h1>
+            </legend>
+  
+            <div class="govuk-form-group" id="error-form-group-1">
+              <label class="govuk-label" id="oic-surname-label" for="oic-surname">
+                Surname
+              </label>
+              <input type="text" class="govuk-input govuk-!-width-two-thirds" id="oic-surname" name="oicSurname" autocomplete="family-name" spell_check="false" value="{{ data['oicSurname'] }}">
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+              <label class="govuk-label" id="oic-collar-number-label" for="oic-collar-number">
+                Collar number
+              </label>
+              <input type="text" class="govuk-input govuk-input--width-10" id="oic-collar-number" name="oicCollarNumber" spell_check="false" value="{{ data['oicCollarNumber'] }}">
+            </div>
+  
+          </fieldset>
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/oic.js"></script>
+{% endblock %}

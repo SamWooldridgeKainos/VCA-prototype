@@ -1,0 +1,502 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block beforeContent %}
+<a href="#" class="govuk-back-link">Search for another victim</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="cps-reading-width">
+        <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
+            {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </h1>
+        <p class="govuk-body">
+            Case URN: 42MZ1139323/1
+        </p>
+    </div>
+        
+    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+      <h2 class="govuk-tabs__title">
+        Contents
+      </h2>
+
+      <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+              <a class="govuk-tabs__tab" href="#summary">
+              Summary
+              </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+              <a class="govuk-tabs__tab" href="#victim-details">
+              Victim details
+              </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+              <a class="govuk-tabs__tab" href="#case-contacts">
+              Case contacts
+              </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+              <a class="govuk-tabs__tab" href="#communications">
+              Communications
+              </a>
+          </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="summary">
+
+          <h2 class="govuk-heading-l">Summary</h2>
+          
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-one-third">
+                  <div class="govuk-summary-card">
+                      <div class="govuk-summary-card__title-wrapper">
+                          <h2 class="govuk-summary-card__title">
+                              Victim details
+                          </h2>
+                          <ul class="govuk-summary-card__actions">
+                              <li class="govuk-summary-card__action">
+                                  <a class="govuk-link" href="#">View all<span class="govuk-visually-hidden"> victim details</span></a>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="govuk-summary-card__content">
+                          <dl class="govuk-summary-list">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Name
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      DAVIES, Jennifer
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Age
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      34 (22/7/1990)
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Categories
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      <p class="govuk-body">
+                                          Vulnerable
+                                      </p>
+                                      <p class="govuk-body">
+                                          Intimidated
+                                      </p>
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Disability or access need
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Yes
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Address
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      130 Denton Avenue<br>Banton<br>Dunbartonshire<br>G65 0QR
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Phone
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      07352765432
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Email
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      jennifer.davies@gmail.com
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Want to be contacted
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Yes
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Preferred method of contact
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Mobile
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Preferred contact times
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Weekdays, 8am to 6pm
+                                  </dd>
+                              </div>
+                          </dl>
+                      </div>
+                  </div>
+              </div>
+              <div class="govuk-grid-column-one-third">
+                  <div class="govuk-summary-card">
+                      <div class="govuk-summary-card__title-wrapper">
+                          <h2 class="govuk-summary-card__title">
+                              Case contacts
+                          </h2>
+                          <ul class="govuk-summary-card__actions">
+                              <li class="govuk-summary-card__action">
+                                  <a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> CMS contacts</span></a>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="govuk-summary-card__content">
+                          <dl class="govuk-summary-list">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Family Liaison Officer
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      BIDWELL, Jane
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      IDVA
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      SAKAMOTO, Hadji
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Counsel
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      HAMER, Olivia
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Defence solicitor
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      BINKS, Thomas
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      High court advocate
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      SHEAF, Jessica
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Officer in charge
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      PC FISHER, Jane
+                                  </dd>
+                              </div>
+                          </dl>
+                      </div>
+                  </div>
+                  <div class="govuk-summary-card">
+                      <div class="govuk-summary-card__title-wrapper">
+                          <h2 class="govuk-summary-card__title">
+                              Case information
+                          </h2>
+                      </div>
+                      <div class="govuk-summary-card__content">
+                          <dl class="govuk-summary-list">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Case status
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Pending
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Monitoring codes
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      <p class="govuk-body">
+                                          Mental health
+                                      </p>
+                                      <p class="govuk-body">
+                                          Domestic violence
+                                      </p>
+                                      <p class="govuk-body">
+                                          Prohibited weapons
+                                      </p>
+                                      <p class="govuk-body">
+                                          Human trafficking
+                                      </p>
+                                      <p class="govuk-body">
+                                          Media interest
+                                      </p>
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Next hearing
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      <p class="govuk-body">
+                                          First hearing
+                                      </p>
+                                      <p class="govuk-body">
+                                          Wednesday 13 August 2025
+                                      </p>
+                                      <p class="govuk-body">
+                                          Southend Court House: County Court and Family Court and Magistrates Court
+                                      </p>
+                                  </dd>
+                              </div>
+                          </dl>
+                      </div>
+                  </div>
+              </div>
+              <div class="govuk-grid-column-one-third">
+                  <div class="govuk-summary-card">
+                      <div class="govuk-summary-card__title-wrapper">
+                          <h2 class="govuk-summary-card__title">
+                              Defendant information
+                          </h2>
+                      </div>
+                      <div class="govuk-summary-card__content">
+                          <h3 class="govuk-heading-s">
+                              DAVIES, Bella
+                          </h3>
+                          <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Age
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      34 (15/9/1990)
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Charge
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Grievous bodily harm
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Custody
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      In police custody, 15 days
+                                  </dd>
+                              </div>
+                          </dl>
+                          <h3 class="govuk-heading-s">
+                              SIMPSON, Bart
+                          </h3>
+                          <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Age
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      15 (8/8/2010)
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Charge
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Actual bodily harm
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Custody
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      On police bail, 6 days
+                                  </dd>
+                              </div>
+                          </dl>
+                          <h3 class="govuk-heading-s">
+                              JONES, Vince
+                          </h3>
+                          <dl class="govuk-summary-list">
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Age
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      45 (15/9/1979)
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Charge
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      Actual bodily harm
+                                  </dd>
+                              </div>
+                              <div class="govuk-summary-list__row">
+                                  <dt class="govuk-summary-list__key">
+                                      Custody
+                                  </dt>
+                                  <dd class="govuk-summary-list__value">
+                                      On police bail, 5 days
+                                  </dd>
+                              </div>
+                          </dl>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+          <h2 class="govuk-heading-l">Victim details</h2>
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+          <h2 class="govuk-heading-l">Case contacts</h2>
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+                
+        <h2 class="govuk-heading-l">Communications</h2>
+
+        <div class="cps-reading-width">    
+          <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              Check that Security Questions are correctly answered before sending {{ data['victimForename'] }} {{ data['victimSurname'] }} further emails.
+            </strong>
+          </div>
+        </div>
+
+        <nav class="moj-sub-navigation" aria-label="Sub navigation">
+
+          <ul class="moj-sub-navigation__list">
+            {% if (data['subTab'] == "charging-decision") %}
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/dtc/victim-record--pmoc-email-after-save-and-exit?subTab=charging-decision#communication">Charging decisions</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/delivery/dtc/victim-record--pmoc-email-after-save-and-exit?subTab=ptm#communication">CPS pre-trial meetings</a>
+            </li>
+            {% elif (data['subTab'] == "ptm") %}
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/delivery/dtc/victim-record--pmoc-email-after-save-and-exit?subTab=charging-decision#communication">Charging decisions</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/dtc/victim-record--pmoc-email-after-save-and-exit?subTab=ptm#communication">CPS pre-trial meetings</a>
+            </li>
+            {% endif %}
+          </ul>
+        
+        </nav>
+
+        {% if (data['subTab'] == "charging-decision") %}
+
+        <div class="cps-reading-width">
+          <p class="govuk-body">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been informed of the charging decision yet.
+          </p>
+          
+          <p class="govuk-body">
+            The draft is under review.
+          </p>
+
+          <a href="/delivery/dtc/nfa/letter-details" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+              View draft<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+          </a>
+        </div>
+        
+
+        <!-- <a href="/delivery/dtc/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+          Check and send email<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+        </a> -->
+
+        <!-- <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Charging decisions
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <p class="govuk-body">
+              {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been informed of the charging decision yet.
+            </p>
+    
+            <a href="/delivery/dtc/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+              Continue email<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+            </a>
+          </div>
+        </div> -->
+
+        {% elif (data['subTab'] == "ptm") %}
+
+        <p class="govuk-body">
+          {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been offered a CPS pre-trial meeting yet.
+        </p>
+
+        <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+          Create email<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+        </a>
+
+        <!-- <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              CPS pre-trial meetings
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <p class="govuk-body">
+              {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been offered a CPS pre-trial meeting yet.
+            </p>
+    
+            <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+              Create email<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+            </a>
+          </div>
+        </div> -->
+
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

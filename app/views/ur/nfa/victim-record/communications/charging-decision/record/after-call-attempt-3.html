@@ -1,0 +1,214 @@
+{% block content %}
+<p class="govuk-body">
+  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been informed yet.
+</p>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-4">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Contact method
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Mobile
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Call attempt
+    </dt>
+    <dd class="govuk-summary-list__value">
+      3
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Telephone number
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['victimPhoneNumber'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour3'] }}:{{ data['callMinutes3'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Victim informed
+    </dt>
+    <dd class="govuk-summary-list__value">
+      No
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Notes
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['callNotes3'] }}
+    </dd>
+  </div>
+</dl>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact method
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Mobile
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Call attempt
+        </dt>
+        <dd class="govuk-summary-list__value">
+          2
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['victimPhoneNumber'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour2'] }}:{{ data['callMinutes2'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Victim informed
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Notes
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['callNotes2'] }}
+        </dd>
+      </div>
+    </dl>
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact method
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Mobile
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Call attempt
+        </dt>
+        <dd class="govuk-summary-list__value">
+          1
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['victimPhoneNumber'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour1'] }}:{{ data['callMinutes1'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Victim informed
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Notes
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['callNotes1'] }}
+        </dd>
+      </div>
+    </dl>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Text message sent
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['textMessageSent'] }}
+        </dd>
+      </div>
+      {% if (data['textMessageSent'] == "Yes") %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Text message date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ "today" | govukDate(showWeekday=true) }} at {{ data['textMessageHour'] }}:{{ data['textMessageMinutes'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          First call scheduled
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['firstCallScheduledHour'] }}:{{ data['firstCallScheduledMinutes'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Second call scheduled
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['secondCallScheduledHour'] }}:{{ data['secondCallScheduledMinutes'] }}
+        </dd>
+      </div>
+      {% endif %}
+    </dl>
+  </div>
+</details>
+
+<p class="govuk-body">
+  You must inform the victim by post because you were unable to by telephone.
+</p>
+
+<a href="/ur/nfa/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review draft before printing<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+{% endblock %}

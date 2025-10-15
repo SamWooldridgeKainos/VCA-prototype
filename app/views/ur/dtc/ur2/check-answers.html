@@ -1,0 +1,236 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check answers" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur2/check-answers-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-heading-l">Check the details before reviewing the email</h1>
+
+        <p class="govuk-body">
+          You must provide all details before you can review the email.
+        </p>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Email details
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Decision to charge
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Sender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['userSurname'] | upper }}, {{ data['userForename'] }}<br><span class="govuk-body-s">{{ data['sharedMailbox'] }}</span>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Your role
+                </dt>
+                {% if (data['vluRole'] == "Not provided") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/ur/dtc/ur2/vlu-role" class="govuk-link" id="vluRole">Select your role</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  {{ data['vluRole'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/vlu-role">Change<span class="govuk-visually-hidden"> intended recipient</span></a>
+                </dd>
+                {% endif %}
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Recipients
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['recipientsVictim']) %}
+                  <p class="govuk-body">
+                    {{ data['recipientsVictim'] }}<br>{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}<br><span class="govuk-body-s">{{ data['victimEmailAddress'] }}</span>
+                  </p>
+                  {% endif %}
+
+                  {% if (data['recipientsVictimRep']) %}
+                  <p class="govuk-body">
+                    {{ data['recipientsVictimRep'] }}<br>{{ data['victimRepSurname'] | upper }}, {{ data['victimRepForename'] }}<br><span class="govuk-body-s">{{ data['victimRepEmailAddress'] }}</span>
+                  </p>
+                  {% endif %}
+
+                  <p class="govuk-body">
+                    Officer in charge<br>{% if (data['oicRank'] != "") %}{{ data['oicRank'] }}<br>{% endif %}{{ data['oicSurname'] | upper }}, {{ data['oicForename'] }}<br><span class="govuk-body-s">{{ data['oicEmailAddress'] }}</span>
+                  </p>
+
+                  <p class="govuk-body">
+                    Victim Services shared mailbox<br><span class="govuk-body-s">victim.services@cps.gov.uk</span>
+                  </p>
+
+                  {% for item in data['recipient_added[0][email_address]'] %}
+                  <p class="govuk-body">
+                    Value: {{ item }}
+                  </p>
+                  {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/recipients">Change<span class="govuk-visually-hidden"> recipient</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Acknowledgement or thank you
+                </dt>
+                {% if (data['acknowledgement'] == "Not provided" or data['acknowledgement'] == "") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/ur/dtc/ur2/acknowledgement" class="govuk-link">Enter acknowledgement or thank you</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  {{ data['acknowledgement'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/acknowledgement">Change<span class="govuk-visually-hidden"> acknowledgement or thank you</span></a>
+                </dd>
+                {% endif %}
+              </div>
+            </dl>
+          </div>
+        </div>
+        
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Case details
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Charges
+                </dt>
+                {% if (data['charges'] == "false") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/ur/dtc/ur2/charges" class="govuk-link" id="vluRole">Enter charge details</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  <ul class="govuk-list">
+                    <li>Common assault<br>{{ data['chargeDate'] or "5/2/2025" }}</li>
+                    <li>Unlawful inflicting grievous bodily harm<br>{{ data['chargeDate'] or "5/2/2025" }}</li>
+                  </ul>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/charges">Change<span class="govuk-visually-hidden"> charges</span></a>
+                </dd>
+                {% endif %}
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Multiple defendants
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  No
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Reported by the victim
+                </dt>
+                {% if (data['reportedByVictim'] == "Not provided") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/ur/dtc/ur2/reported-by-victim" class="govuk-link">Enter if reported by the victim</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  {{ data['reportedByVictim'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/reported-by-victim">Change<span class="govuk-visually-hidden"> if the victim reported the case to the police</span></a>
+                </dd>
+                {% endif %}
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Officer in charge
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['oicRank'] == "") %}Rank not provided<br>{% else %}{{ data['oicRank'] or "" }}<br>{% endif %}{{ data['oicSurname'] | upper }}, {{ data['oicForename'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/oic">Change<span class="govuk-visually-hidden"> the officer in charge details</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Prosecutor
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['prosecutorSurname'] | upper }}, {{ data['prosecutorForename'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/prosecutor-name">Change<span class="govuk-visually-hidden"> the prosecutor's name</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  First hearing
+                </dt>
+                {% if (data['firstHearingDate'] == "") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/ur/dtc/ur2/first-hearing" class="govuk-link">Enter first hearing details</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  {{ data['firstHearingLocation'] or "Sheffield Magistrates' Court" }}<br>Monday 31 March 2025<br>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/ur/dtc/ur2/first-hearing">Change<span class="govuk-visually-hidden"> first hearing date</span></a>
+                </dd>
+                {% endif %}
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        {% if (data['vluRole'] != "Not provided" and data['acknowledgement'] != "Not provided" and data['reportedByVictim'] != "Not provided") %}
+        <h2 class="govuk-heading-m">Now review your email</h2>
+
+        <p class="govuk-body">
+          Select <strong>Review your email</strong> to review the charging decision email before you send it.
+        </p>
+
+        <input type="hidden" name="answers-checked" value="true">
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Review your email
+        </button>
+        {% endif %}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur2/check-answers.js"></script>
+{% endblock %}

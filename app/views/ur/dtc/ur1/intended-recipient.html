@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Intended recipient" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur1/intended-recipient-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Who should receive the charging decision?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="intended-recipient-victim" name="intendedRecipient" value="Yes" aria-describedby="intended-recipient-victim-hint">
+              <label class="govuk-label govuk-radios__label" for="intended-recipient-victim">
+                {{ data['victimForename'] }} {{ data['victimSurname'] }}
+              </label>
+              <div class="govuk-hint govuk-radios__hint" id="intended-recipient-victim-hint">
+                The victim
+              </div>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="intended-recipient-someone-else" name="intendedRecipient" value="No" aria-describedby="intended-recipient-someone-else-hint">
+              <label class="govuk-label govuk-radios__label" for="intended-recipient-someone-else">
+                Someone else
+              </label>
+              <div class="govuk-hint govuk-radios__hint" id="intended-recipient-someone-else-hint">
+                For example, a parent or guardian
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/intended-recipient.js"></script>
+{% endblock %}

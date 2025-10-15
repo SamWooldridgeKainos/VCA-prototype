@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Review requested" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Review requested
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      You have requested a review of your draft to inform <strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong> ({{ data['victimEmailAddress'] }}) of the charging decison.
+    </p>
+
+    <!-- <p class="govuk-body">
+      The Crest survey was also sent to the victim.
+    </p> -->
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      Once the draft has been reviewed, check the 'Communication' tab of the victim's page, within the Victim Case Application. From there, you can approve it or amend it as neccessary.
+    </p>
+
+    <a href="/ur/nfa/victim-record?pmoc=mobile&dtc=yes&nfa=yes&nfaStatus=draft-under-review#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      View all communications
+    </a>
+
+  </div>
+</div>
+{% endblock %}

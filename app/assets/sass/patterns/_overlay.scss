@@ -1,0 +1,55 @@
+.overlay-backdrop {
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+@media screen and (min-width: 640px) {
+    .overlay-backdrop {
+        background: rgb(0 0 0 / 30%);
+    }
+}
+
+.overlay-backdrop.active {
+  display: block;
+}
+
+.modal-container { position: absolute; top: 10vw; margin-left: 20vw; margin-right: 20vw; padding: 0px; min-width: 800px; }
+.modal-header { border-bottom: 1px solid govuk-colour("mid-grey"); background-color: govuk-colour("light-grey"); padding: govuk-spacing(4); align-items: baseline; gap: 68px; }
+.modal-header .icon { font-size: 20px; }
+.modal-body { padding: govuk-spacing(4); background: white; }
+
+
+/* 7.3. Modal Popup */
+.popup-dialog.cps-popup {
+    padding: 0px;
+    min-width: 700px;
+}
+.cps-popup-grey-header {
+    border-bottom: 1px solid var(--other-light-grey, #F3F2F1);
+    background: var(--other-light-grey, #F3F2F1);
+    display: flex;
+    padding: 20px;
+    align-items: baseline;
+    gap: 68px;
+    margin-bottom: 20px;
+}
+.cps-popup-grey-header .icon {
+    font-size: 20px;
+}
+.cps-popup-maincontent {
+    margin-bottom: 20px;
+    padding: 0px 20px 0px 20px;
+}
+.cps-popup-actions {
+    padding: 0px 20px 20px 0px;
+    margin-top: 20px;
+}
+.cps-popup .govuk-button-group {
+   padding-left: 20px;
+}

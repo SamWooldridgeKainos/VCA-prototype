@@ -1,0 +1,67 @@
+{% block content %}
+<h2 class="govuk-heading-l">Communications</h2>
+
+<div class="cps-reading-width">
+    {% if (data['pmoc'] == "email") %}
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+        </strong>
+    </div>
+    
+    {% elif (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+        </strong>
+    </div>
+    {% elif (data['pmoc'] == "post") or (data['pmoc'] == "via-police") or (data['pmoc'] == "via-isva") %}
+    {% else %}
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Preferred method of contact unknown
+            <p class="govuk-body govuk-!-margin-bottom-0">
+                To send or record a communication, confirm the victim's contact preferences, then <a href="/ur/nfa/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+            </p>
+        </strong>
+    </div>
+    {% endif %}
+</div>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+    <ul class="moj-sub-navigation__list">
+        {% if (data['subTab'] == "ptm") %}
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="/ur/nfa/victim-record?subTab=charging-decision#communications">Charging decisions</a>
+        </li>
+
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="/ur/nfa/victim-record?subTab=ptm#communications">CPS pre-trial meetings</a>
+        </li>
+        {% else %}
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="/ur/nfa/victim-record?subTab=charging-decision#communications">Charging decisions</a>
+        </li>
+
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="/ur/nfa/victim-record?subTab=ptm#communications">CPS pre-trial meetings</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% if (data['subTab'] == "charging-decision") %}
+{% include "/ur/nfa/victim-record/communications/charging-decision/index.html" %}
+
+{% elif (data['subTab'] == "ptm") %}
+{% include "/ur/nfa/victim-record/communications/pre-trial-meeting/index.html" %}
+
+{% endif %}
+
+{% endblock %}

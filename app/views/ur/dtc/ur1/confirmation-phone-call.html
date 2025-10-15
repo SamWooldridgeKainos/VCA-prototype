@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Email sent" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Phone script
+      </h1>
+    </div>
+
+    <p class="govuk-body">Call details</p>
+
+    <p class="govuk-body">Security Questions script</p>
+
+    <p class="govuk-body">Charging decision script</p>
+
+    <p class="govuk-body">Crest survey script</p>
+
+    <p class="govuk-body">[End call]</p>
+
+    <p class="govuk-body">
+      Return to <a href="/ur/dtc/ur1/main-details--in-progress#communication" class="govuk-link">{{ data['victimForename'] }} {{ data['victimSurname'] }}
+    </p>
+
+  </div>
+</div>
+{% endblock %}

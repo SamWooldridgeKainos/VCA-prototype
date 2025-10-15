@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Name of Victim Liaison Officer" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/form-handler" method="post" novalidate>
+
+        <div class="govuk-form-group" id="form-1">
+          <fieldset class="govuk-fieldset">
+  
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Who is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s Victim Liaison Officer?
+              </h1>
+            </legend>
+  
+            <div class="govuk-form-group" id="error-form-group-1">
+              <label class="govuk-label" id="vlo-forename-label" for="vlo-forename">
+                Forename
+              </label>
+              <input type="text" class="govuk-input govuk-!-width-two-thirds" id="vlo-forename" name="vloForename" autocomplete="given-names" spell_check="false">
+            </div>
+  
+            <div class="govuk-form-group" id="error-form-group-2">
+              <label class="govuk-label" id="vlo-surname-label" for="vlo-surname">
+                Surname
+              </label>
+              <input type="text" class="govuk-input govuk-!-width-two-thirds" id="vlo-surname" name="vloSurname" autocomplete="family-name" spell_check="false">
+            </div>
+  
+          </fieldset>
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "govuk-prototype-kit dev",
+    "serve": "govuk-prototype-kit serve",
+    "start": "govuk-prototype-kit start"
+  },
+  "dependencies": {
+    "@dwp/dwp-frontend": "^3.3.0",
+    "@govuk-prototype-kit/common-templates": "2.0.1",
+    "@ministryofjustice/frontend": "5.1.4",
+    "@x-govuk/govuk-prototype-filters": "2.0.0",
+    "govuk-frontend": "5.11.0",
+    "govuk-prototype-kit": "13.17.0",
+    "jquery": "3.7.1",
+    "xlsx": "^0.18.5"
+  }
+}

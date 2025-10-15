@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Intended recipient" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur2/recipients-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <h1 class="govuk-heading-l">Recipients</h1>
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="recipients-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h1 class="govuk-fieldset__heading">
+              Main recipient(s)
+            </h1>
+          </legend>
+          <div class="govuk-hint" id="recipients-hint">
+            Select all that apply.
+          </div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="radio-group">
+            <div class="govuk-checkboxes__item">
+              <input type="checkbox" class="govuk-checkboxes__input" id="intended-recipient-victim" name="recipientsVictim" value="Victim" {{ checked('recipientsVictim','Victim') }} aria-describedby="intended-recipient-victim-hint">
+              <label class="govuk-label govuk-checkboxes__label" for="intended-recipient-victim">
+                Victim ({{ data['victimSurname'] | upper }}, {{ data['victimForename'] }})
+              </label>
+              <div class="govuk-hint govuk-checkboxes__hint" id="intended-recipient-victim-hint">
+                {{ data['victimEmailAddress'] }}
+              </div>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input type="checkbox" class="govuk-checkboxes__input" id="intended-recipient-victim-rep" name="recipientsVictimRep" value="Victim representative" {{ checked('recipientsVictimRep','Victim representative') }} aria-describedby="intended-recipient-victim-rep-hint">
+              <label class="govuk-label govuk-checkboxes__label" for="intended-recipient-victim-rep">
+                Victim representative ({{ data['victimRepSurname'] | upper }}, {{ data['victimRepForename'] }})
+              </label>
+              <div class="govuk-hint govuk-checkboxes__hint" id="nationality-item-hint">
+                {{ data['victimRepEmailAddress'] }}
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m">
+
+      <div data-module="moj-add-another">
+
+        <h2 class="govuk-heading-m moj-add-another__heading" tabindex="-1">Add another recipient</h2>
+
+        <div class="govuk-inset-text">
+          <p class="govuk-body">The following recipients already added:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Officer in charge ({{ data['oicSurname'] | upper }}, {{ data['oicForename'] }})<br><span class="govuk-hint">{{ data['oicEmailAddress'] }}</span></li>
+            <li>Victim Services shared mailbox<br><span class="govuk-hint">{{ data['sharedMailbox'] }}</span></li>
+          </ul>
+        </div>
+      
+        <fieldset class="govuk-fieldset moj-add-another__item">
+
+          <legend class="govuk-fieldset__legend moj-add-another__title govuk-fieldset__legend--s">
+            <h3 class="govuk-fieldset__heading">
+              Recipient
+            </h3>
+          </legend>
+    
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-!-font-weight-bold" for="recipient_added[0][email_address]">
+              Email address
+            </label>
+    
+            <input class="govuk-input" id="recipient_added[0][email_address]" name="recipient_added[0][email_address]" type="text" data-name="recipient_added[%index%][email_address]" data-id="recipient_added[%index%][email_address]">
+    
+          </div>
+    
+        </fieldset>
+    
+        <div class="moj-button-action">
+    
+          <button type="submit" class="govuk-button govuk-button--secondary moj-add-another__add-button govuk-!-margin-bottom-4" data-module="govuk-button">
+            Add another recipient
+          </button>
+    
+        </div>
+      
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur2/recipients.js"></script>
+{% endblock %}

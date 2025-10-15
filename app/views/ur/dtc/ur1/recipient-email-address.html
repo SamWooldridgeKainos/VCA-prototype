@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Recipient's email address" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur1/recipient-email-address-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+  
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="recipient-email-address">
+              What is {{ data['recipientForename'] }} {{ data['recipientSurname'] }}'s email address?
+            </label>
+          </h1>
+
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="recipient-email-address" name="recipientEmailAddress" autocomplete="email" spell_check="false" value="{{ data['recipientEmailAddress'] }}">
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/recipient-email-address.js"></script>
+{% endblock %}

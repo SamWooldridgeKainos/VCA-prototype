@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="First hearing" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">First hearing</h1>
+
+    <form action="/delivery/dtc/first-hearing-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group-1">
+        <label class="govuk-label govuk-label--m" for="my-autocomplete-container">
+          Location
+        </label>
+
+        <div class="govuk-hint" id="location-hint">
+          For example, a Magistrates' Court
+        </div>
+
+        <div class="autocomplete__wrapper" id="my-autocomplete-container" name="firstHearingLocation" data-name="firstHearingLocation" value="{{ data['firstHearingLocation'] }}"></div>
+      </div>
+
+      <div class="govuk-form-group" id="error-form-group-2">
+        <label class="govuk-label govuk-label--m" for="date">
+          Date
+        </label>
+
+        <div class="govuk-hint" id="date-hint">
+          For example, 17/05/2025
+        </div>
+
+        <div class="moj-datepicker" data-module="moj-date-picker" data-min-date="27/02/2025" data-excluded-days="saturday sunday">
+
+            <input type="text" class="govuk-input moj-js-datepicker-input" id="first-hearing-date"
+              name="firstHearingDate"
+              autocomplete="off"
+              aria-describedby="date-hint"
+              value="{{ data['firstHearingDate'] }}" />
+        </div>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/delivery/dtcfirst-hearing.js"></script>
+{% endblock %}

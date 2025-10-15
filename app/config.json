@@ -1,0 +1,8 @@
+{
+  "serviceName": "Victim Case Application",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": false
+    }
+  }
+}

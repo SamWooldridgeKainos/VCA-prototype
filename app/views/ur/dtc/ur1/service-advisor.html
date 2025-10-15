@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Service Advisor" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur1/service-advisor-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Who is the Victim Service Officer or Advisor for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="service-advisor-sender" name="serviceAdvisor" value="Yes" {{ checked('serviceAdvisor','Yes') }} aria-describedby="service-advisor-hint">
+              <label class="govuk-label govuk-radios__label" for="service-advisor-sender">
+                {{ data['userForename'] }} {{ data['userSurname'] }}
+              </label>
+              <div class="govuk-hint govuk-radios__hint" id="service-advisor-victim-hint">
+                Current signed in user (You)
+              </div>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="service-advisor-someone-else" name="serviceAdvisor" value="No" {{ checked('serviceAdvisor','No') }}>
+              <label class="govuk-label govuk-radios__label" for="service-advisor-someone-else">
+                Someone else
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/service-advisor.js"></script>
+{% endblock %}

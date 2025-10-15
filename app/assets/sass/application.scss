@@ -1,0 +1,37 @@
+//
+// For guidance on how to add CSS and SCSS see:
+// https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+// 
+
+// Add extra styles here
+@import "patterns/accessible-autocomplete";
+@import "patterns/content-editor";
+@import "patterns/overlay";
+
+.govuk-width-container {
+    max-width: 1400px;
+    padding-right: govuk-spacing(7);
+    padding-left: govuk-spacing(7);
+}
+
+.govuk-main-wrapper {
+    padding-top: govuk-spacing(3);
+}
+
+.govuk-main-wrapper-extra-padding-top {
+    padding-top: govuk-spacing(7);
+}
+
+.cps-reading-width {
+    max-width: 44em
+}
+
+.govuk-frontend-supported .govuk-tabs__panel {
+    border: 0;
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-frontend-supported .govuk-tabs__panel {
+        padding: 30px 0;
+    }
+}

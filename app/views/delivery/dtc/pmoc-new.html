@@ -1,0 +1,132 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Preferred method of contact</h1>
+
+        <form action="/delivery/dtc/telephone-call-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h2 class="govuk-fieldset__heading">
+                            Person to contact
+                        </h2>
+                    </legend>
+
+                    <div class="govuk-radios" id="radio-group">
+
+                        <div class="govuk-radios__item">
+                            <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                            <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                                Direct to victim
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                            <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                                Via police
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                            <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                                Via Independent Sexual Violence Adviser (ISVA)
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                            <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                                Via Independent Domestic Violence Adviser (IDVA)
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__divider">or</div>
+
+                        <div class="govuk-radios__item">
+                            <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-post" name="preferredMethodOfContact" value="Post" {{ checked('preferredMethodOfContact','Post') }}>
+                            <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-post">
+                                Do not contact
+                            </label>
+                        </div>
+            
+                      </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h2 class="govuk-fieldset__heading">
+                            Contact method
+                        </h2>
+                    </legend>
+
+                    <div class="govuk-radios" id="radio-group">
+
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                            Call (home phone)
+                          </label>
+                        </div>
+            
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                            Call (work phone)
+                          </label>
+                        </div>
+            
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                            Call (mobile)
+                          </label>
+                        </div>
+            
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-phone" name="preferredMethodOfContact" value="Phone" {{ checked('preferredMethodOfContact','Phone') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-phone">
+                            Text message (mobile)
+                          </label>
+                        </div>
+            
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-email" name="preferredMethodOfContact" value="Email" {{ checked('preferredMethodOfContact','Email') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-email">
+                            Email
+                          </label>
+                        </div>
+            
+                        <div class="govuk-radios__item">
+                          <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-post" name="preferredMethodOfContact" value="Post" {{ checked('preferredMethodOfContact','Post') }}>
+                          <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-post">
+                            Letter
+                          </label>
+                        </div>
+            
+                      </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

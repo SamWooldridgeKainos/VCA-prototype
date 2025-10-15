@@ -1,0 +1,56 @@
+{% block content %}
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Contact method
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Mobile
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Call attempt
+    </dt>
+    <dd class="govuk-summary-list__value">
+      1
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Telephone number
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['victimPhoneNumber'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Thursday 20 March 2025 at 11:24
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Victim informed
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Yes
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Notes
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Blah blah blah...
+    </dd>
+  </div>
+</dl>
+
+<a href="/ur/nfa/follow-up-moc" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Send or dispatch follow-up<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+{% endblock %}

@@ -1,0 +1,617 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block beforeContent %}
+<a href="/delivery/dtc/search" class="govuk-back-link">Back to Search</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" aria-describedby="key-details-hint">
+      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+    </h1>
+
+    <p class="govuk-body">Case URN: 42MR1153724<br>Case status: Pending<br>Lead defendant: PRICE, Jefferson</p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        This person is a victim
+        <p class="govuk-body">
+          <a href="#" class="govuk-link">Change victim or witness category</a>
+        </p>
+      </strong>
+    </div>
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">
+        Contents
+      </h2>
+
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#victim-details">
+            Victim details
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">
+            Case contacts
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communication">
+            Communication
+          </a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="victim-details">
+        <h2 class="govuk-heading-l">Victim details</h2>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h3 class="govuk-summary-card__title">
+              Name and contact details
+            </h3>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Name and title
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimSurname'] | upper }}, {{ data['victimTitle'] or "Ms" }} {{ data['victimForename'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> full name</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Preferred name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimPreferredName'] or "Sara" }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred name</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Telephone number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimPhoneNumber'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> phone number</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimEmailAddress'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> email address</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  72 Guild Street<br>London<br>SE23 6FH
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> home address</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Preferred method of contact
+                </dt>
+                {% if (data['preferredMethodOfContact'] == "Not provided") %}
+                <dd class="govuk-summary-list__value">
+                  <a href="/delivery/dtc/preferred-method-of-contact" class="govuk-link">Enter preferred method of contact</a>
+                </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                  {{ data['preferredMethodOfContact'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="/delivery/dtc/preferred-method-of-contact">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
+                </dd>
+                {% endif %}
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Preferred correspondence language
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  English
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Preferred contact times
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Not provided
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred contact times</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Victim representative contact details
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Not provided
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> victim representative contact details</span></a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h3 class="govuk-summary-card__title">
+              Equality information
+            </h3>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date of birth
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  <a href="#" class="govuk-link">Enter date of birth</a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Age
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Unknown
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Has health conditions or illness
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Yes
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> if they have health conditions or illness</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Health conditions or illness
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Not provided
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> health conditions or illness</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Abilities reduced
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Not provided
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> if abilities reduced</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Ethnic group
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  White
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> ethnic group</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Ethnic background
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  English, Welsh, Scottish, Northern Irish or British
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> ethnic background</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Religion
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  <p class="govuk-body">Preferred not to say</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> religion</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Sex
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  <p class="govuk-body">Preferred not to say</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> sex</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Gender identity
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  <p class="govuk-body">Preferred not to say</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> gender identity</span></a>
+                </dd>
+              </div>
+              
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h3 class="govuk-summary-card__title">
+              Other information
+            </h3>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Previous convictions
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Yes
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> if has previous convictions</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Special measures required
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Not provided
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> special measures required</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Power of Attorney
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  No
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> Power of Attorney</span></a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+
+        <h2 class="govuk-heading-l">Case contacts</h2>
+
+        <h3 class="govuk-heading-m">Contacts</h3>
+
+        <p class="govuk-body">
+          You can add only one contact for each role type.
+        </p>
+
+        <ul class="govuk-list">
+          <li>
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Add a Family Liaison Officer</a>
+          </li>
+          <li>
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Add an Independent Sexual Violence Advisor (ISVA)</a>
+          </li>
+          <li>
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Add an Independent Domestic Violence Advisor (IDVA)</a>
+          </li>
+        </ul>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Victim Liaison Unit
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="#">Remove <span class="govuk-visually-hidden"> Victim Liaison Unit</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  OKOLI, Vincent
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> whether details are known (Person 3)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Telephone number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  (020) 12345678
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> relationship to lead tenant (Person 3)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  vincent.okoli@cps.gov.uk
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Person 3)</span></a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <h3 class="govuk-heading-m">Imported contacts</h3>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Officer in charge (Police)
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Full name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  PATRICK, Matthew
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Telephone number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  (020) 12345678
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  matthew.patrick@police.uk
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communication">
+
+        <h2 class="govuk-heading-l">Communication</h2>
+
+        <nav class="moj-sub-navigation" aria-label="Sub navigation">
+
+          <ul class="moj-sub-navigation__list">
+            {% if (data['subTab'] == "charging-decision") %}
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/dtc/victim-record--pmoc-mobile?subTab=charging-decision#communication">Charging decisions</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/delivery/dtc/victim-record--pmoc-mobile?subTab=ptm#communication">CPS pre-trial meetings</a>
+            </li>
+            {% elif (data['subTab'] == "ptm") %}
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" href="/delivery/dtc/victim-record--pmoc-mobile?subTab=charging-decision#communication">Charging decisions</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+              <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/dtc/victim-record--pmoc-mobile?subTab=ptm#communication">CPS pre-trial meetings</a>
+            </li>
+            {% endif %}
+          </ul>
+        
+        </nav>
+
+        {% if (data['subTab'] == "charging-decision") %}
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Check {{ data['victimForename'] }} {{ data['victimSurname'] }}'s email address is correct. If it is incorrect, you can <a href="#" class="govuk-link">update the email address</a>.
+          </strong>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Decision to charge
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Contact method
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Mobile
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Call attempt
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  1
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Telephone number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimPhoneNumber'] }}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date and time
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Thursday 20 March 2025 at 11:24
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Victim informed
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Yes
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Notes
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Blah blah blah...
+                </dd>
+              </div>
+            </dl>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Followed up by
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Email
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['victimEmailAddress'] }}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date and time
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Thursday 20 March 2025 at 11:39
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Status
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Permanent failure
+                </dd>
+              </div>
+              <!-- <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Content
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  <a href="#" class="govuk-link">View sent email</a>
+                </dd>
+              </div> -->
+            </dl>
+
+            <div class="govuk-button-group govuk-!-margin-bottom-0">
+              <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                Try to send email again<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        {% elif (data['subTab'] == "ptm") %}
+
+        <p class="govuk-body">
+          {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been offered a CPS pre-trial meeting yet.
+        </p>
+
+        <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+          Record call<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+        </a>
+
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
