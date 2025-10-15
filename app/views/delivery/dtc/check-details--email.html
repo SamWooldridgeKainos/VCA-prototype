@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check details" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/delivery/dtc/check-answers-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-heading-l">Check the details before sending the email</h1>
+
+        <h2 class="govuk-heading-m">Email details</h2>
+
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Type
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Decision to charge
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Recipient
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <p class="govuk-body">
+                {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim)
+              </p>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Email address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['victimEmailAddress'] }}
+            </dd>
+          </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Now send your email</h2>
+
+        <p class="govuk-body">
+          Select <strong>Send email</strong> to inform the victim of the charging decision.
+        </p>
+
+        <input type="hidden" name="answers-checked" value="true">
+
+        <div class="govuk-button-group">
+          <button type="submit" class="govuk-button" data-module="govuk-button">
+            Send email
+          </button>
+          <a class="govuk-link" href="/delivery/dtc/victim-record--email-saved">Send email later</a>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

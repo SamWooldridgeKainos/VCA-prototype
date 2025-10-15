@@ -1,0 +1,206 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check answers" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Check your answers before starting the process</h1>
+
+      <h2 class="govuk-heading-m">Recipient details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Recipient is victim
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['intendedRecipient'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/ur/dtc/ur1/intended-recipient">Change<span class="govuk-visually-hidden"> intended recipient</span></a>
+            </dd>
+          </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Recipient's name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['recipientSurname'] | upper }}, {{ data['recipientForename'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/recipient-name">Change<span class="govuk-visually-hidden"> recipient's name</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Contact method
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['contactMethod'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/contact-method">Change<span class="govuk-visually-hidden"> contact method</span></a>
+          </dd>
+        </div>
+        {% if (data['contactMethod'] == "Email") %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Email address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['recipientEmailAddress'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/recipient-email-address">Change<span class="govuk-visually-hidden"> email address</span></a>
+          </dd>
+        </div>
+        {% endif %}
+        {% if (data['contactMethod'] == "Phone call") %}
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Phone number
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{ data['recipientPhoneNumber'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/ur/dtc/ur1/recipient-phone-number">Change<span class="govuk-visually-hidden"> phone number</span></a>
+            </dd>
+          </div>
+          {% endif %}
+          {% if (data['contactMethod'] == "Letter") %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Correspondence address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['recipientAddressLine1'] }}<br>{{ data['recipientAddressLine2'] }}<br>{{ data['recipientAddressTown'] }}<br>{{ data['recipientAddressPostcode'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/recipient-address">Change<span class="govuk-visually-hidden"> address</span></a>
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+
+      <h2 class="govuk-heading-m">Service Advisor details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Service Advisor is signed in user
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['serviceAdvisor'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/ur/dtc/ur1/service-advisor">Change<span class="govuk-visually-hidden"> Service Advisor</span></a>
+            </dd>
+          </div>
+          {% if (data['serviceAdvisor'] == "No") %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service Advisor's name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['serviceAdvisorSurname'] | upper }}, {{ data['serviceAdvisorForename'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/service-advisor-name">Change<span class="govuk-visually-hidden"> Service Advisor's name</span></a>
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+
+      <h2 class="govuk-heading-m">Case details</h2>
+      
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Reported by
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['reportedBy'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/reported-by">Change<span class="govuk-visually-hidden"> who reported the case to the police</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Prosecutor's name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['prosecutorSurname'] | upper }}, {{ data['prosecutorForename'] }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/prosecutor-name">Change<span class="govuk-visually-hidden"> licence type</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Charges
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <!-- <ul class="govuk-list">
+                {% for charge in data['charge'] %}
+                <li>{{ charge }}</li>
+                {% endfor %}
+            </ul> -->
+            <!-- {{ data['charge'] or "Battery / Common assault" }} -->
+              <ul class="govuk-list">
+                <li>{{ data['charges'] or "Battery / Common assault" }}</li>
+                <li>{{ data['charges'] or "Unlawful wounding/inflicting grievous bodily harm" }}</li>
+              </ul>
+            
+          </dd>
+          
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/ur/dtc/ur1/charges">Change<span class="govuk-visually-hidden"> charges</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            First hearing
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['firstHearingLocation'] or "Inner London Crown Court" }}<br>{{ data['firstHearingDate'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/ur/dtc/ur1/first-hearing">Change<span class="govuk-visually-hidden"> first hearing date</span></a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Officer in charge
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['oicSurname'] }}<br>{{ data['oicCollarNumber'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/ur/dtc/ur1/oic">Change<span class="govuk-visually-hidden"> licence type</span></a>
+            </dd>
+          </div>
+      </dl>
+
+      <h2 class="govuk-heading-m">Now start the process</h2>
+
+      <p class="govuk-body">By submitting this form you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+      <form action="/ur/dtc/ur1/check-answers-answer" method="post" novalidate>
+        <input type="hidden" name="answers-checked" value="true">
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Confirm and start
+        </button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

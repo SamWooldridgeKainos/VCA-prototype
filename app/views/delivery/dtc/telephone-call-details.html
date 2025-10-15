@@ -1,0 +1,117 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Telephone call details</h1>
+
+        <form action="/delivery/dtc/telephone-call-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="date">
+                    Date of call
+                </label>
+
+                <div class="govuk-hint" id="telephone-call-date-hint">
+                    For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date"
+                        name="telephoneCallDate"
+                        autocomplete="off"
+                        aria-describedby="telephone-call-date-hint"
+                        value="{{ data['telephoneCallDate'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of call
+                    </legend>
+
+                    <div id="call-time-hint" class="govuk-hint">
+                        For example, 11:15
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time">
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hour">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour" name="callHour" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes" name="callMinutes" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h1 class="govuk-fieldset__heading">
+                            Victim informed
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-yes" name="victimInformed" type="radio" value="Yes" {{ checked('victimInformed','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
+                                Yes
+                            </label>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-no" name="victimInformed" type="radio" value="No" {{ checked('victimInformed','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--m" for="call-notes">
+                        Notes (optional)
+                    </label>
+                </h1>
+
+                <textarea class="govuk-textarea" id="call-notes" name="callNotes" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/dtctelephone-call-details.js"></script>
+{% endblock %}

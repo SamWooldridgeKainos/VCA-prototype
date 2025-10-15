@@ -1,0 +1,248 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preview" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">
+            Review your email before sending it
+        </h1>
+
+        <p class="govuk-body">
+            When you are ready, scroll down and select <strong>Send email</strong>. Otherwise, you can <a href="javascript:window.history.back()" class="govuk-link">go back to make further changes</a>.
+        </p>
+
+        <p class="govuk-body" inert>
+            Highlighted text shows details added to the template.
+        </p>
+
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    To
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    
+                        {% if (data['recipientsVictim']) %}
+                        <p class="govuk-body">
+                            <mark class="hods-highlight"><strong>{{ data['recipientsVictim'] }}<br>{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}<br><span class="govuk-body-s">{{ data['victimEmailAddress'] }}</span></strong></mark>
+                        </p>
+                        {% endif %}
+      
+                        {% if (data['recipientsVictimRep']) %}
+                        <p class="govuk-body">
+                            <mark class="hods-highlight"><strong>{{ data['recipientsVictimRep'] }}<br>{{ data['victimRepSurname'] | upper }}, {{ data['victimRepForename'] }}<br><span class="govuk-body-s">{{ data['victimRepEmailAddress'] }}</span></strong></mark>
+                        </p>
+                        {% endif %}
+      
+                        <p class="govuk-body">
+                            <mark class="hods-highlight"><strong>Officer in charge<br>{% if (data['oicRank'] != "") %}{{ data['oicRank'] }}<br>{% endif %}{{ data['oicSurname'] | upper }}, {{ data['oicForename'] }}<br><span class="govuk-body-s">{{ data['oicEmailAddress'] }}</span></strong></mark>
+                        </p>
+      
+                        <p class="govuk-body">
+                            <mark class="hods-highlight"><strong>Victim Services shared mailbox<br><span class="govuk-body-s">victim.services@cps.gov.uk</span></strong></mark>
+                        </p>
+                
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Subject
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    Crown Prosecution Service - <mark class="hods-highlight"><strong>42MZ1139323</strong></mark>/VTP
+                </dd>
+            </div>
+        </dl>
+
+        <h2 class="govuk-heading-s">
+            Body
+        </h2>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        <hr class="govuk-section-break govuk-section-break--m">
+
+        <h3 class="govuk-heading-s" inert>
+            Crown Prosecution Service unique reference number: <mark class="hods-highlight"><strong>42MZ1139323</strong></mark>
+        </h3>
+
+        <p class="govuk-body" inert>
+            Please quote this reference number in any communications
+        </p>
+
+        <hr class="govuk-section-break govuk-section-break--m">
+
+        <p class="govuk-body" inert>
+            Dear <mark class="hods-highlight"><strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong></mark>
+        </p>
+
+        <p class="govuk-body" inert>
+            My name is <mark class="hods-highlight"><strong>{{ data['userForename'] }} {{ data['userSurname'] }}</strong></mark> and I am the Crown Prosecution Service (CPS) <mark class="hods-highlight"><strong>{{ data['vluRole'] }}</strong></mark> on the case <mark class="hods-highlight"><strong>{% if (data['reportedByVictim'] == "Yes") %}you{% else %}was{% endif %}</strong></mark> reported to the police.
+        </p>
+
+        <p class="govuk-body" inert>
+            I am sorry to learn about what you have been through. <mark class="hods-highlight"><strong>{{ data['acknowledgement'] }}</strong></mark>
+        </p>
+
+        <p class="govuk-body" inert>
+            The case has been passed to us for review. The role of the CPS is to consider the evidence collected by the police and decide whether the <mark class="hods-highlight"><strong>suspect</strong></mark> should be charged. The prosecutor who reviewed this case is <mark class="hods-highlight"><strong>{{ data['prosecutorForename'] }} {{ data['prosecutorSurname'] }}</strong></mark>.
+        </p>
+
+        <p class="govuk-body" inert>
+            I am emailing to let you know that, following a review of the evidence, the prosecutor has authorised the police to charge the <mark class="hods-highlight"><strong>defendant</strong></mark> with the following offences:
+        </p>
+
+        <ol class="govuk-list govuk-list--number">
+            <li><mark class="hods-highlight"><strong>Common assault - {{ data['chargeDate'] or "5/2/2025" }}</strong></mark></li>
+            <li><mark class="hods-highlight"><strong>Unlawful inflicting grievous bodily harm - {{ data['chargeDate'] or "5/2/2025" }}</strong></mark></li>
+        </ol>
+
+        <h3 class="govuk-heading-m" inert>
+            What happens now?
+        </h3>
+
+        <p class="govuk-body" inert>
+            Next, there will be a ‘First Hearing’ at <mark class="hods-highlight"><strong>{{ data['firstHearingLocation'] or "Sheffield Magistrates' Court" }}</strong></mark> on <mark class="hods-highlight"><strong>{{ data['firstHearingDate'] or "Wednesday 16 April 2025" }}</strong></mark>. You do not need to attend this hearing, but you can if you would like to.
+        </p>
+
+        <p class="govuk-body" inert>
+            If the <mark class="hods-highlight"><strong>defendant enters</strong></mark> a ‘not guilty’ plea to the offences, the court will decide whether the case stays in the magistrates’ court for trial or if it will be sent to the Crown Court for trial. Our online guide for victims explains more about how the court makes this decision, other key decisions the court makes at this hearing and what happens next: <a href="https://www.cps.gov.uk/information-and-support-victims-witnesses" class="govuk-link">https://www.cps.gov.uk/information-and-support-victims-witnesses</a>
+        </p>
+
+        <p class="govuk-body" inert>
+            If the case goes to trial, you will likely be asked to attend to give evidence. A police Witness Care Officer will be in touch to explain more about this and ensure you know where and when the trial will take place. They will also let you know more about the support available to you.
+        </p>
+
+        <p class="govuk-body" inert>
+            If the <mark class="hods-highlight"><strong>defendant enters</strong></mark> a ‘guilty’ plea to the offences, the court may decide to sentence straight away or set a sentencing hearing on another day. This might be so the court can ask for more information to help them decide what the sentence should be.
+        </p>
+
+        <p class="govuk-body" inert>
+            The police Witness Care Officer and the police officer in charge of the case, <mark class="hods-highlight"><strong>{% if (data['oicRank'] != "") %}{{ data['oicRank'] or "Constable" }} {% endif %} {{ data['oicForename'] }} {{ data['oicSurname'] }}</strong></mark>, have a duty to keep you up to date with how the case is progressing. This includes what happened at the hearing, when the next hearing is, what bail conditions the <mark class="hods-highlight"><strong>defendant has</strong></mark> and if they will be held in custody. The Witness Care Officer will also let you know if you will need to give evidence and what time you need to arrive.
+        </p>
+
+        <h4 class="govuk-heading-s" inert>
+            Victim Personal Statement
+        </h4>
+
+        <p class="govuk-body" inert>
+            Ahead of any sentencing hearings, we will provide the court with your ‘Victim Personal Statement’ (VPS) if you have provided one. A VPS is an opportunity to explain in your own words how the crime has impacted you; the judge or magistrates will take this into consideration during sentencing. The police will ask you if you’d like to provide a VPS during the investigation. You can update or make a further VPS at any stage of the case. You can get in touch with your police contact who will arrange for you to do this.
+        </p>
+
+        <p class="govuk-body" inert>
+            I understand that this may have been a difficult time for you. Thank you for your support with the case and I hope this email has been helpful in explaining the next steps. There are many independent and free support services available to you. You will see some of these listed below or you can visit our online guide to find what is most helpful to you.
+        </p>
+
+        <p class="govuk-body" inert>
+            Yours sincerely
+        </p>
+
+        <p class="govuk-body" inert>
+            <mark class="hods-highlight"><strong>{{ data['userForename'] }} {{ data['userSurname'] }}</strong></mark>,<br>
+            <mark class="hods-highlight"><strong>{{ data['vluRole'] }}</strong></mark>
+        </p>
+
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <h3 class="govuk-heading-s" inert>
+            Further Information and Support
+        </h3>
+
+        <p class="govuk-body" inert>
+            There are support services available for you to consider using if you wish, which are listed below. There are also links to further information that may be relevant.
+        </p>
+
+        <p class="govuk-body" inert>
+            Should you have any questions about the information in this email, please contact one of our CPS Service Advisors:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>Victim.Services@cps.gov.uk</li>
+            <li>Telephone: 020 3357 0012</li>
+        </ul>
+
+        <p class="govuk-body" inert>
+            ---
+        </p>
+
+        <h3 class="govuk-heading-m" inert>
+            The Online Victims Guide
+        </h3>
+
+        <p class="govuk-body" inert>
+            The online Victims Guide is an information portal designed by the Crown Prosecution Service (CPS) to provide you with more information on what you can expect as the case progresses through the criminal justice system.
+        </p>
+
+        <p class="govuk-body" inert>
+            It highlights what support is available to help you through the end-to-end process, including information and available support should you be asked to give evidence. You can access the online guide here: <a href="https://www.cps.gov.uk/information-and-support-victims-witnesses" class="govuk-link">https://www.cps.gov.uk/information-and-support-victims-witnesses</a>
+        </p>
+
+        <h3 class="govuk-heading-s" inert>
+            Further Support
+        </h3>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>There are many support services available to you. This website may help you find support that is right for you: <a href="https://www.gov.uk/guidance/victim-and-witness-services#support-for-victims-and-witnesses-of-crime" class="govuk-link">https://www.gov.uk/guidance/victim-and-witness-services#support-for-victims-and-witnesses-of-crime</a></li>
+            <li>If you would like to talk to someone not connected to the prosecution, you could contact Victim Support who offer free and confidential advice. Their contact number is 0808 1689111. You can also log onto their website: <a href="https://www.victimsupport.org.uk/" class="govuk-link">https://www.victimsupport.org.uk/</a></li>
+            <li>For more general, urgent support you can contact your local NHS Foundation Trust or the Samaritans:</li>
+            <li>To find your local NHS service please visit <a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline" class="govuk-link">https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline</a> and answer two questions to find the right helpline.</li>
+            <li>The Samaritans provide a 24/7 listening service on 116 123 where you can talk through your concerns, worries and troubles. You can also email them on <a href="mailto:jo@samaritans.org" class="govuk-link">jo@samaritans.org</a> or visit the website for a wide range of support services including financial worries, relationship and family problems and job-related stress <a href="https://www.samaritans.org/" class="govuk-link">https://www.samaritans.org/</a>.</li>
+        </ul>
+
+        <h3 class="govuk-heading-s" inert>
+            Further Information
+        </h3>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>You have rights as a victim. These rights are explained in the Code of Practice for Victims of Crime, which you can find here: <a href="https://www.gov.uk/government/publications/the-code-of-practice-for-victims-of-crime" class="govuk-link">https://www.gov.uk/government/publications/the-code-of-practice-for-victims-of-crime</a></li>
+            <li>If you want to make a complaint or give feedback, you can do so here: <a href="https://contact.cps.gov.uk/" class="govuk-link">https://contact.cps.gov.uk/</a></li>
+            <li>If you are a victim of a crime, you may be able to get compensation. This link may help you to find out more:</li>
+            <li>Claiming Compensation (please note time limits may apply): <a href="https://www.victimandwitnessinformation.org.uk/claim-compensation/" class="govuk-link">https://www.victimandwitnessinformation.org.uk/claim-compensation/</a></li>
+        </ul>
+
+        <h3 class="govuk-heading-s" inert>
+            Translations
+        </h3>
+
+        <p class="govuk-body" inert>
+            Please let us know if you would like the letter and the leaflet translated.
+        </p>
+
+        <p lang="cy" class="govuk-body" inert>
+            Rhowch wybod i ni os hoffech i’r llythyr a’r daflen gael ei chyfieith.
+        </p>
+
+        <hr class="govuk-section-break govuk-section-break--m">
+
+        <p class="govuk-body" inert>
+            ---
+        </p>
+
+        <p class="govuk-body" inert>
+            Read our Privacy Notice here <a href="https://www.cps.gov.uk/privacy-notice-crown-prosecution-service-cps" class="govuk-link">https://www.cps.gov.uk/privacy-notice-crown-prosecution-service-cps</a>. Please note that your data may be transferred to or hosted on email servers outside of the UK and will be subject to your email provider's data policy.
+        </p>
+
+        <p class="govuk-body" inert>
+            Click here to <a href="mailto:Victim.Services@cps.gov.uk?subject=Withdraw email consent" class="govuk-link">let us know if you no longer wish to receive emails</a> from the CPS about this case.
+        </p>
+
+        <p class="govuk-body" inert>
+            <em>End of email</em>
+        </p>
+
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <a href="/ur/dtc/ur2/email-sent?emailStatus=Sent" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Send email
+        </a>
+    </div>
+</div>
+{% endblock %}

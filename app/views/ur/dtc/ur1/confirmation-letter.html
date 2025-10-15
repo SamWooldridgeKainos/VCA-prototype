@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Letter process initiated" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Letter process initiated
+      </h1>
+    </div>
+
+    <p class="govuk-body">You have initiated the process to send a charging decision letter to <strong>{{ data['recipientAddressLine1'] }}, {{ data['recipientAddressPostcode'] }}</strong>.</p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+       The victim has been asked to confirm their security answers before they receive the charging decision.
+    </p>
+
+    <p class="govuk-body">
+      Return to <a href="/ur/dtc/ur1/main-details--in-progress#communication" class="govuk-link">{{ data['victimForename'] }} {{ data['victimSurname'] }}
+    </p>
+
+  </div>
+</div>
+{% endblock %}

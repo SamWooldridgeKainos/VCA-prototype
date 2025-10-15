@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Comms Drafter" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Comms Drafter</h1>
+
+      <p class="govuk-body">
+        Preferred method of contact is <strong>{{ data['preferredMethodOfContact'] | lower }}</strong>.
+      </p>
+
+      {% if (data['preferredMethodOfContact'] == "Email") %}
+        <a href="/delivery/dtc/check-details--email" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Save email (return to VCA)
+        </a>
+      {% elif (data['preferredMethodOfContact'] == "Post") %}
+        <a href="/delivery/dtc/check-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Save letter (return to VCA)
+        </a>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

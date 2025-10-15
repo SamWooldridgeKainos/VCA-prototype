@@ -1,0 +1,165 @@
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        {% if (data['decisionType'] == "dtc") or (data['decisionType'] == "nfa") %}
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    {% if (data['decisionType'] == "dtc") %}Decision to charge{% else %}No further action{% endif %}
+                </h2>
+            </div>
+            <div class="govuk-summary-card__content">
+                
+                <!-- Draft -->
+                {% if (data['nfaStatus'] == "draft-not-started") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/not-started.html" %}
+
+                {% elif (data['nfaStatus'] == "draft-in-progress") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/in-progress.html" %}
+
+                {% elif (data['nfaStatus'] == "draft-under-review") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/under-review.html" %}
+
+                {% elif (data['nfaStatus'] == "draft-amendments-required") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/amendments-required.html" %}
+
+                {% elif (data['nfaStatus'] == "draft-ready-to-send") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/ready-to-send.html" %}
+
+                {% elif (data['nfaStatus'] == "draft-approved-to-send") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/approved-to-send.html" %}
+
+                <!-- Record -->
+                {% elif (data['nfaStatus'] == "not-yet-recorded") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/not-yet-recorded.html" %}
+
+                {% elif (data['nfaStatus'] == "informed-after-call-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/informed-after-call-1.html" %}
+
+                {% elif (data['nfaStatus'] == "informed-after-call-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/informed-after-call-2.html" %}
+
+                {% elif (data['nfaStatus'] == "informed-after-call-3") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/informed-after-call-3.html" %}
+
+                {% elif (data['nfaStatus'] == "after-call-attempt-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/after-call-attempt-1.html" %}
+
+                {% elif (data['nfaStatus'] == "after-call-attempt-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/after-call-attempt-2.html" %}
+
+                {% elif (data['nfaStatus'] == "after-call-attempt-3") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/after-call-attempt-3.html" %}
+
+                <!-- Send follow-up email -->
+                {% elif (data['nfaStatus'] == "fu-email-after-call-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/after-call-1.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-after-call-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/after-call-2.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-after-call-3") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/after-call-3.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-failure-permanent") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/failure-permanent.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-failure-permanent-with-success") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/failure-permanent-with-success.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-failure-technical") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/failure-technical.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-failure-temporary") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/failure-temporary.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-email-sending") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-email/sending.html" %}
+
+                <!-- Send follow-up letter -->
+                {% elif (data['nfaStatus'] == "fu-letter-dispatched") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-letter/dispatched.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-letter-after-call-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-letter/after-call-1.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-letter-after-call-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-letter/after-call-2.html" %}
+
+                {% elif (data['nfaStatus'] == "fu-letter-after-call-3") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-letter/after-call-3.html" %}
+
+                <!-- not currently possible --> {% elif (data['nfaStatus'] == "fu-letter-after-fu-email-undelivered") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/fu-letter/after-fu-email-undelivered.html" %}
+
+                <!-- Send email-->
+                {% elif (data['nfaStatus'] == "email-delivered") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/delivered.html" %}
+
+                {% elif (data['nfaStatus'] == "email-after-call-attempt-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/after-call-attempt-1.html" %}
+
+                {% elif (data['nfaStatus'] == "email-after-call-attempt-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/after-call-attempt-2.html" %}
+
+                {% elif (data['nfaStatus'] == "email-failure-permanent") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/failure-permanent.html" %}
+
+                {% elif (data['nfaStatus'] == "email-failure-permanent-with-success") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/failure-permanent-with-success.html" %}
+
+                {% elif (data['nfaStatus'] == "email-failure-technical") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/failure-technical.html" %}
+
+                {% elif (data['nfaStatus'] == "email-failure-temporary") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/failure-temporary.html" %}
+
+                {% elif (data['nfaStatus'] == "email-sending") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/email/sending.html" %}
+
+                <!-- Send letter-->
+                {% elif (data['nfaStatus'] == "letter-dispatched") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/letter/dispatched.html" %}
+
+                {% elif (data['nfaStatus'] == "letter-after-call-attempt-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/letter/after-call-attempt-1.html" %}
+
+                {% elif (data['nfaStatus'] == "letter-after-call-attempt-2") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/letter/after-call-attempt-2.html" %}
+
+                {% elif (data['nfaStatus'] == "letter-after-call-attempt-3") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/letter/after-call-attempt-3.html" %}
+
+                {% elif (data['nfaStatus'] == "letter-after-email-undelivered") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/send/letter/after-email-undelivered.html" %}
+
+                {% else %}
+                <p class="govuk-body">There was a problem retrieving information. Try again later.</p>
+                {% endif %}
+
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/next-steps.html" %}
+            </div>
+        </div>
+        {% else %}
+        {% if (data['pmoc'] == "via-police") %}
+        <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} should only be informed of the charging decision by the police.
+        </p>
+        {% elif (data['pmoc'] == "via-isva") %}
+        <p class="govuk-body govuk-!-margin-bottom-2">
+          {{ data['victimForename'] }} {{ data['victimSurname'] }} should only be informed of the charging decision by their Independent Sexual Violence Adviser (ISVA).
+        </p>
+        {% else %}
+        <p class="govuk-body">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+        </p>
+        <a href="/delivery/nfa/draft/charging-decision" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+            Start draft<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+        </a>
+        {% endif %}
+
+        {% include "/delivery/nfa/victim-record/communications/charging-decision/next-steps.html" %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

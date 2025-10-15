@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Follow-up method of contact" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/delivery/dtc/followed-up-method-of-contact-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        How did {{ data['victimForename'] }} {{ data['victimSurname'] }} want to receive the follow-up to the telephone call?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="followUpMethodOfContact" value="Email" {{ checked('followUpMethodOfContact','Email') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-email">
+                            Email
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="followUpMethodOfContact" value="Post" {{ checked('followUpMethodOfContact','Post') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-post">
+                            Post
+                        </label>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/dtcfollow-up-method-of-contact.js"></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been informed yet.
+</p>
+
+<p class="govuk-body">
+    The draft is ready to send. No changes are required.
+</p>
+
+<a href="/ur/nfa/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review draft before sending<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+{% endblock %}

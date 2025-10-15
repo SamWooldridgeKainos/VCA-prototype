@@ -1,0 +1,71 @@
+{#
+For guidance on how to use layouts see:
+https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link href="/public/icons/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- <div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Letter dashboard
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Search for a victim
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div> -->
+{% endblock %}
+
+{% block footer %}
+<footer class="govuk-footer" style="border-top: 0;">
+  <div class="govuk-width-container">
+    <h2 class="govuk-visually-hidden">About this website</h2>
+    <ul class="govuk-footer__inline-list">
+      <!-- <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="#">Accessibility statement</a>
+      </li>
+      <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="#">Privacy</a>
+      </li>
+      <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="http://localhost:3000/manage-prototype">Manage prototype</a>
+      </li> -->
+      <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="/manage-prototype/clear-data?searchUrn">Clear data</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+{% endblock %}

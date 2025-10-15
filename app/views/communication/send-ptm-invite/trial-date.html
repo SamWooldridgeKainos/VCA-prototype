@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Trial date" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/form-handler" method="post" novalidate>
+
+        <div id="form-1" class="govuk-form-group">
+
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="date">
+              What is the date of the trial?
+            </label>
+          </h1>
+  
+            <div class="moj-datepicker" data-module="moj-date-picker" data-max-date="26/02/2025" data-excluded-days="saturday sunday">
+
+              <div class="govuk-form-group">
+            
+                <div id="date-hint" class="govuk-hint">
+                  For example, 17/5/2025
+                </div>
+            
+                <input type="text" class="govuk-input moj-js-datepicker-input" id="trial-date" name="trialDate" autocomplete="off" aria-describedby="date-hint">
+            
+              </div>
+            
+            </div>
+
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

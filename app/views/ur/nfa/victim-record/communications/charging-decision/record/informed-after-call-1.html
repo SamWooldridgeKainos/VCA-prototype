@@ -1,0 +1,92 @@
+{% block content %}
+<dl class="govuk-summary-list govuk-!-margin-bottom-4">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Contact method
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Mobile
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Call attempt
+        </dt>
+        <dd class="govuk-summary-list__value">
+            1
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['victimPhoneNumber'] }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Old:{{ data['telephoneCallDate1'] }} New:{{ data['newFormat'] }} Tuesday 22 M:{{ data['callMonth1'] }} 2025 at {{ data['callHour1'] }}:{{ data['callMinutes1'] }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Victim informed
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Yes
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Notes
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['callNotes1'] }}
+        </dd>
+    </div>
+</dl>
+
+{% if (data['fumoc'] == "email") %}
+<p class="govuk-body">
+    The follow-up draft is ready to send. If necessary, add details discussed on the call before sending.
+</p>
+
+<a href="/ur/nfa/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review draft before sending<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+
+{% elif (data['fumoc'] == "post") %}
+<p class="govuk-body">
+    The follow-up draft is ready to send. If necessary, add details discussed on the call before printing.
+</p>
+
+<a href="/ur/nfa/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review draft before printing<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+{% else %}
+<hr class="govuk-section-break govuk-section-break--m">
+
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Followed up by
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Does not want to receive follow-up
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            More details
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['noFumocDetails'] }}
+        </dd>
+    </div>
+</dl>
+{% endif %}
+{% endblock %}

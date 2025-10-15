@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Acknowledgement" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur2/acknowledgement-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group-1">
+          {{ govukTextarea({
+            name: "acknowledgement",
+            id: "acknowledgement",
+            label: {
+                text: "What acknowledgement or thank you do you want to add?",
+                classes: "govuk-label--l",
+                isPageHeading: true
+            },
+            hint: {
+              text: "The text will follow 'I am sorry to learn about what you have been through.' at the start of the email."
+            },
+            value: data['acknowledgement']
+          }) }}
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur2/acknowledgement.js"></script>
+{% endblock %}

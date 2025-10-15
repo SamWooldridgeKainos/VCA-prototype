@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Charging decision" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/ur/vcl/draft/stopped-charge-2-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        Why was the charge stopped?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-prosecutution-or-discontinuance-vrr" name="stoppedCharge" value="no-prosecutution-or-discontinuance-vrr" {{ checked('stoppedCharge','no-prosecutution-or-discontinuance-vrr') }}>
+                        <label class="govuk-label govuk-radios__label" for="stopped-charge-no-prosecutution-or-discontinuance-vrr">
+                            No prosecution or discontinuance
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-prosecutution-or-discontinuance-withdrawal" name="stoppedCharge" value="no-prosecutution-or-discontinuance-withdrawal" {{ checked('stoppedCharge','no-prosecutution-or-discontinuance-withdrawal') }}>
+                        <label class="govuk-label govuk-radios__label" for="stopped-charge-no-prosecutution-or-discontinuance-withdrawal">
+                            No prosecution or discontinuance after victim withdrawal
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-evidence-vrr" name="stoppedCharge" value="no-evidence-vrr" {{ checked('stoppedCharge','no-evidence-vrr') }}>
+                        <label class="govuk-label govuk-radios__label" for="stopped-charge-no-evidence-vrr">
+                            Court offered no evidence
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-evidence-withdrawal" name="stoppedCharge" value="no-evidence-withdrawal" {{ checked('stoppedCharge','no-evidence-withdrawal') }}>
+                        <label class="govuk-label govuk-radios__label" for="stopped-charge-no-evidence-withdrawal">
+                            Court offered no evidence after victim withdrawal
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/vcl/draft/stopped-charge.js"></script>
+{% endblock %}

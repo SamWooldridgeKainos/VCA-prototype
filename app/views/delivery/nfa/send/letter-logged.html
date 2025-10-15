@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Letter logged" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Letter logged
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %} letter was successfully logged for the victim, <strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong> ({{ data['victimAddressLine1'] }}, {{ data['victimPostCode'] }}).
+    </p>
+
+    <!-- <p class="govuk-body">
+      The Crest survey was also sent to the victim.
+    </p> -->
+
+    <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      You can view the recorded letter on the 'Communication' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <p class="govuk-body">
+      The letter was automatically saved to CMS as well.
+    </p>
+
+    {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+
+    {% if (data['callAttempt'] == "1") %}
+    {% if (data['victimInformed1'] == "Yes") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-letter-after-call-1&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=letter-after-call-attempt-1&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['callAttempt'] == "2") %}
+    {% if (data['victimInformed2'] == "Yes") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-letter-after-call-2&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=letter-after-call-attempt-2&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['callAttempt'] == "3") %}
+    {% if (data['victimInformed3'] == "Yes") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-letter-after-call-3&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=letter-after-call-attempt-3&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+    {% endif %}
+    {% elif (data['pmoc'] == "post") %}
+
+    <a href="/delivery/nfa/victim-record?nfaStatus=letter-dispatched&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    <!-- {% if (data['callAttempt'] == "") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['callAttempt'] == "1") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['callAttempt'] == "2") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% endif %} -->
+    {% else %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=letter-dispatched&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

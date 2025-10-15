@@ -1,0 +1,9 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been informed yet.
+</p>
+
+<a href="/ur/nfa/draft/nfa-template" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Start draft<span class="govuk-visually-hidden"> to inform of a charging decision</span>
+</a>
+{% endblock %}

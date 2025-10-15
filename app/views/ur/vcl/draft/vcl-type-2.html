@@ -1,0 +1,101 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="VCL type" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/ur/vcl/draft/vcl-type-2-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        What do you need to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} about?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-no-prosecutution-or-discontinuance-vrr" name="vclType" value="no-prosecutution-or-discontinuance-vrr" aria-describedby="no-prosecutution-or-discontinuance-vrr-hint" {{ checked('vclType','no-prosecutution-or-discontinuance-vrr') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-no-prosecutution-or-discontinuance-vrr">
+                            No prosecution or discontinuance and the Victims' Right to Review
+                        </label>
+                        <!-- <div id="no-prosecutution-or-discontinuance-vrr-hint" class="govuk-hint govuk-radios__hint">
+                            Victim's Right to Review
+                        </div> -->
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-no-prosecutution-or-discontinuance-withdrawal" name="vclType" value="no-prosecutution-or-discontinuance-withdrawal" aria-describedby="no-prosecutution-or-discontinuance-withdrawal-hint" {{ checked('vclType','no-prosecutution-or-discontinuance-withdrawal') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-no-prosecutution-or-discontinuance-withdrawal">
+                            No prosecution or discontinuance after victim withdrawal
+                        </label>
+                        <!-- <div id="no-prosecutution-or-discontinuance-withdrawal-hint" class="govuk-hint govuk-radios__hint">
+                            Victim withdrawal
+                        </div> -->
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-no-evidence-vrr" name="vclType" value="no-evidence-vrr" aria-describedby="no-evidence-vrr-hint" {{ checked('vclType','no-evidence-vrr') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-no-evidence-vrr">
+                            Court offered no evidence and the Victims' Right to Review
+                        </label>
+                        <!-- <div id="no-evidence-vrr-hint" class="govuk-hint govuk-radios__hint">
+                            Victim's Right to Review
+                        </div> -->
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-no-evidence-withdrawal" name="vclType" value="no-evidence-withdrawal" aria-describedby="no-evidence-withdrawal-hint" {{ checked('vclType','no-evidence-withdrawal') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-no-evidence-withdrawal">
+                            Court offered no evidence after victim withdrawal
+                        </label>
+                        <!-- <div id="no-evidence-withdrawal-hint" class="govuk-hint govuk-radios__hint">
+                            Victim withdrawal
+                        </div> -->
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-altered-charge-decrease" name="vclType" value="altered-charge-decrease" aria-describedby="altered-charge-decrease-hint" {{ checked('vclType','altered-charge-decrease') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-altered-charge-decrease">
+                            Substantially altered charge - decrease
+                        </label>
+                        <!-- <div id="altered-charge-decrease-hint" class="govuk-hint govuk-radios__hint">
+                            Decrease
+                        </div> -->
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-altered-charge-increase" name="vclType" value="altered-charge-increase" aria-describedby="altered-charge-increase-hint" {{ checked('vclType','altered-charge-increase') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-altered-charge-increase">
+                            Substantially altered charge - increase
+                        </label>
+                        <!-- <div id="altered-charge-increase-hint" class="govuk-hint govuk-radios__hint">
+                            Increase
+                        </div> -->
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/vcl/draft/vcl-type.js"></script>
+{% endblock %}

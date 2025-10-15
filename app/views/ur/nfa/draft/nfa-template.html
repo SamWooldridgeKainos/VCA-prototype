@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="No further action template" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/ur/nfa/draft/nfa-template-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        Which template does {{ data['victimForename'] }} {{ data['victimSurname'] }} need?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="nfa-template-insufficent-evidence-with-vrr" name="nfaTemplate" value="Insufficient evidence (with VRR)" {{ checked('nfaTemplate','Insufficient evidence (with VRR)') }}>
+                        <label class="govuk-label govuk-radios__label" for="nfa-template-insufficent-evidence-with-vrr">
+                            No further action (eligible for Victims' Right to Review Scheme)
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="nfa-template-insufficent-evidence-victim-withdrawal" name="nfaTemplate" value="Insufficient evidence (victim withdrawal)" {{ checked('nfaTemplate','Insufficient evidence (victim withdrawal)') }}>
+                        <label class="govuk-label govuk-radios__label" for="nfa-template-insufficent-evidence-victim-withdrawal">
+                            No further action (after victim withdrawal)
+                        </label>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/nfa/record/nfa-template.js"></script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+</p>
+
+{% if (data['callAttempt'] == "1") %}
+{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% elif (data['callAttempt'] == "2") %}
+{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+{% elif (data['callAttempt'] == "3") %}
+{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-3.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+{% else %}
+{% endif %}
+
+<p class="govuk-body">
+    The letter is ready to send. No changes are required.
+</p>
+
+{% if (data['pmoc'] == "email") %}
+<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+</a>
+
+{% elif (data['pmoc'] == "post") %}
+<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+</a>
+
+{% else %}
+<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+</a>
+{% endif %}
+{% endblock %}

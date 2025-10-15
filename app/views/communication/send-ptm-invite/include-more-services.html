@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Local or relevant services" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      Local or relevant services
+    </h1>
+
+    <p class="govuk-body">Already mentioned:</p>
+    
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Support for victims of sexual violence and abuse (GOV.UK)</li>
+      <li>Victim Support</li>
+      <li>The Survivors Trust</li>
+      <li>Rape Crisis</li>
+      <li>Male Survivors Partnership</li>
+      <li>Find an urgent mental health helpline (NHS.UK)</li>
+      <li>The Samaritans</li>
+    </ul>
+
+    <form action="/other-services-answer" method="post" accept-charset="UTF-8">
+
+      <div class="govuk-form-group" id="form-1">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Are there other local or relevant services that {{ data['victimForename'] }} {{ data['victimSurname'] }} should be aware of?
+          </legend>
+
+          <div class="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="other-services-yes" name="otherServices" value="Yes">
+              <label class="govuk-label govuk-radios__label" for="other-services-yes">
+                Yes
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="other-services-no" name="otherServices" value="No">
+              <label class="govuk-label govuk-radios__label" for="other-services-no">
+                No
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

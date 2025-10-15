@@ -1,0 +1,134 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Search by URN" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="moj-search">
+      <form action="#" method="post">
+        <div class="govuk-form-group">
+
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="search-urn">
+              Search for a victim or witness
+            </label>
+          </h1>
+    
+          <div class="govuk-hint moj-search__hint" id="search-urn-hint">
+            Search by case unique reference number (URN)
+          </div>
+    
+          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">
+    
+        </div>
+    
+        <button type="submit" class="govuk-button moj-search__button" data-module="govuk-button">
+          Search
+        </button>
+    
+      </form>
+    </div>
+
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full-width">
+
+    {% if (data['searchUrn'] == "42MR1153724") %}
+    <hr class="govuk-section-break govuk-section-break--l">
+
+    <p class="govuk-body">
+      We've found <strong>8</strong> results for <strong>42MR1153724</strong>
+    </p>
+
+    <hr class="govuk-section-break govuk-section-break--visible">
+
+    <table class="govuk-table govuk-table--small-text-until-tablet">
+      <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Dates and amounts</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Victim or witness name</th>
+          <th scope="col" class="govuk-table__header">URN</th>
+          <th scope="col" class="govuk-table__header">Case ID</th>
+          <th scope="col" class="govuk-table__header">Case status</th>
+          <th scope="col" class="govuk-table__header">Lead defendant</th>
+          <th scope="col" class="govuk-table__header govuk-visually-hidden">Action</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">OBERON, Shelly</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">PRICE, Jefferson+</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">KING, Wendy</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">PRICE, Jefferson+</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">JONES, Oliver A</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">PRICE, Jefferson+</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">WOODLEY, Alfred</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">PRICE, Jefferson+</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">SPACE, Spencer Seaplane</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="/delivery/dtc/victim-record">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Collocini, Emiliano</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">SPACE, Spencer Seaplane</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">EVANS, Gareth</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">SPACE, Spencer Seaplane</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">COOPER, Tracey</th>
+          <td class="govuk-table__cell">42MR1153724</td>
+          <td class="govuk-table__cell">2155470</td>
+          <td class="govuk-table__cell">Pending</td>
+          <td class="govuk-table__cell">SPACE, Spencer Seaplane</td>
+          <td class="govuk-table__cell"><a class="govuk-link" href="#">View<span class="govuk-visually-hidden"> details</span></a></td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+    
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Reported by victim" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur2/reported-by-victim-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="reported-by-victim-hint">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Did the victim report the case to the police?
+            </h1>
+          </legend>
+
+          <div class="govuk-hint" id="reported-by-victim-hint">
+            Your answer determines the wording of the email. For example, 'you reported' or 'was reported'
+          </div>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="reported-by-victim-yes" name="reportedByVictim" value="Yes" {{ checked('reportedByVictim','Yes') }}>
+              <label class="govuk-label govuk-radios__label" for="reported-by-victim-yes">
+                Yes
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="reported-by-victim-no" name="reportedByVictim" value="No" {{ checked('reportedByVictim','No') }}>
+              <label class="govuk-label govuk-radios__label" for="reported-by-victim-no">
+                No
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur2/reported-by-victim.js"></script>
+{% endblock %}

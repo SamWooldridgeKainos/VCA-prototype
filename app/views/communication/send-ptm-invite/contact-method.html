@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Contact method" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/contact-method-answer" method="post" accept-charset="UTF-8">
+
+      <div class="govuk-form-group" id="form-1">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How should {{ data['recipientForename'] }} {{ data['recipientSurname'] }} receive the pre-trial meeting offer?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contact-method-email" name="contactMethod" value="Yes">
+              <label class="govuk-label govuk-radios__label" for="contact-method-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contact-method-call" name="contactMethod" value="No">
+              <label class="govuk-label govuk-radios__label" for="contact-method-call">
+                Telephone call
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contact-method-letter" name="contactMethod" value="No">
+              <label class="govuk-label govuk-radios__label" for="contact-method-letter">
+                Letter
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Officer in charge" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur2/oic-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="form-1">
+          <fieldset class="govuk-fieldset">
+  
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Who is the officer in charge?
+              </h1>
+            </legend>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="oic-rank">
+                Rank (optional)
+              </label>
+              <select class="govuk-select" id="oic-rank" name="oicRank">
+                <option value="choose" selected></option>
+                <optgroup label="British Police Ranks">
+                  <option value="Constable">Constable</option>
+                  <option value="Sergeant">Sergeant</option>
+                  <option value="Inspector">Inspector</option>
+                  <option value="Chief Inspector">Chief Inspector</option>
+                  <option value="Superintendent">Superintendent</option>
+                  <option value="Chief Superintendent">Chief Superintendent</option>
+                  <option value="Assistant Chief Constable">Assistant Chief Constable</option>
+                  <option value="Deputy Chief Constable">Deputy Chief Constable</option>
+                  <option value="Chief Constable">Chief Constable</option>
+                </optgroup>
+                <optgroup label="British Metropolitan Police Ranks">
+                  <option value="Commander">Commander</option>
+                  <option value="Deputy Assistant Commissioner">Deputy Assistant Commissioner</option>
+                  <option value="Assistant Commissioner">Assistant Commissioner</option>
+                  <option value="Deputy Commissioner">Deputy Commissioner</option>
+                  <option value="Commissioner">Commissioner</option>
+                </optgroup>
+                <optgroup label="British Special Police Ranks">
+                  <option value="Special Constable">Special Constable</option>
+                  <option value="Special Section Officer">Special Section Officer</option>
+                  <option value="Special Area Officer">Special Area Officer</option>
+                  <option value="Chief Area Officer">Chief Area Officer</option>
+                  <option value="Chief Officer">Chief Officer</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-1">
+              <label class="govuk-label" id="oic-surname-label" for="oic-forename">
+                Forename
+              </label>
+              <input type="text" class="govuk-input govuk-!-width-two-thirds" id="oic-forename" name="oicForename" autocomplete="given-names" spell_check="false" value="{{ data['oicForename'] }}">
+            </div>
+  
+            <div class="govuk-form-group" id="error-form-group-1">
+              <label class="govuk-label" id="oic-surname-label" for="oic-surname">
+                Surname
+              </label>
+              <input type="text" class="govuk-input govuk-!-width-two-thirds" id="oic-surname" name="oicSurname" autocomplete="family-name" spell_check="false" value="{{ data['oicSurname'] }}">
+            </div>
+  
+          </fieldset>
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/ur/dtc/ur2/oic.js"></script>
+{% endblock %}
