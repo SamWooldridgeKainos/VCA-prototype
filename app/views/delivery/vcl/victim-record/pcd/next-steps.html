@@ -1,0 +1,132 @@
+{% block content %}
+{% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+{% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") or (data['nfaStatus'] == "draft-ready-to-send") or (data['nfaStatus'] == "draft-approved-to-send") %}
+{% if (data['fumoc'] == "none") %}
+{% else %}
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details govuk-!-margin-bottom-2">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Next steps
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") %}
+            <li>Draft the letter and send for review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-amendments-required") %}
+            <li>Amend the letter, then request a review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") %}
+            <li>Check for updates on the review.</li>
+            <li>Amend if needed.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") %}
+            <li>Telephone the victim when the letter is ready to send and log the call.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "after-call-attempt-3") %}
+            {% elif (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") %}
+            <li>Add details from the call to the letter if needed.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "after-call-attempt-3") %}
+            <li>Send the letter to the victim by post.</li>
+            {% else %}
+            {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
+            {% if (data['nfaStatus'] == "draft-approved-to-send") %}
+            <li>Send the letter to the victim by email.</li>
+            {% else %}
+            <li>Review the letter before sending it.</li>
+            <li>Send the letter to the victim by email.</li>
+            {% endif %}
+            {% elif (data['fumoc'] == "post") or (data['victimInformed3'] == "No") or (data['attemptToContactAgain'] == "Post") %}
+            {% if (data['nfaStatus'] == "draft-approved-to-send") %}
+            <li>Send the letter to the victim by post.</li>
+            {% else %}
+            <li>Review the letter before sending it.</li>
+            <li>Send the letter to the victim by post.</li>
+            {% endif %}
+            {% elif (data['fumoc'] == "none") %}
+            {% else %}
+            <li>Send the letter to the victim using their preferred method (email or post).</li>
+            {% endif %}
+            {% endif %}
+        </ol>
+    </div>
+</details>
+{% endif %}
+{% else %}
+{% endif %}
+{% elif (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
+{% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-ready-to-send") or (data['nfaStatus'] == "draft-approved-to-send") %}
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details govuk-!-margin-bottom-2">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Next steps
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") %}
+            <li>Draft the letter and send for review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-amendments-required") %}
+            <li>Amend the letter, then request a review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") %}
+            <li>Check for updates on the review.</li>
+            <li>Amend if needed.</li>
+            {% endif %}
+            {% if (data['pmoc'] == "") %}
+            <li>Review the letter.</li>
+            <li>Find out and update the victim's preferred method of contact to proceed further.</li>
+            {% else %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "draft-ready-to-send") %}
+            <li>Review the letter before sending it.</li>
+            {% endif %}
+            {% if (data['pmoc'] == "email") %}
+            <li>Send the letter to the victim by email.</li>
+            {% elif (data['pmoc'] == "post") %}
+            <li>Send the letter to the victim by post.</li>
+            {% elif (data['pmoc'] == "via-police") %}
+            <li>Send the letter to the officer in charge by email using Outlook.</li>
+            {% elif (data['pmoc'] == "via-isva") %}
+            <li>Send the letter to the Independent Sexual Violence Adviser (ISVA) by email using Outlook.</li>
+            {% endif %}
+            {% endif %}
+        </ol>
+    </div>
+</details>
+{% endif %}
+{% elif (data['pmoc'] == "via-police") or (data['pmoc'] == "via-isva") %}
+{% else %}
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details govuk-!-margin-bottom-2">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Next steps
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") %}
+            <li>Draft the letter and send for review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-amendments-required") %}
+            <li>Amend the letter, then request a review.</li>
+            {% endif %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") %}
+            <li>Check for updates on the review.</li>
+            <li>Amend if needed.</li>
+            {% endif %}
+            <li>Review the letter.</li>
+            <li>Find out and update the victim's preferred method of contact to proceed further.</li>
+        </ol>
+    </div>
+</details>
+{% endif %}
+{% endblock %}
