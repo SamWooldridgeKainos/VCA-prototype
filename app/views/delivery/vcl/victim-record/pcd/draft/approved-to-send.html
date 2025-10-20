@@ -7,12 +7,12 @@
 {% endif %}
 {% if (data['pmoc'] == "home-phone" or data['pmoc'] == "mobile") %}
 {% if (data['callAttempt'] == "1") %}
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m">
 
 {% elif (data['callAttempt'] == "2") %}
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -21,12 +21,12 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
   </div>
 </details>
 
 {% elif (data['callAttempt'] == "3") %}
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-3.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-3.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -35,11 +35,11 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
 
     <hr class="govuk-section-break govuk-section-break--m">
 
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
   </div>
 </details>
 
@@ -78,23 +78,23 @@
 {% endif %}
 
 {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
-<a href="/ur/vcl/send/check-email-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/check-email-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% elif (data['fumoc'] == "post") or (data['attemptToContactAgain'] == "Post") %}
-<!-- <a href="/ur/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<!-- <a href="/delivery/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a> -->
-<a href="/ur/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% elif (data['fumoc'] == "none") %}
 
 {% else %}
-<!-- <a href="/ur/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<!-- <a href="/delivery/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a> -->
-<a href="/ur/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% endif %}
@@ -104,7 +104,7 @@
     You can now send the letter.
 </p>
 
-<a href="/ur/vcl/send/check-email-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/check-email-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
@@ -113,10 +113,10 @@
     You can now send the letter.
 </p>
 
-<!-- <a href="/ur/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<!-- <a href="/delivery/vcl/send/check-letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before dispatching<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a> -->
-<a href="/ur/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
@@ -125,7 +125,7 @@
     The letter is approved to send to the officer in charge.
 </p>
 
-<a href="/ur/vcl/send/check-email-details?recipient=oic" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/check-email-details?recipient=oic" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
@@ -140,7 +140,7 @@
     The letter is approved to send to the victim's Independent Sexual Violence Adviser (ISVA).
 </p>
 
-<a href="/ur/vcl/send/check-email-details?recipient=isva" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/send/check-email-details?recipient=isva" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 

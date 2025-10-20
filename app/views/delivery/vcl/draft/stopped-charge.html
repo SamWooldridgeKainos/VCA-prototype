@@ -10,7 +10,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form action="/ur/vcl/draft/stopped-charge-2-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/delivery/vcl/draft/stopped-charge-2-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
@@ -26,7 +26,7 @@
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="stopped-charge-no-prosecutution-or-discontinuance-vrr" name="stoppedCharge" value="no-prosecutution-or-discontinuance-vrr" {{ checked('stoppedCharge','no-prosecutution-or-discontinuance-vrr') }}>
                         <label class="govuk-label govuk-radios__label" for="stopped-charge-no-prosecutution-or-discontinuance-vrr">
-                            No prosecution or discontinuance
+                            No prosecution or discontinuance and the Victims' Right to Review
                         </label>
                     </div>
 
@@ -40,7 +40,7 @@
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="stopped-charge-no-evidence-vrr" name="stoppedCharge" value="no-evidence-vrr" {{ checked('stoppedCharge','no-evidence-vrr') }}>
                         <label class="govuk-label govuk-radios__label" for="stopped-charge-no-evidence-vrr">
-                            Court offered no evidence
+                            Court offered no evidence and the Victims' Right to Review
                         </label>
                     </div>
 
@@ -65,5 +65,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/ur/vcl/draft/stopped-charge.js"></script>
+<script src="/public/javascripts/delivery/vcl/draft/stopped-charge.js"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% block content %}
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/letter.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/letter.html" %}
 
 {% if (data['notifyStatus'] == "") %}
 {% else %}
@@ -12,7 +12,7 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/email.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/email.html" %}
   </div>
 </details>
 {% endif %}

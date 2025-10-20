@@ -1,5 +1,5 @@
 {% block content %}
-{% include "/ur/vcl/victim-record/vcl/details/email.html" %}
+{% include "/delivery/vcl/victim-record/vcl/details/email.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m">
 
@@ -7,6 +7,6 @@
   <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
     Try to send email again<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
   </a>
-  <a class="govuk-link" href="/ur/vcl/send/letter-details">Send a letter instead<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span></a>
+  <a class="govuk-link" href="/delivery/vcl/send/letter-details">Send a letter instead<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span></a>
 </div>
 {% endblock %}

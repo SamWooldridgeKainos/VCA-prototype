@@ -3,7 +3,7 @@
   {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
 </p>
 
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -12,7 +12,7 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
   </div>
 </details>
 
@@ -20,7 +20,7 @@
   Check the letter, security answers, call script and FAQs if you need these during the call.
 </p> -->
 
-<a href="/ur/vcl/record/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/record/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
   Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 {% endblock %}

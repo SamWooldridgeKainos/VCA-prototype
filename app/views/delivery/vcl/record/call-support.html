@@ -40,7 +40,7 @@ Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellen
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {% if (data['decisionType'] == "dtc") %}Decision to charge{% elif (data['decisionType'] == "nfa") %}No further action{% else %}Mixed charges{% endif %}<br>
-                            <a class="govuk-link govuk-link--no-visited-state" href="/ur/vcl/record/read-only-letter" target="_blank" rel="noopener noreferrer">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/vcl/record/read-only-letter" target="_blank" rel="noopener noreferrer">
                                 View letter<span class="govuk-visually-hidden"> for the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span> (opens in a new tab)
                             </a>
                         </dd>
@@ -163,7 +163,7 @@ Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellen
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {% if (data['decisionType'] == "dtc") %}Decision to charge{% elif (data['decisionType'] == "nfa") %}No further action{% else %}Mixed charges{% endif %}<br>
-                            <a class="govuk-link govuk-link--no-visited-state" href="/ur/vcl/record/read-only-letter" target="_blank" rel="noopener noreferrer">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/vcl/record/read-only-letter" target="_blank" rel="noopener noreferrer">
                                 View letter<span class="govuk-visually-hidden"> for the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span> (opens in a new tab)
                             </a>
                         </dd>

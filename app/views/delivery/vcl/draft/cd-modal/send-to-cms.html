@@ -38,19 +38,19 @@
               Cancel
             </button>
             {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
-            <a href="/ur/vcl/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/delivery/vcl/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "Post") %}
-            <a href="/ur/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['fumoc'] == "none") %}
-            <a href="/ur/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&vclSent=na&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&vclSent=na&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% else %}
-            <a href="/ur/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% endif %}

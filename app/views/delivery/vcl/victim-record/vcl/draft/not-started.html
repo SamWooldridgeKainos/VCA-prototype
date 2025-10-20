@@ -3,14 +3,8 @@
     {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about a stopped or substantially altered charge.
 </p>
 
-{% if (data['vclOption'] == "a") or (data['vclOption'] == "b") %}
-<a href="/ur/vcl/draft/vcl-type-1" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/vcl-type" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Draft a letter<span class="govuk-visually-hidden"> to inform about the stopped or substantially altered charge</span>
 </a>
-{% elif (data['vclOption'] == "c") %}
-<a href="/ur/vcl/draft/vcl-type-2" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Draft a letter<span class="govuk-visually-hidden"> to inform about the stopped or substantially altered charge</span>
-</a>
-{% endif %}
 
 {% endblock %}

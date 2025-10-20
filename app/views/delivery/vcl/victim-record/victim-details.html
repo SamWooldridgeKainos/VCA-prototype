@@ -79,14 +79,14 @@
                     </dt>
                     {% if (data['pmoc'] == "Not provided") %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/ur/vcl/victim-details/preferred-method-of-contact" class="govuk-link">Enter preferred method of contact</a>
+                        <a href="/delivery/vcl/victim-details/preferred-method-of-contact" class="govuk-link">Enter preferred method of contact</a>
                     </dd>
                     {% else %}
                     <dd class="govuk-summary-list__value">
                         {{ data['pmoc'] | capitalize }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/ur/vcl/victim-details/preferred-method-of-contact">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
+                        <a class="govuk-link" href="/delivery/vcl/victim-details/preferred-method-of-contact">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
                     </dd>
                     {% endif %}
                     </div>

@@ -11,7 +11,7 @@
   </div>
 
   <div class="moj-page-header-actions__actions">
-    <a href="/ur/vcl/letter-dashboard" class="govuk-link">Letter dashboard</a>
+    <a href="/delivery/vcl/letter-dashboard" class="govuk-link">Letter dashboard</a>
   </div>
 </div>
 {% endblock %}
@@ -21,9 +21,9 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-    {% include "/ur/vcl/case-locked/banner/by-someone-else.html" %}
+    {% include "/delivery/vcl/case-locked/banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-    {% include "/ur/vcl/case-locked/banner/self-locked.html" %}
+    {% include "/delivery/vcl/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
 
@@ -95,7 +95,7 @@
                   <span class="govuk-visually-hidden">Warning</span>
                   Preferred method of contact unknown
                   <p class="govuk-body govuk-!-margin-bottom-0">
-                      To send or record a communication, confirm the victim's contact preferences, then <a href="/ur/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+                      To send or record a communication, confirm the victim's contact preferences, then <a href="/delivery/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
                   </p>
               </strong>
           </div>
@@ -142,31 +142,31 @@
       </ul>
 
       <div class="govuk-tabs__panel" id="summary">
-        {% include "/ur/vcl/victim-record/summary.html" %}
+        {% include "/delivery/vcl/victim-record/summary.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
-        {% include "/ur/vcl/victim-record/victim-details.html" %}
+        {% include "/delivery/vcl/victim-record/victim-details.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
-        {% include "/ur/vcl/victim-record/case-contacts.html" %}
+        {% include "/delivery/vcl/victim-record/case-contacts.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
-        {% include "/ur/vcl/victim-record/communications/index.html" %}
+        {% include "/delivery/vcl/victim-record/communications/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pcd">
-        {% include "/ur/vcl/victim-record/pcd/index.html" %}
+        {% include "/delivery/vcl/victim-record/pcd/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pre-trial">
-        {% include "/ur/vcl/victim-record/pre-trial/index.html" %}
+        {% include "/delivery/vcl/victim-record/pre-trial/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="vcl">
-        {% include "/ur/vcl/victim-record/vcl/index.html" %}
+        {% include "/delivery/vcl/victim-record/vcl/index.html" %}
       </div>
     </div>
 
@@ -175,5 +175,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/ur/vcl/victim-record.js"></script>
+<script src="/public/javascripts/delivery/vcl/victim-record.js"></script>
 {% endblock %}

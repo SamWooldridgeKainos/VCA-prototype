@@ -1,5 +1,5 @@
 {% block content %}
-{% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -8,7 +8,7 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
   </div>
 </details>
 
@@ -17,7 +17,7 @@
     No changes are needed to the letter and it can now be sent.
 </p>
 
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 
@@ -26,7 +26,7 @@
     No changes are needed to the letter and it can now be sent.
 </p>
 
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 
@@ -56,7 +56,7 @@
     The letter is ready to send to CMS. If necessary, add details discussed on the call before sending it.
 </p>
 
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review before sending to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 {% endif %}

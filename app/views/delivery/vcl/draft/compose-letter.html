@@ -9,7 +9,7 @@
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
       {% if (data['vclStatus'] == "draft-in-progress") %}
-      <a class="govuk-breadcrumbs__link" href="/ur/vcl/victim-record?pmoc=mobile&dtc=yes&nfa=yes&nfaStatus=draft-in-progress#communications">Victim Case Application</a>
+      <a class="govuk-breadcrumbs__link" href="/delivery/vcl/victim-record?pmoc=mobile&dtc=yes&nfa=yes&nfaStatus=draft-in-progress#communications">Victim Case Application</a>
 
       {% else %}
       <a class="govuk-breadcrumbs__link" href="javascript:window.history.back()">Victim Case Application</a>
@@ -24,15 +24,15 @@
 {% endblock %}
 
 {% block content %}
-{% include "/ur/vcl/draft/cd-modal/save-draft.html" %}
+{% include "/delivery/vcl/draft/cd-modal/save-draft.html" %}
 
-{% include "/ur/vcl/draft/cd-modal/delete-draft.html" %}
+{% include "/delivery/vcl/draft/cd-modal/delete-draft.html" %}
 
-{% include "/ur/vcl/draft/cd-modal/request-review.html" %}
+{% include "/delivery/vcl/draft/cd-modal/request-review.html" %}
 
-{% include "/ur/vcl/draft/cd-modal/send-to-cms.html" %}
+{% include "/delivery/vcl/draft/cd-modal/send-to-cms.html" %}
 
-<form action="/ur/vcl/draft/compose-letter-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+<form action="/delivery/vcl/draft/compose-letter-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
@@ -303,19 +303,19 @@ Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellen
         <ul class="moj-sub-navigation__list">
             {% if (data['cdSubTab'] == "review-notes") %}
             <li class="moj-sub-navigation__item">
-                <a class="moj-sub-navigation__link" href="/ur/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
+                <a class="moj-sub-navigation__link" href="/delivery/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
             </li>
 
             <li class="moj-sub-navigation__item">
-                <a class="moj-sub-navigation__link" aria-current="page" href="/ur/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
+                <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
             </li>
             {% else %}
             <li class="moj-sub-navigation__item">
-                <a class="moj-sub-navigation__link" aria-current="page" href="/ur/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
+                <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
             </li>
 
             <li class="moj-sub-navigation__item">
-                <a class="moj-sub-navigation__link" href="/ur/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
+                <a class="moj-sub-navigation__link" href="/delivery/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
             </li>
             {% endif %}
         </ul>
@@ -375,6 +375,6 @@ Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellen
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/ur/vcl/draft/compose-letter.js"></script>
-<script src="/public/javascripts/ur/vcl/draft/cd-modal/request-review.js"></script>
+<script src="/public/javascripts/delivery/vcl/draft/compose-letter.js"></script>
+<script src="/public/javascripts/delivery/vcl/draft/cd-modal/request-review.js"></script>
 {% endblock %}

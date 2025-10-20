@@ -4,12 +4,12 @@
 </p>
 
 {% if (data['callAttempt'] == "1") %}
-{% include "/ur/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m">
 
 {% elif (data['callAttempt'] == "2") %}
-{% include "/ur/vcl/victim-record/vcl/details/call-attempt-2.html" %}
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-2.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -18,12 +18,12 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
   </div>
 </details>
 
 {% elif (data['callAttempt'] == "3") %}
-{% include "/ur/vcl/victim-record/vcl/details/call-attempt-3.html" %}
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-3.html" %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -32,11 +32,11 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    {% include "/ur/vcl/victim-record/vcl/details/call-attempt-2.html" %}
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-2.html" %}
 
     <hr class="govuk-section-break govuk-section-break--m">
 
-    {% include "/ur/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
   </div>
 </details>
 
@@ -48,17 +48,17 @@
 </p>
 
 {% if (data['pmoc'] == "email") %}
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
 {% elif (data['pmoc'] == "post") %}
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
 {% else %}
-<a href="/ur/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% endif %}

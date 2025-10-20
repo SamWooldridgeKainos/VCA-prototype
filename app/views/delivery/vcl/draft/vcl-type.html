@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="No further action template" %}
+{% set pageName="VCL type" %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -10,30 +10,30 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form action="/ur/vcl/draft/victim-withdrawal-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/delivery/vcl/draft/vcl-type-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        Has {{ data['victimForename'] }} {{ data['victimSurname'] }} withdrawn from the case?
+                        What do you need to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} about?
                     </h1>
                 </legend>
 
                 <div class="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="victim-withdrawal-yes" name="victimWithdrawal" value="Yes" {{ checked('victimWithdrawal','Yes') }}>
-                        <label class="govuk-label govuk-radios__label" for="victim-withdrawal-yes">
-                            Yes
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-stop" name="vclType" value="stopped-charge" {{ checked('vclType','stopped-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-stop">
+                            Stopped charge
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="victim-withdrawal-no" name="victimWithdrawal" value="No" {{ checked('victimWithdrawal','No') }}>
-                        <label class="govuk-label govuk-radios__label" for="victim-withdrawal-no">
-                            No
+                        <input type="radio" class="govuk-radios__input" id="vcl-type-altered-charge" name="vclType" value="altered-charge" {{ checked('vclType','altered-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="vcl-type-altered-charge">
+                            Substantially altered charge
                         </label>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
         </div>
 
         <button type="submit" class="govuk-button" data-module="govuk-button">
-            Save and continue
+            Continue
         </button>
 
     </form>
@@ -51,5 +51,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/ur/vcl/draft/victim-withdrawal.js"></script>
+<script src="/public/javascripts/delivery/vcl/draft/vcl-type.js"></script>
 {% endblock %}
