@@ -1,0 +1,9 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+</p>
+
+<a href="/delivery/vcl/draft/compose-letter?nfaStatus=draft-in-progress" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+    Draft a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Email delivered" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Email delivered
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The decision to charge email was successfully delivered to the victim, <strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong> ({{ data['victimEmailAddress'] }}).
+    </p>
+
+    <!-- <p class="govuk-body">
+      The Crest survey was also sent to the victim.
+    </p> -->
+
+    <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      You can view the recorded email on the 'Communication' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <p class="govuk-body">
+      The decision to charge email was automatically saved to CMS as well.
+    </p>
+
+    <a href="/delivery/dtc/victim-record?dtcEmailStatus=technical#communication" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      View all communications
+    </a>
+
+  </div>
+</div>
+{% endblock %}

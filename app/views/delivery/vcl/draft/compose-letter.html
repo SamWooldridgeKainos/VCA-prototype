@@ -1,0 +1,380 @@
+{% extends "layouts/main.html" %}
+
+{% set serviceName %}Correspondence Drafter{% endset%}
+
+{% set pageName = "Compose letter" %}
+
+{% block beforeContent %}
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      {% if (data['vclStatus'] == "draft-in-progress") %}
+      <a class="govuk-breadcrumbs__link" href="/delivery/vcl/victim-record?pmoc=mobile&dtc=yes&nfa=yes&nfaStatus=draft-in-progress#communications">Victim Case Application</a>
+
+      {% else %}
+      <a class="govuk-breadcrumbs__link" href="javascript:window.history.back()">Victim Case Application</a>
+
+      {% endif %}
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      Compose letter
+    </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% include "/delivery/vcl/draft/cd-modal/save-draft.html" %}
+
+{% include "/delivery/vcl/draft/cd-modal/delete-draft.html" %}
+
+{% include "/delivery/vcl/draft/cd-modal/request-review.html" %}
+
+{% include "/delivery/vcl/draft/cd-modal/send-to-cms.html" %}
+
+<form action="/delivery/vcl/draft/compose-letter-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <div class="moj-page-header-actions govuk-!-margin-bottom-3">
+        <div class="moj-page-header-actions__title">
+          <h1 class="govuk-heading-l">Compose letter</h1>
+        </div>
+
+        <div class="moj-page-header-actions__actions">
+          <div class="moj-button-group moj-button-group--inline">
+            <a href="#" class="govuk-link" rel="noreferrer noopener" target="_blank">
+              Case and victim information <i class="fa fa-external-link" aria-hidden="true"></i>
+            </a>
+            <button type="button" class="govuk-button govuk-button--secondary" id="save-draft-button" data-module="govuk-button">
+              Save
+            </button>
+            <button type="button" class="govuk-button govuk-button--secondary" id="delete-draft-button" data-module="govuk-button">
+              Delete
+            </button>
+            <button type="button" class="govuk-button" id="request-review-button" data-module="govuk-button">
+              Request review
+            </button>
+            <button type="button" class="govuk-button" id="send-to-cms-button" data-module="govuk-button">
+              Finish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="moj-page-header-actions govuk-!-margin-bottom-0">
+        <div class="moj-page-header-actions__title">
+          <div class="govuk-button-group govuk-!-margin-bottom-0">
+            <a type="button" href="#" class="govuk-link" style="color: black">
+              Undo
+            </a>
+            <a type="button" href="#" class="govuk-link" style="color: black">
+              Redo
+            </a>
+          </div>
+        </div>
+        <div class="moj-page-header-actions__actions">
+          <div class="moj-button-group moj-button-group--inline govuk-!-margin-bottom-0">
+            <p class="govuk-body govuk-!-margin-right-3">
+              Autosave is on. Last saved at {{ "now" | govukTime }} <span id="time"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="govuk-exit-this-page govuk-!-margin-bottom-0" style="z-index: auto;" data-module="govuk-exit-this-page">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          Autosave is on. Last modified at 09:10:35 <span id="time"></span>
+        </p>
+      </div> -->
+    </div>
+
+    <!-- <div class="govuk-grid-column-full">
+      <div class="govuk-button-group govuk-!-margin-bottom-0">
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Undo
+        </button>
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Redo
+        </button>
+      </div>
+      
+
+    </div> -->
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="ph section-ui-pattern" id="b38-Pattern">
+        <div data-block="CPS_Component.ContentEditor" class="OSBlockWidget" id="$b39">
+          <span>
+            <textarea data-textarea="" class="form-control OSFillParent" rows="20" maxlength="20000" tabindex="0" style="resize: none; user-select: auto; display: none;" id="b39-TextArea_Content"></textarea>
+
+            <div class="ck ck-reset ck-editor ck-rounded-corners" role="application" dir="ltr" lang="en" aria-labelledby="ck-editor__label_e12e3d8553a27d9a3407c76d63cfaf86b">
+              <label class="ck ck-label ck-voice-label" id="ck-editor__label_e12e3d8553a27d9a3407c76d63cfaf86b">
+                Rich Text Editor
+              </label>
+              <div class="ck ck-editor__top ck-reset_all" role="presentation">
+                <div class="ck ck-sticky-panel">
+                  <div class="ck ck-sticky-panel__placeholder" style="display: none;"></div>
+                  <div class="ck ck-sticky-panel__content">
+                    <div class="ck ck-toolbar" role="toolbar" aria-label="Editor toolbar">
+                      <div class="ck ck-toolbar__items">
+                        <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e93ab2bf0f2dda54218a7af3e1ad116f1" aria-pressed="false" data-cke-tooltip-text="Bold (⌘B)" data-cke-tooltip-position="s">
+                          <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                            <path d="M10.187 17H5.773c-.637 0-1.092-.138-1.364-.415-.273-.277-.409-.718-.409-1.323V4.738c0-.617.14-1.062.419-1.332.279-.27.73-.406 1.354-.406h4.68c.69 0 1.288.041 1.793.124.506.083.96.242 1.36.478.341.197.644.447.906.75a3.262 3.262 0 0 1 .808 2.162c0 1.401-.722 2.426-2.167 3.075C15.05 10.175 16 11.315 16 13.01a3.756 3.756 0 0 1-2.296 3.504 6.1 6.1 0 0 1-1.517.377c-.571.073-1.238.11-2 .11zm-.217-6.217H7v4.087h3.069c1.977 0 2.965-.69 2.965-2.072 0-.707-.256-1.22-.768-1.537-.512-.319-1.277-.478-2.296-.478zM7 5.13v3.619h2.606c.729 0 1.292-.067 1.69-.2a1.6 1.6 0 0 0 .91-.765c.165-.267.247-.566.247-.897 0-.707-.26-1.176-.778-1.409-.519-.232-1.31-.348-2.375-.348H7z"></path>
+                          </svg>
+                          <span class="ck ck-button__label" id="ck-editor__aria-label_e93ab2bf0f2dda54218a7af3e1ad116f1">Bold</span>
+                        </button>
+                        <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e132500185c5bfe3b3435b5b9056b9800" aria-pressed="false" data-cke-tooltip-text="Italic (⌘I)" data-cke-tooltip-position="s">
+                          <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                            <path d="m9.586 14.633.021.004c-.036.335.095.655.393.962.082.083.173.15.274.201h1.474a.6.6 0 1 1 0 1.2H5.304a.6.6 0 0 1 0-1.2h1.15c.474-.07.809-.182 1.005-.334.157-.122.291-.32.404-.597l2.416-9.55a1.053 1.053 0 0 0-.281-.823 1.12 1.12 0 0 0-.442-.296H8.15a.6.6 0 0 1 0-1.2h6.443a.6.6 0 1 1 0 1.2h-1.195c-.376.056-.65.155-.823.296-.215.175-.423.439-.623.79l-2.366 9.347z"></path>
+                          </svg>
+                          <span class="ck ck-button__label" id="ck-editor__aria-label_e132500185c5bfe3b3435b5b9056b9800">Italic</span>
+                        </button>
+                        <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e770b2b71eb29e0cb7a26e187f8584030" aria-pressed="false" data-cke-tooltip-text="Underline (⌘U)" data-cke-tooltip-position="s">
+                          <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                            <path d="M3 18v-1.5h14V18zm2.2-8V3.6c0-.4.4-.6.8-.6.3 0 .7.2.7.6v6.2c0 2 1.3 2.8 3.2 2.8 1.9 0 3.4-.9 3.4-2.9V3.6c0-.3.4-.5.8-.5.3 0 .7.2.7.5V10c0 2.7-2.2 4-4.9 4-2.6 0-4.7-1.2-4.7-4z"></path>
+                          </svg>
+                          <span class="ck ck-button__label" id="ck-editor__aria-label_e770b2b71eb29e0cb7a26e187f8584030">Underline</span>
+                        </button>
+                        <div class="ck ck-dropdown ck-font-size-dropdown">
+                          <button class="ck ck-button ck-off ck-dropdown__button" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_eb275ecc24e916ae73662f53e0479b85b" data-cke-tooltip-text="Font Size" data-cke-tooltip-position="s" aria-haspopup="true" aria-expanded="false">
+                            <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                              <path d="M9.816 11.5 7.038 4.785 4.261 11.5h5.555zm.62 1.5H3.641l-1.666 4.028H.312l5.789-14h1.875l5.789 14h-1.663L10.436 13zm7.55 2.279.779-.779.707.707-2.265 2.265-2.193-2.265.707-.707.765.765V4.825c0-.042 0-.083.002-.123l-.77.77-.707-.707L17.207 2.5l2.265 2.265-.707.707-.782-.782c.002.043.003.089.003.135v10.454z"></path>
+                            </svg>
+                            <span class="ck ck-button__label" id="ck-editor__aria-label_eb275ecc24e916ae73662f53e0479b85b">Font Size</span>
+                            <svg class="ck ck-icon ck-dropdown__arrow" viewBox="0 0 10 10">
+                              <path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path>
+                            </svg>
+                          </button>
+                          <div class="ck ck-reset ck-dropdown__panel ck-dropdown__panel_se">
+                            <ul class="ck ck-reset ck-list">
+                              <li class="ck ck-list__item">
+                                <button class="ck ck-button ck-fontsize-option text-tiny ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e14f75d79e944cdc2dfe25fd4e0aae966" data-cke-tooltip-position="s">
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_e14f75d79e944cdc2dfe25fd4e0aae966">Tiny</span>
+                                </button>
+                              </li>
+                              <li class="ck ck-list__item">
+                                <button class="ck ck-button ck-fontsize-option text-small ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e52a10b8ed353ed3d668c82809f46ddf2" data-cke-tooltip-position="s">
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_e52a10b8ed353ed3d668c82809f46ddf2">Small</span>
+                                </button>
+                              </li>
+                              <li class="ck ck-list__item">
+                                <button class="ck ck-button ck-fontsize-option ck-on ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e05be42d8f41e1d514bb6eaaca1363aad" data-cke-tooltip-position="s">
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_e05be42d8f41e1d514bb6eaaca1363aad">Default</span>
+                                </button>
+                              </li>
+                              <li class="ck ck-list__item">
+                                <button class="ck ck-button ck-fontsize-option text-big ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ec12176a1358e5fc9c393ab893b7e515d" data-cke-tooltip-position="s">
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_ec12176a1358e5fc9c393ab893b7e515d">Big</span>
+                                </button>
+                              </li>
+                              <li class="ck ck-list__item">
+                                <button class="ck ck-button ck-fontsize-option text-huge ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e10238c25a6d59b9f7aaf040797855353" data-cke-tooltip-position="s">
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_e10238c25a6d59b9f7aaf040797855353">Huge</span>
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="ck ck-dropdown ck-color-ui-dropdown">
+                          <button class="ck ck-button ck-off ck-dropdown__button" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e11c6fab154862f69ad6e668e4962e1c3" data-cke-tooltip-text="Font Background Color" data-cke-tooltip-position="s" aria-haspopup="true" aria-expanded="false">
+                            <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                              <path d="M4 2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8.38 9.262H7.62L10 5.506l2.38 5.756zm.532 1.285L14.34 16h1.426L10.804 4H9.196L4.234 16H5.66l1.428-3.453h5.824z"></path>
+                            </svg>
+                            <span class="ck ck-button__label" id="ck-editor__aria-label_e11c6fab154862f69ad6e668e4962e1c3">Font Background Color</span>
+                            <svg class="ck ck-icon ck-dropdown__arrow" viewBox="0 0 10 10">
+                              <path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path>
+                            </svg>
+                          </button>
+                          <div class="ck ck-reset ck-dropdown__panel ck-dropdown__panel_se">
+                            <div class="ck ck-color-table">
+                              <button class="ck ck-button ck-color-table__remove-color ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ec379295898e8db39ed7604176f846219" data-cke-tooltip-position="s">
+                                <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                                  <path d="m8.636 9.531-2.758 3.94a.5.5 0 0 0 .122.696l3.224 2.284h1.314l2.636-3.736L8.636 9.53zm.288 8.451L5.14 15.396a2 2 0 0 1-.491-2.786l6.673-9.53a2 2 0 0 1 2.785-.49l3.742 2.62a2 2 0 0 1 .491 2.785l-7.269 10.053-2.147-.066z"></path>
+                                  <path d="M4 18h5.523v-1H4zm-2 0h1v-1H2z"></path>
+                                </svg>
+                                <span class="ck ck-button__label" id="ck-editor__aria-label_ec379295898e8db39ed7604176f846219">Remove color</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e5ac067d9e60e441300385aca7ffd9a66" aria-pressed="false" data-cke-tooltip-text="Bulleted List" data-cke-tooltip-position="s">
+                          <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                            <path d="M7 5.75c0 .414.336.75.75.75h9.5a.75.75 0 1 0 0-1.5h-9.5a.75.75 0 0 0-.75.75zm-6 0C1 4.784 1.777 4 2.75 4c.966 0 1.75.777 1.75 1.75 0 .966-.777 1.75-1.75 1.75C1.784 7.5 1 6.723 1 5.75zm6 9c0 .414.336.75.75.75h9.5a.75.75 0 1 0 0-1.5h-9.5a.75.75 0 0 0-.75.75zm-6 0c0-.966.777-1.75 1.75-1.75.966 0 1.75.777 1.75 1.75 0 .966-.777 1.75-1.75 1.75-.966 0-1.75-.777-1.75-1.75z"></path>
+                          </svg>
+                          <span class="ck ck-button__label" id="ck-editor__aria-label_e5ac067d9e60e441300385aca7ffd9a66">Bulleted List</span>
+                        </button>
+                        <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e90aab392b6b7a6f9a325b6baff6589bc" aria-pressed="false" data-cke-tooltip-text="Numbered List" data-cke-tooltip-position="s">
+                          <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                            <path d="M7 5.75c0 .414.336.75.75.75h9.5a.75.75 0 1 0 0-1.5h-9.5a.75.75 0 0 0-.75.75zM3.5 3v5H2V3.7H1v-1h2.5V3zM.343 17.857l2.59-3.257H2.92a.6.6 0 1 0-1.04 0H.302a2 2 0 1 1 3.995 0h-.001c-.048.405-.16.734-.333.988-.175.254-.59.692-1.244 1.312H4.3v1h-4l.043-.043zM7 14.75a.75.75 0 0 1 .75-.75h9.5a.75.75 0 1 1 0 1.5h-9.5a.75.75 0 0 1-.75-.75z"></path>
+                          </svg>
+                          <span class="ck ck-button__label" id="ck-editor__aria-label_e90aab392b6b7a6f9a325b6baff6589bc">Numbered List</span>
+                        </button>
+                        <div class="ck ck-dropdown ck-toolbar-dropdown ck-alignment-dropdown">
+                          <button class="ck ck-button ck-off ck-dropdown__button" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_eda5a15639f6bd0b5c4d32c98274f8a4a" data-cke-tooltip-text="Text alignment" data-cke-tooltip-position="s" aria-haspopup="true" aria-expanded="false">
+                            <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                              <path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path>
+                            </svg>
+                            <span class="ck ck-button__label" id="ck-editor__aria-label_eda5a15639f6bd0b5c4d32c98274f8a4a">Text alignment</span>
+                            <svg class="ck ck-icon ck-dropdown__arrow" style="z-index: auto;" viewBox="0 0 10 10">
+                              <path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path>
+                            </svg>
+                          </button>
+                          <div class="ck ck-reset ck-dropdown__panel ck-dropdown__panel_se">
+                            <div class="ck ck-toolbar ck-toolbar_vertical" role="toolbar" aria-label="Text alignment toolbar">
+                              <div class="ck ck-toolbar__items">
+                                <button class="ck ck-button ck-on" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ee426956f05c9473888b6a113fc2df1d5" aria-pressed="true" data-cke-tooltip-text="Align left" data-cke-tooltip-position="s">
+                                  <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                                    <path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path>
+                                  </svg>
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_ee426956f05c9473888b6a113fc2df1d5">Align left</span>
+                                </button>
+                                <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ea1fd6d7f0448393377cffff7ee288cb3" aria-pressed="false" data-cke-tooltip-text="Align right" data-cke-tooltip-position="s">
+                                  <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                                    <path d="M18 3.75a.75.75 0 0 1-.75.75H2.75a.75.75 0 1 1 0-1.5h14.5a.75.75 0 0 1 .75.75zm0 8a.75.75 0 0 1-.75.75H2.75a.75.75 0 1 1 0-1.5h14.5a.75.75 0 0 1 .75.75zm0 4a.75.75 0 0 1-.75.75H7.321a.75.75 0 1 1 0-1.5h9.929a.75.75 0 0 1 .75.75zm0-8a.75.75 0 0 1-.75.75H7.321a.75.75 0 1 1 0-1.5h9.929a.75.75 0 0 1 .75.75z"></path>
+                                  </svg>
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_ea1fd6d7f0448393377cffff7ee288cb3">Align right</span>
+                                </button>
+                                <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e4bcf45574d62443af8144211d84b6cc7" aria-pressed="false" data-cke-tooltip-text="Align center" data-cke-tooltip-position="s">
+                                  <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                                    <path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm2.286 4c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75z"></path>
+                                  </svg>
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_e4bcf45574d62443af8144211d84b6cc7">Align center</span>
+                                </button>
+                                <button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_eed4c073b26ec186fc29c6f35eb58cf2f" aria-pressed="false" data-cke-tooltip-text="Justify" data-cke-tooltip-position="s">
+                                  <svg class="ck ck-icon ck-button__icon" viewBox="0 0 20 20">
+                                    <path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path>
+                                  </svg>
+                                  <span class="ck ck-button__label" id="ck-editor__aria-label_eed4c073b26ec186fc29c6f35eb58cf2f">Justify</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ck ck-editor__main" role="presentation">
+                <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="20000">
+                  <label class="govuk-label govuk-visually-hidden" for="content-editor">
+                    Content editor
+                  </label>
+                  <textarea class="govuk-textarea govuk-js-character-count govuk-!-margin-bottom-0" style="border-color: #b1b4b6; border-width: 1px;" id="content-editor" name="contentEditor" rows="30" aria-describedby="content-editor-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend augue ipsum, eget faucibus ipsum hendrerit ac. Nunc vulputate velit sit amet felis ullamcorper, sed placerat nisl posuere. Duis non sodales arcu, non fermentum ipsum. Vestibulum erat quam, efficitur eget tortor ut, dictum semper libero. Nunc non ligula scelerisque nisi convallis tempor. Donec rutrum molestie nulla a malesuada. Nulla consequat nisl lorem, eu vestibulum nisi efficitur quis. Sed luctus sem at sapien imperdiet placerat. Aliquam tempor semper viverra.
+
+Nullam dui quam, sollicitudin ac molestie a, pharetra id erat. In vel leo pulvinar, vulputate magna vitae, maximus purus. Morbi eget sodales augue, non elementum purus. Phasellus porttitor eget tortor a finibus. Quisque tempor, justo in maximus gravida, nibh risus fermentum nisi, a consequat velit dolor in erat. Nam quam dui, pretium nec tortor eget, finibus dictum nulla. Pellentesque condimentum neque quis dui dapibus, eget dictum mi posuere. Nulla eget odio in urna mollis malesuada. Ut in sem sit amet est tristique maximus at at lacus. Sed tempus felis efficitur, cursus sem et, varius diam. Cras bibendum tincidunt tempus. Aenean tincidunt velit quis odio rutrum, et mattis turpis vulputate. Vestibulum consequat rutrum metus, rutrum aliquet leo vestibulum nec. Curabitur eget condimentum risus, a aliquet magna. Sed dapibus sem erat, id ultrices erat ultricies et. Duis viverra mi arcu, id fringilla lectus pretium in.
+
+Suspendisse pretium arcu sit amet nisl porta molestie. Maecenas rhoncus metus in orci eleifend, ullamcorper facilisis ligula consectetur. Donec eleifend varius elit, id lobortis dui iaculis in. In hac habitasse platea dictumst. Vestibulum a feugiat leo. Morbi quis tempor dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce massa dui, feugiat id lectus eu, dignissim luctus nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed rutrum ultricies convallis. Proin facilisis tincidunt nulla ac mattis. Morbi rhoncus lorem ac nisl posuere accumsan.
+
+Duis vitae arcu ac neque facilisis iaculis vel sit amet turpis. Nam id leo nec est feugiat volutpat. Integer faucibus pulvinar sem imperdiet feugiat. Mauris non viverra nulla. Donec dapibus euismod interdum. Suspendisse potenti. Nam hendrerit, risus sed sodales vehicula, magna nisi aliquet nisl, vitae condimentum nisl enim id lectus. Etiam sollicitudin sodales tellus. Ut nec dui dolor.
+
+Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellentesque interdum ipsum, sit amet sagittis erat blandit ut. Nulla ut luctus dui. Etiam eu dignissim orci. Suspendisse accumsan in ante consequat interdum. Cras sem nisl, consequat vel porttitor ut, volutpat ac purus. Nunc lobortis ligula non metus rutrum, id aliquet diam pharetra. Morbi hendrerit ultrices gravida. Pellentesque id erat risus. Cras fermentum tempus diam, at vehicula nunc auctor commodo. Aliquam pulvinar urna erat, quis egestas lacus mattis nec. Morbi tempor ex a cursus efficitur. Sed vulputate dui turpis, a viverra nisi ultricies at. Vestibulum sodales ex elit, sed laoreet nulla finibus vitae. Mauris diam elit, elementum id nulla in, maximus lacinia mi. Vestibulum ante est, varius nec odio id, pretium tempor diam.</textarea>
+                  <!-- <div id="content-editor-info" class="govuk-hint govuk-character-count__message">
+                    Characters: 20,000 
+                  </div> -->
+                  <!-- <div id="word-count-info" class="govuk-hint govuk-character-count__message">
+                    Words: 1639
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </span>
+
+          <!-- <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+              Save and Close
+            </button>
+            <a class="govuk-link" href="#">Cancel</a>
+          </div> -->
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-0">
+      <nav class="moj-sub-navigation govuk-!-margin-bottom-4" aria-label="Sub navigation">
+        <ul class="moj-sub-navigation__list">
+            {% if (data['cdSubTab'] == "review-notes") %}
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/delivery/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
+            </li>
+            {% else %}
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" aria-current="page" href="/delivery/vcl/draft/compose-letter?cdSubTab=writing-assistance">Assistance</a>
+            </li>
+
+            <li class="moj-sub-navigation__item">
+                <a class="moj-sub-navigation__link" href="/delivery/vcl/draft/compose-letter?cdSubTab=review-notes">Review notes</a>
+            </li>
+            {% endif %}
+        </ul>
+      </nav>
+
+      <div class="govuk-form-group govuk-!-margin-bottom-2">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l govuk-visually-hidden" for="review-notes">
+            Review notes
+          </label>
+        </h1>
+        <p id="review-notes-hint" class="govuk-body">
+          Create a new note
+        </p>
+        <textarea class="govuk-textarea govuk-!-margin-bottom-0" id="review-notes" name="reviewNotes" rows="5" aria-describedby="review-notes-hint"></textarea>
+      </div>
+
+      <div class="moj-page-header-actions govuk-!-margin-bottom-0">
+        <div class="moj-page-header-actions__title">
+        </div>
+
+        <div class="moj-page-header-actions__actions">
+          <div class="govuk-button-group" style="margin-bottom: 0;">
+            <button type="button" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0" data-module="govuk-button">
+              Clear
+            </button>
+            <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+              Create note
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      <div class="govuk-!-padding-4 govuk-!-margin-bottom-4" style="background-color: #f3f2f1;">
+        <p class="govuk-body">
+          Monitoring codes applicable to this case:
+        </p>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+          <li>
+            <strong>Pre-charge decision</strong>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <p class="govuk-body">
+        <a href="#" class="govuk-link" rel="noreferrer noopener" target="_blank">Read more about Victims' Right to Review Scheme (opens in a new tab)</a>
+      </p> -->
+
+    </div>
+  </div>
+
+</form>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/draft/compose-letter.js"></script>
+<script src="/public/javascripts/delivery/vcl/draft/cd-modal/request-review.js"></script>
+{% endblock %}

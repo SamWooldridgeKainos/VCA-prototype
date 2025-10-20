@@ -1,0 +1,83 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+</p>
+
+{% if (data['reviewer'] == "head") %}
+<p class="govuk-body">
+    The draft is under review. The current reviewer is Cecilia Galpin (Head).
+</p>
+
+<!-- <details class="govuk-details">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Previously reviewed by
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            <li>Karen Kaminsky (Victim Services Manager)</li>
+            <li>Geoff Laws (Lawyer)</li>
+        </ol>
+    </div>
+</details> -->
+
+<p class="govuk-body">
+    You can still make changes to the draft if you need to.
+</p>
+
+{% elif (data['reviewer'] == "lawyer") %}
+<p class="govuk-body">
+    The draft is under review. The current reviewer is Geoff Laws (Lawyer).
+</p>
+
+<!-- <details class="govuk-details">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Previously reviewed by
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            <li>Karen Kaminsky (Victim Services Manager)</li>
+        </ol>
+    </div>
+</details> -->
+
+<p class="govuk-body">
+    You can still make changes to the draft if you need to.
+</p>
+
+{% else %}
+<p class="govuk-body">
+    The draft is under review. The current reviewer is {% if (data['reviewerLevel'] == "d-request") %}{{ data['d-reviewer'] }} (D){% elif (data['reviewerLevel'] == "b3-request") %}{{ data['b3-reviewer'] }} (B3){% elif (data['reviewerLevel'] == "b2-request") %}{{ data['b2-reviewer'] }} (B2){% else %}{% endif %}.
+</p>
+
+<!-- <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Status
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Under review
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Current reviewer
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['reviewer'] }}
+    </dd>
+  </div>
+</dl> -->
+
+<p class="govuk-body">
+    You can still make changes to the draft if you need to.
+</p>
+{% endif %}
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+    View draft<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+</a>
+{% endblock %}

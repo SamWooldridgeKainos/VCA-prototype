@@ -1,0 +1,142 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Charges" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div data-module="moj-add-another">
+
+        <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Add a charge</h2>
+      
+        <form action="/ur/dtc/ur2/charges-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+      
+          <fieldset class="govuk-fieldset moj-add-another__item">
+      
+            <legend class="govuk-fieldset__legend moj-add-another__title govuk-fieldset__legend--m">
+              Charge
+            </legend>
+      
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="my-autocomplete">
+                Title and code
+              </label>
+      
+              <!-- <input class="govuk-input" id="person[0][charge_details]" name="person[0][charge_details]" type="text" data-name="person[%index%][charge_details]" data-id="person[%index%][charge_details]"> -->
+              <div class="autocomplete__wrapper" id="my-autocomplete-container" name="my-autocomplete-container[0][charge_details]" data-name="my-autocomplete-container[%index%][charge_details]" data-id="my-autocomplete-container[%index%][charge_details]" value="{{ data['my-autocomplete-container'] }}"></div>
+      
+            </div>
+
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input type="checkbox" class="govuk-checkboxes__input" id="charge-spans-multiple-dates" name="chargeSpansMultipleDates" value="charge-spans-multiple-dates">
+                <label class="govuk-label govuk-checkboxes__label" for="contact">
+                  Charge spans multiple dates
+                </label>
+              </div>
+            </div>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            <div class="govuk-form-group" id="error-form-group-2">
+              <label class="govuk-label govuk-label--s" for="date">
+                Date
+              </label>
+      
+              <div class="govuk-hint" id="date-hint">
+                For example, 17/5/2025
+              </div>
+      
+              <div class="moj-datepicker" id="charge-date" data-module="moj-date-picker" data-max-date="">
+      
+                  <input type="text" class="govuk-input moj-js-datepicker-input" id="charge-date"
+                    name="chargeDate"
+                    autocomplete="off"
+                    aria-describedby="date-hint"
+                    value="{{ data['chargeDate'] }}" />
+              </div>
+            </div>
+
+            <!-- {% if (data['chargeSpansMultipleDates'] == false) %} -->
+            
+            <!-- {% else %}
+            <div class="govuk-form-group" id="error-form-group-2">
+              <label class="govuk-label govuk-label--s" for="date">
+                Date
+              </label>
+      
+              <div class="govuk-hint" id="date-hint">
+                For example, 17/5/2025
+              </div>
+      
+              <div class="moj-datepicker" id="charge-date" data-module="moj-date-picker" data-max-date="">
+      
+                  <input type="text" class="govuk-input moj-js-datepicker-input" id="first-hearing-date"
+                    name="firstHearingDate"
+                    autocomplete="off"
+                    aria-describedby="date-hint"
+                    value="{{ data['firstHearingDate'] }}" />
+              </div>
+            </div>
+
+            <div class="govuk-form-group">
+              <div class="govuk-form-group" id="error-form-group-2">
+                <label class="govuk-label govuk-label--s" for="date">
+                  Date
+                </label>
+        
+                <div class="govuk-hint" id="date-hint">
+                  For example, 17/5/2025
+                </div>
+        
+                <div class="moj-datepicker" id="charge-date" data-module="moj-date-picker" data-max-date="">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="first-hearing-date"
+                      name="firstHearingDate"
+                      autocomplete="off"
+                      aria-describedby="date-hint"
+                      value="{{ data['firstHearingDate'] }}" />
+                </div>
+              </div>
+            </div>
+            {% endif %} -->
+      
+          </fieldset>
+
+          <hr class="govuk-section-break govuk-section-break--m">
+      
+          <div class="moj-button-action">
+      
+            <button type="submit" class="govuk-button govuk-button--secondary moj-add-another__add-button govuk-!-margin-bottom-4" data-module="govuk-button">
+              Add another charge
+            </button>
+      
+          </div>
+
+          <hr class="govuk-section-break govuk-section-break--l">
+      
+          <div class="moj-button-action">
+      
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+      
+          </div>
+      
+        </form>
+      
+      </div>
+      
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/ur/dtc/ur2/charges.js"></script>
+{% endblock %}

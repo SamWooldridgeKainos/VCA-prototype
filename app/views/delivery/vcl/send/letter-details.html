@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Letter details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/vcl/send/letter-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+            <h1 class="govuk-heading-l">Letter details</h1>
+            
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="date">
+                    Date sent to print
+                </label>
+
+                <div class="govuk-hint" id="letter-dispatch-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="letter-dispatch-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="letter-dispatch-date"
+                        name="letterDispatchDate"
+                        autocomplete="off"
+                        aria-describedby="letter-dispatch-date-hint"
+                        value="{{ data['letterDispatchDate'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--m" for="letter-dispatch-notes">
+                        Notes (optional)
+                    </label>
+                </h1>
+
+                <textarea class="govuk-textarea" id="letter-dispatch-notes" name="letterDispatchNotes" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/send/letter-details.js"></script>
+{% endblock %}

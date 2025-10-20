@@ -1,0 +1,30 @@
+{% block content %}
+<p class="govuk-body">
+  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
+</p>
+
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-3.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-2.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+<p class="govuk-body">
+  You must inform {{ data['victimForename'] }} {{ data['victimSurname'] }} by post because you were unable to by phone.
+</p>
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+{% endblock %}

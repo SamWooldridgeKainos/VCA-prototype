@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Approved to send" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Approved to send
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      Your letter to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} ({{ data['victimEmailAddress'] }}) of the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %} is approved to send.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      You can now send an email or add a letter to the print queue from the 'Communications' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <a href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      View all communications
+    </a>
+
+  </div>
+</div>
+{% endblock %}

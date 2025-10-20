@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Reported by" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur1/reported-by-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Who reported the case to the police?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="reported-by-victim" name="reportedBy" value="The victim" aria-describedby="reported-by-victim-hint" {{ checked('reportedBy','The victim') }}>
+              <label class="govuk-label govuk-radios__label" for="reported-by-victim">
+                {{ data['victimForename'] }} {{ data['victimSurname'] }}
+              </label>
+              <div class="govuk-hint govuk-radios__hint" id="reported-by-victim-hint">
+                The victim
+              </div>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="reported-by-someone-else" name="reportedBy" value="Someone else" {{ checked('reportedBy','Someone else') }}>
+              <label class="govuk-label govuk-radios__label" for="reported-by-someone-else">
+                Someone else
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/reported-by.js"></script>
+{% endblock %}

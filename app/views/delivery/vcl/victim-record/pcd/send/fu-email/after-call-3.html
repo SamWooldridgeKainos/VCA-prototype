@@ -1,0 +1,24 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/pcd/details/call-attempt-3.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/vcl/victim-record/pcd/details/call-attempt-2.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% include "/delivery/vcl/victim-record/pcd/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% include "/delivery/vcl/victim-record/pcd/details/email.html" %}
+{% endblock %}

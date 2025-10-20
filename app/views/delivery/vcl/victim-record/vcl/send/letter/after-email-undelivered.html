@@ -1,0 +1,49 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/vcl/details/letter.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact method
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Email
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['victimEmailAddress'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ "today" | govukDate(showWeekday=true) }} at 11:24
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Technical failure
+        </dd>
+      </div>
+    </dl>
+  </div>
+</details>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% include "/delivery/vcl/victim-record/vcl/details/email.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<p class="govuk-body">
+  Make sure the email address is correct. If it is incorrect, <a href="#" class="govuk-link">update the email address</a> before trying to send the email again.
+</p>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-button-group govuk-!-margin-bottom-0">
+  <a href="/delivery/vcl/send/check-email-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    Try to send email again<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+  </a>
+</div>
+{% endblock %}

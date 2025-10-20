@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Recipient's phone number" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur1/recipient-phone-number-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+  
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="recipient-phone-number">
+              What is {{ data['recipientForename'] }} {{ data['recipientSurname'] }}'s phone number?
+            </label>
+          </h1>
+
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="recipient-phone-number" name="recipientPhoneNumber" autocomplete="tel" spell_check="false" value="{{ data['recipientPhoneNumber'] }}">
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/recipient-phone-number.js"></script>
+{% endblock %}

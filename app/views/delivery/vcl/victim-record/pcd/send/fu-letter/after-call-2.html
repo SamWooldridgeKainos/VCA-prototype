@@ -1,0 +1,63 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-2.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/letter.html" %}
+
+<!-- <dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Letter sent by
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Post
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Address
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['victimAddressLine1'] }}<br>{{ data['victimAddressLine2'] }}<br>{{ data['victimAddressLine3'] }}<br>{{ data['victimPostCode'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ "today" | govukDate(showWeekday=true) }} at 11:39
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Status
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Sent for printing
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Content
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <a href="#" class="govuk-link">View sent email</a>
+    </dd>
+  </div>
+</dl> -->
+{% endblock %}

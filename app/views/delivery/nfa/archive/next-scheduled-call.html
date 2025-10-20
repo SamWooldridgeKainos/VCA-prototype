@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Next planned call" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/nfa/record/next-scheduled-call-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-heading-l">
+            Next planned call
+        </h1>
+
+        <p class="govuk-body">
+            Enter the date and time stated on the text message.
+        </p>
+
+        <div class="govuk-form-group" id="error-form-group-1">
+            <label class="govuk-label govuk-label--m" for="date">
+                Date planned
+            </label>
+
+            <div class="govuk-hint" id="text-message-date-hint">
+                For example, 17/05/2025
+            </div>
+
+            <div class="moj-datepicker" id="next-scheduled-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+    
+                <input type="text" class="govuk-input moj-js-datepicker-input" id="next-scheduled-call-date"
+                    name="nextScheduledCallDate"
+                    autocomplete="off"
+                    aria-describedby="next-scheduled-call-date-hint"
+                    value="{{ data['nextScheduledCallDate'] }}" />
+            </div>
+        </div>
+        <div class="govuk-form-group" id="error-form-group-2">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="next-scheduled-call-time-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Time planned
+                </legend>
+
+                <div id="next-scheduled-call-hint" class="govuk-hint">
+                    Enter a time in 24-hour format. For example, 14:30
+                </div>
+
+                <div class="govuk-date-input" id="next-scheduled-call-time">
+
+                    <div class="govuk-date-input__item" style="margin-right: 10px;">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="next-scheduled-call-hour">
+                                Hour
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="next-scheduled-call-hour" name="secondCallHour" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item" style="margin-right: 10px;">
+                        <span class="govuk-body">:</span>
+                    </div>
+                    
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="next-scheduled-call-minutes">
+                                Minutes
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="next-scheduled-call-minutes" name="secondCallMinutes" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/nfa/record/follow-up-moc.js"></script>
+{% endblock %}

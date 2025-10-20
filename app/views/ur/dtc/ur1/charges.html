@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Charges" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div data-module="moj-add-another">
+
+        <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Charges</h2>
+      
+        <form action="/ur/dtc/ur1/charges-answer" method="post" novalidate>
+      
+            <div class="govuk-form-group moj-add-another__item">
+              <label class="govuk-label govuk-!-font-weight-bold" for="person[0][first_name]">
+                Charge details
+              </label>
+
+              <div class="govuk-hint" id="date-hint">
+                For example, Battery / common assault
+              </div>
+      
+              <input type="text" class="govuk-input" id="charge[0][charges]" name="charge[0][charges]" data-name="charge[%index%][charges]" data-id="charge[%index%][charges]">
+      
+            </div>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+      
+          <div class="moj-button-action">
+      
+            <button type="submit" class="govuk-button govuk-button--secondary moj-add-another__add-button govuk-!-margin-bottom-4" data-module="govuk-button">
+              Add another charge
+            </button>
+      
+          </div>
+      
+          <div class="moj-button-action">
+      
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+              Continue
+            </button>
+      
+          </div>
+      
+        </form>
+      
+      </div>
+      
+    </div>
+  </div>
+{% endblock %}

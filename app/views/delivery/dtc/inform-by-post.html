@@ -1,0 +1,25 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Inform by post" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Inform {{ data['victimForename'] }} {{ data['victimSurname'] }} by post</h1>
+
+      <p class="govuk-body">
+        You must inform the victim by post because you were unable to by {{ data['preferredMethodOfContact'] | lower }}.
+      </p>
+
+      <a href="/delivery/dtc/comms-drafter" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        Inform by post
+      </a>
+
+    </div>
+  </div>
+{% endblock %}

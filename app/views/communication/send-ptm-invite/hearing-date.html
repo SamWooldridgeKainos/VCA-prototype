@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Court hearing date" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/form-handler" method="post" novalidate>
+
+        <div class="govuk-form-group" id="form-1">
+
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="date">
+              What is the date of the court hearing?
+            </label>
+          </h1>
+  
+            <div class="moj-datepicker" data-module="moj-date-picker" data-min-date="26/02/2025" data-excluded-days="saturday sunday">
+
+              <div class="govuk-form-group">
+            
+                <div class="govuk-hint" id="date-hint">
+                  For example, 17/5/2025
+                </div>
+            
+                <input type="text" class="govuk-input moj-js-datepicker-input" id="hearing-date" name="date" autocomplete="off" aria-describedby="date-hint">
+            
+              </div>
+            
+            </div>
+
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

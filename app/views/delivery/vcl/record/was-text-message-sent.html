@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Was a text message sent to the victim?" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/vcl/record/was-text-message-sent-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        Was a text message sent to {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-yes" name="wasTextMessageSent" value="Yes" {{ checked('wasTextMessageSent','Yes') }}>
+                        <label class="govuk-label govuk-radios__label" for="was-text-message-sent-yes">
+                            Yes
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-no" name="wasTextMessageSent" value="No" {{ checked('wasTextMessageSent','No') }}>
+                        <label class="govuk-label govuk-radios__label" for="was-text-message-sent-no">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/record/was-text-message-sent.js"></script>
+{% endblock %}

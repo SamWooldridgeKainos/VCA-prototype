@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Substantially altered charge" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/vcl/draft/altered-charge-type-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        Has the level of charge decreased, or increased?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="altered-charge-type-decreased" name="alteredChargeType" value="decreased" {{ checked('alteredChargeType','decreased') }}>
+                        <label class="govuk-label govuk-radios__label" for="altered-charge-type-decreased">
+                            Decreased
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="altered-charge-type-increased" name="alteredChargeType" value="increased" {{ checked('alteredChargeType','increased') }}>
+                        <label class="govuk-label govuk-radios__label" for="altered-charge-type-increased">
+                            Increased
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/draft/substantially-altered-charge.js"></script>
+{% endblock %}

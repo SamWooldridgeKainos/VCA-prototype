@@ -1,0 +1,17 @@
+{% block content %}
+<p class="govuk-body">
+  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+</p>
+
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/call-attempt-1.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-0">
+
+<!-- <p class="govuk-body">
+  Check the letter, security answers, call script and FAQs if you need these during the call.
+</p> -->
+
+<a href="/delivery/vcl/record/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+  Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+</a>
+{% endblock %}

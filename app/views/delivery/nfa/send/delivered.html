@@ -1,0 +1,93 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Email delivered" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Email delivered
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The email was successfully delivered to the victim, <strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong> ({{ data['victimEmailAddress'] }}).
+    </p>
+
+    <p class="govuk-body">
+      The information pack and Crest survey were also sent to the victim.
+    </p>
+
+    <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      You can view a record of the delivered email on the 'Communications' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <p class="govuk-body">
+      The letter was automatically saved on CMS as well.
+    </p>
+
+    {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+
+    {% if (data['callAttempt'] == "1") %}
+    
+    {% if (data['attemptToContactAgain'] == "Call") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% elif (data['attemptToContactAgain'] == "Email") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['callAttempt'] == "2") %}
+
+    {% if (data['attemptToContactAgain'] == "Call") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% elif (data['attemptToContactAgain'] == "Email") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['callAttempt'] == "3") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=fu-email-after-call-attempt-3&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% endif %}
+    {% elif (data['pmoc'] == "email") %}
+
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    <!-- {% if (data['callAttempt'] == "") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['callAttempt'] == "1") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['callAttempt'] == "2") %}
+    <a href="/delivery/nfa/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% endif %} -->
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

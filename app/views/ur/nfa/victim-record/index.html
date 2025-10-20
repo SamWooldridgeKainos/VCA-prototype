@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block beforeContent %}
+<a href="#" class="govuk-back-link">Search for another victim</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="cps-reading-width">
+      {% if (data['success'] == "yes") %}
+      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            {% if (data['successReason'] == "email-address-updated") %}
+            Victim email address updated
+            {% elif (data['successReason'] == "pmoc-updated") %}
+            Victim's preferred method of contact updated
+            {% endif %}
+          </h3>
+          <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+
+      <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
+        {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+      </h1>
+      <p class="govuk-body">
+        Case URN: {{ data['caseUrn'] }}
+      </p>
+    </div>
+        
+    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+      <h2 class="govuk-tabs__title">Contents</h2>
+
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#summary">Summary</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="summary">
+        {% include "/ur/nfa/victim-record/summary.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+        {% include "/ur/nfa/victim-record/victim-details.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+        {% include "/ur/nfa/victim-record/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+        {% include "/ur/nfa/victim-record/communications/index.html" %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/nfa/victim-record.js"></script>
+{% endblock %}

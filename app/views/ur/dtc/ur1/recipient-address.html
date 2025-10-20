@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Recipient's address" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="/ur/dtc/ur1/recipient-address-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is {{ data['recipientForename'] }} {{ data['recipientSurname'] }}'s correspondence address?
+            </h1>
+          </legend>
+          <div class="govuk-form-group" id="error-form-group-1">
+            <label class="govuk-label" id="recipient-address-line-1-label" for="recipient-address-line-1">
+              Address line 1
+            </label>
+            <input type="text" class="govuk-input" id="recipient-address-line-1" name="recipientAddressLine1" autocomplete="address-line1" value="{{ data['recipientAddressLine1'] }}">
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="recipient-address-line-2">
+              Address line 2 (optional)
+            </label>
+            <input type="text" class="govuk-input" id="recipient-address-line-2" name="recipientAddressLine2" autocomplete="address-line2" value="{{ data['recipientAddressLine2'] }}">
+          </div>
+          <div class="govuk-form-group" id="error-form-group-2">
+            <label class="govuk-label" id="recipient-address-town-label" for="recipient-address-town">
+              Town or city
+            </label>
+            <input type="text" class="govuk-input govuk-!-width-two-thirds" id="recipient-address-town" name="recipientAddressTown" autocomplete="address-level2" value="{{ data['recipientAddressTown'] }}">
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="recipient-address-county">
+              County (optional)
+            </label>
+            <input type="text" class="govuk-input govuk-!-width-two-thirds" id="recipient-address-county" name="recipientAddressCounty" autocomplete="address-level1" value="{{ data['recipientAddressCounty'] }}">
+          </div>
+          <div class="govuk-form-group" id="error-form-group-3">
+            <label class="govuk-label" id="recipient-address-postcode-label" for="recipient-address-postcode">
+              Postcode
+            </label>
+            <input type="text" class="govuk-input govuk-input--width-10" id="recipient-address-postcode" name="recipientAddressPostcode" autocomplete="postal-code" value="{{ data['recipientAddressPostcode'] }}">
+          </div>
+        </fieldset>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur1/recipient-address.js"></script>
+{% endblock %}

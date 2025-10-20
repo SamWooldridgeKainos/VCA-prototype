@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim Liaison Unit role" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/ur/dtc/ur2/vlu-role-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is your role?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vlu-role-vso" name="vluRole" value="Victim Service Officer" {{ checked('vluRole','Victim Service Officer') }}>
+              <label class="govuk-label govuk-radios__label" for="vlu-role-vso">
+                Victim Service Officer
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vlu-role-vsa" name="vluRole" value="Victim Service Advisor" {{ checked('vluRole','Victim Service Advisor') }}>
+              <label class="govuk-label govuk-radios__label" for="vlu-role-vsa">
+                Victim Service Advisor
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vlu-role-vlo" name="vluRole" value="Victim Liaison Officer" {{ checked('vluRole','Victim Liaison Officer') }}>
+              <label class="govuk-label govuk-radios__label" for="vlu-role-vlo">
+                Victim Liaison Officer
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/dtc/ur2/vlu-role.js"></script>
+{% endblock %}

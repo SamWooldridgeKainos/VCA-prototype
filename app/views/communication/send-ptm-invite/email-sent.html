@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Email sent" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Pre-trial meeting invitation sent
+      </h1>
+    </div>
+    <p class="govuk-body">We have sent a invitation email to <strong>{{ data['recipientEmailAddress'] }}</strong>.</p>
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">
+       The victim has been asked to make arrangements with you by phone or email if they would like to go ahead with the meeting.
+    </p>
+    <p class="govuk-body">
+      Return to <a href="#" class="govuk-link">victim communication</a> for <strong>{{ data['victimForename'] }} {{ data['victimSurname'] }}</strong>.
+    </p>
+  </div>
+</div>
+{% endblock %}

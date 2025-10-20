@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <form action="/ur/nfa/send/check-letter-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-heading-l">Check the details before adding to the print queue</h1>
+
+        <h2 class="govuk-heading-m">Letter details</h2>
+
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Type
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if (data['decisionType'] == "dtc") %}
+              Decision to charge
+              {% elif (data['decisionType'] == "nfa") %}
+              No further action
+              {% endif %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Recipient
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim)
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['victimAddressLine1'] }}<br>{{ data['victimAddressLine2'] }}<br>{{ data['victimAddressLine3'] }}<br>{{ data['victimPostCode'] }}
+            </dd>
+          </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Now add to print queue</h2>
+
+        <p class="govuk-body">
+          Select <strong>Add to print queue</strong> to add the letter.
+        </p>
+
+        <input type="hidden" name="answers-checked" value="true">
+
+        <div class="govuk-button-group">
+          <button type="submit" class="govuk-button" data-module="govuk-button">
+            Add to print queue
+          </button>
+          <a class="govuk-link" href="/ur/nfa/victim-record?nfaStatus=draft-approved-to-send#communications">Add to print queue later</a>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

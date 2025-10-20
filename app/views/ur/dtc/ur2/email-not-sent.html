@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Email not sent" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation" style="background-color: #d4351c;">
+      <h1 class="govuk-panel__title" style="background-color: #d4351c;">
+        Email not sent
+      </h1>
+    </div>
+
+    <p class="govuk-body">The decision to charge email was not sent to <strong>{{ data['victimEmailAddress'] }}</strong>.</p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+       If you are sure that the email address is correct, you can try again.
+    </p>
+
+    <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+      Try again
+    </a>
+
+    <p class="govuk-body">
+      Otherwise, go to <a href="/ur/dtc/ur2/main-details#communication" class="govuk-link">victim details</a> to update the victim's details.
+    </p>
+
+  </div>
+</div>
+{% endblock %}

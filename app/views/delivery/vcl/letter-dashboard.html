@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Letters" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l" id="letters-tab-heading">Letters in draft</h1>
+
+    <table class="govuk-table" data-module="moj-sortable-table">
+        <caption class="govuk-table__caption" aria-labelledby="letters-tab-heading"></caption>
+
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header" aria-sort="ascending">URN</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Victim</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Letter type</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Author</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Reviewer</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Due date</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Updated on</th>
+                <!-- <th scope="col" class="govuk-table__header"></th> -->
+            </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+                <td class="govuk-table__cell">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</td>
+                <td class="govuk-table__cell">{% if (data['decisionType']) == "dtc" %}Decision to charge{% elif (data['decisionType']) == "mixed-charges" %}Mixed charges{% elif (data['decisionType']) == "nfa" %}No further action{% endif %}</td>
+                <td class="govuk-table__cell">{{ data['userSurname'] | upper }}, {{ data['userForename'] }}</td>
+                <td class="govuk-table__cell">SANDERSON, Kerry</td>
+                <td class="govuk-table__cell">{% if (data['nfaStatus']) == "draft-in-progress" %}In progress{% elif (data['nfaStatus']) == "draft-under-review" %}Under review{% elif (data['nfaStatus']) == "draft-amendments-required" %}Amendments required{% else %}Ready to send{% endif %}</td>
+                <td class="govuk-table__cell"></td>
+                <td class="govuk-table__cell">{{ "today" | govukDate() }}<br>14:04</td>
+                <!-- <td class="govuk-table__cell">{{ data['nfaStatus'] }} by SANCHEZ LEAO, Thiago</td> -->
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <h1 class="govuk-heading-l">
+        Letter dashboard
+    </h1>
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+            Contents
+        </h2>
+        <ul class="govuk-tabs__list">
+            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#letters">
+                Letters
+            </a>
+            </li>
+
+            <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#workload">
+                Workload
+            </a>
+            </li>
+        </ul>
+        
+        <div class="govuk-tabs__panel" id="letters">
+            <h2 class="govuk-heading-m" id="letters-tab-heading">Letters</h2>
+
+            <table class="govuk-table" data-module="moj-sortable-table">
+                <caption class="govuk-table__caption" aria-labelledby="letters-tab-heading"></caption>
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header" aria-sort="ascending">URN</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Victim</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Letter type</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Author</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Reviewer</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Due date</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Updated on</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+                        <td class="govuk-table__cell">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</td>
+                        <td class="govuk-table__cell">{% if (data['decisionType']) == "dtc" %}Decision to charge{% elif (data['decisionType']) == "mixed-charges" %}Mixed charges{% elif (data['decisionType']) == "nfa" %}No further action{% endif %}</td>
+                        <td class="govuk-table__cell">{{ data['userSurname'] | upper }}, {{ data['userForename'] }}</td>
+                        <td class="govuk-table__cell">SANDERSON, Kerry</td>
+                        <td class="govuk-table__cell">{% if (data['nfaStatus']) == "draft-in-progress" %}In progress{% elif (data['nfaStatus']) == "draft-under-review" %}Under review{% elif (data['nfaStatus']) == "draft-amendments-required" %}Amendments required{% else %}Ready to send{% endif %}</td>
+                        <td class="govuk-table__cell"></td>
+                        <td class="govuk-table__cell">{{ "today" | govukDate() }}<br>14:04</td>
+                        <td class="govuk-table__cell">{{ data['nfaStatus'] }} by SANCHEZ LEAO, Thiago</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="govuk-tabs__panel" id="workload"></div>
+    </div> -->
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/record/nfa-template.js"></script>
+{% endblock %}

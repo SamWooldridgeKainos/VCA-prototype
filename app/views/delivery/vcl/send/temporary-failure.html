@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Temporary failure" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">
+            Sorry, there is a problem
+        </h1>
+        <p class="govuk-body">
+            The email was not delivered to {{ data['victimForename'] }} {{ data['victimSurname'] }}. This can happen when the recipient's inbox is full or their anti-spam filter rejects the email.
+        </p>
+        <!-- <p class="govuk-body">
+            The email was saved as a draft.
+        </p> -->
+        <p class="govuk-body">
+            You can try to send it again later from the 'Communications' tab of the victim's record within the Victim Case Application.
+        </p>
+        <a href="/delivery/vcl/victim-record?notifyStatus=technical&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+    </div>
+</div>
+{% endblock %}

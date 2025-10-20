@@ -1,0 +1,138 @@
+{% block content %}
+<div role="dialog" aria-modal="true" id="request-review-modal" class="overlay-backdrop">
+  <div class="modal-container">
+    <div class="modal-header">
+
+      <div class="moj-page-header-actions" style="margin-bottom: 0;">
+        <div class="moj-page-header-actions__title">
+          <h1 class="govuk-heading-s">Request review</h1>
+        </div>
+
+        <div class="moj-page-header-actions__actions">
+          <a id="request-review-modal-close" data-link="" href="#" aria-label="Close popup" role="link" data-first-focus="1752595285610">
+            <i data-icon="" class="icon fa fa-times fa-1x"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-body">
+
+      <form action="/delivery/vcl/draft/cd-modal/request-review-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+        
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+            <legend class="govuk-fieldset__legend">
+              Select your reviewer*
+            </legend>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="d-request" name="reviewerLevel" type="radio" value="d-request" data-aria-controls="conditional-reviewer-1">
+                <label class="govuk-label govuk-radios__label" for="d-request">
+                  Request review from a Head (D)
+                </label>
+              </div>
+
+              <!-- <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-reviewer-1">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="d-reviewer">
+                    Select reviewer
+                  </label>
+                  <select class="govuk-select" id="d-reviewer" name="d-reviewer">
+                    <option value="none"></option>
+                    <option value="Geoff Laws">Geoff Laws</option>
+                    <option value="Cecilia Galpin">Cecilia Galpin</option>
+                  </select>
+                </div>
+              </div> -->
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="b3-request" name="reviewerLevel" type="radio" value="b3-request" data-aria-controls="conditional-reviewer-2">
+                <label class="govuk-label govuk-radios__label" for="b3-request">
+                  Request review from a Senior Victim Service Manager (B3)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="b2-request" name="reviewerLevel" type="radio" value="b2-request" data-aria-controls="conditional-reviewer-3">
+                <label class="govuk-label govuk-radios__label" for="b2-request">
+                  Request review from a Victim Service Manager (B2)
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div id="d-request-conditional">
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="d-reviewer">
+              Select reviewer
+            </label>
+            <select class="govuk-select" id="d-reviewer" name="d-reviewer">
+              <option value="none"></option>
+              <option value="Geoff Laws">Geoff Laws</option>
+              <option value="Cecilia Galpin">Cecilia Galpin</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="b3-request-conditional">
+          <div class="govuk-form-group">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="b3-reviewer">
+                Select reviewer
+              </label>
+              <select class="govuk-select" id="b3-reviewer" name="b3-reviewer">
+                <option value="none" selected></option>
+                <option value="Wendy Williams">Wendy Williams</option>
+                <option value="Tariq Mohammed">Tariq Mohammed</option>
+                <option value="Natalia Lopez">Natalia Lopez</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="b2-request-conditional">
+          <div class="govuk-form-group">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="b2-reviewer">
+                Select reviewer
+              </label>
+              <select class="govuk-select" id="b2-reviewer" name="b2-reviewer">
+                <option value="none" selected></option>
+                <option value="Karen Kaminsky">Karen Kaminsky</option>
+                <option value="Nora Ngog">Nora Ngog</option>
+                <option value="Gary Knight-Barrington">Gary Knight-Barrington</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="review-note">
+            Let your reviewer know what you’d like assistance with *
+          </label>
+          <textarea class="govuk-textarea" id="review-note" name="reviewNote" rows="3"></textarea>
+        </div>
+
+        <div class="moj-page-header-actions govuk-!-margin-bottom-0">
+          <div class="moj-page-header-actions__title">
+          </div>
+
+          <div class="moj-page-header-actions__actions">
+            <div class="govuk-button-group" style="margin-bottom: 0;">
+              <button type="button" class="govuk-button govuk-button--secondary" id="request-review-modal-cancel" data-module="govuk-button">
+                Cancel
+              </button>
+              <button type="submit" class="govuk-button" id="request-review-modal-send-request" data-module="govuk-button">
+                Send request
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
