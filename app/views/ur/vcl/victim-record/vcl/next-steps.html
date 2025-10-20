@@ -24,7 +24,7 @@
             <li>Amend if needed.</li>
             {% endif %}
             {% if (data['vclStatus'] == "draft-not-started") or (data['vclStatus'] == "draft-in-progress") or (data['vclStatus'] == "draft-amendments-required") or (data['vclStatus'] == "draft-under-review") or (data['vclStatus'] == "not-yet-recorded") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") %}
-            <li>Call the victim when the letter is ready to send and log the call.</li>
+            <li>Telephone the victim when the letter is ready to send and log the call.</li>
             {% endif %}
             {% if (data['vclStatus'] == "after-call-attempt-3") %}
             {% elif (data['vclStatus'] == "draft-not-started") or (data['vclStatus'] == "draft-in-progress") or (data['vclStatus'] == "draft-amendments-required") or (data['vclStatus'] == "draft-under-review") or (data['vclStatus'] == "not-yet-recorded") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") %}
