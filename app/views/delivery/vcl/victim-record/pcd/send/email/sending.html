@@ -1,0 +1,44 @@
+{% block content %}
+<!-- <dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ "today" | govukDate(showWeekday=true) }} at 11:24
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Contact method
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Email
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Email address
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['victimEmailAddress'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Status
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Sending
+    </dd>
+  </div>
+</dl> -->
+
+{% include "/delivery/vcl/victim-record/communications/charging-decision/details/email.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<p class="govuk-body">
+    Updated delivery information will be available soon. It can take up to 72 hours before an email is delivered to the recipient.
+</p>
+{% endblock %}

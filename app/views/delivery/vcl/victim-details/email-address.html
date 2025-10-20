@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim's email address" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <form action="/delivery/vcl/victim-email-address-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group-1">
+  
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="victim-email-address">
+              What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s email address?
+            </label>
+          </h1>
+
+          <!-- <div class="govuk-hint" id="call-back-hint">
+            You might need to call back the victim to confirm their details.
+          </div> -->
+
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="victim-email-address" name="victimEmailAddress" autocomplete="email" spell_check="false" value="{{ data['victimEmailAddress'] }}" aria-describedby="call-back-hint">
+        </div>
+
+        <div class="govuk-form-group" id="error-form-group-2">
+          <h2 class="govuk-label-wrapper">
+              <label class="govuk-label govuk-label--m" for="victim-email-address-reason">
+                  Reason for change
+              </label>
+          </h2>
+
+          <textarea class="govuk-textarea" id="victim-email-address-reason" name="victimEmailAddressReason" rows="4"></textarea>
+        </div>
+        
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/email-address.js"></script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Preferred method of contact" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/vcl/preferred-method-of-contact-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred method of contact?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-home-phone" name="pmoc" value="home-phone" {{ checked('pmoc','home-phone') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-home-phone">
+                Home phone
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-mobile" name="pmoc" value="mobile" {{ checked('pmoc','mobile') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-mobile">
+                Mobile
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-email" name="pmoc" value="email" {{ checked('pmoc','email') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-post" name="pmoc" value="post" {{ checked('pmoc','post') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-post">
+                Post
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-via-police" name="pmoc" value="via-police" {{ checked('pmoc','via-police') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-via-police">
+                Via police
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-via-isva" name="pmoc" value="via-isva" {{ checked('pmoc','via-isva') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-via-isva">
+                Via Independent Sexual Violence Adviser (ISVA)
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/preferred-method-of-contact.js"></script>
+{% endblock %}

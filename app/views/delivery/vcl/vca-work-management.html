@@ -1,0 +1,229 @@
+{% extends "layouts/main.html" %}
+{% set pageName="VCA work management" %}
+
+{% block beforeContent %}
+<div class="moj-page-header-actions govuk-!-margin-bottom-0">
+  <div class="moj-page-header-actions__title"></div>
+  <div class="moj-page-header-actions__actions">
+    <a href="/delivery/vcl/letter-dashboard" class="govuk-link">Letter dashboard</a>
+    <a href="/delivery/vcl/vso-dashboard" class="govuk-link govuk-!-margin-left-3">VSO dashboard</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l" id="vca-work-heading">Victim case work assigned to you</h1>
+
+    <p class="govuk-body">This dashboard shows victims assigned to you, outstanding actions (for example, VCL communications), letter review status and SLAs. Items nearing their due date are highlighted and announced for assistive technologies.</p>
+
+    <!-- Controls: search + filter -->
+    <form class="govuk-form-group" role="search" aria-labelledby="vca-work-heading" onsubmit="return false;">
+      <div class="govuk-grid-row govuk-!-align-top">
+        <div class="govuk-grid-column-two-thirds">
+          <label class="govuk-label" for="vca-search">Search victims</label>
+          <input class="govuk-input" id="vca-search" name="q" type="search" inputmode="search" aria-describedby="vca-search-hint" autocomplete="off" />
+          <div id="vca-search-hint" class="govuk-hint">Search by URN, forename or surname. Results update instantly.</div>
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+          <label class="govuk-label" for="vca-filter">Filter</label>
+          <select class="govuk-select" id="vca-filter" aria-describedby="vca-filter-hint">
+            <option value="all">All cases</option>
+            <option value="with-actions">With outstanding actions</option>
+            <option value="sla-critical">SLA critical / due soon</option>
+            <option value="needs-review">Letters needing review</option>
+          </select>
+          <div id="vca-filter-hint" class="govuk-hint">Filter the list to focus your caseload.</div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Live region for announcements -->
+    <div id="vca-live-summary" class="govuk-body-s govuk-!-margin-top-2" aria-live="polite" aria-atomic="true"></div>
+
+    <div role="region" aria-labelledby="vca-work-heading" class="govuk-!-margin-top-4">
+      {% if data['victims'] and data['victims']|length > 0 %}
+        <ul class="moj-cards" id="vca-cards" aria-live="polite" aria-relevant="additions removals">
+          {% for victim in data['victims'] %}
+          {# compute small helper attributes for client-side filtering: lowercase name & urn, boolean flags #}
+          <li class="moj-card govuk-!-margin-bottom-4"
+              role="group"
+              aria-labelledby="victim-{{ loop.index }}-name"
+              data-name="{{ (victim.forename ~ ' ' ~ victim.surname) | lower }}"
+              data-urn="{{ victim.urn | lower }}"
+              data-has-actions="{{ (victim.actions and victim.actions|length > 0) | string }}"
+              data-sla-critical="{{ (victim.letters and victim.letters|selectattr('sla_remaining','defined')|selectattr('sla_remaining','<=',3)|list|length > 0) | string }}"
+              data-needs-review="{{ (victim.letters and victim.letters|selectattr('review_status','equalto','under-review')|list|length > 0) | string }}">
+            <div class="moj-card__content">
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                  <h2 id="victim-{{ loop.index }}-name" class="govuk-heading-m">
+                    <a class="govuk-link" href="/delivery/vcl/victim-record?urn={{ victim.urn }}">{{ victim.surname | upper }}, {{ victim.forename }}</a>
+                  </h2>
+                  <p class="govuk-body-s">URN: <span class="govuk-!-font-weight-bold">{{ victim.urn }}</span></p>
+                </div>
+
+                <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+                  <a class="govuk-button govuk-button--secondary" href="/delivery/vcl/victim-record?urn={{ victim.urn }}#actions">Open case</a>
+                </div>
+              </div>
+
+              <div class="govuk-grid-row govuk-!-margin-top-3">
+                <div class="govuk-grid-column-one-half" id="victim-{{ loop.index }}-actions" aria-labelledby="victim-{{ loop.index }}-actions-heading">
+                  <h3 class="govuk-heading-s" id="victim-{{ loop.index }}-actions-heading">Outstanding actions</h3>
+                  {% if victim.actions and victim.actions|length > 0 %}
+                    <ul class="govuk-list govuk-list--bullet" aria-label="Outstanding actions for {{ victim.forename }} {{ victim.surname }}">
+                      {% for action in victim.actions %}
+                      <li>
+                        <span class="govuk-!-font-weight-bold">{{ action.title }}</span>
+                        {% if action.type %}<span class="govuk-!-margin-left-2 govuk-!-font-weight-normal">({{ action.type }})</span>{% endif %}
+                        {% if action.nearing_due %}
+                          <span class="govuk-tag govuk-tag--red govuk-!-margin-left-2" role="status" aria-live="polite" aria-atomic="true">
+                            Due in {{ action.days_to_due }} day{% if action.days_to_due != 1 %}s{% endif %} — action required
+                          </span>
+                        {% elif action.days_to_due is defined %}
+                          <span class="govuk-tag govuk-!-margin-left-2" aria-label="Due in {{ action.days_to_due }} day{% if action.days_to_due != 1 %}s{% endif %}">
+                            Due in {{ action.days_to_due }} day{% if action.days_to_due != 1 %}s{% endif %}
+                          </span>
+                        {% endif %}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <p class="govuk-body-s">No outstanding actions</p>
+                  {% endif %}
+                </div>
+
+                <div class="govuk-grid-column-one-half" id="victim-{{ loop.index }}-letters" aria-labelledby="victim-{{ loop.index }}-letters-heading">
+                  <h3 class="govuk-heading-s" id="victim-{{ loop.index }}-letters-heading">Letters & review status</h3>
+                  {% if victim.letters and victim.letters|length > 0 %}
+                    <ul class="govuk-list govuk-list--no-bullet" aria-label="Letters sent to {{ victim.forename }} {{ victim.surname }}">
+                      {% for letter in victim.letters %}
+                      <li class="govuk-!-margin-bottom-2" aria-labelledby="letter-{{ loop.parent.loop.index }}-{{ loop.index }}-type">
+                        <div id="letter-{{ loop.parent.loop.index }}-{{ loop.index }}-type" class="govuk-!-font-weight-bold">{{ letter.type }}</div>
+
+                        <div class="govuk-body-s govuk-!-margin-top-1">
+                          {% if letter.review_status == "approved" %}
+                            <span class="govuk-tag govuk-tag--green" aria-label="Approved">Approved</span>
+                          {% elif letter.review_status == "under-review" %}
+                            <span class="govuk-tag govuk-tag--blue" aria-label="Under review">Under review</span>
+                          {% elif letter.review_status == "amendments-required" %}
+                            <span class="govuk-tag govuk-tag--yellow" aria-label="Amendments required">Amendments required</span>
+                          {% else %}
+                            <span class="govuk-tag" aria-label="{{ letter.review_status }}">{{ letter.review_status | default("Not reviewed") }}</span>
+                          {% endif %}
+                          <span class="govuk-!-margin-left-2">sent {{ letter.sent_date | default('–') }}</span>
+                        </div>
+
+                        <div class="govuk-body-s govuk-!-margin-top-1">
+                          {% if letter.sla_remaining is defined %}
+                            {% if letter.sla_remaining <= 1 %}
+                              <span class="govuk-tag govuk-tag--red" aria-label="SLA breach imminent">SLA: due in {{ letter.sla_remaining }} day{% if letter.sla_remaining != 1 %}s{% endif %}</span>
+                            {% elif letter.sla_remaining <= 3 %}
+                              <span class="govuk-tag govuk-tag--orange" aria-label="SLA approaching">SLA: due in {{ letter.sla_remaining }} day{% if letter.sla_remaining != 1 %}s{% endif %}</span>
+                            {% else %}
+                              <span class="govuk-tag" aria-label="SLA due in {{ letter.sla_remaining }} days">SLA: due in {{ letter.sla_remaining }} day{% if letter.sla_remaining != 1 %}s{% endif %}</span>
+                            {% endif %}
+                            <span class="govuk-!-margin-left-2">SLA total: {{ letter.sla_days }} day{% if letter.sla_days != 1 %}s{% endif %}</span>
+                          {% else %}
+                            <span>No SLA</span>
+                          {% endif %}
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <p class="govuk-body-s">No letters</p>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="govuk-!-margin-top-3">
+                <a class="govuk-link govuk-!-margin-right-3" href="/delivery/vcl/victim-record?urn={{ victim.urn }}#letters">Manage letters</a>
+                <a class="govuk-link" href="/delivery/vcl/victim-record?urn={{ victim.urn }}#actions">Manage actions</a>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="govuk-panel govuk-panel--confirmation" role="status" aria-live="polite">
+          <p class="govuk-body">You have no victims assigned or no outstanding items. Use the <a class="govuk-link" href="/delivery/vcl/start/search">search</a> to find a victim.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="govuk-!-margin-top-6">
+      <a class="govuk-link" href="/delivery/vcl/start/search">Search for a victim</a>
+    </div>
+  </div>
+</div>
+
+{# Minimal client-side behaviour to make the dashboard interactive and accessible #}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchEl = document.getElementById('vca-search');
+  const filterEl = document.getElementById('vca-filter');
+  const cardsContainer = document.getElementById('vca-cards');
+  const liveSummary = document.getElementById('vca-live-summary');
+
+  function getCards() {
+    return cardsContainer ? Array.from(cardsContainer.querySelectorAll('.moj-card')) : [];
+  }
+
+  function updateSummary(visibleCount, totalCount) {
+    liveSummary.textContent = visibleCount + ' of ' + totalCount + ' cases shown.';
+  }
+
+  function matchesFilter(card, q, filter) {
+    const name = card.getAttribute('data-name') || '';
+    const urn = card.getAttribute('data-urn') || '';
+    const hasActions = card.getAttribute('data-has-actions') === 'True' || card.getAttribute('data-has-actions') === 'true';
+    const slaCritical = card.getAttribute('data-sla-critical') === 'True' || card.getAttribute('data-sla-critical') === 'true';
+    const needsReview = card.getAttribute('data-needs-review') === 'True' || card.getAttribute('data-needs-review') === 'true';
+
+    const matchesQuery = q === '' || name.includes(q) || urn.includes(q);
+    if (!matchesQuery) return false;
+
+    switch (filter) {
+      case 'with-actions': return hasActions;
+      case 'sla-critical': return slaCritical;
+      case 'needs-review': return needsReview;
+      default: return true;
+    }
+  }
+
+  function refresh() {
+    const q = (searchEl && searchEl.value || '').trim().toLowerCase();
+    const filter = (filterEl && filterEl.value) || 'all';
+    const cards = getCards();
+    let visible = 0;
+
+    cards.forEach(card => {
+      if (matchesFilter(card, q, filter)) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    updateSummary(visible, cards.length);
+
+    // Focus management: if zero results, focus search input
+    if (visible === 0 && searchEl) {
+      searchEl.setAttribute('aria-invalid', 'false'); // do not mark as error, just focusable
+      searchEl.focus();
+    }
+  }
+
+  if (searchEl) searchEl.addEventListener('input', refresh);
+  if (filterEl) filterEl.addEventListener('change', refresh);
+
+  // initial refresh so the live region is populated
+  refresh();
+});
+</script>
+{% endblock %}

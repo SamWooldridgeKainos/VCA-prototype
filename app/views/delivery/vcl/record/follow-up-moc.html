@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Follow-up method of contact" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/vcl/record/follow-up-moc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        How does {{ data['victimForename'] }} {{ data['victimSurname'] }} want to receive the letter?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="fumoc" value="Email" {{ checked('fumoc','Email') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-email">
+                            Email
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="fumoc" value="Post" {{ checked('fumoc','Post') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-post">
+                            Post
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__divider">or</div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="fumoc" value="None" {{ checked('fumoc','None') }} data-aria-controls="conditional-fumoc-none">
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-none">
+                            They do not want a letter
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-fumoc-none">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="no-fumoc-details">
+                                Reason for no letter
+                            </label>
+                            <textarea class="govuk-textarea" id="no-fumoc-details" name="noFumocDetails" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/record/follow-up-moc.js"></script>
+{% endblock %}

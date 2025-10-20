@@ -1,0 +1,67 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/vcl/details/call-attempt-3.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-2.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% include "/delivery/vcl/victim-record/vcl/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+{% if (data['fumoc'] == "email") %}
+<p class="govuk-body">
+    The letter is ready to send. If necessary, add details discussed on the call before sending.
+</p>
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+
+{% elif (data['fumoc'] == "post") %}
+<p class="govuk-body">
+    The letter is ready to send. If necessary, add details discussed on the call before printing.
+</p>
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+
+{% else %}
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Letter sent by
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Letter not wanted
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            More details
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['noFumocDetails'] }}
+        </dd>
+    </div>
+</dl>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<p class="govuk-body">
+    The letter is ready to send to CMS. If necessary, add details discussed on the call before sending it.
+</p>
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review before sending to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+{% endif %}
+{% endblock %}

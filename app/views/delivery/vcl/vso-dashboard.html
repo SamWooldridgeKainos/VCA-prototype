@@ -1,0 +1,286 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="VSO dashboard" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              <strong class="govuk-service-navigation__active-fallback">Dashboard</strong>
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Search for a victim
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l" id="letters-tab-heading">VSO dashboard</h1>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                    All upcoming events
+                    </h2>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Age
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        38
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Nationality
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        UK national resident in UK
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Working situation
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        Part time – less than 30 hours a week
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                    Upcoming events by victim
+                    </h2>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Age
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        38
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Nationality
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        UK national resident in UK
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Working situation
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        Part time – less than 30 hours a week
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                    Recently viewed victims
+                    </h2>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Age
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        38
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Nationality
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        UK national resident in UK
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        Working situation
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        Part time – less than 30 hours a week
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                        </dd>
+                    </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <table class="govuk-table" data-module="moj-sortable-table">
+        <caption class="govuk-table__caption" aria-labelledby="letters-tab-heading"></caption>
+
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header" aria-sort="ascending">URN</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Victim</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Letter type</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Author</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Reviewer</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Due date</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Updated on</th>
+            </tr>
+        </thead>
+
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+                <td class="govuk-table__cell">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</td>
+                <td class="govuk-table__cell">{% if (data['decisionType']) == "dtc" %}Decision to charge{% elif (data['decisionType']) == "mixed-charges" %}Mixed charges{% elif (data['decisionType']) == "nfa" %}No further action{% endif %}</td>
+                <td class="govuk-table__cell">{{ data['userSurname'] | upper }}, {{ data['userForename'] }}</td>
+                <td class="govuk-table__cell">SANDERSON, Kerry</td>
+                <td class="govuk-table__cell">{% if (data['nfaStatus']) == "draft-in-progress" %}In progress{% elif (data['nfaStatus']) == "draft-under-review" %}Under review{% elif (data['nfaStatus']) == "draft-amendments-required" %}Amendments required{% else %}Ready to send{% endif %}</td>
+                <td class="govuk-table__cell"></td>
+                <td class="govuk-table__cell">{{ "today" | govukDate() }}<br>14:04</td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <!-- <h1 class="govuk-heading-l">
+        Letter dashboard
+    </h1>
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+            Contents
+        </h2>
+        <ul class="govuk-tabs__list">
+            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#letters">
+                Letters
+            </a>
+            </li>
+
+            <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#workload">
+                Workload
+            </a>
+            </li>
+        </ul>
+        
+        <div class="govuk-tabs__panel" id="letters">
+            <h2 class="govuk-heading-m" id="letters-tab-heading">Letters</h2>
+
+            <table class="govuk-table" data-module="moj-sortable-table">
+                <caption class="govuk-table__caption" aria-labelledby="letters-tab-heading"></caption>
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header" aria-sort="ascending">URN</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Victim</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Letter type</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Author</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Reviewer</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Due date</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">Updated on</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+                        <td class="govuk-table__cell">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</td>
+                        <td class="govuk-table__cell">{% if (data['decisionType']) == "dtc" %}Decision to charge{% elif (data['decisionType']) == "mixed-charges" %}Mixed charges{% elif (data['decisionType']) == "nfa" %}No further action{% endif %}</td>
+                        <td class="govuk-table__cell">{{ data['userSurname'] | upper }}, {{ data['userForename'] }}</td>
+                        <td class="govuk-table__cell">SANDERSON, Kerry</td>
+                        <td class="govuk-table__cell">{% if (data['nfaStatus']) == "draft-in-progress" %}In progress{% elif (data['nfaStatus']) == "draft-under-review" %}Under review{% elif (data['nfaStatus']) == "draft-amendments-required" %}Amendments required{% else %}Ready to send{% endif %}</td>
+                        <td class="govuk-table__cell"></td>
+                        <td class="govuk-table__cell">{{ "today" | govukDate() }}<br>14:04</td>
+                        <td class="govuk-table__cell">{{ data['nfaStatus'] }} by SANCHEZ LEAO, Thiago</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="govuk-tabs__panel" id="workload"></div>
+    </div> -->
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/record/nfa-template.js"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Review requested" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Review requested
+      </h1>
+      <div class="govuk-panel__body">
+        Under review with<br>
+        {% if (data['reviewerLevel'] == "d-request") %}
+        <strong>{{ data['d-reviewer'] }} (D)</strong>
+        {% elif (data['reviewerLevel'] == "b3-request") %}
+        <strong>{{ data['b3-reviewer'] }} (B3)</strong>
+        {% elif (data['reviewerLevel'] == "b2-request") %}
+        <strong>{{ data['b2-reviewer'] }} (B2)</strong>
+        {% else %}
+        {% endif %}
+      </div>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p class="govuk-body">
+      Check for updates on the review to find out if amendments are needed or the review process is complete.
+    </p>
+
+    <p class="govuk-body">
+      Once the letter is approved you can inform {{ data['victimForename'] }} {{ data['victimSurname'] }} of the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
+    </p>
+
+    <a href="/delivery/vcl/victim-record?vclStatus=draft-under-review&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          If you chose the wrong reviewer
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        You can <a href="/delivery/vcl/draft/compose-letter" class="govuk-link">go back</a> and request the review is done by another reviewer.
+      </div>
+    </details>
+
+  </div>
+</div>
+{% endblock %}

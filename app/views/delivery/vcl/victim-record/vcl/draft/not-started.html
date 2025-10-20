@@ -1,0 +1,10 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about a stopped or substantially altered charge.
+</p>
+
+<a href="/delivery/vcl/draft/vcl-type" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Draft a letter<span class="govuk-visually-hidden"> to inform about the stopped or substantially altered charge</span>
+</a>
+
+{% endblock %}

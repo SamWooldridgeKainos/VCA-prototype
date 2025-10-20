@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check details" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <form action="/delivery/vcl/send/check-letter-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-heading-l">Check the details before sending for printing</h1>
+
+        <h2 class="govuk-heading-m">Letter details</h2>
+
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Type
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if (data['vclType'] == "stopped-charge") %}
+              Stopped charge
+              {% elif (data['vclType'] == "nfa") %}
+              Substantially altered charge
+              {% endif %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Included
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Information pack<br>
+            Crest survey
+          </dd>
+          <!-- <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> other documents</span></a>
+          </dd> -->
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            From
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Victim Services shared mailbox<br>{{ data['sharedMailbox'] }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Printer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Liverpool office<br>victim.services.liverpool@cps.gov.uk
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Final recipient
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim)
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Recipient address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['victimAddressLine1'] }}<br>{{ data['victimAddressLine2'] }}<br>{{ data['victimAddressLine3'] }}<br>{{ data['victimPostCode'] }}
+          </dd>
+        </div>
+
+        </dl>
+
+        <h2 class="govuk-heading-m">Now send for printing</h2>
+
+        <p class="govuk-body">
+          Select <strong>Send for printing</strong> to add the letter to the print queue.
+        </p>
+
+        <input type="hidden" name="answers-checked" value="true">
+
+        <div class="govuk-button-group">
+          <button type="submit" class="govuk-button" data-module="govuk-button">
+            Send for printing
+          </button>
+          <a class="govuk-link" href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&subTab=vcl#communications">Send for printing later</a>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

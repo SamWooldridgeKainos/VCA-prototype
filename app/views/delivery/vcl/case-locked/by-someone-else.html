@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Case locked" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">
+            This case is locked
+        </h1>
+        <p class="govuk-body">
+            This case was locked on 19 February 2025 at 16:48.
+        </p>
+        <p class="govuk-body">
+            We could not save the information you entered. To make an update, contact Gerald Kingsley-Smyth and ask them to exit the case.
+        </p>
+        <p class="govuk-body">
+            To view the victim's information, search for the URN and select the victim's name again.
+        </p>
+        <a href="/delivery/vcl/victim-record" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check details" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <h1 class="govuk-heading-l">Check the details before sending the email</h1>
+
+      <h2 class="govuk-heading-m">Email details</h2>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if (data['vclType'] == "stopped-charge") %}
+            Stopped charge
+            {% elif (data['vclType'] == "nfa") %}
+            Substantially altered charge
+            {% endif %}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Included
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Information pack<br>
+            Crest survey
+          </dd>
+          <!-- <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> attachments</span></a>
+          </dd> -->
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            From
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Victim Services shared mailbox<br>{{ data['sharedMailbox'] }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            To
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if (data['recipient'] == "victim") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim)
+            {% elif (data['recipient'] == "oic") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim) via {{ data['oicRank'] }} {{ data['oicForename'] }} {{ data['oicSurname'] }} (officer in charge)
+            {% elif (data['recipient'] == "isva") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim) via {{ data['isvaForename'] }} {{ data['isvaSurname'] }} (ISVA)
+            {% endif %}<br>
+            {% if (data['recipient'] == "victim") %}
+            {{ data['victimEmailAddress'] }}
+            {% elif (data['recipient'] == "oic") %}
+            {{ data['oicEmailAddress'] }}
+            {% elif (data['recipient'] == "isva") %}
+            {{ data['isvaEmailAddress'] }}
+            {% endif %}
+          </dd>
+        </div>
+
+      </dl>
+
+      <h2 class="govuk-heading-m">Now send your email</h2>
+
+      <p class="govuk-body">
+        Select <strong>Send email</strong> to inform the victim of the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
+      </p>
+
+      <input type="hidden" name="answers-checked" value="true">
+
+      <div class="govuk-button-group">
+        <a href="/delivery/vcl/send/delivered" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Send email
+        </a>
+        <a class="govuk-link" href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&subTab=vcl#communications">Send email later</a>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

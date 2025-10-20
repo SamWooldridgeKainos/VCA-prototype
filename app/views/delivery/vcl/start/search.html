@@ -1,0 +1,136 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Search for a victim" %}
+
+{% block beforeContent %}
+<div class="moj-page-header-actions govuk-!-margin-bottom-0">
+  <div class="moj-page-header-actions__title">
+    <!-- <p class="govuk-body govuk-!-margin-bottom-0">
+      <a href="#" class="govuk-back-link">Search for another victim</a>
+    </p> -->
+  </div>
+
+  <div class="moj-page-header-actions__actions">
+    <a href="/delivery/vcl/letter-dashboard" class="govuk-link">Letter dashboard</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="moj-search">
+      <form action="#" method="post">
+        <div class="govuk-form-group">
+
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="search-urn">
+              Search for a victim
+            </label>
+          </h1>
+    
+          <div class="govuk-hint moj-search__hint" id="search-urn-hint">
+            Enter a case URN
+          </div>
+    
+          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">          
+        </div>
+    
+        <button type="submit" class="govuk-button moj-search__button" data-module="govuk-button">
+          Search
+        </button>
+    
+      </form>
+    </div>
+
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if (data['searchUrn'] == data['caseUrn']) %}
+    <hr class="govuk-section-break govuk-section-break--l">
+
+    <p class="govuk-body">
+      We've found <strong>8</strong> results for <strong>{{ data['caseUrn'] }}</strong>
+    </p>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <div class="govuk-hint" id="category-hint">
+          Add the victim's category if it's missing. Go to the page for an individual and update it from the Victim details tab.
+        </div>
+      </div>
+    </div>
+
+    <table class="govuk-table govuk-table--small-text-until-tablet">
+      <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">URN search results showing victims and witnesses</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header" aria-describedby="category-hint">Category</th>
+          <th scope="col" class="govuk-table__header">URN</th>
+          <th scope="col" class="govuk-table__header">Lead defendant</th>
+          <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>OBERON, Shelly</a></td>
+          <td class="govuk-table__cell">Victim</td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>KING, Wendy</a></td>
+          <td class="govuk-table__cell">Victim</td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="/delivery/vcl/victim-record"><span class="govuk-visually-hidden">View victim record for </span>{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a></td>
+          <td class="govuk-table__cell">Victim</td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>JONES, Oliver A</a></td>
+          <td class="govuk-table__cell"></td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>WOODLEY, Alfred</a></td>
+          <td class="govuk-table__cell"></td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>COLLOCINI, Emiliano</a></td>
+          <td class="govuk-table__cell"></td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>EVANS, Gareth</a></td>
+          <td class="govuk-table__cell"></td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>COOPER, Tracey</a></td>
+          <td class="govuk-table__cell"></td>
+          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
+          <td class="govuk-table__cell">DAVIES, Bella+</td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+    
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% block content %}
+{% include "/delivery/vcl/victim-record/vcl/details/email.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<p class="govuk-body">
+  The email was not delivered to {{ data['victimForename'] }} {{ data['victimSurname'] }}. This can happen when the recipient's inbox is full or their anti-spam filter rejects the email.
+</p>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-button-group govuk-!-margin-bottom-0">
+  <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    Try to send email again<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+  </a>
+  <a class="govuk-link" href="#">Send a letter instead<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span></a>
+</div>
+{% endblock %}

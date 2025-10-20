@@ -1,0 +1,26 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}decision to take no further action{% else %}charging decision{% endif %}.
+</p>
+
+<p class="govuk-body">
+    The draft requires amendments from you before sending.
+</p>
+
+<!-- <details class="govuk-details">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+            Reviewed by
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+            <li>Karen Kaminsky (B2)</li>
+        </ol>
+    </div>
+</details> -->
+
+<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+    Amend draft<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+{% endblock %}

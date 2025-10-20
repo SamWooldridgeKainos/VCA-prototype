@@ -50,7 +50,7 @@
 
 {% else %}
 <p class="govuk-body">
-    The draft is under review with {% if (data['reviewerLevel'] == "d-request") %}{{ data['d-reviewer'] }} (D){% elif (data['reviewerLevel'] == "b3-request") %}{{ data['b3-reviewer'] }} (B3){% elif (data['reviewerLevel'] == "b2-request") %}{{ data['b2-reviewer'] }} (B2){% else %}{% endif %}.
+    The draft is under review. The current reviewer is {% if (data['reviewerLevel'] == "d-request") %}{{ data['d-reviewer'] }} (D){% elif (data['reviewerLevel'] == "b3-request") %}{{ data['b3-reviewer'] }} (B3){% elif (data['reviewerLevel'] == "b2-request") %}{{ data['b2-reviewer'] }} (B2){% else %}{% endif %}.
 </p>
 
 <!-- <dl class="govuk-summary-list govuk-!-margin-bottom-4">

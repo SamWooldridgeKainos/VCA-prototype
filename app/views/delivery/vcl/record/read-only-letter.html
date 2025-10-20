@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Read-only letter" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="moj-page-header-actions govuk-!-margin-bottom-0">
+            <div class="moj-page-header-actions__title">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-1">Letter (read-only)</h1>
+            <p class="govuk-body govuk-!-margin-bottom-0">
+                {% if (data['decisionType'] == "dtc") %}Decision to charge{% elif (data['decisionType'] == "nfa") %}No further action{% else %}Charging decision unknown{% endif %}
+            </p>
+            </div>
+
+            <div class="moj-page-header-actions__actions">
+                <div class="moj-button-group moj-button-group--inline govuk-!-margin-bottom-3">
+                    <a href="" class="govuk-link">Close window</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <div class="moj-page-header-actions govuk-!-margin-bottom-4">
+            <div class="moj-page-header-actions__title">
+                <strong class="govuk-tag govuk-tag--light-blue">
+                    Ready to send
+                </strong>
+            </div>
+            <div class="moj-page-header-actions__actions">
+            </div>
+        </div>
+        <textarea class="govuk-textarea govuk-js-character-count govuk-!-margin-bottom-0" style="border-color: #b1b4b6; border-width: 1px;" id="content-editor" name="contentEditor" rows="30" aria-describedby="content-editor-info" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend augue ipsum, eget faucibus ipsum hendrerit ac. Nunc vulputate velit sit amet felis ullamcorper, sed placerat nisl posuere. Duis non sodales arcu, non fermentum ipsum. Vestibulum erat quam, efficitur eget tortor ut, dictum semper libero. Nunc non ligula scelerisque nisi convallis tempor. Donec rutrum molestie nulla a malesuada. Nulla consequat nisl lorem, eu vestibulum nisi efficitur quis. Sed luctus sem at sapien imperdiet placerat. Aliquam tempor semper viverra.
+
+Nullam dui quam, sollicitudin ac molestie a, pharetra id erat. In vel leo pulvinar, vulputate magna vitae, maximus purus. Morbi eget sodales augue, non elementum purus. Phasellus porttitor eget tortor a finibus. Quisque tempor, justo in maximus gravida, nibh risus fermentum nisi, a consequat velit dolor in erat. Nam quam dui, pretium nec tortor eget, finibus dictum nulla. Pellentesque condimentum neque quis dui dapibus, eget dictum mi posuere. Nulla eget odio in urna mollis malesuada. Ut in sem sit amet est tristique maximus at at lacus. Sed tempus felis efficitur, cursus sem et, varius diam. Cras bibendum tincidunt tempus. Aenean tincidunt velit quis odio rutrum, et mattis turpis vulputate. Vestibulum consequat rutrum metus, rutrum aliquet leo vestibulum nec. Curabitur eget condimentum risus, a aliquet magna. Sed dapibus sem erat, id ultrices erat ultricies et. Duis viverra mi arcu, id fringilla lectus pretium in.
+
+Suspendisse pretium arcu sit amet nisl porta molestie. Maecenas rhoncus metus in orci eleifend, ullamcorper facilisis ligula consectetur. Donec eleifend varius elit, id lobortis dui iaculis in. In hac habitasse platea dictumst. Vestibulum a feugiat leo. Morbi quis tempor dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce massa dui, feugiat id lectus eu, dignissim luctus nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed rutrum ultricies convallis. Proin facilisis tincidunt nulla ac mattis. Morbi rhoncus lorem ac nisl posuere accumsan.
+
+Duis vitae arcu ac neque facilisis iaculis vel sit amet turpis. Nam id leo nec est feugiat volutpat. Integer faucibus pulvinar sem imperdiet feugiat. Mauris non viverra nulla. Donec dapibus euismod interdum. Suspendisse potenti. Nam hendrerit, risus sed sodales vehicula, magna nisi aliquet nisl, vitae condimentum nisl enim id lectus. Etiam sollicitudin sodales tellus. Ut nec dui dolor.
+
+Donec odio mi, sollicitudin id tortor at, imperdiet vestibulum tortor. Ut pellentesque interdum ipsum, sit amet sagittis erat blandit ut. Nulla ut luctus dui. Etiam eu dignissim orci. Suspendisse accumsan in ante consequat interdum. Cras sem nisl, consequat vel porttitor ut, volutpat ac purus. Nunc lobortis ligula non metus rutrum, id aliquet diam pharetra. Morbi hendrerit ultrices gravida. Pellentesque id erat risus. Cras fermentum tempus diam, at vehicula nunc auctor commodo. Aliquam pulvinar urna erat, quis egestas lacus mattis nec. Morbi tempor ex a cursus efficitur. Sed vulputate dui turpis, a viverra nisi ultricies at. Vestibulum sodales ex elit, sed laoreet nulla finibus vitae. Mauris diam elit, elementum id nulla in, maximus lacinia mi. Vestibulum ante est, varius nec odio id, pretium tempor diam.</textarea>
+    </div>
+</div>
+{% endblock %}

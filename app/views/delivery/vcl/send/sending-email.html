@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Sending email" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <h1 class="govuk-heading-l">
+      Sending email
+    </h1>
+
+    <p class="govuk-body">
+      The email is in the process of being sent to the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+    </p>
+
+    <!-- <p class="govuk-body">
+      The Crest survey was also sent to the victim.
+    </p> -->
+
+    <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      You can view a log of the sent email on the 'Communications' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <p class="govuk-body">
+      The email was automatically saved to CMS.
+    </p>
+
+    <a href="/delivery/vcl/victim-record?notifyStatus=technical&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

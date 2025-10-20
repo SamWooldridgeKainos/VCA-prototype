@@ -1,0 +1,159 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call 1" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/vcl/record/phone-call-1-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <h1 class="govuk-heading-l">Telephone call 1</h1>
+
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+                </strong>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="phone-call-date-1">
+                    Date of call
+                </label>
+
+                <div class="govuk-hint" id="phone-call-date-hint-1">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="phone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="phone-call-date-1"
+                        name="phoneCallDate1"
+                        autocomplete="off"
+                        aria-describedby="phone-call-date-hint-1"
+                        value="{{ data['phoneCallDate1'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-1">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of call
+                    </legend>
+
+                    <div id="call-time-hint-1" class="govuk-hint">
+                        Enter a time in 24-hour format. For example, 14:30
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time-1">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hour-1">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-1" name="callHour1" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+                        
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes-1">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-1" name="callMinutes1" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <!-- Did you call the victim? -->
+                        What was the call direction?
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="call-type-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-outbound" name="callType1" type="radio" value="Yes" {{ checked('callType1','Yes') }} aria-describedby="outbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-outbound">
+                                <!-- Yes, I called the victim -->
+                                Outbound
+                            </label>
+                            <div id="outbound-hint" class="govuk-hint govuk-radios__hint">
+                                I called the victim
+                            </div>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-inbound" name="callType1" type="radio" value="No" {{ checked('callType1','No') }} aria-describedby="inbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-inbound">
+                                <!-- No, the victim called the CPS -->
+                                Inbound
+                            </label>
+                            <div id="inbound-hint" class="govuk-hint govuk-radios__hint">
+                                The victim called the CPS
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-4">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Were you able to inform the victim?
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="victim-informed-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-yes" name="victimInformed1" type="radio" value="Yes" {{ checked('victimInformed1','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
+                                Yes
+                            </label>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-no" name="victimInformed1" type="radio" value="No" {{ checked('victimInformed1','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="call-notes-1">
+                    Notes (optional)
+                </label>
+
+                <textarea class="govuk-textarea" id="call-notes-1" name="callNotes1" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+    </div>
+    {% include "/delivery/vcl/record/call-support.html" %}
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/vcl/record/phone-call-1.js"></script>
+{% endblock %}
