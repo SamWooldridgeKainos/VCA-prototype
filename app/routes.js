@@ -796,16 +796,16 @@ router.post('/delivery/vcl/record/next-attempt-moc-answer', function(request, re
         }
     } else if (attemptToContactAgain == "Email") {
         if (callAttempt == "1") {
-            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
+            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         } else if (callAttempt == "2") {
-            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
+            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         } else {
-            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
+            response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         }
         
         
     } else {
-        response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
+        response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=post&subTab=vcl#communications")
     }
 })
 

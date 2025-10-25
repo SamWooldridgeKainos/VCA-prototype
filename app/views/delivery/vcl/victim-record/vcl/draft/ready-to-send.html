@@ -47,19 +47,11 @@
     The letter is ready to send. No amendments are required.
 </p>
 
-{% if (data['pmoc'] == "email") %}
-<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-</a>
-
-{% elif (data['pmoc'] == "post") %}
+{% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
 <a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
 {% else %}
-<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-</a>
 {% endif %}
 {% endblock %}
