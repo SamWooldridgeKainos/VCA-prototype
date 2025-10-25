@@ -1,8 +1,6 @@
 {% block content %}
 {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
 {% if (data['vclStatus'] == "draft-not-started") or (data['vclStatus'] == "draft-in-progress") or (data['vclStatus'] == "draft-under-review") or (data['vclStatus'] == "draft-amendments-required") or (data['vclStatus'] == "not-yet-recorded") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") or (data['vclStatus'] == "draft-ready-to-send") or (data['vclStatus'] == "draft-approved-to-send") %}
-{% if (data['fumoc'] == "none") %}
-{% else %}
 <hr class="govuk-section-break govuk-section-break--m">
 
 <details class="govuk-details govuk-!-margin-bottom-2">
@@ -31,21 +29,36 @@
             <li>Add details from the call to the letter if needed.</li>
             {% endif %}
             {% if (data['vclStatus'] == "after-call-attempt-3") %}
+            {% if (data['fumoc'] == "none") %}
+            {% else %}
             <li>Send the letter to the victim by post.</li>
+            {% endif %}
             {% else %}
             {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
             {% if (data['vclStatus'] == "draft-approved-to-send") %}
-            <li>Send the letter to the victim by email.</li>
+            {% if (data['fumoc'] == "none") %}
             {% else %}
-            <li>Review the letter before sending it.</li>
             <li>Send the letter to the victim by email.</li>
+            {% endif %}
+            {% else %}
+            {% if (data['fumoc'] == "none") %}
+            {% else %}
+            <!-- <li>Review the letter before sending it.</li> -->
+            <li>Send the letter to the victim by email.</li>
+            {% endif %}
             {% endif %}
             {% elif (data['fumoc'] == "post") or (data['victimInformed3'] == "No") or (data['attemptToContactAgain'] == "Post") %}
             {% if (data['vclStatus'] == "draft-approved-to-send") %}
-            <li>Send the letter to the victim by post.</li>
+            {% if (data['fumoc'] == "none") %}
             {% else %}
-            <li>Review the letter before sending it.</li>
             <li>Send the letter to the victim by post.</li>
+            {% endif %}
+            {% else %}
+            {% if (data['fumoc'] == "none") %}
+            {% else %}
+            <!-- <li>Review the letter before sending it.</li> -->
+            <li>Send the letter to the victim by post.</li>
+            {% endif %}
             {% endif %}
             {% elif (data['fumoc'] == "none") %}
             {% else %}
@@ -55,7 +68,6 @@
         </ol>
     </div>
 </details>
-{% endif %}
 {% else %}
 {% endif %}
 {% elif (data['pmoc'] == "email") or (data['pmoc'] == "post") %}

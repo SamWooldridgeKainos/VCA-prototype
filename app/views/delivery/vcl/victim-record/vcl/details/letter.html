@@ -2,18 +2,10 @@
 <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-            Letter sent by
+            Letter logged
         </dt>
         <dd class="govuk-summary-list__value">
-            Post
-        </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Letter sent to print
-        </dt>
-        <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at 11:39
+            {{ "today" | govukDate(showWeekday=true) }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -24,29 +16,5 @@
             {{ data['letterDispatchNotes'] }}
         </dd>
     </div>
-    <!-- <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Address
-        </dt>
-        <dd class="govuk-summary-list__value">
-            {{ data['victimAddressLine1'] }}<br>{{ data['victimAddressLine2'] }}<br>{{ data['victimAddressLine3'] }}<br>{{ data['victimPostCode'] }}
-        </dd>
-    </div> -->
-    <!-- <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Status
-        </dt>
-        <dd class="govuk-summary-list__value">
-            Logged
-        </dd>
-    </div> -->
-    <!-- <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Other documents sent
-        </dt>
-        <dd class="govuk-summary-list__value">
-            Information pack<br>Crest survey
-        </dd>  
-    </div> -->
 </dl>
 {% endblock %}

@@ -2,9 +2,7 @@
 
 {% set pageName="Cannot connect to Correspondence Drafter" %}
 
-{% block beforeContent %}
-<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
-{% endblock %}
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -18,8 +16,8 @@
         <p class="govuk-body">
             Try again later.
         </p>
-        <a href="javascript:window.history.back()" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-            Go back
+        <a href="/delivery/vcl/victim-record#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
         </a>
     </div>
 </div>
