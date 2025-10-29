@@ -10,17 +10,17 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
 
-        <h1 class="govuk-heading-l">Telephone call details</h1>
+        <h1 class="govuk-heading-l">When will the meeting take place?</h1>
 
         <form action="/ur/nfa/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="telephone-call-date-2">
-                    Date of call
+                    Date
                 </label>
 
                 <div class="govuk-hint" id="telephone-call-date-hint-2">
-                    For example, 17/05/2025
+                    Use the date picker or enter a date. For example, 17/05/2025
                 </div>
 
                 <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
@@ -36,11 +36,11 @@
             <div class="govuk-form-group" id="error-form-group-2">
                 <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-2">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Time of call
+                        Time
                     </legend>
 
                     <div id="call-time-hint-2" class="govuk-hint">
-                        For example, 14:15
+                      Enter a time in 24-hour format. For example, 14:15.
                     </div>
 
                     <div class="govuk-date-input" id="call-time-2">
@@ -70,46 +70,17 @@
                 </fieldset>
             </div>
 
-            <div class="govuk-form-group" id="error-form-group-3">
-                <fieldset class="govuk-fieldset">
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        <h2 class="govuk-fieldset__heading">
-                            Victim informed
-                        </h2>
-                    </legend>
 
-                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="victim-informed-yes" name="victimInformed" type="radio" value="Yes" {{ checked('victimInformed','Yes') }}>
-                            <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
-                                Yes
-                            </label>
-                        </div>
+            <div class="govuk-button-group">
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="victim-informed-no" name="victimInformed" type="radio" value="No" {{ checked('victimInformed','No') }}>
-                            <label class="govuk-label govuk-radios__label" for="victim-informed-no">
-                                No
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="govuk-form-group">
-                <h2 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--m" for="call-notes">
-                        Notes (optional)
-                    </label>
-                </h2>
-
-                <textarea class="govuk-textarea" id="call-notes-2" name="callNotes2" rows="4"></textarea>
-            </div>
-
-            <button type="submit" class="govuk-button" data-module="govuk-button">
-                Continue
-            </button>
+  <a href="format" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  </div>
         </form>
     </div>
 </div>

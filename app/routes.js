@@ -245,7 +245,7 @@ router.post('/ur/nfa/record/next-attempt-moc-answer', function(request, response
         }
     } else if (attemptToContactAgain == "Email") {
         response.redirect("/ur/nfa/victim-record?pmoc=email&nfaStatus=draft-ready-to-send#communications")
-        
+
     } else {
         response.redirect("/ur/nfa/victim-record?pmoc=post&nfaStatus=draft-ready-to-send#communications")
     }
@@ -436,8 +436,8 @@ router.post('/delivery/nfa/record/next-attempt-moc-answer', function(request, re
         } else {
             response.redirect("/delivery/nfa/victim-record?nfaStatus=draft-ready-to-send#communications")
         }
-        
-        
+
+
     } else {
         response.redirect("/delivery/nfa/victim-record?nfaStatus=draft-ready-to-send#communications")
     }
@@ -621,8 +621,8 @@ router.post('/ur/vcl/record/next-attempt-moc-answer', function(request, response
         } else {
             response.redirect("/ur/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
         }
-        
-        
+
+
     } else {
         response.redirect("/ur/vcl/victim-record?vclStatus=draft-ready-to-send&subTab=vcl#communications")
     }
@@ -802,8 +802,8 @@ router.post('/delivery/vcl/record/next-attempt-moc-answer', function(request, re
         } else {
             response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         }
-        
-        
+
+
     } else {
         response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=post&subTab=vcl#communications")
     }
@@ -884,4 +884,43 @@ router.post('/delivery/vcl/send/letter-details-answer', function(request, respon
 router.post('/delivery/vcl/preferred-method-of-contact-answer', function(request, response) {
 
     response.redirect("/delivery/vcl/victim-record?success=yes&successReason=pmoc-updated#victim-details")
+})
+
+
+router.post('/purpose-answer', function(request, response) {
+
+	var purpose = request.session.data['purpose']
+	if (purpose == "pre-trial"){
+		response.redirect("/ur/meetings/meeting-date")
+	} else {
+		response.redirect("/ineligible-country")
+	}
+})
+
+router.post('/format-answer', function(request, response) {
+
+	var format = request.session.data['format']
+	if (format == "face-to-face"){
+		response.redirect("/ur/meetings/location")
+	} else {
+		response.redirect("/ur/meetings/who-is-attending")
+	}
+})
+
+router.post('/location-answer', function(request, response) {
+
+	var location = request.session.data['location']
+	if (location == "cps"){
+		response.redirect("/ur/meetings/cps-location")
+  }
+  else if (location == "magistrate"){
+		response.redirect("/ur/meetings/magistrate-location")
+	}
+
+else if (location == "crown"){
+  response.redirect("/ur/meetings/crown-location")
+
+	} else {
+		response.redirect("/ur/meetings/police-station")
+	}
 })
