@@ -924,3 +924,24 @@ else if (location == "crown"){
 		response.redirect("/ur/meetings/police-station")
 	}
 })
+
+
+router.post('/log-outcome/did-meeting-happen-answer', function(request, response) {
+
+	var meeting = request.session.data['meeting']
+	if (meeting == "yes"){
+		response.redirect("/ur/meetings/log-outcome/duration")
+	} else {
+		response.redirect("/ur/meetings/log-outcome/reason-why")
+	}
+})
+
+router.post('/log-outcome/any-actions-agreed-answer', function(request, response) {
+
+	var actionsAgreed = request.session.data['actionsAgreed']
+	if (actionsAgreed == "yes"){
+		response.redirect("/ur/meetings/log-outcome/actions")
+	} else {
+		response.redirect("/ur/meetings/log-outcome/check-answers")
+	}
+})
