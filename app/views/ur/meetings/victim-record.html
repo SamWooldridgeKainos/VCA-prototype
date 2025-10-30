@@ -117,31 +117,31 @@ Only share case information with Sarah Phillips if they can correctly answer the
             <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
         </li>
 
-    
+
         {% elif (data['subTab'] == "vcl") %}
         <li class="moj-sub-navigation__item">
             <a class="moj-sub-navigation__link" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
         </li>
 
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="#">CPS meetings</a>
+            <a class="moj-sub-navigation__link" aria-current="page"  href="#">CPS meetings</a>
         </li>
 
 
         {% else %}
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
+            <a class="moj-sub-navigation__link" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
         </li>
 
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="#">CPS meetings</a>
+            <a class="moj-sub-navigation__link" aria-current="page"  href="#">CPS meetings</a>
         </li>
 
 
         {% endif %}
     </ul>
 </nav>
-<p class="govuk-body">No CPS meetings have been offered to   {{ data['victimForename'] }} {{ data['victimSurname'] }} .</p>
+<p class="govuk-body">No CPS meetings have been offered to   {{ data['victimForename'] }} {{ data['victimSurname'] }}.</p>
 
 
 <a href="purpose" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">

@@ -10,31 +10,27 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/purpose-answer" method="post">
+    <form class="form" action="/did-victim-request" method="post">
 
 
     {{ govukRadios({
-      name: "purpose",
-      value: data['purpose'],
+      name: "meeting",
+      value: data['meeting'],
       fieldset: {
         legend: {
-          text: "What is the purpose of the meeting?",
+          text: "Did the victim Sarah Phillips request this meeting?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }
       },
       items: [
         {
-          value: "pre-trial",
-          text: "CPS pre-trial meeting"
+          value: "yes",
+          text: "Yes"
         },
         {
-          value: "inform-victim",
-          text: "Inform victim about charging decision"
-        },
-        {
-          value: "bereavement",
-          text: "Bereavement meeting"
+          value: "no",
+          text: "No"
         }
       ]
     }) }}

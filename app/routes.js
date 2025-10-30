@@ -891,7 +891,7 @@ router.post('/purpose-answer', function(request, response) {
 
 	var purpose = request.session.data['purpose']
 	if (purpose == "pre-trial"){
-		response.redirect("/ur/meetings/meeting-date")
+		response.redirect("/ur/meetings/did-victim-request")
 	} else {
 		response.redirect("/ineligible-country")
 	}
@@ -935,6 +935,17 @@ router.post('/log-outcome/did-meeting-happen-answer', function(request, response
 		response.redirect("/ur/meetings/log-outcome/reason-why")
 	}
 })
+
+router.post('/did-victim-request', function(request, response) {
+
+	var meeting = request.session.data['meeting']
+	if (meeting == "yes"){
+		response.redirect("/ur/meetings/meeting-date")
+	} else {
+		response.redirect("/ur/meetings/meeting-date")
+	}
+})
+
 
 router.post('/log-outcome/any-actions-agreed-answer', function(request, response) {
 
