@@ -893,7 +893,7 @@ router.post('/purpose-answer', function(request, response) {
 	if (purpose == "pre-trial"){
 		response.redirect("/ur/meetings/did-victim-request")
 	} else {
-		response.redirect("/ineligible-country")
+		response.redirect("/ur/meetings//purpose")
 	}
 })
 
