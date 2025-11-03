@@ -20,6 +20,20 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+
+    <p class="govuk-body"> CPS pre-trial meeting outcome logged</p>
+  </div>
+</div>
+
+
     {% if (data['success'] == "yes") %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
@@ -130,18 +144,19 @@ Only share case information with Sarah Phillips if they can correctly answer the
 
         {% else %}
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
+            <a class="moj-sub-navigation__link" href="#">Pre-charge decision</a>
         </li>
 
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="#">CPS meetings</a>
+            <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
         </li>
 
 
         {% endif %}
     </ul>
 </nav>
-<p class="govuk-body">1 meeting has been arranged for {{ data['victimForename'] }} {{ data['victimSurname'] }} .</p>
+<p class="govuk-body">Meetings arranged
+for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>
 
 <a href="../purpose" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Arrange a meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
@@ -155,7 +170,7 @@ Only share case information with Sarah Phillips if they can correctly answer the
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-    CPS pre trial meeting outcome logged
+      CPS pre-trial meeting outcome logged
     </h2>
   </div>
   <div class="govuk-summary-card__content">
@@ -165,7 +180,7 @@ Only share case information with Sarah Phillips if they can correctly answer the
     Duration of the meeting
         </dt>
         <dd class="govuk-summary-list__value">
-      3hours 30 minutes
+      3 hours 30 minutes
         </dd>
 
       </div>
@@ -174,7 +189,7 @@ Only share case information with Sarah Phillips if they can correctly answer the
       Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          Victom (PHILLIPS Sarah), High Court Advocate (SHEAF, Jessica), Family Liaison Officer (BIDWELL, Jane), Independent Domestic Violence Advisor (IDVA) (SAKAMOTO, Hadji), Officer in charge (Police) (PC FIS(HER, Jane)
+          Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence advisor (IDVA) (SAKAMOTO, Hadji)
         </dd>
 
       </div>
@@ -201,13 +216,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, 
 
     </dl>
 <br/>
-<br/>
 
 
 <details class="govuk-details">
 <summary class="govuk-details__summary">
   <span class="govuk-details__summary-text">
-  Meeting arranged
+Arranged meetings
   </span>
 </summary>
 <div class="govuk-details__text">
@@ -215,7 +229,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, 
   <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
       <h2 class="govuk-summary-card__title">
-      CPS pre trial meeting arranged
+      CPS pre-trial meeting arranged
       </h2>
     </div>
     <div class="govuk-summary-card__content">
@@ -225,7 +239,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, 
         Date and time
           </dt>
           <dd class="govuk-summary-list__value">
-            11 April 2025 at 11.45
+            11 April 2025 at 11:45am
           </dd>
 
         </div>
@@ -234,16 +248,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, 
           How meeting will take place
           </dt>
           <dd class="govuk-summary-list__value">
-          Face to face
+           In person
           </dd>
 
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-          location
+          Location
           </dt>
           <dd class="govuk-summary-list__value">
-      Birmingham magistrates court
+    Birmingham Magistrates’ Court
           </dd>
 
         </div>
@@ -253,14 +267,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, 
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-            Victom (PHILLIPS Sarah), High Court Advocate (SHEAF, Jessica), Family Liaison Officer (BIDWELL, Jane), Independent Domestic Violence Advisor (IDVA) (SAKAMOTO, Hadji), Officer in charge (Police) (PC FIS(HER, Jane)(Chair person)
+          (Chair person) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence advisor (IDVA) (SAKAMOTO, Hadji)
           </dd>
 
         </div>
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-  Support need
+  Support needs
           </dt>
           <dd class="govuk-summary-list__value">
             Interpreter needed: No, Person for support: Yes

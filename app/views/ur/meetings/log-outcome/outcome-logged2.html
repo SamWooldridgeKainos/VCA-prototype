@@ -28,10 +28,9 @@
   </div>
   <div class="govuk-notification-banner__content">
 
-    <p class="govuk-body">  CPS pre-trial meeting rescheduled</p>
+    <p class="govuk-body"> CPS pre-trial meeting outcome logged</p>
   </div>
 </div>
-
 
     {% if (data['success'] == "yes") %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -150,7 +149,6 @@ Only share case information with Sarah Phillips if they can correctly answer the
             <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
         </li>
 
-
         {% endif %}
     </ul>
 </nav>
@@ -169,83 +167,40 @@ for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-    CPS pre-trial meeting rescheduled
+    CPS pre-trial meeting outcome logged
     </h2>
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-      Date and time
+    Meeting took place
         </dt>
         <dd class="govuk-summary-list__value">
-          11 April 2025 at 11:45am
+    No
         </dd>
 
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-        How meeting will take place
+  Reason why
         </dt>
         <dd class="govuk-summary-list__value">
-         In person
-        </dd>
-
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-        Location
-        </dt>
-        <dd class="govuk-summary-list__value">
-  Birmingham Magistrates’ Court
-        </dd>
+Victim decided not to attend        </dd>
 
       </div>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-      Attendees
-        </dt>
-        <dd class="govuk-summary-list__value">
-        (Chair person) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence advisor (IDVA) (SAKAMOTO, Hadji)
-        </dd>
 
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-Support needs
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Interpreter needed: No, Person for support: Yes
-<br>
-      Other support: Victim will need a room with step free access
-        </dd>
-
-      </div>
 
     </dl>
 <br/>
-<br/>
-    <div class="govuk-button-group">
-
-<a href="../log-outcome/did-meeting-happen" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-Log meeting outcome<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-<a href="reason-why" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-Reschedule meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-<a href="../cancelled/meeting-date" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-Cancel meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-</div>
 
 
 
 <details class="govuk-details">
 <summary class="govuk-details__summary">
   <span class="govuk-details__summary-text">
-Arranged meetings
+  Meeting arranged
   </span>
 </summary>
 <div class="govuk-details__text">
@@ -265,7 +220,6 @@ Arranged meetings
           <dd class="govuk-summary-list__value">
             11 April 2025 at 11:45am
           </dd>
-
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -278,7 +232,7 @@ Arranged meetings
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-          Location
+          location
           </dt>
           <dd class="govuk-summary-list__value">
     Birmingham Magistrates’ Court
@@ -298,7 +252,7 @@ Arranged meetings
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-  Support needs
+  Support need
           </dt>
           <dd class="govuk-summary-list__value">
             Interpreter needed: No, Person for support: Yes
