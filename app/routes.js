@@ -788,13 +788,13 @@ router.post('/delivery/vcl/record/next-attempt-moc-answer', function(request, re
     var attemptToContactAgain = request.session.data['attemptToContactAgain']
     var callAttempt = request.session.data['callAttempt']
 
-    if (attemptToContactAgain == "Call") {
+    if (attemptToContactAgain == "call") {
         if (callAttempt == "1") {
             response.redirect("/delivery/vcl/record/phone-call-2")
         } else {
             response.redirect("/delivery/vcl/record/phone-call-3")
         }
-    } else if (attemptToContactAgain == "Email") {
+    } else if (attemptToContactAgain == "email") {
         if (callAttempt == "1") {
             response.redirect("/delivery/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         } else if (callAttempt == "2") {

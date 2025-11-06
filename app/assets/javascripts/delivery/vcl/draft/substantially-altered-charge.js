@@ -17,11 +17,11 @@ function validateForm() {
 
         // Error message
         $('#radio-group').before('<p id="error-message-1" class="govuk-error-message"></p>');
-        $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select if the level of charge decreased, or increased</span>');
+        $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select if the level of charge decreased or increased</span>');
 
         // Error summary
         $('#myForm').before(
-            '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"><li><a href="#error-1">Select if the level of charge decreased, or increased</a></li></ul></div></div>'
+            '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"><li><a href="#error-1">Select if the level of charge decreased or increased</a></li></ul></div></div>'
         );
         $('#error-summary').focus();
 

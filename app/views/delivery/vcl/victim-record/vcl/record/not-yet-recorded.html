@@ -3,15 +3,17 @@
     {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
 </p>
 
+{% if (data['victimPhoneNumber'] == "") %}
 <p class="govuk-body">
-    Telephone the victim and log the call details.
+    You must confirm the preferred method of contact first then <a href="/delivery/vcl/victim-details/telephone-number.html" class="govuk-link">enter a telephone number</a>.
+</p>
+{% else %}
+<p class="govuk-body">
+    Telephone the victim and log the details during the call.
 </p>
 
-<!-- <p class="govuk-body">
-    Check the letter, security answers, call script and FAQs if you need these during the call.
-</p> -->
-
 <a href="/delivery/vcl/record/phone-call-1" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-    Log a call<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+    View letter and make call<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
+{% endif %}
 {% endblock %}

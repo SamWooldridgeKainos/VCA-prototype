@@ -12,22 +12,13 @@
   </div>
 </details>
 
-{% if (data['fumoc'] == "email") %}
+{% if (data['fumoc'] == "email") or (data['fumoc'] == "post") %}
 <p class="govuk-body">
-    No changes are needed to the letter and it can now be sent.
+    You must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
 
 <a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review letter before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-</a>
-
-{% elif (data['fumoc'] == "post") %}
-<p class="govuk-body">
-    No changes are needed to the letter and it can now be sent.
-</p>
-
-<a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 
 {% else %}
@@ -53,11 +44,11 @@
 <hr class="govuk-section-break govuk-section-break--m">
 
 <p class="govuk-body">
-    The letter is ready to send to CMS. If necessary, add details discussed on the call before sending it.
+    You must review the letter before sending to CMS. You can add details discussed on the call if needed.
 </p>
 
 <a href="/delivery/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review before sending to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+    Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% endif %}
 {% endblock %}

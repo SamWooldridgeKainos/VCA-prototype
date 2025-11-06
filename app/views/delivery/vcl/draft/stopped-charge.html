@@ -24,10 +24,13 @@
                 <div class="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-prosecutution-or-discontinuance-vrr" name="stoppedCharge" value="no-prosecutution-or-discontinuance-vrr" {{ checked('stoppedCharge','no-prosecutution-or-discontinuance-vrr') }}>
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-prosecutution-or-discontinuance-vrr" name="stoppedCharge" value="no-prosecutution-or-discontinuance-vrr" {{ checked('stoppedCharge','no-prosecutution-or-discontinuance-vrr') }} aria-describedby="stopped-charge-no-prosecutution-or-discontinuance-vrr-hint">
                         <label class="govuk-label govuk-radios__label" for="stopped-charge-no-prosecutution-or-discontinuance-vrr">
-                            No prosecution or discontinuance<!-- and the Victims' Right to Review -->
+                            No prosecution or discontinuance
                         </label>
+                        <div class="govuk-hint govuk-radios__hint" id="stopped-charge-no-prosecutution-or-discontinuance-vrr-hint">
+                            Victims' Right to Review
+                        </div>
                     </div>
 
                     <div class="govuk-radios__item">
@@ -38,10 +41,13 @@
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-evidence-vrr" name="stoppedCharge" value="no-evidence-vrr" {{ checked('stoppedCharge','no-evidence-vrr') }}>
+                        <input type="radio" class="govuk-radios__input" id="stopped-charge-no-evidence-vrr" name="stoppedCharge" value="no-evidence-vrr" {{ checked('stoppedCharge','no-evidence-vrr') }} aria-describedby="stopped-charge-no-evidence-vrr-hint">
                         <label class="govuk-label govuk-radios__label" for="stopped-charge-no-evidence-vrr">
-                            Court offered no evidence<!-- and the Victims' Right to Review -->
+                            Court offered no evidence
                         </label>
+                        <div class="govuk-hint govuk-radios__hint" id="stopped-charge-no-evidence-vrr-hint">
+                            Victims' Right to Review
+                        </div>
                     </div>
 
                     <div class="govuk-radios__item">
