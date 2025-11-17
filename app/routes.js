@@ -897,6 +897,28 @@ router.post('/purpose-answer', function(request, response) {
 	}
 })
 
+
+router.post('/purpose2-answer', function(request, response) {
+
+	var purpose = request.session.data['purpose2']
+	if (purpose == "pre-trial"){
+		response.redirect("/ur/meetings/has-meeting-been-offered")
+	} else {
+		response.redirect("/ur/meetings//purpose")
+	}
+})
+
+
+router.post('/has-meeting-been-offered', function(request, response) {
+
+	var offered = request.session.data['offered']
+	if (offered == "yes"){
+		response.redirect("/ur/meetings/cps-offer/howoffered")
+	} else {
+		response.redirect("/ur/meetings/cps-offer/why-not-offered")
+	}
+})
+
 router.post('/format-answer', function(request, response) {
 
 	var format = request.session.data['format']
@@ -906,6 +928,56 @@ router.post('/format-answer', function(request, response) {
 		response.redirect("/ur/meetings/who-is-attending")
 	}
 })
+
+
+router.post('/howoffered-answer', function(request, response) {
+
+	var howoffered = request.session.data['howoffered']
+	if (howoffered == "letter-post"){
+		response.redirect("/ur/meetings/cps-offer/meeting-offered-post#communications")
+  }
+  else if (howoffered == "letter-email"){
+		response.redirect("/ur/meetings/cps-offer/meeting-offered-email#communications")
+	}
+
+  else if (howoffered == "letter-isva"){
+		response.redirect("/ur/meetings/cps-offer/meeting-offered-isva#communications")
+	}
+
+else if (howoffered == "letter-police"){
+  response.redirect("/ur/meetings/cps-offer/meeting-offered-poilce#communications")
+
+
+	} else {
+		response.redirect("/ur/meetings/cps-offer/meeting-offered-telephone#communications")
+	}
+})
+
+
+router.post('/recordaccepted-answer', function(request, response) {
+
+	var recordaccepted = request.session.data['recordaccepted']
+	if (recordaccepted == "letter-post"){
+		response.redirect("/ur/meetings/cps-offer/meeting-accepted-post#communications")
+  }
+  else if (recordaccepted == "letter-email"){
+		response.redirect("/ur/meetings/cps-offer/meeting-accepted-email#communications")
+	}
+
+  else if (recordaccepted == "letter-isva"){
+		response.redirect("/ur/meetings/cps-offer/meeting-accepted-isva#communications")
+	}
+
+else if (recordaccepted == "letter-police"){
+  response.redirect("/ur/meetings/cps-offer/meeting-accepted-poilce#communications")
+
+
+	} else {
+		response.redirect("/ur/meetings/cps-offer/meeting-accepted-telephone#communications")
+	}
+})
+
+
 
 router.post('/location-answer', function(request, response) {
 
