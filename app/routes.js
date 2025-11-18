@@ -917,6 +917,16 @@ router.post('/purpose3-answer', function(request, response) {
 		response.redirect("/ur/meetings-2//purpose")
 	}
 })
+
+router.post('/purpose4-answer', function(request, response) {
+
+	var purpose4 = request.session.data['purpose4']
+	if (purpose4 == "pre-trial"){
+		response.redirect("/ur/meetings-2/cps-offer/has-victim-accepted")
+	} else {
+		response.redirect("/ur/meetings-2//purpose")
+	}
+  })
 router.post('/has-meeting-been-offered', function(request, response) {
 
 	var offered = request.session.data['offered']
@@ -1071,6 +1081,16 @@ router.post('/did-victim-request2', function(request, response) {
 	var meeting2 = request.session.data['meeting2']
 	if (meeting2 == "yes"){
 		response.redirect("/ur/meetings-2/meeting-date")
+	} else {
+		response.redirect("/ur/meetings-2/meeting-date")
+	}
+})
+
+router.post('/did-victim-request3', function(request, response) {
+
+	var meeting4 = request.session.data['meeting4']
+	if (meeting4 == "yes"){
+		response.redirect("/ur/meetings-2/cps-offer/recordaccepted")
 	} else {
 		response.redirect("/ur/meetings-2/meeting-date")
 	}

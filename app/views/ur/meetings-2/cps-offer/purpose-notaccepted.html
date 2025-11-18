@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/purpose4-answer" method="post">
+
+
+    {{ govukRadios({
+      name: "purpose4",
+      value: data['purpose4'],
+      fieldset: {
+        legend: {
+          text: "What is the purpose of the meeting?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "pre-trial",
+          text: "CPS pre-trial meeting"
+        },
+        {
+          value: "inform-victim",
+          text: "Inform victim about charging decision"
+        },
+        {
+          value: "bereavement",
+          text: "Bereavement meeting"
+        }
+      ]
+    }) }}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      {{ govukButton({
+        text: "Cancel",
+        classes: "govuk-button--secondary"
+      }) }}
+    </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
