@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">How long did the meeting last?</h1>
+
+        <form action="/ur/nfa/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-2">
+
+
+                    <div id="call-time-hint-2" class="govuk-hint">
+                      Enter the duration in hours and minutes. For example, 2 hours 30
+  minutes. 
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time-2">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hou-2">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes-2">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="callMinutes2" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+
+
+            <div class="govuk-button-group">
+
+  <a href="who-attended" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/nfa/record/telephone-call-details.js"></script>
+{% endblock %}

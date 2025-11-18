@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sign in to your account" %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+      <img src="/public/images/cps-logo.png" alt="" style="width: 70px;">
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+      <h1 class="govuk-heading-l">
+        Victim Case Application
+        <p class="govuk-body">
+          <strong>Sign in to your account</strong>
+        </p>
+      </h1>
+
+      <form action="search" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+
+          <label class="govuk-label" for="username">
+            Username
+          </label>
+
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="username" name="username" autocomplete="username" spell_check="false" value="{{ data['password'] }}">
+        </div>
+
+        <div class="govuk-form-group" id="error-form-group">
+
+          <label class="govuk-label" for="password">
+            Password
+          </label>
+
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="password" name="password" autocomplete="current-password" spell_check="false" value="{{ data['password'] }}">
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Sign in
+        </button>
+
+      </form>
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+      <div data-container="" style="border-style: solid; border-width: 1px; padding: 30px;">
+        <p class="govuk-body-s">
+          <strong>Information contained within CMS is processed in accordance with data protection legislation. CMS is classified to hold data up to and including OFFICIAL (SENSITIVE). You must have a legitimate business reason for accessing both the system and any specific case held on the system. All activity is monitored, and misuse or unauthorised use of the system or data therein may result in disciplinary action and/or prosecution.</strong>
+        </p>
+        <p class="govuk-body-s">
+          <strong>As a CMS user you have a responsibility to keep the vital data of victims, defendants and witnesses safe and confidential. If you are made aware of a data breach, you must report it immediately. For information on reporting a breach, go to the Incident Management &amp; Reporting Policy on the Security &amp; Information Assurance intranet hub.   By signing into the system, you are agreeing to the Terms and Conditions of use as set out in the CMS, Crown Court Digital Case System (DCS) and Common Platform Security Policy. You can find the policy on the Security &amp; Information Assurance intranet hub.</strong>
+        </p>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">How was the meeting offer made to Sarah Phillips</h1>
+
+        <form action="/ur/nfa/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="telephone-call-date-2">
+                    Date
+                </label>
+
+                <div class="govuk-hint" id="telephone-call-date-hint-2">
+                    Use the date picker or enter a date. For example, 17/05/2025.
+                </div>
+
+                <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date-2"
+                        name="telephoneCallDate2"
+                        autocomplete="off"
+                        aria-describedby="telephone-call-date-hint-2"
+                        value="{{ data['telephoneCallDate2'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-2">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time
+                    </legend>
+
+                    <div id="call-time-hint-2" class="govuk-hint">
+                      Enter a time in 24-hour format. For example, 14:15.
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time-2">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hou-2">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes-2">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="callMinutes2" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+
+
+            <div class="govuk-button-group">
+
+  <a href="check-answers" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+  </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/nfa/record/telephone-call-details.js"></script>
+{% endblock %}
