@@ -9,22 +9,24 @@
 {% block content %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      <h1 class="govuk-heading-l">Add meeting notes</h1>
+      <h1 class="govuk-heading-l">Upload meeting notes</h1>
 
 
 
   <!--<div id="more-detail-hint" class="govuk-hint">
     Do not include personal or financial information, like your National Insurance number or credit card details
   </div>-->
-
-
-
-<div class="govuk-form-group">
-  <label class="govuk-label" for="more-detail">
-
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="file-upload-1">
+    Upload a file
   </label>
-  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"></textarea>
+  <div
+    class="govuk-drop-zone"
+    data-module="govuk-file-upload">
+    <input class="govuk-file-upload" id="file-upload-1" name="fileUpload1" type="file">
+  </div>
 </div>
+
             <div class="govuk-button-group">
 
   <a href="any-actions-agreed" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
