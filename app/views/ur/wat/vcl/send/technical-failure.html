@@ -1,0 +1,26 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Technical failure" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">
+            Sorry, there is a problem sending the email to {{ data['victimForename'] }} {{ data['victimSurname'] }}
+        </h1>
+        <p class="govuk-body">
+            The email was saved as a draft.
+        </p>
+        <p class="govuk-body">
+            You can <a href="javascript:window.history.back()" class="govuk-link">try to send the email again now</a>.
+        </p>
+        <p class="govuk-body">
+            Alternatively, <a href="#" class="govuk-link">try sending again later</a> from the 'Communications' tab of the victim's record within the Victim Case Application.
+        </p>
+    </div>
+</div>
+{% endblock %}

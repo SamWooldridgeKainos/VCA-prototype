@@ -1,0 +1,259 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Team cases" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Team allocation
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Search for a victim
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              My profile
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">
+        Team cases
+    </h1>
+
+    <!-- Filter and sort controls -->
+    <div class="govuk-form-group govuk-!-margin-bottom-6">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="task-filter">
+            Filter by type
+          </label>
+          <select class="govuk-select" id="task-filter">
+            <option value="all">All tasks</option>
+            <option value="calls">Phone calls</option>
+            <option value="letters">Letters</option>
+            <option value="vcl">VCL scheme</option>
+            <option value="reminders">My reminders</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="sort-order">
+            Sort by
+          </label>
+          <select class="govuk-select" id="sort-order">
+            <option value="urgent">Most urgent first</option>
+            <option value="recent">Most recent first</option>
+            <option value="victim">Victim name</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="date-range">
+            Date range
+          </label>
+          <select class="govuk-select" id="date-range">
+            <option value="today">Today</option>
+            <option value="week">This week</option>
+            <option value="month">This month</option>
+            <option value="all">All dates</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="calendar-sync">
+            Calendar
+          </label>
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" id="calendar-sync">
+            Sync with Outlook
+          </button>
+        </div>
+      </div>
+
+      <div class="moj-filter-layout">
+        <div class="moj-filter-layout__filter">
+            <div class="moj-filter" data-module="moj-filter">
+            <div class="moj-filter__header">
+                <div class="moj-filter__header-title">
+                <h2 class="govuk-heading-m">Filter</h2>
+                </div>
+                <div class="moj-filter__header-action">
+                </div>
+            </div>
+            <div class="moj-filter__content">
+                <div class="moj-filter__selected">
+                <div class="moj-filter__selected-heading">
+                    <div class="moj-filter__heading-title">
+                    <h2 class="govuk-heading-m">Selected filters</h2>
+                    </div>
+                    <div class="moj-filter__heading-action">
+                    <p><a class="govuk-link govuk-link--no-visited-state" href="">Clear filters</a></p>
+                    </div>
+                </div>
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Colour</h3>
+                <ul class="moj-filter-tags">
+                    <li><a class="moj-filter__tag" href="#"><span class="govuk-visually-hidden">Remove this filter</span> Blue</a></li>
+                    <li><a class="moj-filter__tag" href="#"><span class="govuk-visually-hidden">Remove this filter</span> Yellow</a></li>
+                </ul>
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Status</h3>
+                <ul class="moj-filter-tags">
+                    <li><a class="moj-filter__tag" href="#"><span class="govuk-visually-hidden">Remove this filter</span> Complete</a></li>
+                </ul>
+                </div>
+                <div class="moj-filter__options">
+                <button type="submit" class="govuk-button" data-module="govuk-button">
+                    Apply filters
+                </button>
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--m" for="keywords">
+                    Keywords
+                    </label>
+                    <input class="govuk-input" id="keywords" name="keywords" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Colour
+                    </legend>
+                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="type" name="type" type="checkbox" value="1" checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="type">
+                            Blue (18)
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="type-2" name="type" type="checkbox" value="2" checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="type-2">
+                            Yellow (5)
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="type-3" name="type" type="checkbox" value="3">
+                        <label class="govuk-label govuk-checkboxes__label" for="type-3">
+                            Red (2)
+                        </label>
+                        </div>
+                    </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Status
+                    </legend>
+                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="status" name="status" type="checkbox" value="1" checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="status">
+                            Complete (5)
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="status-2" name="status" type="checkbox" value="2">
+                        <label class="govuk-label govuk-checkboxes__label" for="status-2">
+                            Incomplete (3)
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="status-3" name="status" type="checkbox" value="3">
+                        <label class="govuk-label govuk-checkboxes__label" for="status-3">
+                            In progress (13)
+                        </label>
+                        </div>
+                    </div>
+                    </fieldset>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="moj-filter-layout__content">
+            <div class="moj-action-bar">
+            <div class="moj-action-bar__filter"></div>
+            <div class="moj-button-menu" data-module="moj-button-menu">
+                <button type="submit" class="govuk-button moj-button-menu__item govuk-button--secondary govuk-button--secondary" data-module="govuk-button">
+                Action 1
+                </button>
+                <button type="submit" class="govuk-button moj-button-menu__item govuk-button--secondary govuk-button--secondary" data-module="govuk-button">
+                Action 2
+                </button>
+            </div>
+            </div>
+            <div class="moj-scrollable-pane">
+                <table class="govuk-table govuk-table--striped govuk-!-margin-top-6">
+                    <caption class="govuk-table__caption govuk-table__caption--m">
+                    Tasks listed by urgency
+                    </caption>
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Victim</th>
+                            <th scope="col" class="govuk-table__header">Task type</th>
+                            <th scope="col" class="govuk-table__header">Due date</th>
+                            <th scope="col" class="govuk-table__header">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Jane Doe</td>
+                            <td class="govuk-table__cell">Phone call</td>
+                            <td class="govuk-table__cell">15/06/2024</td>
+                            <td class="govuk-table__cell">
+                                <a href="#" class="govuk-link">Record call</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">John Smith</td>
+                            <td class="govuk-table__cell">Letter</td>
+                            <td class="govuk-table__cell">15/06/2024</td>
+                            <td class="govuk-table__cell">
+                                <a href="#" class="govuk-link">View letter</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Alice Johnson</td>
+                            <td class="govuk-table__cell">VCL Scheme</td>
+                            <td class="govuk-table__cell">15/06/2024</td>
+                            <td class="govuk-table__cell">
+                                <a href="#" class="govuk-link">View case</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

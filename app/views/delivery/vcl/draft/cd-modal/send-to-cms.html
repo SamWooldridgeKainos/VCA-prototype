@@ -37,11 +37,11 @@
             <button type="button" class="govuk-button govuk-button--secondary" id="send-to-cms-modal-cancel" data-module="govuk-button">
               Cancel
             </button>
-            {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
+            {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "email") %}
             <a href="/delivery/vcl/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
-            {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "Post") %}
+            {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "post") %}
             <a href="/delivery/vcl/victim-record?vclStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=vcl#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
