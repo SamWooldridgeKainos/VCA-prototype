@@ -14,5 +14,9 @@
     "govuk-prototype-kit": "13.18.1",
     "jquery": "3.7.1",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0"
   }
 }

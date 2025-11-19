@@ -71,26 +71,26 @@
                         {% include "/delivery/vcl/victim-record/vcl/draft/approved-to-send.html" %}
 
                         <!-- Record -->
-                        {% elif (data['vclStatus'] == "not-yet-recorded") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/not-yet-recorded.html" %}
+                        {% elif (data['vclStatus'] == "before-call-1") %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/before-call-1.html" %}
 
                         {% elif (data['vclStatus'] == "informed-after-call-1") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/informed-after-call-1.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/informed-after-call-1.html" %}
 
                         {% elif (data['vclStatus'] == "informed-after-call-2") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/informed-after-call-2.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/informed-after-call-2.html" %}
 
                         {% elif (data['vclStatus'] == "informed-after-call-3") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/informed-after-call-3.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/informed-after-call-3.html" %}
 
                         {% elif (data['vclStatus'] == "after-call-attempt-1") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/after-call-attempt-1.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/after-call-attempt-1.html" %}
 
                         {% elif (data['vclStatus'] == "after-call-attempt-2") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/after-call-attempt-2.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/after-call-attempt-2.html" %}
 
                         {% elif (data['vclStatus'] == "after-call-attempt-3") %}
-                        {% include "/delivery/vcl/victim-record/vcl/record/after-call-attempt-3.html" %}
+                        {% include "/delivery/vcl/victim-record/vcl/call/after-call-attempt-3.html" %}
 
                         <!-- Send follow-up email -->
                         {% elif (data['vclStatus'] == "fu-email-after-call-1") %}

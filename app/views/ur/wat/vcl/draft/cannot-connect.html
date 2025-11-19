@@ -1,0 +1,24 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Cannot connect to Correspondence Drafter" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">
+            Sorry, there is a problem
+        </h1>
+        <p class="govuk-body">
+            We cannot connect to the letter drafting tool right now.
+        </p>
+        <p class="govuk-body">
+            Try again later.
+        </p>
+        <a href="/ur/wat/vcl/victim-record#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+    </div>
+</div>
+{% endblock %}

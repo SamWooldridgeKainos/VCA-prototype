@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Import Screenshots</title>
+    <style>
+      body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 12px; }
+      .files { margin-top: 8px; }
+      .btn { margin-top: 12px; }
+      .preview { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+      .preview img { max-width:140px; max-height:100px; object-fit:cover; border:1px solid #ddd; padding:2px }
+    </style>
+  </head>
+  <body>
+    <h3>Import screenshots onto the FigJam board</h3>
+    <p>Select your screenshot files (PNG/JPG). They'll be uploaded into the file and placed on the board.</p>
+    <input id="files" class="files" type="file" multiple accept="image/*" />
+
+    <div class="preview" id="preview"></div>
+
+    <div>
+      <button id="import" class="btn">Import selected images</button>
+      <button id="cancel" class="btn">Cancel</button>
+    </div>
+
+    <script>
+      const filesEl = document.getElementById('files');
+      const preview = document.getElementById('preview');
+      const importBtn = document.getElementById('import');
+      const cancelBtn = document.getElementById('cancel');
+
+      let fileItems = [];
+
+      filesEl.addEventListener('change', async (ev) => {
+        preview.innerHTML = '';
+        fileItems = [];
+        const fileList = ev.target.files;
+        for (const file of fileList) {
+          const reader = new FileReader();
+          await new Promise((resolve) => {
+            reader.onload = () => {
+              const dataUrl = reader.result;
+              const img = new Image();
+              img.onload = () => {
+                const w = img.naturalWidth;
+                const h = img.naturalHeight;
+                fileItems.push({ name: file.name, dataUrl, width: w, height: h });
+                const thumb = document.createElement('img');
+                thumb.src = dataUrl;
+                thumb.title = `${file.name} (${w}×${h})`;
+                preview.appendChild(thumb);
+                resolve();
+              };
+              img.src = dataUrl;
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      });
+
+      importBtn.onclick = () => {
+        if (fileItems.length === 0) {
+          parent.postMessage({ pluginMessage: { type: 'no-files' } }, '*');
+          return;
+        }
+        parent.postMessage({ pluginMessage: { type: 'import-images', images: fileItems } }, '*');
+      };
+
+      cancelBtn.onclick = () => parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    </script>
+  </body>
+</html>
