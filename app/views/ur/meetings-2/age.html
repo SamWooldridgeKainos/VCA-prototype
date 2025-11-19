@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/ur/nfa/record/next-attempt-moc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+          What is the purpose of the meeting?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-phone" name="attemptToContactAgain" value="Call" {{ checked('attemptToContactAgain','Phone') }}>
+              <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-phone">
+              CPS pre trial meeting
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-email" name="attemptToContactAgain" value="Email" {{ checked('attemptToContactAgain','Email') }} aria-describedby="attempt-to-contact-again-email-hint">
+              <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-email">
+              Inform victim about charging decision
+              </label>
+            <!--  <div class="govuk-hint govuk-radios__hint" id="attempt-to-contact-again-email-hint">
+                Only choose if listed as an alternative method of contact
+              </div>-->
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-post" name="attemptToContactAgain" value="Post" {{ checked('attemptToContactAgain','Post') }} aria-describedby="attempt-to-contact-again-post-hint">
+              <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-post">
+              Bereavement meeting
+              </label>
+            <!--  <div class="govuk-hint govuk-radios__hint" id="attempt-to-contact-again-post-hint">
+                Only choose if listed as an alternative method of contact
+              </div>-->
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/nfa/record/next-attempt-moc.js"></script>
+{% endblock %}
