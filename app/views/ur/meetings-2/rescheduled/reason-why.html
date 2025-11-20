@@ -12,18 +12,85 @@
 
 
 
-          <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="more-detail">
-    What is the reason for rescheduling the meeting?
-    </label>
-  </h1>
-  <!--<div id="more-detail-hint" class="govuk-hint">
-    Do not include personal or financial information, like your National Insurance number or credit card details
-  </div>-->
-  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint"></textarea>
-</div>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
+{% set emailHtml %}
+{{ govukInput({
+  id: "contact-by-email",
+  name: "contactByEmail",
+  type: "email",
+  autocomplete: "email",
+  spellcheck: false,
+  classes: "govuk-!-width-one-third",
+  label: {
+    text: "Email address"
+  }
+}) }}
+{% endset -%}
+
+{% set phoneHtml %}
+{{ govukInput({
+  id: "contact-by-phone",
+  name: "contactByPhone",
+  type: "tel",
+  autocomplete: "tel",
+  classes: "govuk-!-width-one-third",
+  label: {
+    text: "Phone number"
+  }
+}) }}
+{% endset -%}
+
+{% set textHtml %}
+{{ govukTextarea ({
+  id: "contact-by-text",
+  name: "contactByText",
+  type: "tel",
+  autocomplete: "tel",
+  classes: "govuk-input--width-20",
+  label: {
+    text: "Provide details"
+  }
+}) }}
+{% endset -%}
+
+{{ govukRadios({
+  name: "contact",
+  fieldset: {
+    legend: {
+      text: "What is the reason for rescheduling the meeting?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "Select one option"
+  },
+  items: [
+    {
+      value: "email",
+      text: "Victim not available"
+
+
+    },
+    {
+      value: "phone",
+      text: "Attendee not available"
+    },
+    {
+      value: "phone",
+      text: "Mistake made in the meeting date"
+    },
+    {
+      value: "text",
+      text: "Other",
+      conditional: {
+        html: textHtml
+      }
+    }
+  ]
+}) }}
 
             <div class="govuk-button-group">
 

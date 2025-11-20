@@ -983,8 +983,8 @@ router.post('/ur/wat/vcl/call/next-attempt-moc-answer', function(request, respon
         } else {
             response.redirect("/ur/wat/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=email&subTab=vcl#communications")
         }
-        
-        
+
+
     } else {
         response.redirect("/ur/wat/vcl/victim-record?vclStatus=draft-ready-to-send&attemptToContactAgain=post&subTab=vcl#communications")
     }
@@ -1209,17 +1209,17 @@ router.post('/location2-answer', function(request, response) {
 
 	var location2 = request.session.data['location2']
 	if (location2 == "cps"){
-		response.redirect("/ur/meetings-2/cps-location")
+		response.redirect("/ur/meetings-2/who-is-attending")
   }
-  else if (location == "magistrate"){
-		response.redirect("/ur/meetings-2/magistrate-location")
+  else if (location2 == "magistrate"){
+		response.redirect("/ur/meetings-2/who-is-attending")
 	}
 
-else if (location == "crown"){
-  response.redirect("/ur/meetings-2/crown-location")
+else if (location2 == "crown"){
+  response.redirect("/ur/meetings-2/who-is-attending")
 
 	} else {
-		response.redirect("/ur/meetings-2/police-station")
+		response.redirect("/ur/meetings-2/who-is-attending")
 	}
 })
 
@@ -1271,7 +1271,7 @@ router.post('/did-victim-request3', function(request, response) {
 	if (meeting4 == "yes"){
 		response.redirect("/ur/meetings-2/cps-offer/recordaccepted")
 	} else {
-		response.redirect("/ur/meetings-2/meeting-date")
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-post#communications")
 	}
 })
 

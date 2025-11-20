@@ -10,8 +10,63 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/location2-answer" method="post">
+  <form class="form" action="/location2-answer" method="post">
 
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {% set emailHtml %}
+    {{ govukInput({
+      id: "contact-by-email",
+      name: "contactByEmail",
+      type: "email",
+      autocomplete: "email",
+      spellcheck: false,
+      classes: "govuk-input--width-20",
+      label: {
+        text: "Which CPS location will the meeting be held?"
+      }
+    }) }}
+    {% endset -%}
+
+    {% set phoneHtml %}
+    {{ govukInput({
+      id: "contact-by-phone",
+      name: "contactByPhone",
+      type: "tel",
+      autocomplete: "tel",
+      classes: "govuk-input--width-20",
+      label: {
+        text: "Which magistrates' court will the meeting be held?"
+      }
+    }) }}
+    {% endset -%}
+
+    {% set textHtml %}
+    {{ govukInput({
+      id: "contact-by-text",
+      name: "contactByText",
+      type: "tel",
+      autocomplete: "tel",
+      classes: "govuk-input--width-20",
+      label: {
+        text: "Which crown court will the meeting be held?"
+      }
+    }) }}
+    {% endset -%}
+
+    {% set text2Html %}
+    {{ govukInput({
+      id: "contact-by-text2",
+      name: "contactByText2",
+      type: "tel",
+      autocomplete: "tel",
+      classes: "govuk-input--width-20",
+      label: {
+        text: "Which police station will the meeting be held?"
+      }
+    }) }}
+    {% endset -%}
 
     {{ govukRadios({
       name: "location2",
@@ -23,25 +78,42 @@
           classes: "govuk-fieldset__legend--l"
         }
       },
+      hint: {
+        text: ""
+      },
       items: [
         {
           value: "cps",
-          text: "CPS location"
+          text: "CPS location",
+          conditional: {
+            html: emailHtml
+          }
         },
         {
           value: "magistrate",
-          text: "Magistrates' court"
+          text: "Magistrates' court",
+          conditional: {
+            html: phoneHtml
+          }
         },
         {
           value: "crown",
-          text: "Crown court"
+          text: "Crown court",
+          conditional: {
+            html: textHtml
+          }
         },
         {
           value: "police",
-          text: "Police station"
+          text: "Police station",
+          conditional: {
+            html: text2Html
+          }
         }
       ]
     }) }}
+
+
 
     <div class="govuk-button-group">
       {{ govukButton({
