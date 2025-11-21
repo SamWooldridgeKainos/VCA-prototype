@@ -28,11 +28,10 @@
     </h2>
   </div>
   <div class="govuk-notification-banner__content">
-  <h3 class="govuk-notification-banner__heading"> CPS pre-trial meeting outcome logged</h3>
+  <h3 class="govuk-notification-banner__heading"> CPS pre-trial meeting offer accepted</h3>
 
   </div>
 </div>
-
 
     {% if (data['success'] == "yes") %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -144,7 +143,7 @@ Only share case information with Sarah Phillips if they can correctly answer the
 
         {% else %}
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="#">Pre-charge decision</a>
+            <a class="moj-sub-navigation__link" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
         </li>
 
         <li class="moj-sub-navigation__item">
@@ -155,156 +154,74 @@ Only share case information with Sarah Phillips if they can correctly answer the
         {% endif %}
     </ul>
 </nav>
-<p class="govuk-body">Arranged for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>
+<p class="govuk-body">Arranged for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 0
+<br/>
+Offered to {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>
 
 <a href="../purpose" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Offer or arrange a meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
 </a>
-
-
-
 
 <br/>
 <br/>
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-      CPS pre-trial meeting outcome logged
+      CPS pre-trial meeting offer accepted
     </h2>
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-    Duration of the meeting
+  How meeting was accepted
         </dt>
         <dd class="govuk-summary-list__value">
-      3 hours 30 minutes
+    Letter by email
         </dd>
 
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-      Attendees
+  Date meeting was accepted
         </dt>
         <dd class="govuk-summary-list__value">
-          Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+        11 April 2025
         </dd>
 
       </div>
-    
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-      Actions agreed
-        </dt>
-        <dd class="govuk-summary-list__value">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum.
-        </dd>
-
-      </div>
-
 
 
     </dl>
 <br/>
+<br/>
+    <div class="govuk-button-group">
 
-
-<details class="govuk-details">
-<summary class="govuk-details__summary">
-  <span class="govuk-details__summary-text">
-Arranged meetings
-  </span>
-</summary>
-<div class="govuk-details__text">
-
-  <div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-      <h2 class="govuk-summary-card__title">
-      CPS pre-trial meeting arranged
-      </h2>
-    </div>
-    <div class="govuk-summary-card__content">
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-        Date and time
-          </dt>
-          <dd class="govuk-summary-list__value">
-            11 April 2025 at 11:45am
-          </dd>
-
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-          How meeting will take place
-          </dt>
-          <dd class="govuk-summary-list__value">
-           In person
-          </dd>
-
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-          Location
-          </dt>
-          <dd class="govuk-summary-list__value">
-    Birmingham Magistrates’ Court
-          </dd>
-
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-        Attendees
-          </dt>
-          <dd class="govuk-summary-list__value">
-          (Chair person) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
-          </dd>
-
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-  Support needs
-          </dt>
-          <dd class="govuk-summary-list__value">
-            Interpreter needed: No, Person for support: Yes
-  <br>
-        Other support: Victim will need a room with step free access
-          </dd>
-
-        </div>
-
-      </dl>
-  <br/>
-  <br/>
-
-
-    </div>
-
-
+<a href="../did-victim-request.html" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
 
 </div>
-</details>
+
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-    Offered meeting
+    Offered meetings
     </span>
   </summary>
   <div class="govuk-details__text">
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">
-          CPS pre-trial meeting offer accepted
+          CPS pre-trial meeting offered
         </h2>
       </div>
       <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-        How meeting offer was accepted
+      How meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
         Letter by post
@@ -313,7 +230,7 @@ Arranged meetings
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-      Date meeting was accepted
+      Date meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
             11 April 2025
@@ -322,55 +239,13 @@ Arranged meetings
           </div>
 
 
-        </dl>
-
-
-
-
-
-
-      </div>
-    </div>
-      <div class="govuk-summary-card">
-        <div class="govuk-summary-card__title-wrapper">
-          <h2 class="govuk-summary-card__title">
-            CPS pre-trial meeting offered
-          </h2>
-        </div>
-        <div class="govuk-summary-card__content">
-          <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-          How was meeting offered
-              </dt>
-              <dd class="govuk-summary-list__value">
-          Letter by post
-              </dd>
-
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-        Date meeting was offered
-              </dt>
-              <dd class="govuk-summary-list__value">
-              11 April 2025
-              </dd>
-
-            </div>
-
-
-          </dl>
+        </dl>  </div>
 </details>
   </div>
 
 
 
 
-
-</div>
-
-
-  </div>
 
 </div>
 

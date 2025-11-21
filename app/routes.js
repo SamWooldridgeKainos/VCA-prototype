@@ -1152,11 +1152,11 @@ router.post('/howoffered-answer', function(request, response) {
 	}
 
 else if (howoffered == "letter-police"){
-  response.redirect("/ur/meetings-2/cps-offer/meeting-offered-poilce#communications")
+  response.redirect("/ur/meetings-2/cps-offer/meeting-offered-police#communications")
 
 
 	} else {
-		response.redirect("/ur/meetings/-2cps-offer/meeting-offered-telephone#communications")
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-telephone#communications")
 	}
 })
 
@@ -1176,13 +1176,37 @@ router.post('/recordaccepted-answer', function(request, response) {
 	}
 
 else if (recordaccepted == "letter-police"){
-  response.redirect("/ur/meetings-2/cps-offer/meeting-accepted-poilce#communications")
+  response.redirect("/ur/meetings-2/cps-offer/meeting-accepted-police#communications")
 
 
 	} else {
 		response.redirect("/ur/meetings-2/cps-offer/meeting-accepted-telephone#communications")
 	}
 })
+
+router.post('/recorddeclined-answer', function(request, response) {
+
+	var recorddeclined = request.session.data['recorddeclined']
+	if (recorddeclined == "letter-post"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-declined-post#communications")
+  }
+  else if (recorddeclined == "letter-email"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-declined-email#communications")
+	}
+
+  else if (recorddeclined == "letter-isva"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-declined-isva#communications")
+	}
+
+else if (recorddeclined == "letter-police"){
+  response.redirect("/ur/meetings-2/cps-offer/meeting-declined-police#communications")
+
+
+	} else {
+		response.redirect("/ur/meetings-2/cps-offer/meeting-declined-telephone#communications")
+	}
+})
+
 
 
 
@@ -1290,8 +1314,8 @@ router.post('/log-outcome/any-actions-agreed2-answer', function(request, respons
 
 	var actionsAgreed2 = request.session.data['actionsAgreed2']
 	if (actionsAgreed2 == "yes"){
-		response.redirect("/ur/meetings-2/log-outcome/actions")
-	} else {
 		response.redirect("/ur/meetings-2/log-outcome/check-answers")
+	} else {
+		response.redirect("/ur/meetings-2/log-outcome/check-answers-no")
 	}
 })
