@@ -68,6 +68,20 @@
     }) }}
     {% endset -%}
 
+    {% set text3Html %}
+    {{ govukTextarea({
+      id: "contact-by-text2",
+      name: "contactByText2",
+      type: "text",
+      autocomplete: "tel",
+    classes: "govuk-input--width-20",
+      label: {
+        text: "Where will the meeting be held?"
+      }
+    }) }}
+    {% endset -%}
+
+
     {{ govukRadios({
       name: "location2",
       value: data['location2'],
@@ -108,6 +122,13 @@
           text: "Police station",
           conditional: {
             html: text2Html
+          }
+        },
+        {
+          value: "police",
+          text: "Other",
+          conditional: {
+            html: text3Html
           }
         }
       ]

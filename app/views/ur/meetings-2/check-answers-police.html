@@ -11,7 +11,7 @@
   <div class="govuk-grid-column-one-half">
 
 
-    <h1 class="govuk-heading-l">Check your answers before arranging the meeting</h1>
+    <h1 class="govuk-heading-l">Check your answers before confirming details</h1>
         <!--   <h2 class="govuk-heading-m">Personal details</h2>-->
            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
              <div class="govuk-summary-list__row">
@@ -19,7 +19,7 @@
                  Name
                </dt>
                <dd class="govuk-summary-list__value">
-                 Sarah Philips
+                 Sarah Phillips
                </dd>
                <dd class="govuk-summary-list__actions">
                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
@@ -59,22 +59,11 @@
                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> address</span></a>
                </dd>
              </div>
-             <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-            Where meetng will be held
-               </dt>
-               <dd class="govuk-summary-list__value">
-            Magistrates’ court
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
 
-             </div>
 
              <div class="govuk-summary-list__row">
                <dt class="govuk-summary-list__key">
-      Magistrates’ court location
+      Where meetng will be held
                </dt>
                <dd class="govuk-summary-list__value">
             Birmingham Magistrates’ Court
@@ -134,15 +123,13 @@
 
 
            </dl>
-           <h2 class="govuk-heading-m">Now arrange the meeting</h2>
-           <p class="govuk-body">This should only be arranged with {{ data['victimForename'] }} {{ data['victimSurname'] }} by the police.</p>
-           <form action="/form-handler" method="post" novalidate>
+        
 
 
     <div class="govuk-button-group">
 
 <a href="invite-sent#communications" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-Confirm meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+Confirm details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
 </a>
 <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
 Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
