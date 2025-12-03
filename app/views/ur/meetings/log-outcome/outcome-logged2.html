@@ -1,0 +1,288 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block beforeContent %}
+<div class="moj-page-header-actions govuk-!-margin-bottom-0">
+  <div class="moj-page-header-actions__title">
+    <p class="govuk-body govuk-!-margin-bottom-0">
+      <a href="#" class="govuk-back-link">Search for another victim</a>
+    </p>
+  </div>
+
+  <div class="moj-page-header-actions__actions">
+    <a href="/delivery/nfa/letter-dashboard" class="govuk-link">Letter dashboard</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+  <h3 class="govuk-notification-banner__heading"> CPS pre-trial meeting outcome logged</h3>
+
+  </div>
+</div>
+
+    {% if (data['success'] == "yes") %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if (data['successReason'] == "email-address-updated") %}
+          Victim email address updated
+          {% elif (data['successReason'] == "pmoc-updated") %}
+          Victim's preferred method of contact updated
+          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+          First call attempt logged
+          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+          Second call attempt logged
+          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+          Third call attempt logged
+          {% elif (data['successReason'] == "draft-approved-to-send") %}
+          Letter sent to CMS and approved to send
+          {% endif %}
+        </h3>
+        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+      </div>
+    </div>
+
+    {% else %}
+    {% endif %}
+
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
+      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+    </h1>
+    <p class="govuk-body">
+      Case URN: {{ data['caseUrn'] }}
+    </p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+      <h2 class="govuk-tabs__title">Contents</h2>
+
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#summary">Summary</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="summary">
+        {% include "/delivery/nfa/victim-record/summary.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+        {% include "/delivery/nfa/victim-record/victim-details.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+        {% include "/delivery/nfa/victim-record/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+        <div class="govuk-grid-row">
+     <div class="govuk-grid-column-two-thirds"><!-- Communication area Starts -->
+      <h2 class="govuk-heading-l">Communications</h2>
+
+      <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+Only share case information with Sarah Phillips if they can correctly answer the security questions.
+  </strong>
+</div>
+
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+    <ul class="moj-sub-navigation__list">
+        {% if (data['subTab'] == "ptm") %}
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="#">Pre-charge decision</a>
+        </li>
+
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
+        </li>
+
+
+        {% elif (data['subTab'] == "vcl") %}
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
+        </li>
+
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="#">CPS meetings</a>
+        </li>
+
+
+        {% else %}
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" href="#">Pre-charge decision</a>
+        </li>
+
+        <li class="moj-sub-navigation__item">
+            <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
+        </li>
+
+        {% endif %}
+    </ul>
+</nav>
+<p class="govuk-body">Meetings arranged
+for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>
+
+<a href="../purpose" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Arrange a meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+
+
+
+
+<br/>
+<br/>
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+    CPS pre-trial meeting outcome logged
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+    Meeting took place
+        </dt>
+        <dd class="govuk-summary-list__value">
+    No
+        </dd>
+
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+  Reason why
+        </dt>
+        <dd class="govuk-summary-list__value">
+Victim decided not to attend        </dd>
+
+      </div>
+
+
+
+    </dl>
+<br/>
+
+
+
+<details class="govuk-details">
+<summary class="govuk-details__summary">
+  <span class="govuk-details__summary-text">
+  Meeting arranged
+  </span>
+</summary>
+<div class="govuk-details__text">
+
+  <div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+      <h2 class="govuk-summary-card__title">
+      CPS pre-trial meeting arranged
+      </h2>
+    </div>
+    <div class="govuk-summary-card__content">
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+        Date and time
+          </dt>
+          <dd class="govuk-summary-list__value">
+            11 April 2025 at 11:45am
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          How meeting will take place
+          </dt>
+          <dd class="govuk-summary-list__value">
+           In person
+          </dd>
+
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          location
+          </dt>
+          <dd class="govuk-summary-list__value">
+    Birmingham Magistrates’ Court
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+        Attendees
+          </dt>
+          <dd class="govuk-summary-list__value">
+          (Chair person) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+          </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+  Support need
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Interpreter needed: No, Person for support: Yes
+  <br>
+        Other support: Victim will need a room with step free access
+          </dd>
+
+        </div>
+
+      </dl>
+  <br/>
+  <br/>
+
+
+    </div>
+
+
+
+</div>
+</details>
+  </div>
+
+</div>
+
+</div>
+</div><!-- Communication area Ends -->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

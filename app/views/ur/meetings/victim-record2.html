@@ -1,0 +1,179 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block beforeContent %}
+<div class="moj-page-header-actions govuk-!-margin-bottom-0">
+  <div class="moj-page-header-actions__title">
+    <p class="govuk-body govuk-!-margin-bottom-0">
+      <a href="#" class="govuk-back-link">Search for another victim</a>
+    </p>
+  </div>
+
+  <div class="moj-page-header-actions__actions">
+    <a href="/ur/vcl/letter-dashboard" class="govuk-link">Letter dashboard</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if (data['case-locked'] == "by-someone-else") %}
+    {% include "/ur/vcl/case-locked/banner/by-someone-else.html" %}
+    {% elif (data['case-locked'] == "self-locked") %}
+    {% include "/ur/vcl/case-locked/banner/self-locked.html" %}
+    {% else %}
+    {% endif %}
+
+    {% if (data['success'] == "yes") %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if (data['successReason'] == "email-address-updated") %}
+          Victim email address updated
+          {% elif (data['successReason'] == "pmoc-updated") %}
+          Victim's preferred method of contact updated
+          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+          Telephone call 1 logged
+          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+          Telephone call 2 logged
+          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+          Telephone call 3 logged
+          {% elif (data['successReason'] == "draft-approved-to-send") %}
+          Letter sent to CMS and approved to send
+          {% endif %}
+        </h3>
+        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+      </div>
+    </div>
+
+    {% else %}
+    {% endif %}
+
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
+      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+    </h1>
+    <p class="govuk-body">
+      Case URN: {{ data['caseUrn'] }}
+    </p>
+    <!-- <div class="govuk-grid-column-one-half">
+          {% if (data['pmoc'] == "email") %}
+          {% if (data['nfaStatus'] == "email-delivered") %}
+          {% else %}
+          <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+              </strong>
+          </div>
+          {% endif %}
+
+          {% elif (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+              {% if (data['victimInformed1'] == "Yes") or (data['victimInformed2'] == "Yes") or (data['victimInformed3'] == "Yes") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "draft-approved-to-send") %}
+              {% else %}
+              <div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                      <span class="govuk-visually-hidden">Warning</span>
+                      Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+                  </strong>
+              </div>
+              {% endif %}
+          {% elif (data['pmoc'] == "post") or (data['pmoc'] == "via-police") or (data['pmoc'] == "via-isva") %}
+          {% else %}
+          <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Preferred method of contact unknown
+                  <p class="govuk-body govuk-!-margin-bottom-0">
+                      To send or record a communication, confirm the victim's contact preferences, then <a href="/ur/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+                  </p>
+              </strong>
+          </div>
+          {% endif %}
+    </div> -->
+
+    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+      <h2 class="govuk-tabs__title">Contents</h2>
+
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#summary">Summary</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+        <!-- <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#pcd">PCD</a>
+        </li> -->
+        <!-- <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#first-hearing">First hearing</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#ptph">PTPH</a>
+        </li> -->
+        <!-- <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#pre-trial">Pre-trial</a>
+        </li> -->
+        <!-- <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#trial">Trial</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-finalised">Case finalised</a>
+        </li> -->
+        <!-- <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="&subTab=vcl#communications">VCL</a>
+        </li> -->
+      </ul>
+
+      <div class="govuk-tabs__panel" id="summary">
+        {% include "/ur/vcl/victim-record/summary.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+        {% include "/ur/vcl/victim-record/victim-details.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+        {% include "/ur/vcl/victim-record/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+        {% include "/ur/meetings/communications.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pcd">
+        {% include "/ur/vcl/victim-record/pcd/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pre-trial">
+        {% include "/ur/vcl/victim-record/pre-trial/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="vcl">
+        {% include "/ur/vcl/victim-record/vcl/index.html" %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/ur/vcl/victim-record.js"></script>
+{% endblock %}

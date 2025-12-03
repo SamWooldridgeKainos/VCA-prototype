@@ -1,0 +1,194 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Create a reminder" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="#">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Team cases
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Search for a victim
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              My profile
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/dashboard-concepts/my-tasks">Tasks</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">Create a reminder</li>
+  </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">Create a reminder</h1>
+
+        <form action="#" method="post">
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="task-name">
+                    Task name
+                </label>
+                <input class="govuk-input" id="task-name" name="task-name" type="text">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victim-name">
+                    Victim name (optional)
+                </label>
+                <input class="govuk-input" id="task-type" name="task-type" type="text">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="task-note">
+                    Note (optional)
+                </label>
+                <textarea class="govuk-textarea" id="task-note" name="task-note" rows="3"></textarea>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="team-members-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Team members
+                    </legend>
+                    <div id="team-members-hint" class="govuk-hint">
+                        Start typing to find a team member — select to add them to the task. Use the Remove button to unassign.
+                    </div>
+
+                    <!-- Autocomplete container -->
+                    <div id="team-members-autocomplete" class="govuk-!-margin-top-2"></div>
+
+                    <!-- Selected items and hidden inputs will be appended here -->
+                    <div id="selected-team-members" class="govuk-!-margin-top-2"></div>
+                </fieldset>
+            </div>
+
+            <!-- accessible-autocomplete CSS + JS (CDN) -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js"></script>
+
+            <script>
+            (function () {
+                var team = [
+                { label: 'John Smith', value: 'john-smith' },
+                { label: 'Sarah Wilson', value: 'sarah-wilson' },
+                { label: 'Mike Johnson', value: 'mike-johnson' },
+                { label: 'Emma Brown', value: 'emma-brown' }
+                ];
+
+                var container = document.querySelector('#team-members-autocomplete');
+                var selectedContainer = document.querySelector('#selected-team-members');
+
+                function addSelected(name, value) {
+                // wrapper for tag + remove button
+                var item = document.createElement('div');
+                item.className = 'govuk-!-display-inline-block govuk-!-margin-right-2';
+                item.style.marginBottom = '6px';
+
+                var tag = document.createElement('span');
+                tag.className = 'govuk-tag';
+                tag.textContent = name;
+
+                var removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'govuk-button govuk-button--secondary govuk-!-margin-left-1';
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function () {
+                    // remove hidden input and tag container
+                    var hidden = selectedContainer.querySelector('input[type="hidden"][value="' + value + '"]');
+                    if (hidden) hidden.parentNode.removeChild(hidden);
+                    if (item.parentNode) item.parentNode.removeChild(item);
+                });
+
+                item.appendChild(tag);
+                item.appendChild(removeBtn);
+                selectedContainer.appendChild(item);
+
+                // hidden input to submit selected values
+                var hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'team-members[]';
+                hiddenInput.value = value;
+                selectedContainer.appendChild(hiddenInput);
+                }
+
+                // Initialize accessible-autocomplete
+                accessibleAutocomplete({
+                element: container,
+                id: 'team-members-autocomplete-input',
+                source: team.map(function (t) { return t.label; }),
+                showAllValues: true,
+                minLength: 0,
+                confirmOnBlur: false,
+                onConfirm: function (selected) {
+                    if (!selected) return;
+                    var item = team.find(function (t) { return t.label === selected; });
+                    if (!item) return;
+                    // prevent duplicates
+                    if (selectedContainer.querySelector('input[type="hidden"][value="' + item.value + '"]')) return;
+                    addSelected(item.label, item.value);
+                    // clear the autocomplete input
+                    var input = container.querySelector('input');
+                    if (input) input.value = '';
+                }
+                });
+
+                // Ensure the generated input references the hint for accessibility
+                setTimeout(function () {
+                var input = container.querySelector('input');
+                if (input) input.setAttribute('aria-describedby', 'team-members-hint');
+                }, 0);
+            })();
+            </script>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Create reminder
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

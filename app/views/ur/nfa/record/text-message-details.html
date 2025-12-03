@@ -15,7 +15,7 @@
         <p class="govuk-body">
             If a text message was sent after being unable to inform the victim by telephone, enter the details.
         </p>
-        <form action="/ur/nfa/record/text-message-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+        <form action="/ur/nfa/call/text-message-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
             <div class="govuk-form-group" id="error-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -180,5 +180,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/ur/nfa/record/text-message-details.js"></script>
+<script src="/public/javascripts/ur/nfa/call/text-message-details.js"></script>
 {% endblock %}

@@ -1,0 +1,254 @@
+{% extends "layouts/main.html" %}
+{% set pageName="My VCA Dashboard" %}
+
+{% block beforeContent %}
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">Concept</strong>
+    <span class="govuk-phase-banner__text">This is a design concept for a personalized VCA dashboard.</span>
+  </p>
+</div>
+
+<!-- Add notifications dropdown -->
+<div class="app-notifications">
+  <button class="app-notifications__button" aria-haspopup="true" aria-expanded="false" aria-controls="notifications-menu">
+    <span class="govuk-visually-hidden">Notifications</span>
+    <span class="app-notifications__count">3</span>
+    <svg class="app-notifications__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+    </svg>
+  </button>
+
+  <div class="app-notifications__menu" id="notifications-menu" hidden>
+    <h3 class="govuk-heading-s app-notifications__heading">Notifications</h3>
+    <ul class="app-notifications__list">
+      <li class="app-notifications__item app-notifications__item--urgent">
+        <span class="govuk-tag govuk-tag--red">Urgent</span>
+        <p class="govuk-body-s">VPS letter review due - John Smith</p>
+        <time class="govuk-body-s" datetime="2024-01-21">Due today</time>
+      </li>
+      <li class="app-notifications__item">
+        <p class="govuk-body-s">Callback scheduled - Sarah Jones</p>
+        <time class="govuk-body-s" datetime="2024-01-22">Tomorrow at 10:00</time>
+      </li>
+      <li class="app-notifications__item">
+        <p class="govuk-body-s">VCL scheme review - David Wilson</p>
+        <time class="govuk-body-s" datetime="2024-01-23">Due in 2 days</time>
+      </li>
+    </ul>
+    <a href="#" class="govuk-link app-notifications__link">View all notifications</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">My victim communications dashboard</h1>
+
+    <!-- Filter and sort controls -->
+    <div class="govuk-form-group govuk-!-margin-bottom-6">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="task-filter">
+            Filter by type
+          </label>
+          <select class="govuk-select" id="task-filter">
+            <option value="all">All tasks</option>
+            <option value="calls">Phone calls</option>
+            <option value="letters">Letters</option>
+            <option value="vcl">VCL scheme</option>
+            <option value="reminders">My reminders</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="sort-order">
+            Sort by
+          </label>
+          <select class="govuk-select" id="sort-order">
+            <option value="urgent">Most urgent first</option>
+            <option value="recent">Most recent first</option>
+            <option value="victim">Victim name</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="date-range">
+            Date range
+          </label>
+          <select class="govuk-select" id="date-range">
+            <option value="today">Today</option>
+            <option value="week">This week</option>
+            <option value="month">This month</option>
+            <option value="all">All dates</option>
+          </select>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <label class="govuk-label" for="calendar-sync">
+            Calendar
+          </label>
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button" id="calendar-sync">
+            Sync with Outlook
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions panel -->
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <div class="app-quick-actions govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m">Quick actions</h2>
+          <div class="govuk-button-group">
+            <a href="#" class="govuk-button" data-module="govuk-button">Add reminder</a>
+            <a href="#" class="govuk-button govuk-button--secondary">Search victims</a>
+            <a href="#" class="govuk-button govuk-button--secondary">View all tasks</a>
+            <a href="#" class="govuk-button govuk-button--secondary">Export tasks (CSV)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Task completion summary -->
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-full">
+        <div class="app-task-summary">
+          <h2 class="govuk-heading-s">Task completion</h2>
+          <div class="app-task-summary__stats">
+            <div class="app-task-summary__stat">
+              <span class="govuk-heading-m">12</span>
+              <span class="govuk-body-s">completed today</span>
+            </div>
+            <div class="app-task-summary__stat">
+              <span class="govuk-heading-m">85%</span>
+              <span class="govuk-body-s">on time this week</span>
+            </div>
+            <div class="app-task-summary__stat">
+              <span class="govuk-heading-m">3</span>
+              <span class="govuk-body-s">overdue tasks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="govuk-grid-row">
+      <!-- Priority actions column -->
+      <div class="govuk-grid-column-one-third">
+        <div class="app-card app-card--urgent">
+          <h2 class="govuk-heading-m">Priority actions</h2>
+          <div class="app-card__count">
+            <span class="govuk-tag govuk-tag--red govuk-!-margin-bottom-2">3 overdue</span>
+          </div>
+          <ul class="govuk-list app-task-list">
+            <li class="app-task-list__item app-task-list__item--overdue">
+              <span class="app-task-list__task-name">
+                <a href="#" class="govuk-link">Review VPS letter - John Smith</a>
+              </span>
+              <span class="govuk-tag govuk-tag--red">2 days overdue</span>
+              <div class="app-task-list__actions">
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-1" data-module="govuk-button">Complete</button>
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0" data-module="govuk-button">Defer</button>
+              </div>
+            </li>
+            <!-- ...more list items... -->
+          </ul>
+          <div class="app-pagination govuk-!-margin-top-3">
+            <p class="govuk-body-s">Showing 1-3 of 5 items</p>
+            <a href="#" class="govuk-link">View all</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming tasks column -->
+      <div class="govuk-grid-column-one-third">
+        <div class="app-card">
+          <!-- ...existing upcoming tasks content... -->
+          <div class="app-pagination govuk-!-margin-top-3">
+            <p class="govuk-body-s">Showing 1-3 of 8 items</p>
+            <a href="#" class="govuk-link">View all</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal reminders column -->
+      <div class="govuk-grid-column-one-third">
+        <div class="app-card">
+          <!-- ...existing reminders content... -->
+          <div class="app-pagination govuk-!-margin-top-3">
+            <p class="govuk-body-s">Showing 1-2 of 4 items</p>
+            <a href="#" class="govuk-link">View all</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ...existing styles... */
+
+.app-task-summary {
+  background: #f3f2f1;
+  padding: 15px;
+  border-left: 4px solid #1d70b8;
+}
+
+.app-task-summary__stats {
+  display: flex;
+  gap: 30px;
+}
+
+.app-task-summary__stat {
+  text-align: center;
+}
+
+.app-pagination {
+  border-top: 1px solid #b1b4b6;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-task-list__actions {
+  margin-top: 10px;
+}
+
+@media (min-width: 40.0625em) {
+  .app-task-list__actions {
+    text-align: right;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Filter functionality
+  const taskFilter = document.getElementById('task-filter');
+  taskFilter.addEventListener('change', function() {
+    // TODO: Implement filtering
+  });
+
+  // Sort functionality
+  const sortOrder = document.getElementById('sort-order');
+  sortOrder.addEventListener('change', function() {
+    // TODO: Implement sorting
+  });
+
+  // Calendar sync
+  const calendarSync = document.getElementById('calendar-sync');
+  calendarSync.addEventListener('click', function() {
+    // TODO: Implement calendar sync
+  });
+
+  // Complete task buttons
+  document.querySelectorAll('[data-module="govuk-button"]').forEach(button => {
+    button.addEventListener('click', function() {
+      // TODO: Implement task completion
+    });
+  });
+});
+</script>
+{% endblock %}

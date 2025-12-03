@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="event-name">
+      Support needs
+        </label>
+      </h1>
+
+      <p class="govuk-body">{{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred language is Spanish.</p>
+
+    </div>
+
+
+
+    <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+      <h1 class="govuk-fieldset__heading">
+      Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need an interpreter?
+      </h1>
+    </legend>
+  <!--  <div id="changedName-hint" class="govuk-hint">
+      This includes changing your last name or spelling your name differently
+    </div>-->
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName1" name="changedName" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="changedName3">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="changedName-4">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+  <h1 class="govuk-fieldset__heading">
+  Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need someone to attend for support?
+  </h1>
+</legend>
+<!--  <div id="changedName-hint" class="govuk-hint">
+  This includes changing your last name or spelling your name differently
+</div>-->
+<div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+  <div class="govuk-radios__item">
+    <input class="govuk-radios__input" id="changedName3" name="changedName3" type="radio" value="yes">
+    <label class="govuk-label govuk-radios__label" for="changedName">
+      Yes
+    </label>
+  </div>
+  <div class="govuk-radios__item">
+    <input class="govuk-radios__input" id="changedName-4" name="changedName4" type="radio" value="no">
+    <label class="govuk-label govuk-radios__label" for="changedName-2">
+      No
+    </label>
+  </div>
+</div>
+</fieldset>
+</div>
+
+
+<div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--s" for="more-detail">
+Other support or adjustments needs (optional)
+    </label>
+  </h1>
+  <div id="more-detail-hint" class="govuk-hint">
+For example, step-free access, a quiet room or longer appointment time  </div>
+  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="8" aria-describedby="more-detail-hint"></textarea>
+</div>
+
+
+
+    <div class="govuk-button-group">
+
+<a href="check-answers" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+<a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+</div>
+
+
+  </div>
+</div>
+{% endblock %}

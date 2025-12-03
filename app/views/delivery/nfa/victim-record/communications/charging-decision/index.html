@@ -30,8 +30,8 @@
                 {% include "/delivery/nfa/victim-record/communications/charging-decision/draft/approved-to-send.html" %}
 
                 <!-- Record -->
-                {% elif (data['nfaStatus'] == "not-yet-recorded") %}
-                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/not-yet-recorded.html" %}
+                {% elif (data['nfaStatus'] == "before-call-1") %}
+                {% include "/delivery/nfa/victim-record/communications/charging-decision/record/before-call-1.html" %}
 
                 {% elif (data['nfaStatus'] == "informed-after-call-1") %}
                 {% include "/delivery/nfa/victim-record/communications/charging-decision/record/informed-after-call-1.html" %}

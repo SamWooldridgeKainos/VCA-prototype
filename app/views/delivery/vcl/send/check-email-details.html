@@ -69,10 +69,20 @@
 
       </dl>
 
+      {% if (data['nfaStatus'] == "email-delivered") %}
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Only send this email to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+        </strong>
+      </div>
+      {% endif %}
+
       <h2 class="govuk-heading-m">Now send your email</h2>
 
       <p class="govuk-body">
-        Select <strong>Send email</strong> to inform the victim of the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
+        This will inform the victim about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
       </p>
 
       <input type="hidden" name="answers-checked" value="true">

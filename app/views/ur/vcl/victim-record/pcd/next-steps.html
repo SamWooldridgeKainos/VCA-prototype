@@ -1,6 +1,6 @@
 {% block content %}
 {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
-{% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") or (data['nfaStatus'] == "draft-ready-to-send") or (data['nfaStatus'] == "draft-approved-to-send") %}
+{% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "before-call-1") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") or (data['nfaStatus'] == "draft-ready-to-send") or (data['nfaStatus'] == "draft-approved-to-send") %}
 {% if (data['fumoc'] == "none") %}
 {% else %}
 <hr class="govuk-section-break govuk-section-break--m">
@@ -23,11 +23,11 @@
             <li>Check for updates on the review.</li>
             <li>Amend if needed.</li>
             {% endif %}
-            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") %}
+            {% if (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "before-call-1") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") %}
             <li>Telephone the victim when the letter is ready to send and log the call.</li>
             {% endif %}
             {% if (data['nfaStatus'] == "after-call-attempt-3") %}
-            {% elif (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "not-yet-recorded") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") %}
+            {% elif (data['nfaStatus'] == "draft-not-started") or (data['nfaStatus'] == "draft-in-progress") or (data['nfaStatus'] == "draft-amendments-required") or (data['nfaStatus'] == "draft-under-review") or (data['nfaStatus'] == "before-call-1") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "informed-after-call-1") or (data['nfaStatus'] == "informed-after-call-2") or (data['nfaStatus'] == "informed-after-call-3") %}
             <li>Add details from the call to the letter if needed.</li>
             {% endif %}
             {% if (data['nfaStatus'] == "after-call-attempt-3") %}

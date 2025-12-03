@@ -1,7 +1,7 @@
 {% block content %}
 {% include "/delivery/vcl/victim-record/vcl/details/letter.html" %}
 
-{% if (data['notifyStatus'] == "") %}
+{% if (data['notifyStatus'] == "delivered") %}
 {% else %}
 <hr class="govuk-section-break govuk-section-break--m">
 

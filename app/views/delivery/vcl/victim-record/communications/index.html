@@ -6,6 +6,19 @@
         {% if (data['pmoc'] == "email") %}
         {% if (data['vclStatus'] == "email-delivered") %}
         {% else %}
+        {% if (data['victimEmailAddress'] == "") %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">Warning</span>
+                Preferred method of contact is missing
+                <p class="govuk-body govuk-!-margin-bottom-0">
+                    Confirm it first then <a href="/delivery/vcl/victim-details/email-address.html" class="govuk-link">enter an email address</a>.
+                </p>
+            </strong>
+        </div>
+        {% else %}
+        {% if (data['nfaStatus'] == "") %}
         <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
             <strong class="govuk-warning-text__text">
@@ -13,6 +26,8 @@
                 Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
             </strong>
         </div>
+        {% endif %}
+        {% endif %}
         {% endif %}
         {% endif %}
 
@@ -23,7 +38,33 @@
                 <span class="govuk-visually-hidden">Warning</span>
                 Preferred method of contact unknown
                 <p class="govuk-body govuk-!-margin-bottom-0">
-                    To send or record a communication, confirm the victim's contact preferences, then <a href="/delivery/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+                    Confirm this before you contact the victim, then <a href="/delivery/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+                </p>
+            </strong>
+        </div>
+        {% endif %}
+
+        {% if ((data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile")) and (data['victimPhoneNumber'] == "") %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">Warning</span>
+                Preferred method of contact is missing
+                <p class="govuk-body govuk-!-margin-bottom-0">
+                    Confirm it first then <a href="/delivery/vcl/victim-details/telephone-number.html" class="govuk-link">enter a telephone number</a>.
+                </p>
+            </strong>
+        </div>
+        {% endif %}
+
+        {% if (data['pmoc'] == "post") and (data['victimAddressLine1'] == "") %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">Warning</span>
+                Preferred method of contact is missing
+                <p class="govuk-body govuk-!-margin-bottom-0">
+                    Confirm it first then <a href="/delivery/vcl/victim-details/address.html" class="govuk-link">enter an address</a>.
                 </p>
             </strong>
         </div>

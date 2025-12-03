@@ -1,0 +1,19 @@
+{% block content %}
+{% include "/ur/wat/vcl/victim-record/pcd/details/letter.html" %}
+
+{% if (data['notifyStatus'] == "") %}
+{% else %}
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/ur/wat/vcl/victim-record/pcd/details/email.html" %}
+  </div>
+</details>
+{% endif %}
+{% endblock %}
