@@ -1,0 +1,128 @@
+// Tasks with filters stylesheet
+
+.tasks-filters {
+  background-color: govuk-colour("light-grey");
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 641px) {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+}
+
+.tasks-filter-form {
+  .govuk-form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .govuk-heading-s {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .govuk-button {
+    width: 100%;
+  }
+}
+
+.tasks-list {
+  margin-top: 2rem;
+}
+
+.task-item {
+  border: 1px solid #b1b4b6;
+  border-left: 4px solid #1d70b8;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  border-radius: 0;
+
+  &--overdue {
+    border-left-color: #d4351c;
+    background-color: #fef7f5;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+
+    a {
+      color: #1d70b8;
+      text-decoration: underline;
+
+      &:hover {
+        color: #003078;
+      }
+    }
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: #f3f2f1;
+    color: #0b0c0c;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-left: 0.5rem;
+
+    &--urgent {
+      background-color: #d4351c;
+      color: #ffffff;
+    }
+  }
+
+  &__details {
+    margin-bottom: 0.5rem;
+  }
+
+  &__meta {
+    margin: 0;
+  }
+
+  &__date {
+    font-weight: 700;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .tasks-filters {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+
+  .task-item {
+    padding: 1rem;
+
+    &__title {
+      font-size: 16px;
+    }
+  }
+}
+
+// Ensure checkboxes and radios render with a white background
+input[type="checkbox"],
+input[type="radio"],
+.govuk-checkboxes__input,
+.govuk-radios__input {
+  background-color: #ffffff !important;
+}
+
+// Remove any default box-shadow that may give a non-white appearance
+.govuk-checkboxes__input,
+.govuk-radios__input {
+  box-shadow: none !important;
+}

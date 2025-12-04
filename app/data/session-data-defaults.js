@@ -4,6 +4,7 @@ module.exports = {
   'pmoc': 'mobile',
   'nfaStatus': 'draft-not-started',
   'vclStatus': 'draft-not-started',
+  'pcdStatus': 'check-eligibility',
   'recipient': 'victim',
 
   'victimSurname': 'Phillips',
