@@ -81,83 +81,11 @@
           </thead>
           <tbody class="govuk-table__body">
               <tr class="govuk-table__row">
-                  <td class="govuk-table__cell"><a href="/ur/wat/vcl/victim-record?success=no" class="govuk-link">Jane Doe</a><br>54KR1626525</td>
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">Jane Doe</a><br>54KR1626525</td>
                   <td class="govuk-table__cell">Decision to charge</td>
                   <td class="govuk-table__cell">13 November 2025<br><span class="govuk-tag govuk-tag--red govuk-!-margin-top-1 govuk-!-margin-bottom-1">Overdue</span></td>
                   <td class="govuk-table__cell">
-                      {% if (data['vclStatus'] == "draft-not-started") %}
-                        <a href="/ur/wat/vcl/draft/compose-letter?vclType=stopped-charge&vclStatus=draft-in-progress" class="govuk-link">
-                          Draft letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "draft-in-progress") %}
-                        <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                          Continue draft<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "draft-amendments-required") %}
-                        <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                          Amend draft<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "before-call-1") %}
-                        <a href="/ur/wat/vcl/call/phone-call-1" class="govuk-link">
-                          View letter and make call<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") %}
-                        <a href="/ur/wat/vcl/call/next-attempt-moc" class="govuk-link">
-                          Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "after-call-attempt-3") %}
-                        <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                          Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                        </a>
-
-                      {% elif (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") %}
-                        {% if (data['fumoc'] == "email") or (data['fumoc'] == "post") %}
-                          <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                            Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% else %}
-                          <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                            Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% endif %}
-
-                      {% elif (data['vclStatus'] == "draft-ready-to-send") %}
-                        {% if (data['pmoc'] == "") %}
-                          <a href="/ur/wat/vcl/victim-details/preferred-method-of-contact" class="govuk-link">
-                            Select preferred method of contact<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% else %}
-                          <a href="/ur/wat/vcl/draft/compose-letter" class="govuk-link">
-                            Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% endif %}
-
-                      {% elif (data['vclStatus'] == "draft-approved-to-send") %}
-                        {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
-                          <a href="/ur/wat/vcl/send/check-email-details" class="govuk-link">
-                              Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% elif (data['fumoc'] == "post") or (data['attemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
-                          <a href="/ur/wat/vcl/send/letter-details" class="govuk-link">
-                              Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% elif (data['pmoc'] == "via-police") %}
-                          <a href="/ur/wat/vcl/send/check-email-details?recipient=oic" class="govuk-link">
-                              Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% elif (data['pmoc'] == "via-isva") %}
-                          <a href="/ur/wat/vcl/send/check-email-details?recipient=isva" class="govuk-link">
-                              Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
-                          </a>
-                        {% endif %}
-                      {% else %}
-                        <p class="govuk-body">No tasks!!</p>
-                      {% endif %}
+                      <a href="#" class="govuk-link">Send letter</a>
                   </td>
               </tr>
               <tr class="govuk-table__row">
