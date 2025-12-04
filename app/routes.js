@@ -891,7 +891,7 @@ router.post('/delivery/vcl/preferred-method-of-contact-answer', function(request
 
 router.post('/ur/wat/pcd/start/sign-in-answer', function(request, response) {
 
-    response.redirect("/ur/wat/pcd/tasks")
+    response.redirect("/ur/wat/pcd/overview")
 })
 
 router.get('/ur/wat/pcd/pre-draft/check-eligibility-answer', function(request, response) {
