@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Checklist" %}
+
+{% block header %}
+{% include "/ur/wat/pcd/header/vso.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form method="post" action="/ur/wat/pcd/checklist-answer">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h1 class="govuk-fieldset__heading">
+                            Checklist
+                        </h1>
+                    </legend>
+                    <p class="govuk-hint">Select the items that have been completed or are required for this victim.</p>
+                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="preferred-contact" name="preferredContact" type="checkbox" value="Preferred method of contact">
+                            <label class="govuk-label govuk-checkboxes__label" for="preferred-contact">
+                                Preferred method of contact
+                            </label>
+                        </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="special-measures" name="specialMeasures" type="checkbox" value="Special measures">
+                                <label class="govuk-label govuk-checkboxes__label" for="special-measures">
+                                    Special measures
+                                </label>
+                            </div>
+
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="reasonable-adjustments" name="reasonableAdjustments" type="checkbox" value="Reasonable adjustments">
+                                <label class="govuk-label govuk-checkboxes__label" for="reasonable-adjustments">
+                                    Reasonable adjustments
+                                </label>
+                            </div>
+
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="vps" name="vps" type="checkbox" value="Victim Personal Statement">
+                                <label class="govuk-label govuk-checkboxes__label" for="vps">
+                                    Victim Personal Statement
+                                </label>
+                            </div>
+
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="translation-required" name="translationRequired" type="checkbox" value="Translation required">
+                                <label class="govuk-label govuk-checkboxes__label" for="translation-required">
+                                    Translation required
+                                </label>
+                            </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

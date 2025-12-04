@@ -8,3 +8,6 @@ const addFilter = govukPrototypeKit.views.addFilter
 
 // Add your filters here
 
+addFilter('formatNumber', number => {
+  return Number(number).toLocaleString('en-GB')
+})

@@ -1,0 +1,10 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the pre-charge decision.
+</p>
+
+<a href="/ur/wat/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Draft a letter<span class="govuk-visually-hidden"> to inform about the decision to charge or no further action decision</span>
+</a>
+
+{% endblock %}

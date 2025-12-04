@@ -15,8 +15,7 @@
   </div>
 </header>
 
-<div class="govuk-service-navigation"
-  data-module="govuk-service-navigation">
+<div class="govuk-service-navigation" data-module="govuk-service-navigation">
   <div class="govuk-width-container">
     <div class="govuk-service-navigation__container">
       <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
@@ -25,13 +24,17 @@
         </button>
         <ul class="govuk-service-navigation__list" id="navigation">
           <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/tasks">
-              Tasks
-            </a>
+            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/overview">Overview</a>
           </li>
           <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/cases" aria-current="true">
-              Cases
+            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/cases" aria-current="true">Cases</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/tasks">Tasks</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/ur/wat/vcl/victims">
+              Victims
             </a>
           </li>
         </ul>
@@ -43,118 +46,106 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-one-quarter">
+    <h2 class="govuk-heading-s">Selected filters</h2>
+    <form>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="search">Search</label>
+        <input class="govuk-input" id="search" name="search" type="text" />
+      </div>
 
-    <div class="moj-search">
-      <form action="#" method="post">
-        <div class="govuk-form-group">
-
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="search-urn">
-              Search for a victim
-            </label>
-          </h1>
-    
-          <div class="govuk-hint moj-search__hint" id="search-urn-hint">
-            Enter a case URN
-          </div>
-    
-          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">          
+      <h3 class="govuk-heading-s">Owner</h3>
+      <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="owner-1" name="owner" type="checkbox" value="owner-1">
+          <label class="govuk-label govuk-checkboxes__label" for="owner-1">North Feltham Crown Court</label>
         </div>
-    
-        <button type="submit" class="govuk-button moj-search__button" data-module="govuk-button">
-          Search
-        </button>
-    
-      </form>
-    </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="owner-2" name="owner" type="checkbox" value="owner-2">
+          <label class="govuk-label govuk-checkboxes__label" for="owner-2">Hammersmith Magistrates</label>
+        </div>
+      </div>
 
+      <h3 class="govuk-heading-s">Status</h3>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="status-all" name="status" type="radio" value="all" checked>
+          <label class="govuk-label govuk-radios__label" for="status-all">All</label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="status-overdue" name="status" type="radio" value="overdue">
+          <label class="govuk-label govuk-radios__label" for="status-overdue">Overdue</label>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <button class="govuk-button govuk-button--secondary" type="submit">Apply filters</button>
+      </div>
+    </form>
   </div>
-</div>
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
 
-    {% if (data['searchUrn'] == data['caseUrn']) %}
-    <hr class="govuk-section-break govuk-section-break--l">
-
-    <p class="govuk-body">
-      We've found <strong>8</strong> results for <strong>{{ data['caseUrn'] }}</strong>
-    </p>
-
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        <div class="govuk-hint" id="category-hint">
-          Add the victim's category if it's missing. Go to the page for an individual and update it from the Victim details tab.
-        </div>
+  <div class="govuk-grid-column-three-quarters">
+    <div class="moj-page-header-actions">
+      <div class="moj-page-header-actions__title">
+        <h1 class="govuk-heading-l">Cases <span class="govuk-caption-s">(169)</span></h1>
+      </div>
+      <div class="moj-page-header-actions__actions">
+        <a href="/ur/wat/vcl/start/search.html" role="button" class="govuk-button govuk-button--secondary">Search cases</a>
       </div>
     </div>
 
-    <table class="govuk-table govuk-table--small-text-until-tablet">
-      <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">URN search results showing victims and witnesses</caption>
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Name</th>
-          <th scope="col" class="govuk-table__header" aria-describedby="category-hint">Category</th>
-          <th scope="col" class="govuk-table__header">URN</th>
-          <th scope="col" class="govuk-table__header">Lead defendant</th>
-          <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Action</span></th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>OBERON, Shelly</a></td>
-          <td class="govuk-table__cell">Victim</td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>KING, Wendy</a></td>
-          <td class="govuk-table__cell">Victim</td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="/ur/wat/vcl/victim-record"><span class="govuk-visually-hidden">View victim record for </span>{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a></td>
-          <td class="govuk-table__cell">Victim</td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>JONES, Oliver A</a></td>
-          <td class="govuk-table__cell"></td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>WOODLEY, Alfred</a></td>
-          <td class="govuk-table__cell"></td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>COLLOCINI, Emiliano</a></td>
-          <td class="govuk-table__cell"></td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>EVANS, Gareth</a></td>
-          <td class="govuk-table__cell"></td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#"><span class="govuk-visually-hidden">View victim record for </span>COOPER, Tracey</a></td>
-          <td class="govuk-table__cell"></td>
-          <td class="govuk-table__cell">{{ data['caseUrn'] }}</td>
-          <td class="govuk-table__cell">DAVIES, Bella+</td>
-        </tr>
-      </tbody>
-    </table>
-    {% endif %}
-    
+    <section aria-labelledby="critically-overdue">
+      <h2 id="critically-overdue" class="govuk-heading-m">Critically overdue</h2>
+
+      <!-- Example case item -->
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Check CCTV footage</a></h3>
+        <p class="govuk-body-s">Case number: 2025/12345 &middot; Defendant: John Smith &middot; Court: Hammersmith Magistrates</p>
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Created</dt>
+            <dd class="govuk-summary-list__value">12 November 2025</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Last updated</dt>
+            <dd class="govuk-summary-list__value">17 November 2025</dd>
+          </div>
+        </dl>
+        <a class="govuk-button govuk-button--warning" href="#">Urgent</a>
+      </div>
+
+      <!-- Repeat a few items to simulate list -->
+      {% for i in [1,2,3] %}
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Prepare victim statement</a></h3>
+        <p class="govuk-body-s">Case number: 2025/12{{ i }} &middot; Defendant: Jane Doe &middot; Court: North Feltham Crown Court</p>
+        <p class="govuk-body-s">Hearing: 20 November 2025 &middot; Assigned to: Unassigned</p>
+        <a class="govuk-link" href="#">View case</a>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section aria-labelledby="overdue" style="margin-top: 2rem;">
+      <h2 id="overdue" class="govuk-heading-m">Overdue</h2>
+      {% for i in [4,5,6,7] %}
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Check victim support referrals</a></h3>
+        <p class="govuk-body-s">Case number: 2025/13{{ i }} &middot; Defendant: Example Name &middot; Court: Example Court</p>
+        <p class="govuk-body-s">Assigned to: Prosecutor {{ i }}</p>
+        <a class="govuk-link" href="#">View case</a>
+      </div>
+      {% endfor %}
+    </section>
+
+    <nav class="moj-pagination" aria-label="Pagination" style="margin-top: 2rem;">
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--previous"><a class="govuk-link" href="#">Previous</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link govuk-!-font-weight-bold" href="#">1</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">2</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">3</a></li>
+        <li class="govuk-pagination__item govuk-pagination__item--next"><a class="govuk-link" href="#">Next</a></li>
+      </ul>
+    </nav>
 
   </div>
 </div>
