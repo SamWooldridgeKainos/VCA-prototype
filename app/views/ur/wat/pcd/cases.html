@@ -1,0 +1,152 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Cases" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation" data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/ur/wat/pcd/overview">Overview</a>
+          </li>
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/ur/wat/pcd/cases" aria-current="true">Cases</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/ur/wat/pcd/tasks">Tasks</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/ur/wat/pcd/victims">
+              Victims
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <h2 class="govuk-heading-s">Selected filters</h2>
+    <form>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="search">Search</label>
+        <input class="govuk-input" id="search" name="search" type="text" />
+      </div>
+
+      <h3 class="govuk-heading-s">Owner</h3>
+      <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="owner-1" name="owner" type="checkbox" value="owner-1">
+          <label class="govuk-label govuk-checkboxes__label" for="owner-1">North Feltham Crown Court</label>
+        </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="owner-2" name="owner" type="checkbox" value="owner-2">
+          <label class="govuk-label govuk-checkboxes__label" for="owner-2">Hammersmith Magistrates</label>
+        </div>
+      </div>
+
+      <h3 class="govuk-heading-s">Status</h3>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="status-all" name="status" type="radio" value="all" checked>
+          <label class="govuk-label govuk-radios__label" for="status-all">All</label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="status-overdue" name="status" type="radio" value="overdue">
+          <label class="govuk-label govuk-radios__label" for="status-overdue">Overdue</label>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <button class="govuk-button govuk-button--secondary" type="submit">Apply filters</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+    <div class="moj-page-header-actions">
+      <div class="moj-page-header-actions__title">
+        <h1 class="govuk-heading-l">Cases <span class="govuk-caption-s">(169)</span></h1>
+      </div>
+      <div class="moj-page-header-actions__actions">
+        <a href="/ur/wat/pcd/start/search.html" role="button" class="govuk-button govuk-button--secondary">Search cases</a>
+      </div>
+    </div>
+
+    <section aria-labelledby="critically-overdue">
+      <h2 id="critically-overdue" class="govuk-heading-m">Critically overdue</h2>
+
+      <!-- Example case item -->
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Check CCTV footage</a></h3>
+        <p class="govuk-body-s">Case number: 2025/12345 &middot; Defendant: John Smith &middot; Court: Hammersmith Magistrates</p>
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Created</dt>
+            <dd class="govuk-summary-list__value">12 November 2025</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Last updated</dt>
+            <dd class="govuk-summary-list__value">17 November 2025</dd>
+          </div>
+        </dl>
+        <a class="govuk-button govuk-button--warning" href="#">Urgent</a>
+      </div>
+
+      <!-- Repeat a few items to simulate list -->
+      {% for i in [1,2,3] %}
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Prepare victim statement</a></h3>
+        <p class="govuk-body-s">Case number: 2025/12{{ i }} &middot; Defendant: Jane Doe &middot; Court: North Feltham Crown Court</p>
+        <p class="govuk-body-s">Hearing: 20 November 2025 &middot; Assigned to: Unassigned</p>
+        <a class="govuk-link" href="#">View case</a>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section aria-labelledby="overdue" style="margin-top: 2rem;">
+      <h2 id="overdue" class="govuk-heading-m">Overdue</h2>
+      {% for i in [4,5,6,7] %}
+      <div class="moj-result">
+        <h3 class="govuk-heading-s"><a href="#" class="govuk-link">Check victim support referrals</a></h3>
+        <p class="govuk-body-s">Case number: 2025/13{{ i }} &middot; Defendant: Example Name &middot; Court: Example Court</p>
+        <p class="govuk-body-s">Assigned to: Prosecutor {{ i }}</p>
+        <a class="govuk-link" href="#">View case</a>
+      </div>
+      {% endfor %}
+    </section>
+
+    <nav class="moj-pagination" aria-label="Pagination" style="margin-top: 2rem;">
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--previous"><a class="govuk-link" href="#">Previous</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link govuk-!-font-weight-bold" href="#">1</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">2</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">3</a></li>
+        <li class="govuk-pagination__item govuk-pagination__item--next"><a class="govuk-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+{% endblock %}

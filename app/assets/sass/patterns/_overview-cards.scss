@@ -1,0 +1,107 @@
+.app-overview-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: govuk-spacing(4);
+  grid-auto-rows: 1fr;
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.app-overview-card {
+  background-color: govuk-colour("light-grey");
+  padding: govuk-spacing(2);
+  text-decoration: none;
+
+  @include govuk-font($size: 19);
+
+  @include govuk-media-query($from: desktop) {
+    padding: govuk-spacing(4);
+  }
+
+  &:focus, &:link:focus, &:visited:focus {
+    color:  $govuk-text-colour;
+    background:  $govuk-focus-colour;
+  }
+
+}
+
+.app-overview-card, .app-overview-card:visited {
+  color: inherit;
+}
+
+.app-overview-card__count {
+  &, &:link, &:visited {
+    @include govuk-font($size: 36, $weight: bold, $tabular: true);
+  }
+  display: block;
+}
+
+.app-overview-card__status {
+  // text-decoration: underline;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: none;
+}
+
+$statuses: (
+  "grey": (
+    "colour":            govuk-shade(govuk-colour("dark-grey", $legacy: "grey-1"), 30),
+    "background-colour": govuk-tint(govuk-colour("dark-grey", $legacy: "grey-1"), 90),
+    "hover":             govuk-tint(govuk-colour("dark-grey", $legacy: "grey-1"), 80)
+  ),
+  "turquoise": (
+    "colour":            govuk-shade(govuk-colour("turquoise"), 60),
+    "background-colour": govuk-tint(govuk-colour("turquoise"), 70),
+    "hover":             govuk-tint(govuk-colour("turquoise"), 57),
+  ),
+  "blue": (
+    "colour":            govuk-shade(govuk-colour("blue"), 30),
+    "background-colour": govuk-tint(govuk-colour("blue"), 80),
+    "hover":             govuk-tint(govuk-colour("blue"), 70)
+  ),
+  "yellow": (
+    "colour":            govuk-shade(govuk-colour("yellow"), 65),
+    "background-colour": govuk-tint(govuk-colour("yellow"), 75),
+    "hover":             govuk-tint(govuk-colour("yellow"), 60)
+  ),
+  "red": (
+    "colour":            govuk-shade(govuk-colour("red"), 30),
+    "background-colour": govuk-tint(govuk-colour("red"), 80),
+    "hover":             govuk-tint(govuk-colour("red"), 70)
+  ),
+  "purple": (
+    "colour":            govuk-shade(govuk-colour("purple"), 20),
+    "background-colour": govuk-tint(govuk-colour("purple"), 80),
+    "hover":             govuk-tint(govuk-colour("purple"), 70)
+  ),
+  "orange": (
+    "colour":            govuk-shade(govuk-colour("orange"), 55),
+    "background-colour": govuk-tint(govuk-colour("orange"), 70),
+    "hover":             govuk-tint(govuk-colour("orange"), 55)
+  ),
+  "green": (
+    "colour":            govuk-shade(govuk-colour("green"), 20),
+    "background-colour": govuk-tint(govuk-colour("green"), 80),
+    "hover":             govuk-tint(govuk-colour("green"), 70)
+  ),
+  "pink": (
+    "colour":            govuk-shade(govuk-colour("pink"), 30),
+    "background-colour": govuk-tint(govuk-colour("pink"), 80),
+    "hover":             govuk-tint(govuk-colour("pink"), 70)
+  ),
+);
+
+@each $status, $data in $statuses
+{
+  .app-overview-card--#{$status} {
+    &, &:link, &:visited {
+      color: map-get($data, "colour");
+      background: map-get($data, "background-colour");
+    }
+    &:hover {
+      background: map-get($data, "hover");
+    }
+  }
+}

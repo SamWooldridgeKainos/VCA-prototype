@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+      Who was the chair person?
+        </h1>
+      </legend>
+      <div class="govuk-radios" data-module="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+              High court advocate (SHEAF, Jessica)
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+            Family liaison officer (BIDWELL, Jane)
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+            Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland">
+          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
+          Police officer in charge (PC FISHER, Jane)
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <a href="add-another2" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+Add another person <span class="govuk-visually-hidden"> </span>
+  </a>
+
+  <br/>
+    <br/>
+      <br/>
+    <div class="govuk-button-group">
+
+<a href="did-counsel-attend" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+<a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+</div>
+
+
+  </div>
+</div>
+{% endblock %}
