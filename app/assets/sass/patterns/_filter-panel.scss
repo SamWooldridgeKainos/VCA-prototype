@@ -3,10 +3,6 @@
   // background-color: #f4f8fb;
   height: 100%;
   min-width: 300px;
-
-  &:focus {
-    // box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
-  }
 }
 
 
@@ -54,6 +50,7 @@
     position: relative;
     text-align: left;
     width: 100%;
+    appearance: none;
     -webkit-appearance: none;
 
     // Fix unwanted button padding in Firefox
@@ -77,10 +74,6 @@
       &::after {
         background-position: 16px 16px;
       }
-    }
-
-    &:focus {
-      // @include govuk-focusable;
     }
 
   }
@@ -113,6 +106,7 @@
   border-radius: 0;
   margin: 0;
   padding: 0;
+  appearance: none;
   -webkit-appearance: none;
 
   &:focus {
