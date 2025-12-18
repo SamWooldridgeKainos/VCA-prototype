@@ -47,9 +47,9 @@
 
 $statuses: (
   "grey": (
-    "colour":            govuk-shade(govuk-colour("dark-grey", $legacy: "grey-1"), 30),
-    "background-colour": govuk-tint(govuk-colour("dark-grey", $legacy: "grey-1"), 90),
-    "hover":             govuk-tint(govuk-colour("dark-grey", $legacy: "grey-1"), 80)
+    "colour":            govuk-shade(govuk-colour("dark-grey"), 30),
+    "background-colour": govuk-tint(govuk-colour("dark-grey"), 90),
+    "hover":             govuk-tint(govuk-colour("dark-grey"), 80)
   ),
   "turquoise": (
     "colour":            govuk-shade(govuk-colour("turquoise"), 60),
