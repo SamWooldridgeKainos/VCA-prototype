@@ -11,14 +11,14 @@
   <div class="govuk-grid-column-one-half">
 
     <form class="form" action="/did-victim-request3" method="post">
-<h1 class="govuk-heading-l">You've already sent an offer to Sarah Phillips</h1>
-<p class="govuk-body">You can arrange a meeting after they accept the offer.</p>
+<h1 class="govuk-heading-l">You have sent one meeting offer to Sarah Phillips</h1>
+<!--<p class="govuk-body">You can arrange a meeting after they accept the offer.</p>-->
     {{ govukRadios({
       name: "meeting4",
       value: data['meeting4'],
       fieldset: {
         legend: {
-          text: "Has Sarah Phillips accepted the meeting offer?",
+          text: "Do you want to log an acceptance?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--m"
         }
@@ -30,7 +30,7 @@
         },
         {
           value: "no",
-          text: "No"
+          text: "No – log a new CPS pre-trial meeting offer"
         }
       ]
     }) }}

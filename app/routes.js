@@ -23,6 +23,28 @@ require('./routes/ur/wat/vcl')(router)
 // meetings
 // @Michael can your routes for meetings be moved to a separate file as per the above? I can show you how to do this if needed, or I can make the changes myself.
 
+
+
+router.post('/what-do-you-want-to-log', function(request, response) {
+
+	var logging = request.session.data['logging']
+	if (logging == "yes"){
+		response.redirect("/ur/meetings-2/purpose2")
+	} else {
+		response.redirect("/ur/meetings-2/purpose")
+	}
+})
+
+router.post('/what-do-you-want-to-log-offer', function(request, response) {
+
+	var logging2 = request.session.data['logging2']
+	if (logging2 == "yes"){
+		response.redirect("/ur/meetings-2/cps-offer/purpose-notaccepted")
+	} else {
+		response.redirect("/ur/meetings-2/purpose")
+	}
+})
+
 router.post('/purpose-answer', function(request, response) {
 
 	var purpose = request.session.data['purpose']
@@ -42,6 +64,9 @@ router.post('/purpose2-answer', function(request, response) {
 		response.redirect("/ur/meetings//purpose")
 	}
 })
+
+
+
 
 router.post('/purpose3-answer', function(request, response) {
 
@@ -92,7 +117,6 @@ router.post('/format2-answer', function(request, response) {
 	}
 })
 
-
 router.post('/howoffered-answer', function(request, response) {
 
 	var howoffered = request.session.data['howoffered']
@@ -108,6 +132,29 @@ router.post('/howoffered-answer', function(request, response) {
 	}
 
 else if (howoffered == "letter-police"){
+  response.redirect("/ur/meetings-2/cps-offer/meeting-offered-police#communications")
+
+
+	} else {
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-telephone#communications")
+	}
+})
+
+router.post('/howoffered2-answer', function(request, response) {
+
+	var howoffered2 = request.session.data['howoffered2']
+	if (howoffered2 == "letter-post"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-post2#communications")
+  }
+  else if (howoffered2 == "letter-email"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-email#communications")
+	}
+
+  else if (howoffered2 == "letter-isva"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-isva#communications")
+	}
+
+else if (howoffered2 == "letter-police"){
   response.redirect("/ur/meetings-2/cps-offer/meeting-offered-police#communications")
 
 
@@ -251,7 +298,7 @@ router.post('/did-victim-request3', function(request, response) {
 	if (meeting4 == "yes"){
 		response.redirect("/ur/meetings-2/cps-offer/recordaccepted")
 	} else {
-		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-post#communications")
+		response.redirect("/ur/meetings-2/cps-offer/howoffered2")
 	}
 })
 
