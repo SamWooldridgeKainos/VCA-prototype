@@ -1,0 +1,30 @@
+{% block content %}
+<div id="save-draft-modal" class="overlay-backdrop">
+    <div class="modal-container">
+        <div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-0" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+            
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-three-quarters">
+                        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                            Success
+                        </h2>
+                    </div>
+                    <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-exit-this-page govuk-!-margin-bottom-0" style="color: govuk-colour('white');" data-module="govuk-exit-this-page" style="z-index: auto;">
+                            <a id="save-draft-modal-close" data-link="" href="#" aria-label="Close popup" role="link" data-first-focus="1752595285610">
+                                <i data-icon="" class="icon fa fa-times fa-1x" style="color: #ffffff"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <p class="govuk-body">
+                    Draft Letter updated with success
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

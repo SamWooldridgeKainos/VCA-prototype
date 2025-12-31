@@ -1,0 +1,185 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Tasks" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <!-- <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Home
+            </a>
+          </li> -->
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="#" aria-current="true">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Cases
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="moj-page-header-actions">
+        <div class="moj-page-header-actions__title">
+          <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
+        </div>
+        <div class="moj-page-header-actions__actions">
+          <div class="moj-button-group moj-button-group--inline">
+            <a href="/dashboard-concepts/create-reminder.html" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+              Create a reminder
+            </a>
+            <a href="/delivery/vcl/start/search.html" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+              Search for a victim
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+      <table class="govuk-table" data-module="moj-sortable-table" aria-labelledby="main-heading">
+          <!-- <caption class="govuk-table__caption govuk-table__caption--m">
+              Tasks assigned to me
+          </caption> -->
+          <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Victim and URN</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Task type</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="ascending">Due date</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Next action</th>
+              </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">Jane Doe</a><br>54KR1626525</td>
+                  <td class="govuk-table__cell">Decision to charge</td>
+                  <td class="govuk-table__cell">22/10/2024<br><span class="govuk-tag govuk-tag--red govuk-!-margin-top-1 govuk-!-margin-bottom-1">Overdue</span></td>
+                  <td class="govuk-table__cell">
+                      <a href="#" class="govuk-link">Send letter</a>
+                  </td>
+              </tr>
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">John Smith</a><br>54KR1626525</td>
+                  <td class="govuk-table__cell">No further action</td>
+                  <td class="govuk-table__cell">23/10/2025<br><span class="govuk-tag govuk-tag--pink govuk-!-margin-top-1 govuk-!-margin-bottom-1">Due today</span></td>
+                  <td class="govuk-table__cell">
+                      <a href="#" class="govuk-link">Callback scheduled</a>
+                  </td>
+              </tr>
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">Jackie Smith</a><br>54KR1626525</td>
+                  <td class="govuk-table__cell">CPS Pre-trial meeting</td>
+                  <td class="govuk-table__cell">24/10/2025</td>
+                  <td class="govuk-table__cell">
+                      <a href="#" class="govuk-link">Make call</a>
+                  </td>
+              </tr>
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">Alice Johnson</a><br>54KR1626525/1</td>
+                  <td class="govuk-table__cell">VCL Scheme</td>
+                  <td class="govuk-table__cell">24/10/2025</td>
+                  <td class="govuk-table__cell">
+                      <a href="#" class="govuk-link">Amend draft</a>
+                  </td>
+              </tr>
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell"><a href="#" class="govuk-link">Michael Roberts</a><br>54KR1626790</td>
+                  <td class="govuk-table__cell">VCL Scheme</td>
+                  <td class="govuk-table__cell">25/10/2025</td>
+                  <td class="govuk-table__cell">
+                      <a href="#" class="govuk-link">Draft letter</a>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <nav class="govuk-pagination" aria-label="Pagination">
+        <ul class="govuk-pagination__list">
+          <li class="govuk-pagination__item govuk-pagination__item--current">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+              1
+            </a>
+          </li>
+          <li class="govuk-pagination__item">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+              2
+            </a>
+          </li>
+          <li class="govuk-pagination__item">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3">
+              3
+            </a>
+          </li>
+        </ul>
+        <div class="govuk-pagination__next">
+          <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+            <span class="govuk-pagination__link-title">
+              Next<span class="govuk-visually-hidden"> page</span>
+            </span>
+            <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+              <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="govuk-grid-column-one-quarter">
+        <div class="govuk-!-margin-bottom-6">
+            <h2 class="govuk-heading-m">Recently viewed victims</h2>
+            <ul class="govuk-list">
+                <li>
+                    <a href="#" class="govuk-link">Sarah Thompson</a>
+                    <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
+                </li>
+                <li class="govuk-!-margin-top-3">
+                    <a href="#" class="govuk-link">Michael Roberts</a>
+                    <p class="govuk-body govuk-!-margin-top-1">54KR1626790</p>
+                </li>
+                <li class="govuk-!-margin-top-3">
+                    <a href="#" class="govuk-link">Emily Chen</a>
+                    <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
+                </li>
+                <li class="govuk-!-margin-top-3">
+                    <a href="#" class="govuk-link">James Wilson</a>
+                    <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
+                </li>
+                <li class="govuk-!-margin-top-3">
+                    <a href="#" class="govuk-link">Lucy Martinez</a>
+                    <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

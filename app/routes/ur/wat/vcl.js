@@ -1,6 +1,6 @@
 module.exports = router => {
 
-    router.post('/ur/wat/vcl/start/sign-in-answer', function(request, response) {
+    router.post('/ur/wat/vcl/sign-in-answer', function(request, response) {
 
         response.redirect("/ur/wat/vcl/tasks")
     })

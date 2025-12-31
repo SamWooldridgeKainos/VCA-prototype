@@ -1,0 +1,242 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Tasks" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation" data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/overview">Overview</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/cases">Cases</a>
+          </li>
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/tasks" aria-current="true">Tasks</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter tasks-filters">
+    <h2 class="govuk-heading-s">Selected filters</h2>
+    
+    <form class="tasks-filter-form">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="search">Search</label>
+        <input class="govuk-input" id="search" name="search" type="text" placeholder="Search tasks">
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            Status
+          </legend>
+          <div class="govuk-checkboxes govuk-checkboxes--small">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="status-overdue" name="status" type="checkbox" value="overdue">
+              <label class="govuk-label govuk-checkboxes__label" for="status-overdue">Overdue</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="status-today" name="status" type="checkbox" value="today">
+              <label class="govuk-label govuk-checkboxes__label" for="status-today">Due today</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="status-upcoming" name="status" type="checkbox" value="upcoming">
+              <label class="govuk-label govuk-checkboxes__label" for="status-upcoming">Upcoming</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            Assigned to
+          </legend>
+          <div class="govuk-checkboxes govuk-checkboxes--small">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="assigned-me" name="assigned" type="checkbox" value="me">
+              <label class="govuk-label govuk-checkboxes__label" for="assigned-me">Me</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="assigned-team" name="assigned" type="checkbox" value="team">
+              <label class="govuk-label govuk-checkboxes__label" for="assigned-team">My team</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="assigned-unassigned" name="assigned" type="checkbox" value="unassigned">
+              <label class="govuk-label govuk-checkboxes__label" for="assigned-unassigned">Unassigned</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            Type
+          </legend>
+          <div class="govuk-checkboxes govuk-checkboxes--small">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="type-communication" name="type" type="checkbox" value="communication">
+              <label class="govuk-label govuk-checkboxes__label" for="type-communication">Communication</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="type-case" name="type" type="checkbox" value="case">
+              <label class="govuk-label govuk-checkboxes__label" for="type-case">Case related</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="type-admin" name="type" type="checkbox" value="admin">
+              <label class="govuk-label govuk-checkboxes__label" for="type-admin">Administrative</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button class="govuk-button govuk-button--secondary" type="submit">Apply filters</button>
+    </form>
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+    <div class="moj-page-header-actions">
+      <div class="moj-page-header-actions__title">
+        <h1 class="govuk-heading-l">Tasks <span class="govuk-caption-s">(369)</span></h1>
+      </div>
+      <div class="moj-page-header-actions__actions">
+        <a href="#" role="button" class="govuk-button govuk-button--secondary">Create a reminder</a>
+        <a href="#" role="button" class="govuk-button govuk-button--secondary">Search for a victim</a>
+      </div>
+    </div>
+
+    <!-- Task Items -->
+    {% set tasks = [
+      {
+        title: "Check CCTV footage",
+        caseNumber: "2025/001234",
+        defendant: "John Smith",
+        court: "Hammersmith Magistrates",
+        dueDate: "2025-11-30",
+        status: "overdue"
+      },
+      {
+        title: "Prepare victim statement",
+        caseNumber: "2025/001235",
+        defendant: "Jane Doe",
+        court: "North Feltham Crown Court",
+        dueDate: "2025-12-05",
+        status: "upcoming"
+      },
+      {
+        title: "Contact witness for interview",
+        caseNumber: "2025/001236",
+        defendant: "Michael Brown",
+        court: "Hammersmith Magistrates",
+        dueDate: "2025-11-30",
+        status: "overdue"
+      },
+      {
+        title: "Review case file",
+        caseNumber: "2025/001237",
+        defendant: "Sarah Wilson",
+        court: "Westminster Crown Court",
+        dueDate: "2025-12-03",
+        status: "upcoming"
+      },
+      {
+        title: "Schedule hearing",
+        caseNumber: "2025/001238",
+        defendant: "Robert Taylor",
+        court: "North Feltham Crown Court",
+        dueDate: "2025-12-01",
+        status: "upcoming"
+      },
+      {
+        title: "Request disclosure documents",
+        caseNumber: "2025/001239",
+        defendant: "Emma Johnson",
+        court: "Hammersmith Magistrates",
+        dueDate: "2025-11-29",
+        status: "overdue"
+      },
+      {
+        title: "Meet with prosecutor",
+        caseNumber: "2025/001240",
+        defendant: "David Miller",
+        court: "Westminster Crown Court",
+        dueDate: "2025-12-02",
+        status: "upcoming"
+      },
+      {
+        title: "Prepare cross-examination notes",
+        caseNumber: "2025/001241",
+        defendant: "Lisa Anderson",
+        court: "North Feltham Crown Court",
+        dueDate: "2025-12-04",
+        status: "upcoming"
+      }
+    ] %}
+
+    <div class="tasks-list">
+      {% for task in tasks %}
+      <div class="task-item {% if task.status == 'overdue' %}task-item--overdue{% endif %}">
+        <div class="task-item__header">
+          <h3 class="task-item__title"><a href="#" class="govuk-link">{{ task.title }}</a></h3>
+          {% if task.status == 'overdue' %}
+          <span class="task-item__badge task-item__badge--urgent">Urgent</span>
+          {% endif %}
+        </div>
+        <div class="task-item__details">
+          <p class="govuk-body-s">
+            <strong>Case:</strong> {{ task.caseNumber }} &middot; 
+            <strong>Defendant:</strong> {{ task.defendant }} &middot; 
+            <strong>Court:</strong> {{ task.court }}
+          </p>
+        </div>
+        <div class="task-item__meta">
+          <p class="govuk-body-s">
+            <strong>Due:</strong> <span class="task-item__date">{{ task.dueDate }}</span>
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <nav class="moj-pagination" aria-label="Pagination" style="margin-top: 2rem;">
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--previous"><a class="govuk-link" href="#">Previous</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link govuk-!-font-weight-bold" href="#">1</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">2</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">3</a></li>
+        <li class="govuk-pagination__item"><a class="govuk-link" href="#">4</a></li>
+        <li class="govuk-pagination__item govuk-pagination__item--next"><a class="govuk-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -18,6 +18,13 @@ require('./routes/delivery/vcl')(router)
 
 require('./routes/ur/wat/pcd')(router)
 require('./routes/ur/wat/vcl')(router)
+require('./routes/ur/wat/onb')(router)
+
+require('./routes/delivery/wat/pcd')(router)
+require('./routes/delivery/wat/vcl')(router)
+require('./routes/delivery/wat/onb')(router)
+
+require('./routes/delivery/wat2')(router)
 
 
 // meetings

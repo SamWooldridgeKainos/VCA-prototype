@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Tasks" %}
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+// ...existing code from my-tasks.html header block...
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="moj-page-header-actions">
+            <div class="moj-page-header-actions__title">
+                <h1 class="govuk-heading-l">Tasks</h1>
+            </div>
+            <div class="moj-page-header-actions__actions">
+                <div class="moj-button-group">
+                    <a href="/dashboard-concepts/create-reminder.html" role="button" class="govuk-button" data-module="govuk-button">
+                        Create task
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-quarter">
+                <dl class="govuk-summary-list govuk-summary-list--no-border">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Overdue tasks</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--red">2</strong>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Due today</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--pink">1</strong>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Due this week</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--blue">4</strong>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <h2 class="govuk-tabs__title">Task lists</h2>
+            <ul class="govuk-tabs__list">
+                <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                    <a class="govuk-tabs__tab" href="#all-tasks">All tasks (5)</a>
+                </li>
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#overdue">Overdue (2)</a>
+                </li>
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#today">Due today (1)</a>
+                </li>
+            </ul>
+
+            <div class="govuk-tabs__panel" id="all-tasks">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-three-quarters">
+                        <div class="moj-timeline">
+                            <div class="moj-timeline__item">
+                                <div class="moj-timeline__header">
+                                    <h2 class="moj-timeline__title"><a href="#" class="govuk-link">Jane Doe</a> (54KR1626525)</h2>
+                                    <p class="moj-timeline__byline">Decision to charge</p>
+                                </div>
+                                <p class="moj-timeline__date">
+                                    <time datetime="2024-10-22">Due 22 Oct 2024</time>
+                                    <span class="govuk-tag govuk-tag--red">Overdue</span>
+                                </p>
+                                <div class="moj-timeline__description">
+                                    <a href="#" class="govuk-link">Send letter</a>
+                                </div>
+                            </div>
+
+                            <div class="moj-timeline__item">
+                                <div class="moj-timeline__header">
+                                    <h2 class="moj-timeline__title"><a href="#" class="govuk-link">John Smith</a> (54KR1626525)</h2>
+                                    <p class="moj-timeline__byline">No further action</p>
+                                </div>
+                                <p class="moj-timeline__date">
+                                    <time datetime="2024-10-23">Due 23 Oct 2024</time>
+                                    <span class="govuk-tag govuk-tag--pink">Due today</span>
+                                </p>
+                                <div class="moj-timeline__description">
+                                    <a href="#" class="govuk-link">Callback scheduled</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Add remaining timeline items following the same pattern -->
+                        </div>
+                    </div>
+
+                    <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-card">
+                            <div class="govuk-card__content">
+                                <h2 class="govuk-heading-m">Recently viewed victims</h2>
+                                <ul class="govuk-list">
+                                    <li>
+                                        <a href="#" class="govuk-link">Sarah Thompson</a>
+                                        <p class="govuk-body-s govuk-!-margin-top-1">54KR1626789</p>
+                                    </li>
+                                    <!-- Add remaining recently viewed items -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional tab panels for overdue and due today -->
+        </div>
+    </div>
+</div>
+{% endblock %}

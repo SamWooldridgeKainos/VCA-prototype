@@ -1,0 +1,218 @@
+{% block content %}
+<h2 class="govuk-heading-l govuk-!-margin-top-6">Victim Communication & Liaison Scheme (VCL)</h2>
+
+<div class="govuk-grid-row">
+
+    <!-- {% if (data['pmoc'] == "email") %}
+    {% if (data['vclStatus'] == "email-delivered") %}
+    {% else %}
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+        </strong>
+    </div>
+    {% endif %}
+    
+    {% elif (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+        {% if (data['victimInformed1'] == "Yes") or (data['victimInformed2'] == "Yes") or (data['victimInformed3'] == "Yes") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-approved-to-send") %}
+        {% else %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">Warning</span>
+                Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+            </strong>
+        </div>
+        {% endif %}
+    {% elif (data['pmoc'] == "post") or (data['pmoc'] == "via-police") or (data['pmoc'] == "via-isva") %}
+    {% else %}
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Preferred method of contact unknown
+            <p class="govuk-body govuk-!-margin-bottom-0">
+                Confirm this before you contact the victim, then <a href="/delivery/wat/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+            </p>
+        </strong>
+    </div>
+    {% endif %} -->
+
+    {% if (data['vclType'] == 'stopped-charge') or (data['vclType'] == 'altered-charge') %}
+    <div class="govuk-grid-column-one-half">
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    {% if (data['vclType'] == "stopped-charge") %}Stopped charge{% elif (data['vclType'] == "altered-charge") %}Substantially altered charge{% else %}VCL decision{% endif %}
+                </h2>
+            </div>
+            <div class="govuk-summary-card__content">
+                <!-- <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half"> -->
+                
+                        <!-- Draft -->
+                        {% if (data['vclStatus'] == "draft-not-started") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/not-started.html" %}
+
+                        {% elif (data['vclStatus'] == "draft-in-progress") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/in-progress.html" %}
+
+                        {% elif (data['vclStatus'] == "draft-under-review") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/under-review.html" %}
+
+                        {% elif (data['vclStatus'] == "draft-amendments-required") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/amendments-required.html" %}
+
+                        {% elif (data['vclStatus'] == "draft-ready-to-send") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/ready-to-send.html" %}
+
+                        {% elif (data['vclStatus'] == "draft-approved-to-send") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/draft/approved-to-send.html" %}
+
+                        <!-- Record -->
+                        {% elif (data['vclStatus'] == "before-call-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/before-call-1.html" %}
+
+                        {% elif (data['vclStatus'] == "informed-after-call-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/informed-after-call-1.html" %}
+
+                        {% elif (data['vclStatus'] == "informed-after-call-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/informed-after-call-2.html" %}
+
+                        {% elif (data['vclStatus'] == "informed-after-call-3") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/informed-after-call-3.html" %}
+
+                        {% elif (data['vclStatus'] == "after-call-attempt-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/after-call-attempt-1.html" %}
+
+                        {% elif (data['vclStatus'] == "after-call-attempt-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/after-call-attempt-2.html" %}
+
+                        {% elif (data['vclStatus'] == "after-call-attempt-3") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/call/after-call-attempt-3.html" %}
+
+                        <!-- Send follow-up email -->
+                        {% elif (data['vclStatus'] == "fu-email-after-call-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/after-call-1.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-after-call-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/after-call-2.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-after-call-3") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/after-call-3.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-failure-permanent") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/failure-permanent.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-failure-permanent-with-success") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/failure-permanent-with-success.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-failure-technical") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/failure-technical.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-failure-temporary") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/failure-temporary.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-email-sending") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-email/sending.html" %}
+
+                        <!-- Send follow-up letter -->
+                        {% elif (data['vclStatus'] == "fu-letter-dispatched") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-letter/dispatched.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-letter-after-call-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-letter/after-call-1.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-letter-after-call-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-letter/after-call-2.html" %}
+
+                        {% elif (data['vclStatus'] == "fu-letter-after-call-3") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-letter/after-call-3.html" %}
+
+                        <!-- not currently possible --> {% elif (data['vclStatus'] == "fu-letter-after-fu-email-undelivered") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/fu-letter/after-fu-email-undelivered.html" %}
+
+                        <!-- Send email-->
+                        {% elif (data['vclStatus'] == "email-delivered") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/delivered.html" %}
+
+                        {% elif (data['vclStatus'] == "email-after-call-attempt-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/after-call-attempt-1.html" %}
+
+                        {% elif (data['vclStatus'] == "email-after-call-attempt-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/after-call-attempt-2.html" %}
+
+                        {% elif (data['vclStatus'] == "email-failure-permanent") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/failure-permanent.html" %}
+
+                        {% elif (data['vclStatus'] == "email-failure-permanent-with-success") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/failure-permanent-with-success.html" %}
+
+                        {% elif (data['vclStatus'] == "email-failure-technical") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/failure-technical.html" %}
+
+                        {% elif (data['vclStatus'] == "email-failure-temporary") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/failure-temporary.html" %}
+
+                        {% elif (data['vclStatus'] == "email-sending") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/email/sending.html" %}
+
+                        <!-- Send letter-->
+                        {% elif (data['vclStatus'] == "letter-dispatched") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/letter/dispatched.html" %}
+
+                        {% elif (data['vclStatus'] == "letter-after-call-attempt-1") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/letter/after-call-attempt-1.html" %}
+
+                        {% elif (data['vclStatus'] == "letter-after-call-attempt-2") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/letter/after-call-attempt-2.html" %}
+
+                        {% elif (data['vclStatus'] == "letter-after-call-attempt-3") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/letter/after-call-attempt-3.html" %}
+
+                        {% elif (data['vclStatus'] == "letter-after-email-undelivered") %}
+                        {% include "/delivery/wat/vcl/victim-record/vcl/send/letter/after-email-undelivered.html" %}
+
+                        {% else %}
+                        <p class="govuk-body">There was a problem retrieving information. Try again later.</p>
+                        {% endif %}
+
+                        {% include "/delivery/wat/vcl/victim-record/vcl/next-steps.html" %}
+
+                    <!-- </div>
+                    <div class="govuk-grid-column-one-half">
+                        {% include "/delivery/wat/vcl/victim-record/vcl/progress-tracker.html" %}
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="govuk-grid-column-one-half">
+        
+        {% if (data['pmoc'] == "via-police") %}
+        <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} should only be informed about the stopped or substantially altered charge by the police.
+        </p>
+        {% elif (data['pmoc'] == "via-isva") %}
+        <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} should only be informed about the stopped or substantially altered charge by their independent sexual violence adviser (ISVA).
+        </p>
+        {% else %}
+        {% include "/delivery/wat/vcl/victim-record/vcl/draft/not-started.html" %}
+        {% endif %}
+        
+        {% if (data['vclSent'] == "yes") or (data['vclSent'] == "na") %}
+        <a href="/delivery/wat/vcl/draft/vcl-type" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+            Draft another letter<span class="govuk-visually-hidden"> to inform about the stopped or substantially altered charge</span>
+        </a>
+        {% endif %}
+    </div>
+    <div class="govuk-grid-column-one-half">
+        {% include "/delivery/wat/vcl/victim-record/vcl/progress-tracker.html" %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

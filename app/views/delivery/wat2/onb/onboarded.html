@@ -1,0 +1,36 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Victim onboarded" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Victim onboarded
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      {{ data['victimForename'] }} {{ data['victimSurname'] }} is now onboarded to the {{ serviceName }}.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    
+    <p class="govuk-body">
+      They are ready to be assigned to a member of the {{ data['serviceLead'] }} service.
+    </p>
+
+    <a href="/delivery/wat2/victims" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,293 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/pcd/overview">
+              Overview
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/pcd/tasks">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/pcd/victims" aria-current="true">
+              Victims
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block beforeContent %}
+<div class="app-identity-bar">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <b class="govuk-!-margin-right-2">
+          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </b>
+        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
+        <strong class="govuk-tag govuk-tag--blue">
+          Vulnerable victim
+        </strong>
+      </span>
+    </div>
+  </div>
+</div>
+<!-- <a href="javascript:window.history.back()" class="govuk-back-link">Back</a> -->
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if (data['case-locked'] == "by-someone-else") %}
+      {% include "/delivery/wat/pcd/case-locked/banner/by-someone-else.html" %}
+    {% elif (data['case-locked'] == "self-locked") %}
+      {% include "/delivery/wat/pcd/case-locked/banner/self-locked.html" %}
+    {% else %}
+    {% endif %}
+
+    {% if (data['success'] == "yes") %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if (data['successReason'] == "email-address-updated") %}
+            Victim email address updated
+          {% elif (data['successReason'] == "pmoc-updated") %}
+            Victim's preferred method of contact updated
+          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+            Telephone call 1 logged
+          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+            Telephone call 2 logged
+          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+            Telephone call 3 logged
+          {% elif (data['successReason'] == "draft-approved-to-send") %}
+            Letter sent to CMS and approved to send
+          {% endif %}
+        </h3>
+        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+      </div>
+    </div>
+
+    {% else %}
+    {% endif %}
+
+    <nav class="x-govuk-secondary-navigation" aria-labelledby="case-name">
+      <ul class="x-govuk-secondary-navigation__list">
+        {% if (data['secondaryNav'] == "victim-details") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% elif (data['secondaryNav'] == "case-contacts") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% elif (data['secondaryNav'] == "pcd") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% elif (data['secondaryNav'] == "ptm") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% elif (data['secondaryNav'] == "vcl") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% else %}
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat/pcd/victim-record?secondaryNav=overview">Overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link"  href="/delivery/wat/pcd/victim-record?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=ptm">Pre-trial</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat/pcd/victim-record?secondaryNav=vcl">VCL Scheme</a>
+          </li>
+
+        {% endif %}
+      </ul>
+    </nav>
+
+    {% if (data['secondaryNav'] == "overview") %}
+      {% include "/delivery/wat/pcd/victim-record/overview.html" %}
+
+    {% elif (data['secondaryNav'] == "victim-details") %}
+      {% include "/delivery/wat/pcd/victim-record/victim-details.html" %}
+
+    {% elif (data['secondaryNav'] == "case-contacts") %}
+      {% include "/delivery/wat/pcd/victim-record/case-contacts.html" %}
+
+    {% elif (data['secondaryNav'] == "pcd") %}
+      {% include "/delivery/wat/pcd/victim-record/pcd/index.html" %}
+
+    {% elif (data['secondaryNav'] == "ptm") %}
+      {% include "/delivery/wat/pcd/victim-record/pre-trial/pre-trial-meeting/index.html" %}
+
+    {% elif (data['secondaryNav'] == "vcl") %}
+      {% include "/delivery/wat/pcd/victim-record/vcl/index.html" %}
+
+    {% else %}
+      {% include "/delivery/wat/pcd/victim-record/overview.html" %}
+    
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat/pcd/victim-record.js"></script>
+{% endblock %}

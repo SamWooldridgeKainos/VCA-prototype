@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Service lead" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat2/onb/service-lead-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        Which service will carry out tasks for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="service-lead-universal" name="serviceLead" value="Universal" data-value="universal" {{ checked('serviceLead','Universal') }}>
+                        <label class="govuk-label govuk-radios__label" for="service-lead-universal">
+                            Universal
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="service-lead-enhanced" name="serviceLead" value="Enhanced" data-value="enhanced" {{ checked('serviceLead','Enhanced') }}>
+                        <label class="govuk-label govuk-radios__label" for="service-lead-enhanced">
+                            Enhanced
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="service-lead-rasso" name="serviceLead" value="RASSO" data-value="rasso" {{ checked('serviceLead','RASSO') }}>
+                        <label class="govuk-label govuk-radios__label" for="service-lead-rasso">
+                            RASSO
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="service-lead-bfs" name="serviceLead" value="Bereaved Family" data-value="bfs" {{ checked('serviceLead','Bereaved Family') }}>
+                        <label class="govuk-label govuk-radios__label" for="service-lead-bfs">
+                            Bereaved Family
+                        </label>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat2/onb/service-lead.js"></script>
+{% endblock %}
