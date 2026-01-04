@@ -82,7 +82,7 @@ router.post('/purpose4-answer', function(request, response) {
 
 	var purpose4 = request.session.data['purpose4']
 	if (purpose4 == "pre-trial"){
-		response.redirect("/ur/meetings-2/cps-offer/has-victim-accepted")
+		response.redirect("/ur/meetings-2/has-meeting-been-offered")
 	} else {
 		response.redirect("/ur/meetings-2//purpose")
 	}
