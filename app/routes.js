@@ -18,32 +18,17 @@ require('./routes/delivery/vcl')(router)
 
 require('./routes/ur/wat/pcd')(router)
 require('./routes/ur/wat/vcl')(router)
+require('./routes/ur/wat/onb')(router)
+
+require('./routes/delivery/wat/pcd')(router)
+require('./routes/delivery/wat/vcl')(router)
+require('./routes/delivery/wat/onb')(router)
+
+require('./routes/delivery/wat2')(router)
 
 
 // meetings
 // @Michael can your routes for meetings be moved to a separate file as per the above? I can show you how to do this if needed, or I can make the changes myself.
-
-
-
-router.post('/what-do-you-want-to-log', function(request, response) {
-
-	var logging = request.session.data['logging']
-	if (logging == "yes"){
-		response.redirect("/ur/meetings-2/purpose2")
-	} else {
-		response.redirect("/ur/meetings-2/purpose")
-	}
-})
-
-router.post('/what-do-you-want-to-log-offer', function(request, response) {
-
-	var logging2 = request.session.data['logging2']
-	if (logging2 == "yes"){
-		response.redirect("/ur/meetings-2/cps-offer/purpose-notaccepted")
-	} else {
-		response.redirect("/ur/meetings-2/purpose")
-	}
-})
 
 router.post('/purpose-answer', function(request, response) {
 

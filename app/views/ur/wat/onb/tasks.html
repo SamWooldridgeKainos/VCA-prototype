@@ -83,11 +83,11 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Caseworker
+              Assignee
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <label class="govuk-label" for="caseworker-autocomplete">Find caseworker</label>
-              <div id="caseworker-autocomplete"></div>
+              <label class="govuk-label" for="assignee-autocomplete">Find assignee</label>
+              <div id="assignee-autocomplete"></div>
             </div>
             <div id="owner-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
@@ -443,7 +443,7 @@
     </div>
   </div>
 
-  <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-column-one-half">
 
     <div class="moj-search tasks-filters govuk-!-padding-4 govuk-!-margin-bottom-4">
       <form action="#" method="post">
@@ -653,6 +653,14 @@
       {% endif %}
     </dl>
 
+    <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><a href="#" class="govuk-link govuk-link--no-visited-state">JONES, Oliver A</a></h2>
+          <p class="govuk-body govuk-!-margin-bottom-0">42AE4523851</p>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Task</dt><dd class="govuk-summary-list__value"><span class="govuk-!-font-weight-bold">Inform of no further action decision</span></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Due</dt><dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Next action</dt><dd class="govuk-summary-list__value"><a href="#" class="govuk-link">Finish and send</a></dd></div>
+        </dl>
+
     <nav class="govuk-pagination" aria-label="Pagination">
       <ul class="govuk-pagination__list">
         <li class="govuk-pagination__item govuk-pagination__item--current">
@@ -742,7 +750,7 @@
       }
     }
     
-    renderChipCategory(ownerCheckboxes, 'Caseworker');
+    renderChipCategory(ownerCheckboxes, 'Assignee');
     renderChipCategory(areaCheckboxes, 'Area');
     renderChipCategory(serviceCheckboxes, 'Service');
     
@@ -801,7 +809,7 @@
     ownerCheckboxesContainer.style.display = '';
   }
 
-  // Initialize accessible-autocomplete for Caseworker (Owner) filter
+  // Initialize accessible-autocomplete for assignee (Owner) filter
   function initializeOwnerAutocomplete() {
     var owners = [
       { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
@@ -827,12 +835,12 @@
       { label: 'CLARK, Victoria', value: 'clark-victoria' }
     ];
 
-    var container = document.querySelector('#caseworker-autocomplete');
+    var container = document.querySelector('#assignee-autocomplete');
     var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
     var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
 
     if (!container) {
-      console.error('Caseworker autocomplete container not found');
+      console.error('Assignee autocomplete container not found');
       return;
     }
 
@@ -854,7 +862,7 @@
 
     accessibleAutocomplete({
       element: container,
-      id: 'caseworker-autocomplete-input',
+      id: 'assignee-autocomplete-input',
       source: sourceFunction,
       showAllValues: true,
       minLength: 0,

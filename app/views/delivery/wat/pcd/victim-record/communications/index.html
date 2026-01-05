@@ -1,0 +1,109 @@
+{% block content %}
+<h2 class="govuk-heading-l govuk-!-margin-top-6 sr-only">Communications</h2>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        {% if (data['pmoc'] == "email") %}
+          {% if (data['pcdStatus'] == "email-delivered") %}
+          {% else %}
+            {% if (data['victimEmailAddress'] == "") %}
+              <div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                      <span class="govuk-visually-hidden">Warning</span>
+                      Preferred method of contact is missing
+                      <p class="govuk-body govuk-!-margin-bottom-0">
+                          Confirm it first then <a href="/delivery/wat/pcd/victim-details/email-address.html" class="govuk-link">enter an email address</a>.
+                      </p>
+                  </strong>
+              </div>
+            {% else %}
+              {% if (data['nfaStatus'] == "") %}
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-visually-hidden">Warning</span>
+                        Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+                    </strong>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+        {% if (data['pmoc'] == "") %}
+          <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Preferred method of contact unknown
+                  <p class="govuk-body govuk-!-margin-bottom-0">
+                      Confirm this before you contact the victim, then <a href="/delivery/wat/pcd/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
+                  </p>
+              </strong>
+          </div>
+        {% endif %}
+
+        {% if ((data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile")) and (data['victimPhoneNumber'] == "") %}
+          <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Preferred method of contact is missing
+                  <p class="govuk-body govuk-!-margin-bottom-0">
+                      Confirm it first then <a href="/delivery/wat/pcd/victim-details/telephone-number.html" class="govuk-link">enter a telephone number</a>.
+                  </p>
+              </strong>
+          </div>
+        {% endif %}
+
+        {% if (data['pmoc'] == "post") and (data['victimAddressLine1'] == "") %}
+          <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Preferred method of contact is missing
+                  <p class="govuk-body govuk-!-margin-bottom-0">
+                      Confirm it first then <a href="/delivery/wat/pcd/victim-details/address.html" class="govuk-link">enter an address</a>.
+                  </p>
+              </strong>
+          </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="govuk-tabs" data-module="govuk-tabs">
+  <h2 class="govuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="govuk-tabs__list">
+    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+      <a class="govuk-tabs__tab" href="#pcd-tab">
+        Pre-charge decision
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#ptm-tab">
+        Pre-trial meeting
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#vcl-tab">
+        VCL Scheme
+      </a>
+    </li>
+  </ul>
+  <div class="govuk-tabs__panel" id="pcd-tab">
+    {% include "/delivery/wat/pcd/victim-record/pcd/index.html" %}
+  </div>
+  <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="ptm-tab">
+    {% include "/delivery/wat/pcd/victim-record/pre-trial/pre-trial-meeting/index.html" %}
+    
+  </div>
+  <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="vcl-tab">
+    {% include "/delivery/wat/pcd/victim-record/vcl/index.html" %}
+  </div>
+</div>
+{% endblock %}

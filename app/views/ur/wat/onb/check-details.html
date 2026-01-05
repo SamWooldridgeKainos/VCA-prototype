@@ -2,7 +2,7 @@
 {% set pageName="Check the details before drafting the letter" %}
 
 {% block header %}
-{% include "/ur/wat/pcd/header/vso.html" %}
+{% include "/ur/wat/onb/header/vso.html" %}
 {% endblock %}
 
 {% block beforeContent %}
@@ -18,24 +18,24 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Pre-charge decision
+                    Service lead
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Decision to charge
+                    {{ data['serviceLead'] }}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="/onb/pcd-type">Change<span class="govuk-visually-hidden"> pre-charge decision</span></a>
+                    <a class="govuk-link" href="/ur/wat/onb/service-lead">Change<span class="govuk-visually-hidden"> service lead</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Service lead
+                    Next task
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Universal
+                    {{ data['nextTask'] }}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="/onb/pcd-type">Change<span class="govuk-visually-hidden"> pre-charge decision</span></a>
+                    <a class="govuk-link" href="/ur/wat/onb/next-task">Change<span class="govuk-visually-hidden"> next task</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -54,7 +54,7 @@
                     <a href="#" class="govuk-link">Select risk level</a>
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
+            <!-- <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Proceeding or withdrawn
                 </dt>
@@ -69,13 +69,16 @@
                 <dd class="govuk-summary-list__value">
                     <a href="#" class="govuk-link">Select if supportive or unsupportive</a>
                 </dd>
-            </div>
+            </div> -->
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Communication
+                    Preferred method of contact
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <a href="#" class="govuk-link">Select if they want communications</a>
+                    {{ data['pmoc'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="/ur/wat/onb/preferred-method-of-contact">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -83,38 +86,34 @@
                     Preferred corresponding language
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Spanish
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred corresponding language</span></a>
+                    <a href="#" class="govuk-link">Select preferred corresponding language</a>
                 </dd>
             </div>
+            {% if data['preferred-corresponding-language'] == "English" or data['preferred-corresponding-language'] == "" %}
+            {% else %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Translator required
+                    Translator needed
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <a href="#" class="govuk-link">Select if translator required</a>
+                    <a href="#" class="govuk-link">Select if translator needed</a>
                 </dd>
             </div>
-            
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Preferred method of contact
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ data['pmoc'] | capitalize }}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="/victim-details/preferred-method-of-contact">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
-                </dd>
-            </div>
+            {% endif %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred contact times
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <a href="#" class="govuk-link">Select preferred contact times</a>
+                    <a href="#" class="govuk-link">Enter preferred contact times</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <a href="#" class="govuk-link">Enter preferred name</a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -126,16 +125,16 @@
                 </dd>
             </div>
         </dl>
-        <!-- <h2 class="govuk-heading-m">
-            Now start drafting the letter
-        </h2> -->
-        <!-- <p class="govuk-body">
-            By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
-        </p> -->
-        <form action="/ur/wat/pcd/pre-draft/check-details-answer" method="post" novalidate>
+        <h2 class="govuk-heading-m">
+            Now onboard the victim
+        </h2>
+        <p class="govuk-body">
+            By confirming these details you will onboard {{ data['victimForename'] }} {{ data['victimSurname'] }} to the {{ serviceName }}. They can then be assigned to a member of the {{ data['serviceLead'] }} service.
+        </p>
+        <form action="/ur/wat/onb/check-details-answer" method="post" novalidate>
             <input type="hidden" name="answers-checked" value="true">
             <button type="submit" class="govuk-button" data-module="govuk-button">
-                Save and continue
+                Confirm and onboard
             </button>
         </form>
     </div>

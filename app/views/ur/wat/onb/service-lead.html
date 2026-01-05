@@ -20,37 +20,37 @@
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        Which service will communicate with {{ data['victimForename'] }} {{ data['victimSurname'] }} (or family of)?
+                        Which service will carry out tasks for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
                     </h1>
                 </legend>
 
                 <div class="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="service-lead-universal" name="serviceLead" value="universal" {{ checked('serviceLead','universal') }}>
+                        <input type="radio" class="govuk-radios__input" id="service-lead-universal" name="serviceLead" value="Universal" data-value="universal" {{ checked('serviceLead','Universal') }}>
                         <label class="govuk-label govuk-radios__label" for="service-lead-universal">
                             Universal
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="service-lead-enhanced" name="serviceLead" value="enhanced" {{ checked('serviceLead','enhanced') }}>
+                        <input type="radio" class="govuk-radios__input" id="service-lead-enhanced" name="serviceLead" value="Enhanced" data-value="enhanced" {{ checked('serviceLead','Enhanced') }}>
                         <label class="govuk-label govuk-radios__label" for="service-lead-enhanced">
                             Enhanced
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="service-lead-rasso" name="serviceLead" value="rasso" {{ checked('serviceLead','rasso') }}>
+                        <input type="radio" class="govuk-radios__input" id="service-lead-rasso" name="serviceLead" value="RASSO" data-value="rasso" {{ checked('serviceLead','RASSO') }}>
                         <label class="govuk-label govuk-radios__label" for="service-lead-rasso">
                             RASSO
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="service-lead-bfs" name="serviceLead" value="bfs" {{ checked('serviceLead','bfs') }}>
+                        <input type="radio" class="govuk-radios__input" id="service-lead-bfs" name="serviceLead" value="Bereaved Family" data-value="bfs" {{ checked('serviceLead','Bereaved Family') }}>
                         <label class="govuk-label govuk-radios__label" for="service-lead-bfs">
-                            Bereaved Family Service
+                            Bereaved Family
                         </label>
                     </div>
 

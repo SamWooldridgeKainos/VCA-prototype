@@ -1,0 +1,48 @@
+{% block content %}
+<dl class="govuk-summary-list">
+    <!-- <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Letter sent by
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {% if (data['fumoc'] == "email" or data['fumoc'] == "post") %}
+            {{ data['fumoc'] | capitalize }}
+            {% else %}
+            {{ data['pmoc'] | capitalize }}
+            {% endif %}
+        </dd>
+    </div> -->
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Email sent
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ "today" | govukDate(showWeekday=true) }} at 11:39
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['victimEmailAddress'] }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Also included
+        </dt>
+        <dd class="govuk-summary-list__value">
+            Information pack<br>Crest survey
+        </dd>  
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['notifyStatus'] | capitalize }} {% if (data['notifyStatus'] == "permanent") or (data['notifyStatus'] == "technical" or data['notifyStatus'] == "temporary") %}failure{% endif %}
+        </dd>  
+    </div>
+</dl>
+{% endblock %}

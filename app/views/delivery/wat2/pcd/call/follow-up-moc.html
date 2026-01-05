@@ -1,0 +1,77 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Follow-up method of contact" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat2/pcd/call/follow-up-moc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        How does {{ data['victimForename'] }} {{ data['victimSurname'] }} want to receive the letter?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="pcdFumoc" value="Email" {{ checked('pcdFumoc','Email') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-email">
+                            Email
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="pcdFumoc" value="Post" {{ checked('pcdFumoc','Post') }}>
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-post">
+                            Post
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__divider">or</div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="pcdFumoc" value="None" {{ checked('pcdFumoc','None') }} data-aria-controls="conditional-pcdFumoc-none">
+                        <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-none">
+                            They do not want a letter
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-pcdFumoc-none">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="no-pcdFumoc-details">
+                                Reason for no letter
+                            </label>
+                            <textarea class="govuk-textarea" id="no-pcdFumoc-details" name="pcdNoFumocDetails" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat2/pcd/call/follow-up-moc.js"></script>
+{% endblock %}

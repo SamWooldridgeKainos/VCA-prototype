@@ -3,6 +3,10 @@
     Progress tracker
 </h3>
 
+<p class="govuk-body">
+    {{ data['pcdStatus'] | capitalize }}
+</p>
+
 {% if (data['pmoc'] == "via-police") %}
 <div id="progress" class="app-progress-bar">
     <ol class="app-progress-bar__list">

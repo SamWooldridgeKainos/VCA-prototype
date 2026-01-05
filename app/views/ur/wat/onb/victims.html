@@ -71,11 +71,11 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Caseworker
+              Assignee
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <label class="govuk-label" for="caseworker-autocomplete">Find caseworker</label>
-              <div id="caseworker-autocomplete"></div>
+              <label class="govuk-label" for="assignee-autocomplete">Find assignee</label>
+              <div id="assignee-autocomplete"></div>
             </div>
             <div id="owner-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
@@ -441,7 +441,7 @@
             Search by victim or case reference
           </label>
     
-          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">
+          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="">
                    
         </div>
     
@@ -465,329 +465,280 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-    {% if (data['searchUrn'] == data['caseUrn']) %}
-    <dl class="govuk-summary-list govuk-!-margin-top-6">
-      <h2 class="govuk-heading-m">
-        <a href="#" class="govuk-link govuk-link--no-visited-state">OBERON, Shelly</a>
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          42QW2146123
-        </dd>
+    {% if true %}
+    <div id="victims-container">
+      <!-- Page 1 results -->
+      <div class="victims-page" data-page="1">
+        <dl class="govuk-summary-list govuk-!-margin-top-6">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">OBERON, Shelly</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">42QW2146123</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">SUMMER, Yasmin</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Enhanced</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">KUMAR, Priya<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">KING, Wendy</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">42TT3356525</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">NEWSOME, Gavin</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">JONES, Oliver A</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">42AE4523851</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">SHEARON, Abigail</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> JONES, Oliver A</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">WOODLEY, Alfred</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">43WU1133726</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">PICKERTON, Gary</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> WOODLEY, Alfred</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">COLLOCINI, Emiliano</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">42XF5693726</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">VERNON, Eugene</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> COLLOCINI, Emiliano</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">EVANS, Gareth</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895412</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">DE FREITAS, Jhon</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> EVANS, Gareth</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">COOPER, Tracey</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895413</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">DE FREITAS, Jhon</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> COOPER, Tracey</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Enhanced</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">MORRISON, Jennifer</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895414</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">BLAKE, Marcus</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">RASSO</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">BISHOP, James<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">RICHARDSON, David</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895415</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">STEWART, Patricia</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> RICHARDSON, David</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Bereaved Family Service</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          {% if data['onboardedStatus'] == "No" %}
+          <h2 class="govuk-heading-m">PHILLIPS, Sarah</h2>
+          {% elif data['onboardedStatus'] == "Yes" %}
+          <h2 class="govuk-heading-m"><a href="/delivery/wat/pcd/victim-record" class="govuk-link govuk-link--no-visited-state">PHILLIPS, Sarah</a></h2>
+          {% endif %}
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">{{ data['caseUrn'] }}</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">WRIGHT, Nathan</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">{{ data['onboardedStatus'] }}{% if data['onboardedStatus'] == 'No' %}<br><a href="/ur/wat/onb/service-lead" class="govuk-link">Onboard<span class="govuk-visually-hidden"> {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</span></a>{% endif %}</dd></div>
+          {% if data['onboardedStatus'] == "Yes" %}
+            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">{{ data['serviceLead'] }}</dd></div>
+            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+          {% endif %}
+        </dl>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          SUMMER, Yasmin
-        </dd>
+
+      <!-- Page 2 results -->
+      <div class="victims-page" data-page="2" style="display: none;">
+        <dl class="govuk-summary-list govuk-!-margin-top-6">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">ANDREWS, Robert</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895417</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">PEARSON, Lisa</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">PALMER, Susan</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895418</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">LUCAS, Timothy</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> PALMER, Susan</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">RASSO</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">BENNETT, Karen</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895419</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">GREGORY, Steven</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> BENNETT, Karen</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Bereaved Family Service</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">HARRIS, Richard</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895420</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">HAYES, Michael</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">ROSS, Elizabeth</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895421</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">KING, Jonathan</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> ROSS, Elizabeth</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">MILLER, Catherine</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895422</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">WILSON, Christopher</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> MILLER, Catherine</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">CLARK, Margaret</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895423</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">BROWN, Andrew</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Enhanced</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">KUMAR, Priya<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">ADAMS, Helen</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895424</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">THOMAS, Kenneth</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> ADAMS, Helen</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">PRICE, Vincent</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895425</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">MURPHY, Robert</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> PRICE, Vincent</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Bereaved Family Service</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Yes
-        </dd>
+
+      <!-- Page 3 results -->
+      <div class="victims-page" data-page="3" style="display: none;">
+        <dl class="govuk-summary-list govuk-!-margin-top-6">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">STEWART, Angela</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895426</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">BAKER, Edward</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Enhanced</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">KUMAR, Priya<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">WHITE, Barbara</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895427</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">MASON, George</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> WHITE, Barbara</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">RASSO</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">KELLY, Paul</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895428</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">HALL, Virginia</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> KELLY, Paul</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">RYAN, Nancy</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895429</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">WASHINGTON, James</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> RYAN, Nancy</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">MOORE, Margaret</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895430</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">DAVIS, Walter</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Bereaved Family Service</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">MORRISON, Claire<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">GREEN, Anthony</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895431</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">MARTIN, Sandra</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">LEWIS, Paul</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895432</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">PEREZ, Luis</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> LEWIS, Paul</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">RASSO</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m">WALKER, Jessica</h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895433</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">ROBINSON, Diane</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">No</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">No<br><a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> WALKER, Jessica</span></a></dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">Unassigned</dd></div>
+        </dl>
+        <dl class="govuk-summary-list govuk-!-margin-top-9">
+          <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">GARCIA, Manuel</a></h2>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Case reference</dt><dd class="govuk-summary-list__value">44RG9895434</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Lead defendant</dt><dd class="govuk-summary-list__value">JONES, Charles</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim category</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Onboarded</dt><dd class="govuk-summary-list__value">Yes</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Service</dt><dd class="govuk-summary-list__value">Universal</dd></div>
+          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah<br><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+        </dl>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Yes
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Caseworker
-        </dt>
-        <dd class="govuk-summary-list__value">
-          BERESFORD, Marian<br>
-          <a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> assignee</span></a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        <a href="#" class="govuk-link govuk-link--no-visited-state">KING, Wendy</a>
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          42TT3356525
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          NEWSOME, Gavin
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Yes
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Yes
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Caseworker
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <a class="govuk-link" href="#">Assign to a caseworker</a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {{ data['caseUrn'] }}
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          DAVIES, Bella
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Yes
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a class="govuk-link govuk-link--no-visited-state" href="/ur/wat/onb/pcd-type">Onboard<span class="govuk-visually-hidden"> {{ data['victimForename'] }} {{ data['victimSurname'] }}</span></a>
-        </dd>
-        <!-- <dd class="govuk-summary-list__actions">
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> for {{ data['victimForename'] }} {{ data['victimSurname'] }}</span></a>
-        </dd> -->
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        JONES, Oliver A
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          42AE4523851
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          SHEARON, Abigail
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> JONES, Oliver A</span></a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        WOODLEY, Alfred
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          43WU1133726
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          PICKERTON, Gary
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> WOODLEY, Alfred</span></a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        COLLOCINI, Emilia
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          42XF5693726
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          VERNON, Eugene
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> COLLOCINI, Emiliano</span></a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        EVANS, Gareth
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          44RG9895412
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          DE FREITAS, Jhon
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> EVANS, Gareth</span></a>
-        </dd>
-      </div>
-    </dl>
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m">
-        COOPER, Tracey
-      </h2>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Case reference
-        </dt>
-        <dd class="govuk-summary-list__value">
-          44RG9895412
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead defendant
-        </dt>
-        <dd class="govuk-summary-list__value">
-          DE FREITAS, Jhon
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Victim category
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Onboarded
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No<br>
-          <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> COOPER, Tracey</span></a>
-        </dd>
-      </div>
-    </dl>
+    </div>
+
+    <!-- Pagination removed - showing all results on one page -->
 
     <!-- <table class="govuk-table govuk-table--small-text-until-tablet">
       <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">URN search results showing victims and witnesses</caption>
@@ -861,23 +812,23 @@
           <h2 class="govuk-heading-m">Recently viewed victims</h2>
           <ul class="govuk-list">
               <li>
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">Verity Megson</a>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">MEGSON, Verity</a>
                   <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
               </li>
               <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">{{ data['victimForename'] }} {{ data['victimSurname'] }}</a>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
                   <p class="govuk-body govuk-!-margin-top-1">{{ data['caseUrn'] }}</p>
               </li>
               <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">Emily Chen</a>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">CHEN, Emily</a>
                   <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
               </li>
               <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">James Wilson</a>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, James</a>
                   <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
               </li>
               <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">Lucy Martinez</a>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">MARTINEZ, Lucy</a>
                   <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
               </li>
           </ul>
@@ -913,6 +864,14 @@
     updateClearSearchVisibility();
     searchInput.focus();
   });
+
+  // Show all victim pages (pagination removed)
+  (function() {
+    var victimPages = document.querySelectorAll('.victims-page');
+    victimPages.forEach(function(page) {
+      page.style.display = 'block';
+    });
+  })();
 </script>
 
 {% endblock %}

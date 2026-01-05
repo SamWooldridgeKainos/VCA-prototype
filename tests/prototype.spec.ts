@@ -4,15 +4,9 @@ import * as path from 'path';
 
 // List of routes to test
 const routes = [
-  '/delivery/vcl/sign-in',
-  '/delivery/vcl/search',
-  '/delivery/vcl/victim-record#summary',
-  '/delivery/vcl/victim-record#victim-details',
-  '/delivery/vcl/victim-record#case-contacts',
-  '/delivery/vcl/preferred-method-of-contact',
-  '/delivery/vcl/victim-record?pmoc=mobile&vclType=stopped-charge&vclStatus=after-email-undelivered&subTab=vcl#communications',
-  '/delivery/vcl/victim-record?pmoc=mobile&vclType=stopped-charge&vclStatus=draft-not-started&subTab=vcl#communications',
-  '/delivery/vcl/victim-record?pmoc=mobile&vclType=stopped-charge&vclStatus=draft-in-progress&subTab=vcl#communications',
+  '/ur/wat/onb/overview',
+  '/ur/wat/onb/tasks',
+  '/ur/wat/onb/victims'
 ];
 
 test.describe('Prototype Pages Screenshot Test', () => {
@@ -77,7 +71,7 @@ test.describe('Prototype Pages Screenshot Test', () => {
   // Test form interactions
   test('Form interaction test', async ({ page }) => {
     // Start with sign-in page
-    await page.goto('http://localhost:3000/delivery/dtc/sign-in');
+    await page.goto('http://localhost:3000/ur/wat/onb/sign-in');
     await expect(page.locator('.govuk-header')).toBeVisible();
 
     // Look for common GOV.UK form elements
@@ -96,7 +90,7 @@ test.describe('Prototype Pages Screenshot Test', () => {
   // Test navigation between pages
   test('Navigation test', async ({ page }) => {
     // Test navigation between related pages
-    await page.goto('http://localhost:3000/delivery/dtc/search');
+    await page.goto('http://localhost:3000/ur/wat/onb/search');
     await expect(page.locator('.govuk-header')).toBeVisible();
     
     // Test back link if present
