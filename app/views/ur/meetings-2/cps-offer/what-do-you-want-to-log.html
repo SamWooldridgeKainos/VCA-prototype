@@ -10,34 +10,27 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/format2-answer" method="post">
+    <form class="form" action="/what-do-you-want-to-log-offer" method="post">
 
 
     {{ govukRadios({
-      name: "format2",
-      value: data['format2'],
+      name: "logging2",
+      value: data['logging2'],
       fieldset: {
         legend: {
-          text: "How will the meeting take place?",
+          text: "What do you want to log?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }
       },
       items: [
         {
-          value: "face-to-face",
-          text: "In person"
+          value: "yes",
+          text: "A meeting offer"
         },
         {
-          value: "video",
-          text: "Virtual call"
-        },
-        {
-          value: "face-to-face",
-          text: "Hybrid",
-         hint: {
-        text: "Some people will attend in person and others will join virtually"
-      }
+          value: "no",
+          text: "Meeting arrangement details"
         }
       ]
     }) }}

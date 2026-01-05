@@ -50,6 +50,9 @@ router.post('/purpose2-answer', function(request, response) {
 	}
 })
 
+
+
+
 router.post('/purpose3-answer', function(request, response) {
 
 	var purpose3 = request.session.data['purpose3']
@@ -64,7 +67,7 @@ router.post('/purpose4-answer', function(request, response) {
 
 	var purpose4 = request.session.data['purpose4']
 	if (purpose4 == "pre-trial"){
-		response.redirect("/ur/meetings-2/cps-offer/has-victim-accepted")
+		response.redirect("/ur/meetings-2/has-meeting-been-offered")
 	} else {
 		response.redirect("/ur/meetings-2//purpose")
 	}
@@ -99,7 +102,6 @@ router.post('/format2-answer', function(request, response) {
 	}
 })
 
-
 router.post('/howoffered-answer', function(request, response) {
 
 	var howoffered = request.session.data['howoffered']
@@ -115,6 +117,29 @@ router.post('/howoffered-answer', function(request, response) {
 	}
 
 else if (howoffered == "letter-police"){
+  response.redirect("/ur/meetings-2/cps-offer/meeting-offered-police#communications")
+
+
+	} else {
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-telephone#communications")
+	}
+})
+
+router.post('/howoffered2-answer', function(request, response) {
+
+	var howoffered2 = request.session.data['howoffered2']
+	if (howoffered2 == "letter-post"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-post2#communications")
+  }
+  else if (howoffered2 == "letter-email"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-email#communications")
+	}
+
+  else if (howoffered2 == "letter-isva"){
+		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-isva#communications")
+	}
+
+else if (howoffered2 == "letter-police"){
   response.redirect("/ur/meetings-2/cps-offer/meeting-offered-police#communications")
 
 
@@ -258,7 +283,7 @@ router.post('/did-victim-request3', function(request, response) {
 	if (meeting4 == "yes"){
 		response.redirect("/ur/meetings-2/cps-offer/recordaccepted")
 	} else {
-		response.redirect("/ur/meetings-2/cps-offer/meeting-offered-post#communications")
+		response.redirect("/ur/meetings-2/cps-offer/howoffered2")
 	}
 })
 
