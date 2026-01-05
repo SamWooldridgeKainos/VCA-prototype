@@ -5,7 +5,7 @@
             Telephone call 3
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour3'] }}:{{ data['callMinutes3'] }}
+            {{ "today" | govukDate(showWeekday=true) }} at {{ data['pcdCallHour3'] }}:{{ data['pcdCallMinutes3'] }}
         </dd>
     </div>
     <!-- <div class="govuk-summary-list__row">
@@ -21,7 +21,7 @@
             Call direction
         </dt>
         <dd class="govuk-summary-list__value">
-            {% if (data['callType3'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
+            {% if (data['pcdCallType3'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -29,7 +29,7 @@
             Victim informed
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['victimInformed3'] }}
+            {{ data['pcdVictimInformed3'] }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -37,7 +37,7 @@
             Notes
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['callNotes3'] }}
+            {{ data['pcdCallNotes3'] }}
         </dd>
     </div>
 </dl>

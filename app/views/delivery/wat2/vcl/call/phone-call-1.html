@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName="Telephone call 1" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -34,10 +37,10 @@
                 <div class="moj-datepicker" id="phone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
         
                     <input type="text" class="govuk-input moj-js-datepicker-input" id="phone-call-date-1"
-                        name="phoneCallDate1"
+                        name="vclCallDate1"
                         autocomplete="off"
                         aria-describedby="phone-call-date-hint-1"
-                        value="{{ data['phoneCallDate1'] }}" />
+                        value="{{ data['vclCallDate1'] }}" />
                 </div>
             </div>
 
@@ -58,7 +61,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-hour-1">
                                     Hour
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-1" name="callHour1" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-1" name="vclCallHour1" type="text" inputmode="numeric">
                             </div>
                         </div>
                         <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -70,7 +73,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-minutes-1">
                                     Minutes
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-1" name="callMinutes1" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-1" name="vclCallMinutes1" type="text" inputmode="numeric">
                             </div>
                         </div>
 
@@ -88,7 +91,7 @@
 
                     <div class="govuk-radios" data-module="govuk-radios" id="call-type-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="call-type-outbound" name="callType1" type="radio" value="Yes" {{ checked('callType1','Yes') }} aria-describedby="outbound-hint">
+                            <input class="govuk-radios__input" id="call-type-outbound" name="vclCallType1" type="radio" value="Yes" {{ checked('vclCallType1','Yes') }} aria-describedby="outbound-hint">
                             <label class="govuk-label govuk-radios__label" for="call-type-outbound">
                                 <!-- Yes, I called the victim -->
                                 Outbound
@@ -99,7 +102,7 @@
                         </div>
                         
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="call-type-inbound" name="callType1" type="radio" value="No" {{ checked('callType1','No') }} aria-describedby="inbound-hint">
+                            <input class="govuk-radios__input" id="call-type-inbound" name="vclCallType1" type="radio" value="No" {{ checked('vclCallType1','No') }} aria-describedby="inbound-hint">
                             <label class="govuk-label govuk-radios__label" for="call-type-inbound">
                                 <!-- No, the victim called the CPS -->
                                 Inbound
@@ -121,28 +124,28 @@
 
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="victim-informed-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="victim-informed-yes" name="victimInformed1" type="radio" value="Yes" {{ checked('victimInformed1','Yes') }}>
+                            <input class="govuk-radios__input" id="victim-informed-yes" name="vclVictimInformed1" type="radio" value="Yes" {{ checked('vclVictimInformed1','Yes') }}>
                             <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
                                 Yes
                             </label>
                         </div>
                         
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="victim-informed-no" name="victimInformed1" type="radio" value="No" {{ checked('victimInformed1','No') }}>
+                            <input class="govuk-radios__input" id="victim-informed-no" name="vclVictimInformed1" type="radio" value="No" {{ checked('vclVictimInformed1','No') }}>
                             <label class="govuk-label govuk-radios__label" for="victim-informed-no">
                                 No
                             </label>
                         </div>
                     </div>
                 </fieldset>
-            </div>
+            </div÷>//
 
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-label--m" for="call-notes-1">
                     Notes (optional)
                 </label>
 
-                <textarea class="govuk-textarea" id="call-notes-1" name="callNotes1" rows="4"></textarea>
+                <textarea class="govuk-textarea" id="call-notes-1" name="vclCallNotes1" rows="4"></textarea>
             </div>
 
             <button type="submit" class="govuk-button" data-module="govuk-button">

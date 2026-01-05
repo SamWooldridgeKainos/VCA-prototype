@@ -7,16 +7,13 @@
     <div class="govuk-grid-column-one-half">
 
         {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
-        {% if (data['victimInformed1'] == "Yes") or (data['victimInformed2'] == "Yes") or (data['victimInformed3'] == "Yes") or (data['nfaStatus'] == "after-call-attempt-1") or (data['nfaStatus'] == "after-call-attempt-2") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "draft-approved-to-send") %}
-        {% else %}
-        <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong class="govuk-warning-text__text">
-                <span class="govuk-visually-hidden">Warning</span>
-                Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
-            </strong>
-        </div>
-        {% endif %}
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+                </strong>
+            </div>
         {% endif %}
 
     </div>

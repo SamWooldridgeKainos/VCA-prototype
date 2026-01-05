@@ -27,14 +27,14 @@
                 <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="fumoc" value="Email" {{ checked('fumoc','Email') }}>
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="pcdFumoc" value="Email" {{ checked('pcdFumoc','Email') }}>
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-email">
                             Email
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="fumoc" value="Post" {{ checked('fumoc','Post') }}>
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="pcdFumoc" value="Post" {{ checked('pcdFumoc','Post') }}>
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-post">
                             Post
                         </label>
@@ -43,18 +43,18 @@
                     <div class="govuk-radios__divider">or</div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="fumoc" value="None" {{ checked('fumoc','None') }} data-aria-controls="conditional-fumoc-none">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="pcdFumoc" value="None" {{ checked('pcdFumoc','None') }} data-aria-controls="conditional-pcdFumoc-none">
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-none">
                             They do not want a letter
                         </label>
                     </div>
 
-                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-fumoc-none">
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-pcdFumoc-none">
                         <div class="govuk-form-group">
-                            <label class="govuk-label" for="no-fumoc-details">
+                            <label class="govuk-label" for="no-pcdFumoc-details">
                                 Reason for no letter
                             </label>
-                            <textarea class="govuk-textarea" id="no-fumoc-details" name="noFumocDetails" rows="4"></textarea>
+                            <textarea class="govuk-textarea" id="no-pcdFumoc-details" name="pcdNoFumocDetails" rows="4"></textarea>
                         </div>
                     </div>
 

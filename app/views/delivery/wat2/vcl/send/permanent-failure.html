@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName="Permanent failure" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -26,7 +29,7 @@
         </p> -->
 
         <p class="govuk-body">
-            Once updated, you can try to send the email again from 'Communications' tab of the victim's record.
+            Once updated, you can try to send the email again from 'VCL Scheme' tab of the victim's record.
         </p>
         <a href="/delivery/wat2/victim?dtcEmailStatus=technical&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
             Continue

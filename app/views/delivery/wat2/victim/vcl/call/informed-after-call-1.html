@@ -3,7 +3,7 @@
 
 <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-0">
 
-{% if (data['fumoc'] == "email") or (data['fumoc'] == "post") %}
+{% if (data['vclFumoc'] == "email") or (data['vclFumoc'] == "post") %}
 <p class="govuk-body">
     You must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
@@ -27,7 +27,7 @@
             Reason for no letter
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['noFumocDetails'] }}
+            {{ data['vclNoFumocDetails'] }}
         </dd>
     </div>
 </dl>

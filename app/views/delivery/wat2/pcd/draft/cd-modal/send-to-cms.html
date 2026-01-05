@@ -37,15 +37,15 @@
             <button type="button" class="govuk-button govuk-button--secondary" id="send-to-cms-modal-cancel" data-module="govuk-button">
               Cancel
             </button>
-            {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "email") %}
+            {% if (data['pmoc'] == "email") or (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") %}
             <a href="/delivery/wat2/pcd/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
-            {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['pcdStatus'] == "after-call-attempt-3") or (data['pcdStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "post") %}
+            {% elif (data['pmoc'] == "post") or (data['pcdFumoc'] == "post") or (data['pcdStatus'] == "after-call-attempt-3") or (data['pcdStatus'] == "draft-ready-to-send") or (data['pcdAttemptToContactAgain'] == "post") %}
             <a href="/delivery/wat2/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
-            {% elif (data['fumoc'] == "none") %}
+            {% elif (data['pcdFumoc'] == "none") %}
             <a href="/delivery/wat2/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&pcdSent=na&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>

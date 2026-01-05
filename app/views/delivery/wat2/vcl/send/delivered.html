@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName = "Email delivered" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
@@ -25,7 +28,7 @@
     <h2 class="govuk-heading-m">Further information</h2>
 
     <p class="govuk-body">
-      You can view a log of the delivered email on the 'Communications' tab of the victim's page, within the Victim Case Application.
+      You can view a log of the delivered email on the 'VCL Scheme' tab of the victim's page, within the Victim Case Application.
     </p>
 
     <p class="govuk-body">
@@ -34,31 +37,31 @@
 
     {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
 
-    {% if (data['callAttempt'] == "1") %}
+    {% if (data['vclCallAttempt'] == "1") %}
     
-    {% if (data['fumoc'] == "email") %}
+    {% if (data['vclFumoc'] == "email") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-email-after-call-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-    {% elif (data['attemptToContactAgain'] == "email") %}
+    {% elif (data['vclAttemptToContactAgain'] == "email") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "2") %}
+    {% elif (data['vclCallAttempt'] == "2") %}
 
-    {% if (data['fumoc'] == "email") %}
+    {% if (data['vclFumoc'] == "email") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-email-after-call-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-    {% elif (data['attemptToContactAgain'] == "email") %}
+    {% elif (data['vclAttemptToContactAgain'] == "email") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "3") %}
+    {% elif (data['vclCallAttempt'] == "3") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-email-after-call-3&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
@@ -70,17 +73,17 @@
       Continue
     </a>
 
-    <!-- {% if (data['callAttempt'] == "") %}
+    <!-- {% if (data['vclCallAttempt'] == "") %}
     <a href="/delivery/wat2/victim?vclStatus=email-delivered&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "1") %}
+    {% elif (data['vclCallAttempt'] == "1") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "2") %}
+    {% elif (data['vclCallAttempt'] == "2") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>

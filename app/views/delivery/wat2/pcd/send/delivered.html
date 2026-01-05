@@ -28,7 +28,7 @@
     <h2 class="govuk-heading-m">Further information</h2>
 
     <p class="govuk-body">
-      You can view a log of the delivered email on the 'Communications' tab of the victim's page, within the Victim Case Application.
+      You can view a log of the delivered email on the 'Pre-charge decision' tab of the victim's page, within the Victim Case Application.
     </p>
 
     <p class="govuk-body">
@@ -37,31 +37,31 @@
 
     {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
 
-    {% if (data['callAttempt'] == "1") %}
+    {% if (data['pcdCallAttempt'] == "1") %}
     
-    {% if (data['fumoc'] == "email") %}
+    {% if (data['pcdFumoc'] == "email") %}
     <a href="/delivery/wat2/victim?pcdStatus=fu-email-after-call-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-    {% elif (data['attemptToContactAgain'] == "email") %}
+    {% elif (data['pcdAttemptToContactAgain'] == "email") %}
     <a href="/delivery/wat2/victim?pcdStatus=email-after-call-attempt-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "2") %}
+    {% elif (data['pcdCallAttempt'] == "2") %}
 
-    {% if (data['fumoc'] == "email") %}
+    {% if (data['pcdFumoc'] == "email") %}
     <a href="/delivery/wat2/victim?pcdStatus=fu-email-after-call-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-    {% elif (data['attemptToContactAgain'] == "email") %}
+    {% elif (data['pcdAttemptToContactAgain'] == "email") %}
     <a href="/delivery/wat2/victim?pcdStatus=email-after-call-attempt-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "3") %}
+    {% elif (data['pcdCallAttempt'] == "3") %}
     <a href="/delivery/wat2/victim?pcdStatus=fu-email-after-call-3&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
@@ -73,17 +73,17 @@
       Continue
     </a>
 
-    <!-- {% if (data['callAttempt'] == "") %}
+    <!-- {% if (data['pcdCallAttempt'] == "") %}
     <a href="/delivery/wat2/victim?pcdStatus=email-delivered&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "1") %}
+    {% elif (data['pcdCallAttempt'] == "1") %}
     <a href="/delivery/wat2/victim?pcdStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "2") %}
+    {% elif (data['pcdCallAttempt'] == "2") %}
     <a href="/delivery/wat2/victim?pcdStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>

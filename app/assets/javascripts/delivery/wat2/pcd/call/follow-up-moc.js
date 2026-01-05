@@ -7,9 +7,9 @@ function validateForm() {
     $('#error-summary-list').html('');
     $('#error-list-item-1').html('');
     
-    var fumoc = $('[name=fumoc]');
+    var pcdFumoc = $('[name=pcdFumoc]');
 
-    if (fumoc.is(":checked")) {
+    if (pcdFumoc.is(":checked")) {
         return true;
     } else {
         // Error form group styling

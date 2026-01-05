@@ -153,14 +153,14 @@
                 Add details from the call to the letter if needed<span class="govuk-visually-hidden"> not completed</span>
             </span>
         </li>
-        {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
+        {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "Email") %}
         <li class="app-progress-bar__item">
             <span class="app-progress-bar__icon"></span>
             <span class="app-progress-bar__label">
                 Send the letter to the victim by email<span class="govuk-visually-hidden"> not completed</span>
             </span>
         </li>
-        {% elif (data['fumoc'] == "post") or (data['attemptToContactAgain'] == "Post") %}
+        {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "Post") %}
         <li class="app-progress-bar__item">
             <span class="app-progress-bar__icon"></span>
             <span class="app-progress-bar__label">
@@ -183,21 +183,21 @@
                 Add details from the call to the letter if needed<span class="govuk-visually-hidden"> completed</span>
             </span>
         </li>
-        {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
+        {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "Email") %}
         <li class="app-progress-bar__item">
             <span class="app-progress-bar__icon"></span>
             <span class="app-progress-bar__label">
                 Send the letter to the victim by email<span class="govuk-visually-hidden"> not completed</span>
             </span>
         </li>
-        {% elif (data['fumoc'] == "post") or (data['victimInformed3'] == "No") or (data['attemptToContactAgain'] == "Post") %}
+        {% elif (data['pcdFumoc'] == "post") or (data['pcdVictimInformed3'] == "No") or (data['pcdAttemptToContactAgain'] == "Post") %}
         <li class="app-progress-bar__item">
             <span class="app-progress-bar__icon"></span>
             <span class="app-progress-bar__label">
                 Send the letter to the victim by post<span class="govuk-visually-hidden"> not completed</span>
             </span>
         </li>
-        {% elif (data['fumoc'] == "none") %}
+        {% elif (data['pcdFumoc'] == "none") %}
         {% else %}
         <li class="app-progress-bar__item">
             <span class="app-progress-bar__icon"></span>

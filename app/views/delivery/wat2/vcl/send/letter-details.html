@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName="Letter details" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>

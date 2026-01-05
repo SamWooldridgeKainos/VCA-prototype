@@ -12,7 +12,7 @@
   </div>
 </details>
 
-{% if (data['fumoc'] == "email") or (data['fumoc'] == "post") %}
+{% if (data['vclFumoc'] == "email") or (data['vclFumoc'] == "post") %}
 <p class="govuk-body">
     You must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
@@ -36,7 +36,7 @@
             More details
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['noFumocDetails'] }}
+            {{ data['vclNoFumocDetails'] }}
         </dd>
     </div>
 </dl>

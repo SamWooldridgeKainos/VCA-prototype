@@ -20,15 +20,15 @@ function validateForm() {
   $('#error-list-item-2').html('');
   $('#error-list-item-3').html('');
   
-  var textMessageDate = document.forms["myForm"]["textMessageDate"].value;
-  var textMessageHour = document.forms["myForm"]["textMessageHour"].value;
-  var textMessageMinutes = document.forms["myForm"]["textMessageMinutes"].value;
-  var secondCallHour = document.forms["myForm"]["secondCallHour"].value;
-  var secondCallMinutes = document.forms["myForm"]["secondCallMinutes"].value;
-  var thirdCallHour = document.forms["myForm"]["thirdCallHour"].value;
-  var thirdCallMinutes = document.forms["myForm"]["thirdCallMinutes"].value;
+  var vclTextMessageDate = document.forms["myForm"]["vclTextMessageDate"].value;
+  var vclTextMessageHour = document.forms["myForm"]["vclTextMessageHour"].value;
+  var vclTextMessageMinutes = document.forms["myForm"]["vclTextMessageMinutes"].value;
+  var vclSecondCallHour = document.forms["myForm"]["vclSecondCallHour"].value;
+  var vclSecondCallMinutes = document.forms["myForm"]["vclSecondCallMinutes"].value;
+  var vclThirdCallHour = document.forms["myForm"]["vclThirdCallHour"].value;
+  var vclThirdCallMinutes = document.forms["myForm"]["vclThirdCallMinutes"].value;
 
-  if (textMessageDate == "" || textMessageDate == null || textMessageHour == "" || textMessageHour == null || textMessageMinutes == "" || textMessageMinutes == null || secondCallHour == "" || secondCallHour == null || secondCallMinutes == "" || secondCallMinutes == null || thirdCallHour == "" || thirdCallHour == null || thirdCallMinutes == "" || thirdCallMinutes == null) {
+  if (vclTextMessageDate == "" || vclTextMessageDate == null || vclTextMessageHour == "" || vclTextMessageHour == null || vclTextMessageMinutes == "" || vclTextMessageMinutes == null || vclSecondCallHour == "" || vclSecondCallHour == null || vclSecondCallMinutes == "" || vclSecondCallMinutes == null || vclThirdCallHour == "" || vclThirdCallHour == null || vclThirdCallMinutes == "" || vclThirdCallMinutes == null) {
 
     // Error summary
     $('#myForm').before(
@@ -36,7 +36,7 @@ function validateForm() {
     );
     $('#error-summary').focus();
   
-    if (textMessageDate == "" || textMessageDate == null) {
+    if (vclTextMessageDate == "" || vclTextMessageDate == null) {
 
       // Error form group styling
       $('#error-form-group-1').addClass('govuk-form-group--error');
@@ -53,7 +53,7 @@ function validateForm() {
       $('#error-list-item-1').html('<a href="#error-message-1">Select or enter the date of the text message</a>');
     }
 
-    if ((textMessageHour == "" || textMessageHour == null) && (textMessageMinutes == "" || textMessageMinutes == null)) {
+    if ((vclTextMessageHour == "" || vclTextMessageHour == null) && (vclTextMessageMinutes == "" || vclTextMessageMinutes == null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -70,7 +70,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the time of the text message</a>');
       
-    } else if ((textMessageHour == "" || textMessageHour == null) && (textMessageMinutes != "" || textMessageMinutes != null)) {
+    } else if ((vclTextMessageHour == "" || vclTextMessageHour == null) && (vclTextMessageMinutes != "" || vclTextMessageMinutes != null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -86,7 +86,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the hour of the text message</a>');
       
-    } else if ((textMessageMinutes == "" || textMessageMinutes == null) && (textMessageHour != "" || textMessageHour != null)) {
+    } else if ((vclTextMessageMinutes == "" || vclTextMessageMinutes == null) && (vclTextMessageHour != "" || vclTextMessageHour != null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -103,7 +103,7 @@ function validateForm() {
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the minutes of the text message</a>');
     }
 
-    if ((secondCallHour == "" || secondCallHour == null) && (secondCallMinutes == "" || secondCallMinutes == null)) {
+    if ((vclSecondCallHour == "" || vclSecondCallHour == null) && (vclSecondCallMinutes == "" || vclSecondCallMinutes == null)) {
 
       // Error form group styling
       $('#error-form-group-3').addClass('govuk-form-group--error');
@@ -120,7 +120,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-3').html('<a href="#error-message-3">Enter the time of the second call attempt</a>');
       
-    } else if ((secondCallHour == "" || secondCallHour == null) && (secondCallMinutes != "" || secondCallMinutes != null)) {
+    } else if ((vclSecondCallHour == "" || vclSecondCallHour == null) && (vclSecondCallMinutes != "" || vclSecondCallMinutes != null)) {
 
       // Error form group styling
       $('#error-form-group-3').addClass('govuk-form-group--error');
@@ -136,7 +136,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-3').html('<a href="#error-message-3">Enter the hour of the second call</a>');
       
-    } else if ((secondCallMinutes == "" || secondCallMinutes == null) && (secondCallHour != "" || secondCallHour != null)) {
+    } else if ((vclSecondCallMinutes == "" || vclSecondCallMinutes == null) && (vclSecondCallHour != "" || vclSecondCallHour != null)) {
 
       // Error form group styling
       $('#error-form-group-3').addClass('govuk-form-group--error');

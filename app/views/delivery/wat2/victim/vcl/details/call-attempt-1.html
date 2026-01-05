@@ -5,7 +5,7 @@
             Telephone call 1
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour1'] }}:{{ data['callMinutes1'] }}
+            {{ "today" | govukDate(showWeekday=true) }} at {{ data['vclCallHour1'] }}:{{ data['vclCallMinutes1'] }}
         </dd>
     </div>
     <!-- <div class="govuk-summary-list__row">
@@ -21,7 +21,7 @@
             Call direction
         </dt>
         <dd class="govuk-summary-list__value">
-            {% if (data['callType1'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
+            {% if (data['vclCallType1'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -29,7 +29,7 @@
             Victim informed
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['victimInformed1'] }}
+            {{ data['vclVictimInformed1'] }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -37,26 +37,26 @@
             Notes
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['callNotes1'] }}
+            {{ data['vclCallNotes1'] }}
         </dd>
     </div>
-    {% if (data['victimInformed1'] == "No") and (data['wasTextMessageSent'] == "No") %}
+    {% if (data['vclVictimInformed1'] == "No") and (data['vclWasTextMessageSent'] == "No") %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             Text message sent
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['wasTextMessageSent'] }}
+            {{ data['vclWasTextMessageSent'] }}
         </dd>
     </div>
     {% endif %}
-    {% if (data['wasTextMessageSent'] == "Yes") %}
+    {% if (data['vclWasTextMessageSent'] == "Yes") %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             Text message sent
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at {{ data['textMessageHour'] }}:{{ data['textMessageMinutes'] }}
+            {{ "today" | govukDate(showWeekday=true) }} at {{ data['vclTextMessageHour'] }}:{{ data['vclTextMessageMinutes'] }}
         </dd>
     </div>
     {% if (data['vclStatus'] == "after-call-attempt-1") %}
@@ -65,7 +65,7 @@
             Next call attempt
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at {{ data['secondCallHour'] }}:{{ data['secondCallMinutes'] }}
+            {{ "today" | govukDate(showWeekday=true) }} at {{ data['vclSecondCallHour'] }}:{{ data['vclSecondCallMinutes'] }}
         </dd>
     </div>
     {% else %}

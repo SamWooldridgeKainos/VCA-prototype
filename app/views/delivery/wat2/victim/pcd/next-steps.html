@@ -31,7 +31,7 @@
             {% if (data['pcdStatus'] == "after-call-attempt-3") %}
                 <li>Review the letter before sending it.</li>
                 <li>Send the letter to the victim by post.</li>
-                {% if (data['fumoc'] == "none") %}
+                {% if (data['pcdFumoc'] == "none") %}
                 {% else %}
                 <li>Review the letter before sending it.</li>
                 <li>Send the letter to the victim by post.</li>
@@ -42,57 +42,57 @@
 
             {% if (data['pcdStatus'] == "after-call-attempt-3") %}
             {% else %}
-                {% if (data['fumoc'] == "email") %}
+                {% if (data['pcdFumoc'] == "email") %}
                     {% if (data['pcdStatus'] == "draft-approved-to-send") %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by email.</li>
                         {% endif %}
                     {% else %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by email.</li>
                         {% endif %}
                     {% endif %}
-                {% elif (data['attemptToContactAgain'] == "email") %}
+                {% elif (data['pcdAttemptToContactAgain'] == "email") %}
                     {% if (data['pcdStatus'] == "draft-approved-to-send") %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by email.</li>
                         {% endif %}
                     {% else %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Review the letter before sending it.</li>
                         <li>Send the letter to the victim by email.</li>
                         {% endif %}
                     {% endif %}
-                {% elif (data['fumoc'] == "post") or (data['victimInformed3'] == "No") %}
+                {% elif (data['pcdFumoc'] == "post") or (data['pcdVictimInformed3'] == "No") %}
                     {% if (data['pcdStatus'] == "draft-approved-to-send") %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by post.</li>
                         {% endif %}
                     {% else %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by post.</li>
                         {% endif %}
                     {% endif %}
-                {% elif (data['attemptToContactAgain'] == "post") %}
+                {% elif (data['pcdAttemptToContactAgain'] == "post") %}
                     {% if (data['pcdStatus'] == "draft-approved-to-send") %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Send the letter to the victim by post.</li>
                         {% endif %}
                     {% else %}
-                        {% if (data['fumoc'] == "none") %}
+                        {% if (data['pcdFumoc'] == "none") %}
                         {% else %}
                         <li>Review the letter before sending it.</li>
                         <li>Send the letter to the victim by post.</li>
                         {% endif %}
                     {% endif %}
-                {% elif (data['fumoc'] == "none") %}
+                {% elif (data['pcdFumoc'] == "none") %}
                 {% else %}
                 <li>Send the letter to the victim using their preferred method (email or post).</li>
                 {% endif %}

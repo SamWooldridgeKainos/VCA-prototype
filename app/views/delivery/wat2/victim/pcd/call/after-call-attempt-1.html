@@ -11,7 +11,7 @@
   Check the letter, security answers, call script and FAQs if you need these during the call.
 </p> -->
 
-{% if (data['secondCallHour']) == "" %}
+{% if (data['pcdSecondCallHour']) == "" %}
 <a href="/delivery/wat2/pcd/call/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
   Log a text message<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
 </a>

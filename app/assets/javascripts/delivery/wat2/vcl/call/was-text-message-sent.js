@@ -7,9 +7,9 @@ function validateForm() {
     $('#error-summary-list').html('');
     $('#error-list-item-1').html('');
     
-    var wasTextMessageSent = $('[name=wasTextMessageSent]');
+    var vclWasTextMessageSent = $('[name=vclWasTextMessageSent]');
 
-    if (wasTextMessageSent.is(":checked")) {
+    if (vclWasTextMessageSent.is(":checked")) {
         return true;
     } else {
         // Error form group styling

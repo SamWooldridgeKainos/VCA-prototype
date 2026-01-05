@@ -16,7 +16,7 @@
     {% endif %}
     
     {% elif (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
-        {% if (data['victimInformed1'] == "Yes") or (data['victimInformed2'] == "Yes") or (data['victimInformed3'] == "Yes") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-approved-to-send") %}
+        {% if (data['vclVictimInformed1'] == "Yes") or (data['vclVictimInformed2'] == "Yes") or (data['vclVictimInformed3'] == "Yes") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-approved-to-send") %}
         {% else %}
         <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -51,6 +51,8 @@
             <div class="govuk-summary-card__content">
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-one-half">
+
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Current status and next action</h3>
 
                         <!-- Pre-draft -->
                         {% if (data['vclStatus'] == "check-details") %}

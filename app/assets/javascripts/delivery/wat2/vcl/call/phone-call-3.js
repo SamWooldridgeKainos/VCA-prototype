@@ -24,20 +24,20 @@ function validateForm() {
   $('#error-list-item-3').html('');
   $('#error-list-item-4').html('');
   
-  var phoneCallDate3 = document.forms["myForm"]["phoneCallDate3"].value;
-  var callHour3 = document.forms["myForm"]["callHour3"].value;
-  var callMinutes3 = document.forms["myForm"]["callMinutes3"].value;
-  var victimInformed3 = $('[name=victimInformed3]');
-  var callType3 = $('[name=callType3]');
+  var vclCallDate3 = document.forms["myForm"]["vclCallDate3"].value;
+  var vclCallHour3 = document.forms["myForm"]["vclCallHour3"].value;
+  var vclCallMinutes3 = document.forms["myForm"]["vclCallMinutes3"].value;
+  var vclVictimInformed3 = $('[name=vclVictimInformed3]');
+  var vclCallType3 = $('[name=vclCallType3]');
 
-  const callDate3Array = phoneCallDate3.split("/");
+  const callDate3Array = vclCallDate3.split("/");
   var callDay3 = callDate3Array[0];
   var callMonth3 = callDate3Array[1];
   var callYear3 = callDate3Array[2];
   var newFormat = callYear3 + '-' + callMonth3 + '-' + callDay3;
   //alert('New format is ' + newFormat);
 
-  if (phoneCallDate3 == "" || phoneCallDate3 == null || callHour3 == "" || callHour3 == null || callMinutes3 == "" || callMinutes3 == null ||victimInformed3 == "" || victimInformed3 == null || callType3 == "" || callType3 == null) {
+  if (vclCallDate3 == "" || vclCallDate3 == null || vclCallHour3 == "" || vclCallHour3 == null || vclCallMinutes3 == "" || vclCallMinutes3 == null ||vclVictimInformed3 == "" || vclVictimInformed3 == null || vclCallType3 == "" || vclCallType3 == null) {
 
     // Error summary
     $('#myForm').before(
@@ -45,7 +45,7 @@ function validateForm() {
     );
     $('#error-summary').focus();
   
-    if (phoneCallDate3 == "" || phoneCallDate3 == null) {
+    if (vclCallDate3 == "" || vclCallDate3 == null) {
 
       // Error form group styling
       $('#error-form-group-1').addClass('govuk-form-group--error');
@@ -62,7 +62,7 @@ function validateForm() {
       $('#error-list-item-1').html('<a href="#error-message-1">Select or enter the date of call</a>');
     }
 
-    if ((callHour3 == "" || callHour3 == null) && (callMinutes3 == "" || callMinutes3 == null)) {
+    if ((vclCallHour3 == "" || vclCallHour3 == null) && (vclCallMinutes3 == "" || vclCallMinutes3 == null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -79,7 +79,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the time of call</a>');
       
-    } else if ((callHour3 == "" || callHour3 == null) && (callMinutes3 != "" || callMinutes3 != null)) {
+    } else if ((vclCallHour3 == "" || vclCallHour3 == null) && (vclCallMinutes3 != "" || vclCallMinutes3 != null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -95,7 +95,7 @@ function validateForm() {
       // Error summary
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the hour for the time of call</a>');
       
-    } else if ((callMinutes3 == "" || callMinutes3 == null) && (callHour3 != "" || callHour3 != null)) {
+    } else if ((vclCallMinutes3 == "" || vclCallMinutes3 == null) && (vclCallHour3 != "" || vclCallHour3 != null)) {
 
       // Error form group styling
       $('#error-form-group-2').addClass('govuk-form-group--error');
@@ -112,7 +112,7 @@ function validateForm() {
       $('#error-list-item-2').html('<a href="#error-message-2">Enter the minutes for the time of call</a>');
     }
 
-    if (callType3.is(":checked")) {
+    if (vclCallType3.is(":checked")) {
     } else {
       // Error form group styling
       $('#error-form-group-3').addClass('govuk-form-group--error');
@@ -125,7 +125,7 @@ function validateForm() {
       $('#error-list-item-3').html('<a href="#error-message-3">Select the call direction</a>');
     }
     
-    if (victimInformed3.is(":checked")) {
+    if (vclVictimInformed3.is(":checked")) {
     } else {
       // Error form group styling
       $('#error-form-group-4').addClass('govuk-form-group--error');

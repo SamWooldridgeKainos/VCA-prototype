@@ -567,7 +567,7 @@
             </a>
 
           {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
-            {% if (data['fumoc'] == "email") or (data['fumoc'] == "post") %}
+            {% if (data['pcdFumoc'] == "email") or (data['pcdFumoc'] == "post") %}
               <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
                 Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
               </a>
@@ -589,11 +589,11 @@
             {% endif %}
 
           {% elif (data['pcdStatus'] == "draft-approved-to-send") %}
-            {% if (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
+            {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
               <a href="/delivery/wat2/pcd/send/check-email-details" class="govuk-link govuk-link--no-visited-state">
                   Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
               </a>
-            {% elif (data['fumoc'] == "post") or (data['attemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
+            {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
               <a href="/delivery/wat2/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">
                   Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
               </a>

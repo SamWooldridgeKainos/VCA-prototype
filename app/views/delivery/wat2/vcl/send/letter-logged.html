@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName = "Letter logged" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
@@ -25,7 +28,7 @@
     <h2 class="govuk-heading-m">Further information</h2>
 
     <p class="govuk-body">
-      You can view the logged letter on the 'Communications' tab of the victim's page, within the Victim Case Application.
+      You can view the logged letter on the 'VCL Scheme' tab of the victim's page, within the Victim Case Application.
     </p>
 
     <p class="govuk-body">
@@ -34,8 +37,8 @@
 
     {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
 
-    {% if (data['callAttempt'] == "1") %}
-    {% if (data['victimInformed1'] == "Yes") %}
+    {% if (data['vclCallAttempt'] == "1") %}
+    {% if (data['vclVictimInformed1'] == "Yes") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-letter-after-call-1&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
@@ -45,8 +48,8 @@
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "2") %}
-    {% if (data['victimInformed2'] == "Yes") %}
+    {% elif (data['vclCallAttempt'] == "2") %}
+    {% if (data['vclVictimInformed2'] == "Yes") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-letter-after-call-2&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
@@ -56,8 +59,8 @@
     </a>
     {% endif %}
 
-    {% elif (data['callAttempt'] == "3") %}
-    {% if (data['victimInformed3'] == "Yes") %}
+    {% elif (data['vclCallAttempt'] == "3") %}
+    {% if (data['vclVictimInformed3'] == "Yes") %}
     <a href="/delivery/wat2/victim?vclStatus=fu-letter-after-call-3&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
@@ -73,17 +76,17 @@
       Continue
     </a>
 
-    <!-- {% if (data['callAttempt'] == "") %}
+    <!-- {% if (data['vclCallAttempt'] == "") %}
     <a href="/delivery/wat2/victim?vclStatus=email-delivered&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "1") %}
+    {% elif (data['vclCallAttempt'] == "1") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
-    {% elif (data['callAttempt'] == "2") %}
+    {% elif (data['vclCallAttempt'] == "2") %}
     <a href="/delivery/wat2/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>

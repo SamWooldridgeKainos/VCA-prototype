@@ -7,9 +7,9 @@ function validateForm() {
     $('#error-summary-list').html('');
     $('#error-list-item-1').html('');
     
-    var attemptToContactAgain = $('[name=attemptToContactAgain]');
+    var vclAttemptToContactAgain = $('[name=vclAttemptToContactAgain]');
 
-    if (attemptToContactAgain.is(":checked")) {
+    if (vclAttemptToContactAgain.is(":checked")) {
         return true;
     } else {
         // Error form group styling

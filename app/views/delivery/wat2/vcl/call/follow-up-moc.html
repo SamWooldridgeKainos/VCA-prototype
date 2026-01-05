@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName="Follow-up method of contact" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -24,14 +27,14 @@
                 <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="fumoc" value="Email" {{ checked('fumoc','Email') }}>
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-email" name="vclFumoc" value="email" {{ checked('vclFumoc','email') }}>
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-email">
                             Email
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="fumoc" value="Post" {{ checked('fumoc','Post') }}>
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-post" name="vclFumoc" value="post" {{ checked('vclFumoc','post') }}>
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-post">
                             Post
                         </label>
@@ -40,18 +43,18 @@
                     <div class="govuk-radios__divider">or</div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="fumoc" value="None" {{ checked('fumoc','None') }} data-aria-controls="conditional-fumoc-none">
+                        <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="vclFumoc" value="none" {{ checked('vclFumoc','none') }} data-aria-controls="conditional-vclFumoc-none">
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-none">
                             They do not want a letter
                         </label>
                     </div>
 
-                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-fumoc-none">
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-vclFumoc-none">
                         <div class="govuk-form-group">
-                            <label class="govuk-label" for="no-fumoc-details">
+                            <label class="govuk-label" for="no-vclFumoc-details">
                                 Reason for no letter
                             </label>
-                            <textarea class="govuk-textarea" id="no-fumoc-details" name="noFumocDetails" rows="4"></textarea>
+                            <textarea class="govuk-textarea" id="no-vclFumoc-details" name="vclNoFumocDetails" rows="4"></textarea>
                         </div>
                     </div>
 

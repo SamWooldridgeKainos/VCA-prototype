@@ -1,6 +1,9 @@
 {% extends "layouts/main.html" %}
-
 {% set pageName="Was a text message sent to the victim?" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -24,14 +27,14 @@
                 <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-yes" name="wasTextMessageSent" value="Yes" {{ checked('wasTextMessageSent','Yes') }}>
+                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-yes" name="vclWasTextMessageSent" value="Yes" {{ checked('vclWasTextMessageSent','Yes') }}>
                         <label class="govuk-label govuk-radios__label" for="was-text-message-sent-yes">
                             Yes
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-no" name="wasTextMessageSent" value="No" {{ checked('wasTextMessageSent','No') }}>
+                        <input type="radio" class="govuk-radios__input" id="was-text-message-sent-no" name="vclWasTextMessageSent" value="No" {{ checked('vclWasTextMessageSent','No') }}>
                         <label class="govuk-label govuk-radios__label" for="was-text-message-sent-no">
                             No
                         </label>
