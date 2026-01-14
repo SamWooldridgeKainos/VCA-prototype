@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form action="/delivery/wat2/onb/pmoc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/delivery/wat2/check-details/pmoc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
       <div class="govuk-form-group" id="error-form-group">
         <fieldset class="govuk-fieldset">
@@ -73,7 +73,7 @@
       </div>
 
       <button type="submit" class="govuk-button" data-module="govuk-button">
-        Continue
+        Save and continue
       </button>
 
     </form>
@@ -83,5 +83,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/delivery/wat2/pcd/preferred-method-of-contact.js"></script>
+<script src="/public/javascripts/delivery/wat2/check-details/pmoc.js"></script>
 {% endblock %}

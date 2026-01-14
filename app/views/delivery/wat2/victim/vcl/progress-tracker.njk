@@ -150,14 +150,18 @@
                             Telephone the victim and log the call<span class="govuk-visually-hidden"> completed</span>
                         </span>
                     </li>
-                    <li class="app-progress-bar__item">
-                        <span class="app-progress-bar__icon"></span>
-                        <span class="app-progress-bar__label">
-                            Add details from the call to the letter if needed<span class="govuk-visually-hidden"> not completed</span>
-                        </span>
-                    </li>
+                    
+                    {% if (data['vclFumoc']) == "none" %}
+                    {% else %}
+                        <li class="app-progress-bar__item">
+                            <span class="app-progress-bar__icon"></span>
+                            <span class="app-progress-bar__label">
+                                Add details from the call to the letter if needed<span class="govuk-visually-hidden"> not completed</span>
+                            </span>
+                        </li>
+                    {% endif %}
 
-                    {% if (data['vclFumoc'] == "email") or (data['vclAttemptToContactAgain'] == "Email") %}
+                    {# {% if (data['vclFumoc'] == "email") or (data['vclAttemptToContactAgain'] == "Email") %}
                         <li class="app-progress-bar__item">
                             <span class="app-progress-bar__icon"></span>
                             <span class="app-progress-bar__label">
@@ -173,7 +177,7 @@
                             </span>
                         </li>
 
-                    {% endif %}
+                    {% endif %} #}
                 {% endif %}
 
                 {% if (data['vclStatus'] == "draft-approved-to-send") %}
@@ -218,7 +222,7 @@
                     {% endif %}
                 {% endif %}
 
-                {% if (data['vclFumoc'] == "email") %}
+                {# {% if (data['vclFumoc'] == "email") %}
 
                     {% if (data['vclSent'] == "yes") %}
                         <li class="app-progress-bar__item">
@@ -302,7 +306,7 @@
                         </span>
                     </li>
                     
-                {% endif %}
+                {% endif %} #}
             {% endif %}
 
             {% if (data['pmoc'] == "email") or (data['pmoc'] == "post") %}

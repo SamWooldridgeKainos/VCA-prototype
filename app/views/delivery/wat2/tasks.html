@@ -396,10 +396,6 @@
             </div>
           </fieldset>
         </div>
-
-        <div class="govuk-button-group">
-          <button class="govuk-button" type="submit" id="apply-filters-btn">Apply filters</button>
-        </div>
       </form>
     </div>
   </div>
@@ -447,7 +443,7 @@
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">Jane Doe</a><br>54KR1626525
+          <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">DOE, Jane</a><br>54KR1626525
         </dt>
         <dd class="govuk-summary-list__value">
           <span class="govuk-!-font-weight-bold">Inform of decision to charge</span><br>
@@ -461,7 +457,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">John Smith</a><br>54KR1626525
+          <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, John</a><br>54KR1626525
         </dt>
         <dd class="govuk-summary-list__value">
           <span class="govuk-!-font-weight-bold">Inform of no further action decision</span><br>
@@ -475,7 +471,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">Jackie Smith</a><br>54KR1626525
+          <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, Jackie</a><br>54KR1626525
         </dt>
         <dd class="govuk-summary-list__value">
           <span class="govuk-!-font-weight-bold">Arrange CPS pre-trial meeting</span><br>
@@ -489,7 +485,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">Alice Johnson</a><br>54KR1626525/1
+          <a href="#" class="govuk-link govuk-link--no-visited-state">JOHNSON, Alice</a><br>54KR1626525/1
         </dt>
         <dd class="govuk-summary-list__value">
           <span class="govuk-!-font-weight-bold">Inform of substantially altered charge (VCL)</span><br>
@@ -504,7 +500,7 @@
       {% if ((data['pcdStatus'] == "draft-under-review") or (data['pcdStatus'] == "ineligible") or (data['pcdSent'] == "yes")) %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">Barry Wiggins</a><br>64KR1626925
+          <a href="#" class="govuk-link govuk-link--no-visited-state">WIGGINS, Barry</a><br>64KR1626925
         </dt>
         <dd class="govuk-summary-list__value">
           <span class="govuk-!-font-weight-bold">Inform of stopped charge (VCL)</span><br>
@@ -615,12 +611,15 @@
     </dl>
 
     <dl class="govuk-summary-list govuk-!-margin-top-9">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><a href="#" class="govuk-link govuk-link--no-visited-state">JONES, Oliver A</a></h2>
-          <p class="govuk-body govuk-!-margin-bottom-0">42AE4523851</p>
-          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Task</dt><dd class="govuk-summary-list__value"><span class="govuk-!-font-weight-bold">Inform of no further action decision</span></dd></div>
-          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Due</dt><dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025</dd></div>
-          <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Next action</dt><dd class="govuk-summary-list__value"><a href="#" class="govuk-link">Finish and send</a></dd></div>
-        </dl>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><a href="#" class="govuk-link govuk-link--no-visited-state">JONES, Oliver A</a></h2>
+      <p class="govuk-body govuk-!-margin-bottom-0">42AE4523851</p>
+      
+      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Task</dt><dd class="govuk-summary-list__value"><span class="govuk-!-font-weight-bold">Inform of no further action decision</span></dd></div>
+      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Due</dt><dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025</dd></div>
+      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Owner</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah (you)</dd></div>
+      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assigned to</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah (you)<br><a href="#" class="govuk-link">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
+      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Next action</dt><dd class="govuk-summary-list__value"><a href="#" class="govuk-link">Finish and send</a></dd></div>
+    </dl>
 
     <nav class="govuk-pagination" aria-label="Pagination">
       <ul class="govuk-pagination__list">
@@ -652,6 +651,34 @@
       </div>
     </nav>
 
+  </div>
+
+  <div class="govuk-grid-column-one-quarter">
+      <div class="govuk-!-margin-bottom-6">
+          <h2 class="govuk-heading-m">Recently viewed victims</h2>
+          <ul class="govuk-list">
+              <li>
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">MEGSON, Verity</a>
+                  <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
+              </li>
+              <li class="govuk-!-margin-top-3">
+                  <a href="/delivery/wat2/victim" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
+                  <p class="govuk-body govuk-!-margin-top-1">{{ data['caseUrn'] }}</p>
+              </li>
+              <li class="govuk-!-margin-top-3">
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">CHEN, Emily</a>
+                  <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
+              </li>
+              <li class="govuk-!-margin-top-3">
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, James</a>
+                  <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
+              </li>
+              <li class="govuk-!-margin-top-3">
+                  <a href="#" class="govuk-link govuk-link--no-visited-state">MARTINEZ, Lucy</a>
+                  <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
+              </li>
+          </ul>
+      </div>
   </div>
 </div>
 
@@ -749,10 +776,14 @@
   }
 
   // Add change event listeners to all checkboxes
-  // Note: renderChips is NOT called on checkbox change - only on Apply filters button click
+  var allFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .area-checkbox, .service-checkbox');
+  allFilterCheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      renderChips();
+    });
+  });
 
-  // Do NOT render chips on page load
-  // renderChips();
+  // Render chips on page load
 
   // Show checked owner items on page load
   ownerCheckboxes.forEach(function (checkbox) {
@@ -954,22 +985,10 @@
     document.addEventListener('DOMContentLoaded', function() {
       initializeAreaAutocomplete();
       initializeOwnerAutocomplete();
-      
-      // Add Apply filters button handler
-      applyFiltersBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        renderChips();
-      });
     });
   } else {
     initializeAreaAutocomplete();
     initializeOwnerAutocomplete();
-    
-    // Add Apply filters button handler
-    applyFiltersBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      renderChips();
-    });
   }
 </script>
 {% endblock %}
