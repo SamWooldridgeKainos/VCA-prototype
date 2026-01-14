@@ -30,6 +30,16 @@ require('./routes/delivery/wat2')(router)
 // meetings
 // @Michael can your routes for meetings be moved to a separate file as per the above? I can show you how to do this if needed, or I can make the changes myself.
 
+router.post('/logging-answer', function(request, response) {
+
+	var logging = request.session.data['logging']
+	if (logging == "yes"){
+		response.redirect("/ur/meetings-2/purpose2")
+	} else {
+		response.redirect("/ur/meetings-2//purpose")
+	}
+})
+
 router.post('/purpose-answer', function(request, response) {
 
 	var purpose = request.session.data['purpose']

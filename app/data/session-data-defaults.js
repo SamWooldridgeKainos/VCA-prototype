@@ -10,6 +10,8 @@ module.exports = {
 
   'nfaStatus': 'draft-not-started',
 
+  'nfaStatus': 'draft-not-started',
+
   'victimSurname': 'Phillips',
   'victimForename': 'Sarah',
   'victimTitle': 'Ms',
