@@ -11,7 +11,6 @@ var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
 var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
-var applyFiltersBtn = document.getElementById('apply-filters-btn');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
 // Render chips
@@ -101,12 +100,6 @@ function updateClearFiltersVisibility() {
     var heading = document.getElementById('selected-filters-heading');
     heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
 }
-
-// Add click handler to Apply filters button
-applyFiltersBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    renderChips();
-});
 
 // Add click handler to Clear filters link
 var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');

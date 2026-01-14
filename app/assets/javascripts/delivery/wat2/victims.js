@@ -11,7 +11,6 @@ var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
 var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
-var applyFiltersBtn = document.getElementById('apply-filters-btn');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
 // Render chips
@@ -34,8 +33,8 @@ function renderChips() {
     }
     }
     
-    // Render assignee chips
-    renderChipCategory(ownerCheckboxes, 'Assignee');
+    // Render owner chips
+    renderChipCategory(ownerCheckboxes, 'Owner');
     
     // Render area chips
     renderChipCategory(areaCheckboxes, 'Area');
@@ -152,13 +151,13 @@ function applyVictimFilters() {
             return '';
         }
         
-        // Check Owner/Assignee filter
+        // Check Owner filter
         if (selectedOwners.length > 0) {
-            var assignee = getFieldValue('Assignee');
+            var owner = getFieldValue('Owner');
             var matchesOwner = selectedOwners.some(function(owner) {
                 // Remove "(you)" suffix from owner label for matching
                 var ownerToMatch = owner.replace(/\s*\(you\)\s*$/, '');
-                return assignee.indexOf(ownerToMatch) !== -1;
+                return owner.indexOf(ownerToMatch) !== -1;
             });
             shouldShow = shouldShow && matchesOwner;
         }
@@ -235,7 +234,7 @@ function applyVictimFilters() {
     hideServiceRowWhenOnboardedNo();
 }
 
-// Hide Service and Assignee rows when Onboarded value is "No"
+// Hide Service and Owner rows when Onboarded value is "No"
 function hideServiceRowWhenOnboardedNo() {
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
     
@@ -263,14 +262,14 @@ function hideServiceRowWhenOnboardedNo() {
         var onboardedMatch = onboardedValue.match(/^(Yes|No)/i);
         var onboardedStatus = onboardedMatch ? onboardedMatch[1].toLowerCase() : '';
         
-        // Find and hide/show the Service and Assignee rows
+        // Find and hide/show the Service and Owner rows
         var rows = record.querySelectorAll('.govuk-summary-list__row');
         rows.forEach(function(row) {
             var keyEl = row.querySelector('.govuk-summary-list__key');
             if (keyEl) {
                 var fieldName = keyEl.textContent.trim();
-                // Hide the Service and Assignee rows if Onboarded is "No", otherwise show them
-                if (fieldName === 'Service' || fieldName === 'Assignee') {
+                // Hide the Service and Owner rows if Onboarded is "No", otherwise show them
+                if (fieldName === 'Service' || fieldName === 'Owner') {
                     row.style.display = onboardedStatus === 'no' ? 'none' : '';
                 }
             }
@@ -280,7 +279,7 @@ function hideServiceRowWhenOnboardedNo() {
 
 // Dynamic pagination based on filtered results
 (function() {
-    var RESULTS_PER_PAGE = 10;
+    var RESULTS_PER_PAGE = 5;
     
     function recalculatePagination() {
         var victimPages = document.querySelectorAll('.victims-page');
@@ -326,20 +325,18 @@ function hideServiceRowWhenOnboardedNo() {
         }
         
         // Hide all page items first
-        for (var i = 1; i <= 3; i++) {
-            var pageItem = document.getElementById('page-item-' + i);
-            if (pageItem) {
-                pageItem.style.display = 'none';
-            }
-        }
+        var paginationItems = document.querySelectorAll('.govuk-pagination__item');
+        paginationItems.forEach(function(item, index) {
+            item.style.display = 'none';
+        });
         
         // Show only the required number of page items
-        for (var i = 1; i <= totalPages && i <= 3; i++) {
-            var pageItem = document.getElementById('page-item-' + i);
-            if (pageItem) {
-                pageItem.style.display = '';
+        paginationItems.forEach(function(item, index) {
+            var pageNum = index + 1;
+            if (pageNum <= totalPages) {
+                item.style.display = '';
             }
-        }
+        });
     }
     
     function showPage(pageNumber, totalPages) {
@@ -383,35 +380,40 @@ function hideServiceRowWhenOnboardedNo() {
         }
         
         // Update pagination styling
-        for (var i = 1; i <= totalPages && i <= 3; i++) {
-            var pageItem = document.getElementById('page-item-' + i);
-            if (pageItem) {
-                if (i === pageNumber) {
-                    pageItem.classList.add('govuk-pagination__item--current');
-                } else {
-                    pageItem.classList.remove('govuk-pagination__item--current');
+        var paginationItems = document.querySelectorAll('.govuk-pagination__item');
+        paginationItems.forEach(function(item, index) {
+            var pageNum = index + 1;
+            var pageLink = item.querySelector('.govuk-pagination__link');
+            
+            if (pageNum === pageNumber) {
+                item.classList.add('govuk-pagination__item--current');
+                if (pageLink) {
+                    pageLink.setAttribute('aria-current', 'page');
+                }
+            } else {
+                item.classList.remove('govuk-pagination__item--current');
+                if (pageLink) {
+                    pageLink.removeAttribute('aria-current');
                 }
             }
-        }
+        })
         
         // Update previous/next button visibility
         var prevButton = document.getElementById('pagination-prev');
         var nextButton = document.getElementById('pagination-next');
         
         if (pageNumber === 1) {
-            prevButton.style.display = 'none';
+            prevButton.parentElement.style.display = 'none';
         } else {
-            prevButton.style.display = 'block';
-            var prevLink = prevButton.querySelector('a');
-            prevLink.setAttribute('data-page', pageNumber - 1);
+            prevButton.parentElement.style.display = 'block';
+            prevButton.setAttribute('data-page', pageNumber - 1);
         }
         
         if (pageNumber === totalPages) {
-            nextButton.style.display = 'none';
+            nextButton.parentElement.style.display = 'none';
         } else {
-            nextButton.style.display = 'block';
-            var nextLink = nextButton.querySelector('a');
-            nextLink.setAttribute('data-page', pageNumber + 1);
+            nextButton.parentElement.style.display = 'block';
+            nextButton.setAttribute('data-page', pageNumber + 1);
         }
         
         // Update page title for screen readers
@@ -424,10 +426,73 @@ function hideServiceRowWhenOnboardedNo() {
         }
     }
     
+    // Set up pagination link event listeners
+    function setupPaginationListeners() {
+        var pageLinks = document.querySelectorAll('.govuk-pagination__list .govuk-pagination__link');
+        var prevButton = document.getElementById('pagination-prev');
+        var nextButton = document.getElementById('pagination-next');
+        
+        pageLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var pageNum = parseInt(this.getAttribute('data-page'));
+                if (!isNaN(pageNum)) {
+                    showPage(pageNum);
+                }
+            });
+        });
+        
+        if (prevButton) {
+            prevButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                var pageNum = parseInt(this.getAttribute('data-page'));
+                if (!isNaN(pageNum)) {
+                    showPage(pageNum);
+                }
+            });
+        }
+        
+        if (nextButton) {
+            nextButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                var pageNum = parseInt(this.getAttribute('data-page'));
+                if (!isNaN(pageNum)) {
+                    showPage(pageNum);
+                }
+            });
+        }
+    }
+    
+    // Initialize pagination on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setupPaginationListeners();
+            // Only show pagination if there are multiple pages
+            var pageItems = document.querySelectorAll('.govuk-pagination__item');
+            if (pageItems.length > 1) {
+                var paginationNav = document.querySelector('.govuk-pagination');
+                if (paginationNav) {
+                    paginationNav.style.display = '';
+                }
+            }
+        });
+    } else {
+        setupPaginationListeners();
+        // Only show pagination if there are multiple pages
+        var pageItems = document.querySelectorAll('.govuk-pagination__item');
+        if (pageItems.length > 1) {
+            var paginationNav = document.querySelector('.govuk-pagination');
+            if (paginationNav) {
+                paginationNav.style.display = '';
+            }
+        }
+    }
+    
     // Make functions available globally
     window.recalculatePagination = recalculatePagination;
     window.showPage = showPage;
     window.updatePaginationPages = updatePaginationPages;
+
 })();
 
 // Search functionality for victim or case reference
@@ -552,14 +617,6 @@ function hideServiceRowWhenOnboardedNo() {
     }
 })();
 
-// Add click handler to Apply filters button
-applyFiltersBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    renderChips();
-    applyVictimFilters();
-    hideServiceRowWhenOnboardedNo();
-});
-
 // Add click handler to Clear filters link
 var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
 if (clearFiltersLink) {
@@ -667,7 +724,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                     }
                 }
                 
-                renderChipCategory(ownerCheckboxes, 'Assignee');
+                renderChipCategory(ownerCheckboxes, 'Owner');
                 renderChipCategory(areaCheckboxes, 'Area');
                 renderChipCategory(serviceCheckboxes, 'Service');
                 renderChipCategory(victimCategoryCheckboxes, 'Victim category');
@@ -698,6 +755,10 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
             applyVictimFilters();
         });
     });
+
+// Expose functions to window so they can be called from other scopes
+window.applyVictimFilters = applyVictimFilters;
+window.renderChips = renderChips;
 })();
 
 // Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
@@ -900,12 +961,15 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
+        // Apply filters and render chips immediately
+        if (window.applyVictimFilters) window.applyVictimFilters();
+        if (window.renderChips) window.renderChips();
     }
     }
 });
 }
 
-// Initialize accessible-autocomplete for Assignee (Owner) filter
+// Initialize accessible-autocomplete for Owner (Owner) filter
 function initializeOwnerAutocomplete() {
 var owners = [
     { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
@@ -931,12 +995,12 @@ var owners = [
     { label: 'CLARK, Victoria', value: 'clark-victoria' }
 ];
 
-var container = document.querySelector('#assignee-autocomplete');
+var container = document.querySelector('#owner-autocomplete');
 var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
 var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
 
 if (!container) {
-    console.error('Assignee autocomplete container not found');
+    console.error('Owner autocomplete container not found');
     return;
 }
 
@@ -959,7 +1023,7 @@ var sourceFunction = function(query, populateResults) {
 
 accessibleAutocomplete({
     element: container,
-    id: 'assignee-autocomplete-input',
+    id: 'owner-autocomplete-input',
     source: sourceFunction,
     showAllValues: true,
     minLength: 0,
@@ -995,6 +1059,9 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
+        // Apply filters and render chips immediately
+        if (window.applyVictimFilters) window.applyVictimFilters();
+        if (window.renderChips) window.renderChips();
     }
     }
 });
@@ -1038,7 +1105,7 @@ if (e.target && e.target.classList.contains('owner-checkbox')) {
 }, true);
 
 (function () {
-var assignees = [
+var owners = [
     { label: 'Amanda Smith', value: 'amanda-smith' },
     { label: 'Benjamin Taylor', value: 'benjamin-taylor' },
     { label: 'Catherine Johnson', value: 'catherine-johnson' },
@@ -1046,14 +1113,14 @@ var assignees = [
     { label: 'Emma Wilson', value: 'emma-wilson' }
 ];
 
-var container = document.querySelector('#assignee-name-autocomplete');
-var hidden = document.getElementById('assignee-name');
+var container = document.querySelector('#owner-name-autocomplete');
+var hidden = document.getElementById('owner-name');
 
 if (container && typeof accessibleAutocomplete !== 'undefined') {
     accessibleAutocomplete({
     element: container,
-    id: 'assignee-name-autocomplete-input',
-    source: assignees.map(function (a) { return a.label; }),
+    id: 'owner-name-autocomplete-input',
+    source: owners.map(function (a) { return a.label; }),
     showAllValues: true,
     minLength: 0,
     confirmOnBlur: true,
@@ -1062,7 +1129,7 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
         hidden.value = ''; 
         return; 
         }
-        var item = assignees.find(function (a) { return a.label === selected; });
+        var item = owners.find(function (a) { return a.label === selected; });
         if (item) {
         hidden.value = item.value;
         var input = container.querySelector('input');

@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred corresponding language" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat2/check-details/preferred-corresponding-language-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred corresponding language?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-corresponding-language-english" name="preferredCorrespondingLanguage" value="English" data-value="english" {{ checked('preferredCorrespondingLanguage','English') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-corresponding-language-english">
+                English
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-corresponding-language-welsh" name="preferredCorrespondingLanguage" value="Welsh" data-value="welsh" {{ checked('preferredCorrespondingLanguage','Welsh') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-corresponding-language-welsh">
+                Welsh
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat2/check-details/preferred-corresponding-language.js"></script>
+{% endblock %}

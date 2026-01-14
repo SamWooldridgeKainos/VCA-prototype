@@ -435,10 +435,6 @@
             </div>
           </fieldset>
         </div>
-
-        <div class="govuk-button-group">
-          <button class="govuk-button" type="submit" id="apply-filters-btn">Apply filters</button>
-        </div>
       </form>
     </div>
   </div>
@@ -788,10 +784,14 @@
   }
 
   // Add change event listeners to all checkboxes
-  // Note: renderChips is NOT called on checkbox change - only on Apply filters button click
+  var allFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .area-checkbox, .service-checkbox');
+  allFilterCheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      renderChips();
+    });
+  });
 
-  // Do NOT render chips on page load
-  // renderChips();
+  // Render chips on page load
 
   // Show checked owner items on page load
   ownerCheckboxes.forEach(function (checkbox) {
@@ -993,22 +993,10 @@
     document.addEventListener('DOMContentLoaded', function() {
       initializeAreaAutocomplete();
       initializeOwnerAutocomplete();
-      
-      // Add Apply filters button handler
-      applyFiltersBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        renderChips();
-      });
     });
   } else {
     initializeAreaAutocomplete();
     initializeOwnerAutocomplete();
-    
-    // Add Apply filters button handler
-    applyFiltersBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      renderChips();
-    });
   }
 </script>
 {% endblock %}

@@ -17,7 +17,42 @@ module.exports = router => {
         response.redirect("/delivery/wat2/onb/check-details")
     })
 
-    router.post('/delivery/wat2/onb/pmoc-answer', function(request, response) {
+    router.post('/delivery/wat2/check-details/case-type-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/risk-level-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/pmoc-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/preferred-name-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/preferred-contact-times-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/preferred-corresponding-language-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/translator-needed-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-details")
+    })
+
+    router.post('/delivery/wat2/check-details/vps-status-answer', function(request, response) {
 
         response.redirect("/delivery/wat2/onb/check-details")
     })
@@ -25,6 +60,14 @@ module.exports = router => {
     router.post('/delivery/wat2/onb/check-details-answer', function(request, response) {
 
         response.redirect("/delivery/wat2/onb/onboarded?onboardedStatus=Yes")
+    })
+
+    router.post('/delivery/wat2/onb/owner-answer', function(request, response) {
+
+        // Store owner in session
+        request.session.data['owner'] = request.body.owner || ''
+
+        response.redirect("/delivery/wat2/victims?success=yes&successReason=owner-updated")
     })
 
     //pcd
@@ -275,7 +318,7 @@ module.exports = router => {
         var vclFumoc = request.session.data['vclFumoc']
         var vclCallAttempt = request.session.data['vclCallAttempt']
 
-        if (vclFumoc == "Email"){
+        if (vclFumoc == "email"){
             if (vclCallAttempt == "1") {
                 response.redirect("/delivery/wat2/victim?vclStatus=informed-after-call-1&vclFumoc=email&secondaryNav=vcl")
             } else if (vclCallAttempt == "2") {
@@ -284,7 +327,7 @@ module.exports = router => {
                 response.redirect("/delivery/wat2/victim?vclStatus=informed-after-call-3&vclFumoc=email&secondaryNav=vcl")
             }
 
-        } else if (vclFumoc == "Post") {
+        } else if (vclFumoc == "post") {
             if (vclCallAttempt == "1") {
                 response.redirect("/delivery/wat2/victim?vclStatus=informed-after-call-1&vclFumoc=post&secondaryNav=vcl")
             } else if (vclCallAttempt == "2") {

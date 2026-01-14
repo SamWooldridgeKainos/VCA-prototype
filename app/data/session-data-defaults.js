@@ -6,6 +6,9 @@ module.exports = {
   'vclStatus': 'check-details',
   'pcdStatus': 'check-details',
   'recipient': 'victim',
+  'area': 'London',
+
+  'nfaStatus': 'draft-not-started',
 
   'nfaStatus': 'draft-not-started',
 
@@ -19,8 +22,6 @@ module.exports = {
   'victimAddressLine2': 'Middlehaven Road',
   'victimAddressLine3': 'Townville',
   'victimPostCode': 'NP14 6LF',
-  'preferredCorrespondenceLanguage': 'English',
-  'preferredContactTimes': 'Weekdays, 8am to 6pm',
   'victimRepresentativeContactDetails': 'Not provided',
   'victimDateOfBirth': '22/7/1990',
   'victimAge': '34',
