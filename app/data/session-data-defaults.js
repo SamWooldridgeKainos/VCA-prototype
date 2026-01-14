@@ -2,10 +2,15 @@ module.exports = {
 
   'caseUrn': '42MZ1139323/1',
   'pmoc': 'mobile',
-  'nfaStatus': 'draft-not-started',
-  'vclStatus': 'draft-not-started',
-  'pcdStatus': 'check-eligibility',
+  'onboardedStatus': 'No',
+  'vclStatus': 'check-details',
+  'pcdStatus': 'check-details',
   'recipient': 'victim',
+  'area': 'London',
+
+  'nfaStatus': 'draft-not-started',
+
+  'nfaStatus': 'draft-not-started',
 
   'victimSurname': 'Phillips',
   'victimForename': 'Sarah',
@@ -17,8 +22,6 @@ module.exports = {
   'victimAddressLine2': 'Middlehaven Road',
   'victimAddressLine3': 'Townville',
   'victimPostCode': 'NP14 6LF',
-  'preferredCorrespondenceLanguage': 'English',
-  'preferredContactTimes': 'Weekdays, 8am to 6pm',
   'victimRepresentativeContactDetails': 'Not provided',
   'victimDateOfBirth': '22/7/1990',
   'victimAge': '34',

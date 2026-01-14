@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Assignee" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <form action="/delivery/wat2/onb/owner-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+      <div class="govuk-form-group" id="error-form-group">
+        <label class="govuk-label govuk-label--l" for="my-autocomplete-container">
+          Who do you want to assign {{ data['victimForename'] }} {{ data['victimSurname'] }} to?
+        </label>
+
+        <div class="govuk-hint" id="location-hint">
+          Start typing then select from the list
+        </div>
+
+        <div class="autocomplete__wrapper" id="my-autocomplete-container" name="owner" data-name="owner" value="{{ data['owner'] }}"></div>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/delivery/wat2/onb/owner.js"></script>
+{% endblock %}

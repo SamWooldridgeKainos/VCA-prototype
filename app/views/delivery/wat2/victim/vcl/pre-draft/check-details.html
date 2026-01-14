@@ -1,0 +1,10 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+</p>
+
+<a href="/delivery/wat2/vcl/pre-draft/check-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Check details<span class="govuk-visually-hidden"> before informing about the stopped charge or substantially altered charge</span>
+</a>
+
+{% endblock %}

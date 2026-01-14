@@ -8,6 +8,74 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% block stylesheets %}
   {{ super() }}
   <link href="/public/icons/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.css" rel="stylesheet" type="text/css" />
+  <style>
+    .autocomplete__wrapper {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+    }
+    .autocomplete__input {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      line-height: 1.5;
+      border: 2px solid #0b0c0c;
+      box-sizing: border-box;
+      background-color: #ffffff;
+      font-weight: 400;
+      color: #0b0c0c;
+    }
+    .autocomplete__input:focus {
+      outline: 3px solid #ffbf47;
+      outline-offset: 0;
+    }
+    .autocomplete__menu {
+      position: static;
+      z-index: 100;
+      width: 100%;
+      border: 2px solid #0b0c0c;
+      border-top: 0;
+      background-color: #fff;
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+    }
+    .autocomplete__menu--visible {
+      display: block;
+    }
+    .autocomplete__menu--hidden {
+      display: none;
+    }
+    .autocomplete__option {
+      padding: 8px;
+      border-bottom: 1px solid #b1b4b6;
+      cursor: pointer;
+    }
+    .autocomplete__option--focused,
+    .autocomplete__option:hover {
+      background-color: #f3f2f1;
+      color: #0b0c0c;
+    }
+    .autocomplete__option[aria-selected="true"] {
+      background-color: #e8e8e8;
+      font-weight: bold;
+    }
+    #area-checkboxes-container .govuk-checkboxes__item {
+      display: none;
+    }
+    #owner-checkboxes-container .govuk-checkboxes__item {
+      display: none;
+    }
+  </style>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block header %}

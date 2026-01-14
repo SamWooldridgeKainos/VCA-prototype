@@ -1,0 +1,82 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Checklist" %}
+
+{% block header %}
+<header class="govuk-header" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="#" class="govuk-header__link govuk-header__link--homepage">
+        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="govuk-service-navigation" data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/overview">Overview</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/cases">Cases</a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/delivery/wat/vcl/tasks">Tasks</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Checklist</h1>
+    <p class="govuk-body">Select the items that have been completed or are required for this victim.</p>
+
+    <form method="post" action="/delivery/wat/vcl/checklist-answer">
+      <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="preferred-contact" name="preferredContact" type="checkbox" value="Preferred method of contact">
+          <label class="govuk-label govuk-checkboxes__label" for="preferred-contact">Preferred method of contact</label>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="special-measures" name="specialMeasures" type="checkbox" value="Special measures">
+          <label class="govuk-label govuk-checkboxes__label" for="special-measures">Special measures</label>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="reasonable-adjustments" name="reasonableAdjustments" type="checkbox" value="Reasonable adjustments">
+          <label class="govuk-label govuk-checkboxes__label" for="reasonable-adjustments">Reasonable adjustments</label>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="vps" name="vps" type="checkbox" value="Victim Personal Statement">
+          <label class="govuk-label govuk-checkboxes__label" for="vps">Victim Personal Statement</label>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="translation-required" name="translationRequired" type="checkbox" value="Translation required">
+          <label class="govuk-label govuk-checkboxes__label" for="translation-required">Translation required</label>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <button class="govuk-button" data-module="govuk-button" type="submit">Save</button>
+        <a href="/delivery/wat/vcl/tasks" class="govuk-button govuk-button--secondary">Cancel</a>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

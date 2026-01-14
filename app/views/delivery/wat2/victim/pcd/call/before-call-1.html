@@ -1,0 +1,19 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+</p>
+
+{% if (data['victimPhoneNumber'] == "") %}
+<p class="govuk-body">
+    You must confirm the preferred method of contact first then <a href="/delivery/wat2/pcd/victim-details/telephone-number.html" class="govuk-link">enter a telephone number</a>.
+</p>
+{% else %}
+<p class="govuk-body">
+    Telephone the victim and log the details during the call.
+</p>
+
+<a href="/delivery/wat2/pcd/call/phone-call-1" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+    View letter and make call<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+</a>
+{% endif %}
+{% endblock %}

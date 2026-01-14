@@ -27,12 +27,12 @@
 }
 
 .app-identity-bar__title {
-  @include govuk-font(16);
+  @include govuk-font(19);
   display: inline-block;
   vertical-align: top;
 
   .govuk-tag {
-    @include govuk-font(16);
+    @include govuk-font(19);
   }
 
   .govuk-breadcrumbs {
