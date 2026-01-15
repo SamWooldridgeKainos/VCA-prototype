@@ -40,12 +40,15 @@
                         </label>
                     </div>
 
+                    {% if (data['serviceLead'] == "RASSO") %}
+                    {% else %}
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="Inform of mixed charges" data-value="mixed-charges" {{ checked('nextTask','Inform of mixed charges') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
                             Inform of mixed charges
                         </label>
                     </div>
+                    {% endif %}
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="Inform of a stopped charge" data-value="stopped-charge" {{ checked('nextTask','Inform of a stopped charge') }}>

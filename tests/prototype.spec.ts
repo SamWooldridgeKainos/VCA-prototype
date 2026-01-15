@@ -70,8 +70,8 @@ test.describe('Prototype Pages Screenshot Test', () => {
 
   // Test form interactions
   test('Form interaction test', async ({ page }) => {
-    // Start with sign-in page
-    await page.goto('http://localhost:3000/ur/wat/onb/sign-in');
+    // Start with tasks page
+    await page.goto('http://localhost:3000/delivery/wat2/onb/tasks');
     await expect(page.locator('.govuk-header')).toBeVisible();
 
     // Look for common GOV.UK form elements
@@ -90,7 +90,7 @@ test.describe('Prototype Pages Screenshot Test', () => {
   // Test navigation between pages
   test('Navigation test', async ({ page }) => {
     // Test navigation between related pages
-    await page.goto('http://localhost:3000/ur/wat/onb/search');
+    await page.goto('http://localhost:3000/delivery/wat2/onb/victims');
     await expect(page.locator('.govuk-header')).toBeVisible();
     
     // Test back link if present
