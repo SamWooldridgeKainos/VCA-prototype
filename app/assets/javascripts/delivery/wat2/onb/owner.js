@@ -303,10 +303,10 @@ function validateForm() {
 
       // Error message
       $('#owner-label').append('<p id="error-message-1" class="govuk-error-message"></p>');
-      $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Enter the recipient\'s forename</span>');
+      $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select an assignee\'s name</span>');
 
       // Error summary
-      $('#error-list-item-1').html('<a href="#error-1">Enter the recipient\'s forname</a>');
+      $('#error-list-item-1').html('<a href="#error-1">Select an assignee\'s name</a>');
   
       $('#error-summary').focus();
   
