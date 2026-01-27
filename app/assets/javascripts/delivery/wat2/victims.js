@@ -202,10 +202,15 @@ function applyVictimFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
     
-    // Determine if any filters or search criteria are active
-    var hasActiveFilters = selectedOwners.length > 0 || selectedVictims.length > 0 || 
-                          selectedAreas.length > 0 || selectedServices.length > 0 || 
-                          selectedVictimCategories.length > 0;
+    // Determine if any immediate filters are active (Owner, Victim, Category)
+    var hasImmediateFilters = selectedOwners.length > 0 || selectedVictims.length > 0 || 
+                              selectedVictimCategories.length > 0;
+    
+    // Determine if search criteria filters are active (Service, Area)
+    var hasSearchCriteria = selectedAreas.length > 0 || selectedServices.length > 0;
+    
+    // Show victims/filters only if: immediate filters are selected OR search form was submitted
+    var shouldShowResults = hasImmediateFilters || (searchFormSubmitted && hasSearchCriteria);
     
     // Get search input value
     var searchInput = document.getElementById('search-urn');
@@ -214,13 +219,15 @@ function applyVictimFilters() {
     // Show/hide victims container based on whether there are active filters or search
     var victimContainer = document.getElementById('victims-container');
     var paginationNav = document.querySelector('nav.govuk-pagination');
+    var filtersSection = document.getElementById('filters-section');
     
     if (victimContainer) {
-        victimContainer.style.display = (hasActiveFilters || searchTerm !== '') ? '' : 'none';
+        victimContainer.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
     }
     if (paginationNav) {
-        paginationNav.style.display = (hasActiveFilters || searchTerm !== '') ? '' : 'none';
+        paginationNav.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
     }
+    // Don't show filters section yet - it will be shown after we calculate visibleCount
     
     // Get all summary lists (victim records)
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
@@ -328,7 +335,7 @@ function applyVictimFilters() {
             noResultsMessage = document.createElement('div');
             noResultsMessage.id = 'no-results-message';
             noResultsMessage.className = 'govuk-inset-text';
-            noResultsMessage.textContent = 'No victims match the selected filters.';
+            noResultsMessage.textContent = 'No results found. Check the case reference or search using different details.';
             var victimContainer = document.getElementById('victims-container');
             if (victimContainer) {
                 victimContainer.parentNode.insertBefore(noResultsMessage, victimContainer.nextSibling);
@@ -337,6 +344,11 @@ function applyVictimFilters() {
         noResultsMessage.style.display = '';
     } else if (noResultsMessage) {
         noResultsMessage.style.display = 'none';
+    }
+    
+    // Show/hide filters section - only show if there are visible results
+    if (filtersSection) {
+        filtersSection.style.display = visibleCount > 0 ? '' : 'none';
     }
     
     // Hide Service row if Onboarded is "No"
