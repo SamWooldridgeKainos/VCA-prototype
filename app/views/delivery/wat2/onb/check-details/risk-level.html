@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -20,7 +21,7 @@
 
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              What is the risk level?
+              What is the risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
             </h1>
           </legend>
 
@@ -41,9 +42,9 @@
             </div>
 
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="risk-level-low-standard" name="riskLevel" value="Low/Standard" data-value="low-standard" {{ checked('riskLevel','Low/Standard') }}>
+              <input type="radio" class="govuk-radios__input" id="risk-level-low-standard" name="riskLevel" value="Low (Standard)" data-value="low-standard" {{ checked('riskLevel','Low (Standard)') }}>
               <label class="govuk-label govuk-radios__label" for="risk-level-low-standard">
-                Low/Standard
+                Low (Standard)
               </label>
             </div>
 

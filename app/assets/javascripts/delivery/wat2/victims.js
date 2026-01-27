@@ -3,13 +3,16 @@ if (window.GOVUKFrontend && window.GOVUKFrontend.Radios) {
 var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govuk-radios"]'));
 }
 
+// Track whether search criteria form has been submitted
+var searchFormSubmitted = false;
+
 // Handle Owner filter chips
 (function () {
 var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
-var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
@@ -28,7 +31,7 @@ function renderChips() {
         selectedFiltersChips.appendChild(h3);
         
         checkedItems.forEach(function(checkbox) {
-        createChip(checkbox);
+        createChip(checkbox, selectedFiltersChips);
         });
     }
     }
@@ -36,23 +39,71 @@ function renderChips() {
     // Render owner chips
     renderChipCategory(ownerCheckboxes, 'Owner');
     
-    // Render area chips
-    renderChipCategory(areaCheckboxes, 'Area');
-    
-    // Render service chips
-    renderChipCategory(serviceCheckboxes, 'Service');
+    // Render victim chips
+    renderChipCategory(victimCheckboxes, 'Victim');
     
     // Render victim category chips
     renderChipCategory(victimCategoryCheckboxes, 'Victim category');
     
-    // Render onboarded chips
-    renderChipCategory(onboardedCheckboxes, 'Onboarded');
-    
     updateClearFiltersVisibility();
 }
 
+// Render search criteria chips (Service and Area)
+function renderSearchCriteriaChips() {
+    var searchCriteriaChipsContainer = document.getElementById('search-criteria-chips');
+    if (!searchCriteriaChipsContainer) return;
+    
+    searchCriteriaChipsContainer.innerHTML = '';
+    var hasSearchCriteria = false;
+    
+    function renderChipCategory(checkboxes, heading) {
+        var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
+        if (checkedItems.length > 0) {
+            hasSearchCriteria = true;
+            var h3 = document.createElement('h3');
+            h3.className = 'govuk-heading-s govuk-!-margin-top-3';
+            h3.style.marginBottom = '8px';
+            h3.textContent = heading;
+            searchCriteriaChipsContainer.appendChild(h3);
+            
+            checkedItems.forEach(function(checkbox) {
+                createChip(checkbox, searchCriteriaChipsContainer);
+            });
+        }
+    }
+    
+    renderChipCategory(serviceCheckboxes, 'Service');
+    renderChipCategory(areaCheckboxes, 'Area');
+    
+    // Update heading text and tag
+    var heading = document.getElementById('selected-search-criteria-heading');
+    if (heading) {
+        heading.textContent = hasSearchCriteria ? 'Selected search criteria' : 'No search criteria selected';
+        // Change from p to h2 when selections are made, or back to p when none
+        if (hasSearchCriteria && heading.tagName !== 'H2') {
+            var h2 = document.createElement('h2');
+            h2.id = heading.id;
+            h2.className = 'govuk-heading-m';
+            h2.textContent = heading.textContent;
+            heading.parentNode.replaceChild(h2, heading);
+        } else if (!hasSearchCriteria && heading.tagName !== 'P') {
+            var p = document.createElement('p');
+            p.id = heading.id;
+            p.className = 'govuk-body';
+            p.textContent = heading.textContent;
+            heading.parentNode.replaceChild(p, heading);
+        }
+    }
+    
+    // Update visibility of clear search criteria link
+    var clearSearchCriteriaWrapper = document.getElementById('clear-search-criteria-wrapper');
+    if (clearSearchCriteriaWrapper) {
+        clearSearchCriteriaWrapper.style.display = hasSearchCriteria ? '' : 'none';
+    }
+}
+
 // Create a chip element
-function createChip(checkbox) {
+function createChip(checkbox, container) {
     var chip = document.createElement('div');
     chip.className = 'moj-filter-tags__tag';
     chip.style.cssText = 'display: flex; align-items: baseline; background-color: #ffffff; color: #0b0c0c; padding: 5px 10px; margin-right: 5px; margin-bottom: 8px; border: 1px solid #0b0c0c; border-radius: 0;';
@@ -73,17 +124,20 @@ function createChip(checkbox) {
     e.preventDefault();
     checkbox.checked = false;
     renderChips();
+    renderSearchCriteriaChips();
     updateClearFiltersVisibility();
     });
     
     chip.appendChild(chipText);
     chip.appendChild(removeBtn);
-    selectedFiltersChips.appendChild(chip);
+    container.appendChild(chip);
 }
 
 // Update visibility of clear filters link
 function updateClearFiltersVisibility() {
     var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
+    return checkbox.checked;
+    }) || Array.from(victimCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
     return checkbox.checked;
@@ -91,26 +145,48 @@ function updateClearFiltersVisibility() {
     return checkbox.checked;
     }) || Array.from(victimCategoryCheckboxes).some(function (checkbox) {
     return checkbox.checked;
-    }) || Array.from(onboardedCheckboxes).some(function (checkbox) {
-    return checkbox.checked;
     });
     clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
     
-    // Update heading text
+    // Update heading text and tag
     var heading = document.getElementById('selected-filters-heading');
-    heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+    if (heading) {
+        var newText = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+        
+        // If we need to change the tag type
+        if (hasCheckedFilters && heading.tagName !== 'H2') {
+            var h2 = document.createElement('h2');
+            h2.id = heading.id;
+            h2.className = 'govuk-heading-m';
+            h2.textContent = newText;
+            heading.parentNode.replaceChild(h2, heading);
+        } else if (!hasCheckedFilters && heading.tagName !== 'P') {
+            var p = document.createElement('p');
+            p.id = heading.id;
+            p.className = 'govuk-body';
+            p.textContent = newText;
+            heading.parentNode.replaceChild(p, heading);
+        } else {
+            // Same tag type, just update text
+            heading.textContent = newText;
+        }
+    }
 }
 
 // Apply filters to victim list
 function applyVictimFilters() {
     var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+    var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
     var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
     var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
-    var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
     
     // Get all checked filter values
     var selectedOwners = Array.from(ownerCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+    
+    var selectedVictims = Array.from(victimCheckboxes)
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
@@ -126,9 +202,32 @@ function applyVictimFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
     
-    var selectedOnboarded = Array.from(onboardedCheckboxes)
-        .filter(function(cb) { return cb.checked; })
-        .map(function(cb) { return cb.value; });
+    // Determine if any immediate filters are active (Owner, Victim, Category)
+    var hasImmediateFilters = selectedOwners.length > 0 || selectedVictims.length > 0 || 
+                              selectedVictimCategories.length > 0;
+    
+    // Determine if search criteria filters are active (Service, Area)
+    var hasSearchCriteria = selectedAreas.length > 0 || selectedServices.length > 0;
+    
+    // Show victims/filters only if: immediate filters are selected OR search form was submitted
+    var shouldShowResults = hasImmediateFilters || (searchFormSubmitted && hasSearchCriteria);
+    
+    // Get search input value
+    var searchInput = document.getElementById('search-urn');
+    var searchTerm = searchInput ? searchInput.value.trim() : '';
+    
+    // Show/hide victims container based on whether there are active filters or search
+    var victimContainer = document.getElementById('victims-container');
+    var paginationNav = document.querySelector('nav.govuk-pagination');
+    var filtersSection = document.getElementById('filters-section');
+    
+    if (victimContainer) {
+        victimContainer.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
+    }
+    if (paginationNav) {
+        paginationNav.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
+    }
+    // Don't show filters section yet - it will be shown after we calculate visibleCount
     
     // Get all summary lists (victim records)
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
@@ -162,18 +261,47 @@ function applyVictimFilters() {
             shouldShow = shouldShow && matchesOwner;
         }
         
-        // Check Service filter
-        if (selectedServices.length > 0) {
-            // Service information would need to be in the victim record
-            // For now, check if service text exists in the record
+        // Check Victim filter
+        if (selectedVictims.length > 0) {
+            var victimName = record.querySelector('h2');
+            var victimText = victimName ? victimName.textContent.trim() : '';
+            var matchesVictim = selectedVictims.some(function(victim) {
+                return victimText.indexOf(victim) !== -1;
+            });
+            shouldShow = shouldShow && matchesVictim;
+        }
+        
+        // Check Service filter (only apply if search form has been submitted)
+        if (selectedServices.length > 0 && searchFormSubmitted) {
+            // Get the helper function to extract field values
+            function getFieldValue(fieldName) {
+                var rows = record.querySelectorAll('.govuk-summary-list__row');
+                for (var i = 0; i < rows.length; i++) {
+                    var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+                    if (keyEl && keyEl.textContent.trim() === fieldName) {
+                        var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+                        return valueEl ? valueEl.textContent.trim() : '';
+                    }
+                }
+                return '';
+            }
+            
             var matchesService = selectedServices.some(function(service) {
-                return recordText.indexOf(service) !== -1;
+                // Special handling for "Not onboarded" service filter
+                if (service === 'Not onboarded') {
+                    var serviceValue = getFieldValue('Service');
+                    // Check if the Service field shows "Not onboarded"
+                    return serviceValue.indexOf('Not onboarded') !== -1;
+                }
+                // For regular services, check if service text exists in the Service field
+                var serviceValue = getFieldValue('Service');
+                return serviceValue.indexOf(service) !== -1;
             });
             shouldShow = shouldShow && matchesService;
         }
         
-        // Check Area filter
-        if (selectedAreas.length > 0) {
+        // Check Area filter (only apply if search form has been submitted)
+        if (selectedAreas.length > 0 && searchFormSubmitted) {
             // Area information would need to be in the victim record
             // For now, check if area text exists in the record
             var matchesArea = selectedAreas.some(function(area) {
@@ -191,17 +319,6 @@ function applyVictimFilters() {
             shouldShow = shouldShow && matchesCategory;
         }
         
-        // Check Onboarded filter
-        if (selectedOnboarded.length > 0) {
-            var onboardedValue = getFieldValue('Onboarded');
-            // Extract just "Yes" or "No" from the beginning of the value
-            var onboardedMatch = onboardedValue.match(/^(Yes|No)/i);
-            var firstWord = onboardedMatch ? onboardedMatch[1] : '';
-            var matchesOnboarded = selectedOnboarded.some(function(status) {
-                return firstWord.toLowerCase() === status.toLowerCase();
-            });
-            shouldShow = shouldShow && matchesOnboarded;
-        }
         
         // Show or hide the record
         record.style.display = shouldShow ? '' : 'none';
@@ -212,14 +329,13 @@ function applyVictimFilters() {
     
     // Show "no results" message if no victims match filters
     var noResultsMessage = document.getElementById('no-results-message');
-    if (visibleCount === 0 && (selectedOwners.length > 0 || selectedServices.length > 0 || 
-                               selectedAreas.length > 0 || selectedVictimCategories.length > 0 || 
-                               selectedOnboarded.length > 0)) {
+    if (visibleCount === 0 && (selectedOwners.length > 0 || selectedVictims.length > 0 || selectedServices.length > 0 || 
+                               selectedAreas.length > 0 || selectedVictimCategories.length > 0)) {
         if (!noResultsMessage) {
             noResultsMessage = document.createElement('div');
             noResultsMessage.id = 'no-results-message';
             noResultsMessage.className = 'govuk-inset-text';
-            noResultsMessage.textContent = 'No victims match the selected filters.';
+            noResultsMessage.textContent = 'No results found. Check the case reference or search using different details.';
             var victimContainer = document.getElementById('victims-container');
             if (victimContainer) {
                 victimContainer.parentNode.insertBefore(noResultsMessage, victimContainer.nextSibling);
@@ -228,6 +344,11 @@ function applyVictimFilters() {
         noResultsMessage.style.display = '';
     } else if (noResultsMessage) {
         noResultsMessage.style.display = 'none';
+    }
+    
+    // Show/hide filters section - only show if there are visible results
+    if (filtersSection) {
+        filtersSection.style.display = visibleCount > 0 ? '' : 'none';
     }
     
     // Hide Service row if Onboarded is "No"
@@ -262,14 +383,15 @@ function hideServiceRowWhenOnboardedNo() {
         var onboardedMatch = onboardedValue.match(/^(Yes|No)/i);
         var onboardedStatus = onboardedMatch ? onboardedMatch[1].toLowerCase() : '';
         
-        // Find and hide/show the Service and Owner rows
+        // Find and hide/show the Owner row only
         var rows = record.querySelectorAll('.govuk-summary-list__row');
         rows.forEach(function(row) {
             var keyEl = row.querySelector('.govuk-summary-list__key');
             if (keyEl) {
                 var fieldName = keyEl.textContent.trim();
-                // Hide the Service and Owner rows if Onboarded is "No", otherwise show them
-                if (fieldName === 'Service' || fieldName === 'Owner') {
+                // Hide the Owner row if Onboarded is "No", otherwise show it
+                // Service row should always be visible
+                if (fieldName === 'Owner') {
                     row.style.display = onboardedStatus === 'no' ? 'none' : '';
                 }
             }
@@ -511,6 +633,28 @@ function hideServiceRowWhenOnboardedNo() {
         var victimRecords = document.querySelectorAll('.govuk-summary-list');
         var visibleCount = 0;
         
+        // Get the victims container and pagination
+        var victimContainer = document.getElementById('victims-container');
+        var paginationNav = document.querySelector('nav.govuk-pagination');
+        
+        // Show victims container when search is applied, hide when search is cleared
+        if (victimContainer) {
+            if (searchTerm !== '') {
+                victimContainer.style.display = '';
+            } else {
+                victimContainer.style.display = 'none';
+            }
+        }
+        
+        // Hide pagination when search is cleared
+        if (paginationNav) {
+            if (searchTerm !== '') {
+                paginationNav.style.display = '';
+            } else {
+                paginationNav.style.display = 'none';
+            }
+        }
+        
         // First, reset all records to visible (clear previous search results)
         victimRecords.forEach(function(record) {
             record.style.display = '';
@@ -617,34 +761,9 @@ function hideServiceRowWhenOnboardedNo() {
     }
 })();
 
-// Add click handler to Clear filters link
-var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
-if (clearFiltersLink) {
-    clearFiltersLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    ownerCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    areaCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    serviceCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    victimCategoryCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    onboardedCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    renderChips();
-    applyVictimFilters();
-    hideServiceRowWhenOnboardedNo();
-    });
-}
-
 // Render chips on page load
 renderChips();
+renderSearchCriteriaChips();
 
 // Apply filters on page load if any are selected
 applyVictimFilters();
@@ -668,19 +787,23 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
     ownerCheckboxesContainer.style.display = '';
 }
 
-// Add event listeners to all filter checkboxes to apply filters on change
+// Add event listeners to filter checkboxes
+// Owner, Victim Category, and Onboarded apply immediately on change
+// Service and Area only apply when Search button is clicked
 (function() {
-    var allFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .area-checkbox, .service-checkbox, .victim-category-checkbox, .onboarded-checkbox');
-    allFilterCheckboxes.forEach(function(checkbox) {
+    var immediateFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
+    var searchCriteriaCheckboxes = document.querySelectorAll('.service-checkbox, .area-checkbox');
+    
+    // Immediate filters
+    immediateFilterCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            // Get the parent scope variables
             var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+            var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
             var areaCheckboxes = document.querySelectorAll('.area-checkbox');
             var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
             var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
             var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
             
-            // Check if any chips are displayed for the parent scope function
             var renderChips = function() {
                 var selectedFiltersChips = document.getElementById('selected-filters-chips');
                 selectedFiltersChips.innerHTML = '';
@@ -725,8 +848,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                 }
                 
                 renderChipCategory(ownerCheckboxes, 'Owner');
-                renderChipCategory(areaCheckboxes, 'Area');
-                renderChipCategory(serviceCheckboxes, 'Service');
+                renderChipCategory(victimCheckboxes, 'Victim');
                 renderChipCategory(victimCategoryCheckboxes, 'Victim category');
                 renderChipCategory(onboardedCheckboxes, 'Onboarded');
                 updateClearFiltersVisibility();
@@ -736,9 +858,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
                 var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
-                }) || Array.from(areaCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                }) || Array.from(serviceCheckboxes).some(function (checkbox) {
+                }) || Array.from(victimCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
                 }) || Array.from(victimCategoryCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
@@ -748,17 +868,145 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                 clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
                 
                 var heading = document.getElementById('selected-filters-heading');
-                heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+                if (heading) {
+                    var newText = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+                    
+                    // If we need to change the tag type
+                    if (hasCheckedFilters && heading.tagName !== 'H2') {
+                        var h2 = document.createElement('h2');
+                        h2.id = heading.id;
+                        h2.className = 'govuk-heading-m';
+                        h2.textContent = newText;
+                        heading.parentNode.replaceChild(h2, heading);
+                    } else if (!hasCheckedFilters && heading.tagName !== 'P') {
+                        var p = document.createElement('p');
+                        p.id = heading.id;
+                        p.className = 'govuk-body';
+                        p.textContent = newText;
+                        heading.parentNode.replaceChild(p, heading);
+                    } else {
+                        // Same tag type, just update text
+                        heading.textContent = newText;
+                    }
+                }
             };
             
             renderChips();
             applyVictimFilters();
         });
     });
+    
+    // Search criteria form submission
+    var searchCriteriaForm = document.getElementById('search-criteria-form');
+    if (searchCriteriaForm) {
+        searchCriteriaForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            searchFormSubmitted = true;
+            renderChips();
+            renderSearchCriteriaChips();
+            applyVictimFilters();
+        });
+    }
+    
+    // Update chips display for Service and Area on checkbox change (but don't filter)
+    searchCriteriaCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            renderChips();
+            renderSearchCriteriaChips();
+        });
+    });
 
 // Expose functions to window so they can be called from other scopes
 window.applyVictimFilters = applyVictimFilters;
 window.renderChips = renderChips;
+window.renderSearchCriteriaChips = renderSearchCriteriaChips;
+
+// Add click handler to Clear filters link
+var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
+if (clearFiltersLink) {
+    clearFiltersLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(checkboxes) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Only clear the filters, not search criteria
+        uncheckAndTriggerChange(ownerCheckboxes);
+        uncheckAndTriggerChange(victimCheckboxes);
+        uncheckAndTriggerChange(victimCategoryCheckboxes);
+        uncheckAndTriggerChange(onboardedCheckboxes);
+        
+        // Clear and hide the owner checkboxes container
+        var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
+        if (ownerCheckboxesContainer) {
+            ownerCheckboxesContainer.style.display = 'none';
+        }
+        var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
+        if (victimCheckboxesContainer) {
+            victimCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear autocomplete inputs for filters only
+        var ownerInput = document.querySelector('#owner-autocomplete-input');
+        if (ownerInput) ownerInput.value = '';
+        var victimInput = document.querySelector('#victim-autocomplete-input');
+        if (victimInput) victimInput.value = '';
+        
+        // Update UI
+        renderChips();
+        renderSearchCriteriaChips();
+        updateClearFiltersVisibility();
+        applyVictimFilters();
+        hideServiceRowWhenOnboardedNo();
+    });
+}
+
+// Add click handler to Clear search link
+var clearSearchCriteriaLink = document.querySelector('#clear-search-criteria-link');
+if (clearSearchCriteriaLink) {
+    clearSearchCriteriaLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(checkboxes) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Only clear search criteria (Service and Area), not filters
+        uncheckAndTriggerChange(serviceCheckboxes);
+        uncheckAndTriggerChange(areaCheckboxes);
+        
+        // Clear and hide the area checkboxes container
+        var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
+        if (areaCheckboxesContainer) {
+            areaCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear autocomplete input for area only
+        var areaInput = document.querySelector('#area-autocomplete-input');
+        if (areaInput) areaInput.value = '';
+        
+        // Reset search form submitted flag
+        searchFormSubmitted = false;
+        
+        // Update UI - render search criteria chips and apply filters
+        renderSearchCriteriaChips();
+        applyVictimFilters();
+    });
+}
+
 })();
 
 // Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
@@ -843,6 +1091,8 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
             if (input) input.value = '';
             }
         });
+        // Render search criteria chips immediately
+        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
         }
     }
     });
@@ -962,6 +1212,7 @@ accessibleAutocomplete({
         var input = container.querySelector('input');
         if (input) input.value = '';
         // Apply filters and render chips immediately
+        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
         if (window.applyVictimFilters) window.applyVictimFilters();
         if (window.renderChips) window.renderChips();
     }
@@ -1067,15 +1318,95 @@ accessibleAutocomplete({
 });
 }
 
+// Initialize accessible-autocomplete for Victim filter
+function initializeVictimAutocomplete() {
+var victims = [
+    { label: 'OBERON, Shelly', value: 'oberon-shelly' },
+    { label: 'KING, Wendy', value: 'king-wendy' },
+    { label: 'RICHARDSON, Sarah', value: 'richardson-sarah' },
+    { label: 'SMITH, Emma', value: 'smith-emma' },
+    { label: 'JONES, Amanda', value: 'jones-amanda' },
+    { label: 'BROWN, Susan', value: 'brown-susan' },
+    { label: 'DAVIES, Elizabeth', value: 'davies-elizabeth' },
+    { label: 'MILLER, Jennifer', value: 'miller-jennifer' }
+];
+
+var container = document.querySelector('#victim-autocomplete');
+var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
+var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
+
+if (!container) {
+    console.error('Victim autocomplete container not found');
+    return;
+}
+
+if (typeof accessibleAutocomplete === 'undefined') {
+    console.error('accessibleAutocomplete library not loaded');
+    return;
+}
+
+// Create source function that returns matching victim labels
+var sourceArray = victims.map(function(v) { return v.label; });
+
+accessibleAutocomplete({
+    element: container,
+    id: 'victim-autocomplete-input',
+    source: sourceArray,
+    showAllValues: true,
+    minLength: 0,
+    confirmOnBlur: true,
+    onConfirm: function (selected) {
+    if (!selected) { 
+        return; 
+    }
+    var item = victims.find(function (v) { 
+        return v.label === selected || v.label === (selected.label || selected); 
+    });
+    if (item) {
+        // Hide all unchecked victim checkboxes
+        victimCheckboxes.forEach(function (checkbox) {
+            if (checkbox.value !== item.value) {
+                var parentItem = checkbox.closest('.govuk-checkboxes__item');
+                if (parentItem) {
+                    parentItem.style.display = 'none';
+                }
+            }
+        });
+        
+        // Find and check the selected checkbox
+        victimCheckboxes.forEach(function (checkbox) {
+        if (checkbox.value === item.value) {
+            checkbox.checked = true;
+            // Show this checkbox's parent item
+            var parentItem = checkbox.closest('.govuk-checkboxes__item');
+            if (parentItem) {
+            parentItem.style.display = 'flex';
+            }
+            victimCheckboxesContainer.style.display = '';
+        }
+        });
+        // Clear the input field after selection
+        var input = container.querySelector('input');
+        if (input) input.value = '';
+        // Apply filters and render chips immediately
+        if (window.applyVictimFilters) window.applyVictimFilters();
+        if (window.renderChips) window.renderChips();
+    }
+    }
+});
+}
+
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
     initializeAreaAutocomplete();
     initializeOwnerAutocomplete();
+    initializeVictimAutocomplete();
 });
 } else {
 initializeAreaAutocomplete();
 initializeOwnerAutocomplete();
+initializeVictimAutocomplete();
 }
 
 // Add change event listener to area checkboxes to hide when unchecked
@@ -1104,6 +1435,18 @@ if (e.target && e.target.classList.contains('owner-checkbox')) {
 }
 }, true);
 
+// Add change event listener to victim checkboxes to hide when unchecked
+document.addEventListener('change', function(e) {
+if (e.target && e.target.classList.contains('victim-checkbox')) {
+    var checkbox = e.target;
+    var parentItem = checkbox.closest('.govuk-checkboxes__item');
+    if (parentItem) {
+    if (!checkbox.checked) {
+        parentItem.style.display = 'none';
+    }
+    }
+}
+}, true);
 (function () {
 var owners = [
     { label: 'Amanda Smith', value: 'amanda-smith' },
