@@ -302,11 +302,11 @@ function validateForm() {
       $('#owner').addClass('govuk-input--error');
 
       // Error message
-      $('#owner-label').append('<p id="error-message-1" class="govuk-error-message"></p>');
-      $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select an assignee\'s name</span>');
+      $('#my-autocomplete-container').prepend('<p id="error-message-1" class="govuk-error-message"></p>');
+      $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select a victim liaison officer</span>');
 
       // Error summary
-      $('#error-list-item-1').html('<a href="#error-1">Select an assignee\'s name</a>');
+      $('#error-list-item-1').html('<a href="#error-1">Select a victim liaison officer</a>');
   
       $('#error-summary').focus();
   

@@ -75,10 +75,30 @@ function renderSearchCriteriaChips() {
     renderChipCategory(serviceCheckboxes, 'Service');
     renderChipCategory(areaCheckboxes, 'Area');
     
-    // Update heading text
+    // Update heading text and tag
     var heading = document.getElementById('selected-search-criteria-heading');
     if (heading) {
         heading.textContent = hasSearchCriteria ? 'Selected search criteria' : 'No search criteria selected';
+        // Change from p to h2 when selections are made, or back to p when none
+        if (hasSearchCriteria && heading.tagName !== 'H2') {
+            var h2 = document.createElement('h2');
+            h2.id = heading.id;
+            h2.className = 'govuk-heading-m';
+            h2.textContent = heading.textContent;
+            heading.parentNode.replaceChild(h2, heading);
+        } else if (!hasSearchCriteria && heading.tagName !== 'P') {
+            var p = document.createElement('p');
+            p.id = heading.id;
+            p.className = 'govuk-body';
+            p.textContent = heading.textContent;
+            heading.parentNode.replaceChild(p, heading);
+        }
+    }
+    
+    // Update visibility of clear search criteria link
+    var clearSearchCriteriaWrapper = document.getElementById('clear-search-criteria-wrapper');
+    if (clearSearchCriteriaWrapper) {
+        clearSearchCriteriaWrapper.style.display = hasSearchCriteria ? '' : 'none';
     }
 }
 
@@ -128,9 +148,29 @@ function updateClearFiltersVisibility() {
     });
     clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
     
-    // Update heading text
+    // Update heading text and tag
     var heading = document.getElementById('selected-filters-heading');
-    heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+    if (heading) {
+        var newText = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+        
+        // If we need to change the tag type
+        if (hasCheckedFilters && heading.tagName !== 'H2') {
+            var h2 = document.createElement('h2');
+            h2.id = heading.id;
+            h2.className = 'govuk-heading-m';
+            h2.textContent = newText;
+            heading.parentNode.replaceChild(h2, heading);
+        } else if (!hasCheckedFilters && heading.tagName !== 'P') {
+            var p = document.createElement('p');
+            p.id = heading.id;
+            p.className = 'govuk-body';
+            p.textContent = newText;
+            heading.parentNode.replaceChild(p, heading);
+        } else {
+            // Same tag type, just update text
+            heading.textContent = newText;
+        }
+    }
 }
 
 // Apply filters to victim list
@@ -140,12 +180,6 @@ function applyVictimFilters() {
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
     var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
     var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
-    
-    // Show victims container since filters are being applied
-    var victimContainer = document.getElementById('victims-container');
-    if (victimContainer) {
-        victimContainer.style.display = '';
-    }
     
     // Get all checked filter values
     var selectedOwners = Array.from(ownerCheckboxes)
@@ -167,6 +201,26 @@ function applyVictimFilters() {
     var selectedVictimCategories = Array.from(victimCategoryCheckboxes)
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
+    
+    // Determine if any filters or search criteria are active
+    var hasActiveFilters = selectedOwners.length > 0 || selectedVictims.length > 0 || 
+                          selectedAreas.length > 0 || selectedServices.length > 0 || 
+                          selectedVictimCategories.length > 0;
+    
+    // Get search input value
+    var searchInput = document.getElementById('search-urn');
+    var searchTerm = searchInput ? searchInput.value.trim() : '';
+    
+    // Show/hide victims container based on whether there are active filters or search
+    var victimContainer = document.getElementById('victims-container');
+    var paginationNav = document.querySelector('nav.govuk-pagination');
+    
+    if (victimContainer) {
+        victimContainer.style.display = (hasActiveFilters || searchTerm !== '') ? '' : 'none';
+    }
+    if (paginationNav) {
+        paginationNav.style.display = (hasActiveFilters || searchTerm !== '') ? '' : 'none';
+    }
     
     // Get all summary lists (victim records)
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
@@ -567,10 +621,26 @@ function hideServiceRowWhenOnboardedNo() {
         var victimRecords = document.querySelectorAll('.govuk-summary-list');
         var visibleCount = 0;
         
-        // Show victims container when search is applied
+        // Get the victims container and pagination
         var victimContainer = document.getElementById('victims-container');
-        if (victimContainer && searchTerm !== '') {
-            victimContainer.style.display = '';
+        var paginationNav = document.querySelector('nav.govuk-pagination');
+        
+        // Show victims container when search is applied, hide when search is cleared
+        if (victimContainer) {
+            if (searchTerm !== '') {
+                victimContainer.style.display = '';
+            } else {
+                victimContainer.style.display = 'none';
+            }
+        }
+        
+        // Hide pagination when search is cleared
+        if (paginationNav) {
+            if (searchTerm !== '') {
+                paginationNav.style.display = '';
+            } else {
+                paginationNav.style.display = 'none';
+            }
         }
         
         // First, reset all records to visible (clear previous search results)
@@ -679,32 +749,6 @@ function hideServiceRowWhenOnboardedNo() {
     }
 })();
 
-// Add click handler to Clear filters link
-var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
-if (clearFiltersLink) {
-    clearFiltersLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    ownerCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    areaCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    serviceCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    victimCategoryCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    onboardedCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
-    renderChips();
-    applyVictimFilters();
-    hideServiceRowWhenOnboardedNo();
-    });
-}
-
 // Render chips on page load
 renderChips();
 renderSearchCriteriaChips();
@@ -793,8 +837,6 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                 
                 renderChipCategory(ownerCheckboxes, 'Owner');
                 renderChipCategory(victimCheckboxes, 'Victim');
-                renderChipCategory(areaCheckboxes, 'Area');
-                renderChipCategory(serviceCheckboxes, 'Service');
                 renderChipCategory(victimCategoryCheckboxes, 'Victim category');
                 renderChipCategory(onboardedCheckboxes, 'Onboarded');
                 updateClearFiltersVisibility();
@@ -806,10 +848,6 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                     return checkbox.checked;
                 }) || Array.from(victimCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
-                }) || Array.from(areaCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                }) || Array.from(serviceCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
                 }) || Array.from(victimCategoryCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
                 }) || Array.from(onboardedCheckboxes).some(function (checkbox) {
@@ -818,7 +856,27 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                 clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
                 
                 var heading = document.getElementById('selected-filters-heading');
-                heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+                if (heading) {
+                    var newText = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+                    
+                    // If we need to change the tag type
+                    if (hasCheckedFilters && heading.tagName !== 'H2') {
+                        var h2 = document.createElement('h2');
+                        h2.id = heading.id;
+                        h2.className = 'govuk-heading-m';
+                        h2.textContent = newText;
+                        heading.parentNode.replaceChild(h2, heading);
+                    } else if (!hasCheckedFilters && heading.tagName !== 'P') {
+                        var p = document.createElement('p');
+                        p.id = heading.id;
+                        p.className = 'govuk-body';
+                        p.textContent = newText;
+                        heading.parentNode.replaceChild(p, heading);
+                    } else {
+                        // Same tag type, just update text
+                        heading.textContent = newText;
+                    }
+                }
             };
             
             renderChips();
@@ -849,6 +907,94 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
 // Expose functions to window so they can be called from other scopes
 window.applyVictimFilters = applyVictimFilters;
 window.renderChips = renderChips;
+window.renderSearchCriteriaChips = renderSearchCriteriaChips;
+
+// Add click handler to Clear filters link
+var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
+if (clearFiltersLink) {
+    clearFiltersLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(checkboxes) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Only clear the filters, not search criteria
+        uncheckAndTriggerChange(ownerCheckboxes);
+        uncheckAndTriggerChange(victimCheckboxes);
+        uncheckAndTriggerChange(victimCategoryCheckboxes);
+        uncheckAndTriggerChange(onboardedCheckboxes);
+        
+        // Clear and hide the owner checkboxes container
+        var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
+        if (ownerCheckboxesContainer) {
+            ownerCheckboxesContainer.style.display = 'none';
+        }
+        var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
+        if (victimCheckboxesContainer) {
+            victimCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear autocomplete inputs for filters only
+        var ownerInput = document.querySelector('#owner-autocomplete-input');
+        if (ownerInput) ownerInput.value = '';
+        var victimInput = document.querySelector('#victim-autocomplete-input');
+        if (victimInput) victimInput.value = '';
+        
+        // Update UI
+        renderChips();
+        renderSearchCriteriaChips();
+        updateClearFiltersVisibility();
+        applyVictimFilters();
+        hideServiceRowWhenOnboardedNo();
+    });
+}
+
+// Add click handler to Clear search link
+var clearSearchCriteriaLink = document.querySelector('#clear-search-criteria-link');
+if (clearSearchCriteriaLink) {
+    clearSearchCriteriaLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(checkboxes) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Only clear search criteria (Service and Area), not filters
+        uncheckAndTriggerChange(serviceCheckboxes);
+        uncheckAndTriggerChange(areaCheckboxes);
+        
+        // Clear and hide the area checkboxes container
+        var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
+        if (areaCheckboxesContainer) {
+            areaCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear autocomplete input for area only
+        var areaInput = document.querySelector('#area-autocomplete-input');
+        if (areaInput) areaInput.value = '';
+        
+        // Reset search form submitted flag
+        searchFormSubmitted = false;
+        
+        // Update UI - render search criteria chips and apply filters
+        renderSearchCriteriaChips();
+        applyVictimFilters();
+    });
+}
+
 })();
 
 // Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
@@ -933,6 +1079,8 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
             if (input) input.value = '';
             }
         });
+        // Render search criteria chips immediately
+        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
         }
     }
     });
@@ -1052,6 +1200,7 @@ accessibleAutocomplete({
         var input = container.querySelector('input');
         if (input) input.value = '';
         // Apply filters and render chips immediately
+        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
         if (window.applyVictimFilters) window.applyVictimFilters();
         if (window.renderChips) window.renderChips();
     }
@@ -1185,32 +1334,15 @@ if (typeof accessibleAutocomplete === 'undefined') {
 }
 
 // Create source function that returns matching victim labels
-var sourceFunction = function(query, populateResults) {
-    if (!query) {
-    populateResults(victims.map(function(v) { return v.label; }));
-    } else {
-    var filtered = victims.filter(function(v) {
-        return v.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    });
-    populateResults(filtered.map(function(v) { return v.label; }));
-    }
-};
+var sourceArray = victims.map(function(v) { return v.label; });
 
 accessibleAutocomplete({
     element: container,
     id: 'victim-autocomplete-input',
-    source: sourceFunction,
+    source: sourceArray,
     showAllValues: true,
     minLength: 0,
     confirmOnBlur: true,
-    templates: {
-    inputValue: function(result) {
-        return '';
-    },
-    suggestion: function(result) {
-        return result ? result.label || result : '';
-    }
-    },
     onConfirm: function (selected) {
     if (!selected) { 
         return; 

@@ -7,24 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-<div class="app-identity-bar">
-  <div class="app-identity-bar__container">
-    <div class="app-identity-bar__details">
-      <span class="app-identity-bar__title">
-        <b class="govuk-!-margin-right-2">
-          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-        </b>
-        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
-        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
-          Vulnerable
-        </strong>
-        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
-          Intimidated
-        </strong>
-      </span>
-    </div>
-  </div>
-</div>
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
 {% endblock %}
 
 {% block content %}
