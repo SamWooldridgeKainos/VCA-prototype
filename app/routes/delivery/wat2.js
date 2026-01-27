@@ -9,57 +9,57 @@ module.exports = router => {
 
     router.post('/delivery/wat2/onb/service-lead-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/next-task")
-    })
-
-    router.post('/delivery/wat2/onb/next-task-answer', function(request, response) {
-
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes&onboardedStatus=Yes")
     })
 
     router.post('/delivery/wat2/check-details/case-type-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/risk-level-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/pmoc-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/preferred-name-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/preferred-contact-times-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
-    router.post('/delivery/wat2/check-details/preferred-corresponding-language-answer', function(request, response) {
+    router.post('/delivery/wat2/check-details/preferred-correspondence-language-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/translator-needed-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/check-details/vps-status-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/check-details")
+        response.redirect("/delivery/wat2/onb/check-details?successNotification=yes")
     })
 
     router.post('/delivery/wat2/onb/check-details-answer', function(request, response) {
 
-        response.redirect("/delivery/wat2/onb/onboarded?onboardedStatus=Yes")
+        response.redirect("/delivery/wat2/onb/next-task?successNotification=false")
+    })
+
+    router.post('/delivery/wat2/onb/next-task-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/onboarded")
     })
 
     router.post('/delivery/wat2/onb/owner-answer', function(request, response) {

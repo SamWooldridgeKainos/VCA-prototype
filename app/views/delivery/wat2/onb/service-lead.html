@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -20,7 +21,7 @@
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        Which service will carry out tasks for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                        Which is the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
                     </h1>
                 </legend>
 
@@ -47,20 +48,26 @@
                         </label>
                     </div>
 
-                    <div class="govuk-radios__item">
+                    <!-- <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="service-lead-bfs" name="serviceLead" value="Bereaved Family" data-value="bfs" {{ checked('serviceLead','Bereaved Family') }}>
                         <label class="govuk-label govuk-radios__label" for="service-lead-bfs">
                             Bereaved Family
                         </label>
-                    </div>
+                    </div> -->
 
                 </div>
             </fieldset>
         </div>
 
+        {% if onboardedStatus == "no" %}
         <button type="submit" class="govuk-button" data-module="govuk-button">
-            Continue
+            Onboard victim
         </button>
+        {% else %}
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Save and continue
+        </button>
+        {% endif %}
 
     </form>
 

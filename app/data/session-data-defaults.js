@@ -8,7 +8,7 @@ module.exports = {
   'recipient': 'victim',
   'area': 'London',
 
-  'nfaStatus': 'draft-not-started',
+  'detailChange': 'no',
 
   'nfaStatus': 'draft-not-started',
 

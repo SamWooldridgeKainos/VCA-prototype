@@ -5,6 +5,10 @@
 {% include "/delivery/wat2/partials/header/none-selected.html" %}
 {% endblock %}
 
+{% block beforeContent %}
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
+{% endblock %}
+
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
@@ -12,19 +16,22 @@
   <div class="govuk-grid-column-one-half">
 
     <div class="govuk-panel govuk-panel--confirmation">
+      <!-- <h1 class="govuk-panel__title">
+        {% if data['nextTask'] == "No task at this time" %}Onboarding complete{% else %}Task created{% endif %}
+      </h1> -->
       <h1 class="govuk-panel__title">
         Victim onboarded
       </h1>
     </div>
 
     <p class="govuk-body">
-      {{ data['victimForename'] }} {{ data['victimSurname'] }} is now onboarded to the {{ serviceName }}.
+      You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }}{% if data['nextTask'] == "No task at this time" %} but you set {{ data['nextTask'] | lower }}{% else %} and set a next task to {{ data['nextTask'] | lower }}{% endif %}.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
     
     <p class="govuk-body">
-      They are ready to be assigned to a member of the {{ data['serviceLead'] }} service.
+      {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a Victim Liaison Officer.
     </p>
 
     <a href="/delivery/wat2/victims" role="button" draggable="false" class="govuk-button" data-module="govuk-button">

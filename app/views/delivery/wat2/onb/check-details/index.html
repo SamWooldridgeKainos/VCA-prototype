@@ -6,28 +6,72 @@
 {% endblock %}
 
 {% block beforeContent %}
-<div class="app-identity-bar">
-  <div class="app-identity-bar__container">
-    <div class="app-identity-bar__details">
-      <span class="app-identity-bar__title">
-        <b class="govuk-!-margin-right-2">
-          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-        </b>
-        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
-      </span>
-    </div>
-  </div>
-</div>
-
-<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
 {% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
+
+        {% if (data['successNotification'] == "yes") and (data['onboardedStatus'] == "Yes")  %}
+            <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                        Success
+                    </h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    {% if data['detailChange'] == "no" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        {{ data['victimForename'] }} {{ data['victimSurname'] }} is now onboarded and allocated to the {{ data['serviceLead'] }} service. 
+                    </h3>
+                    {% elif data['detailChange'] == "service-lead" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to the {{ data['serviceLead'] }} service. 
+                    </h3>
+                    {% elif data['detailChange'] == "case-type" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the case type for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['caseType'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "risk-level" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "pmoc" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-correspondence-language" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredCorrespondenceLanguage'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "translator-needed" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the translator needed status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['translatorNeeded'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-contact-times" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred contact times for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredContactTimes'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-name" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred name for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredName'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "vps-status" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
+                    </h3>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
         <h1 class="govuk-heading-l">
-            Check the details before onboarding {{ data['victimForename'] }} {{ data['victimSurname'] }}
+            Check the details for {{ data['victimForename'] }} {{ data['victimSurname'] }}
         </h1>
+
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -37,21 +81,8 @@
                     {{ data['serviceLead'] }}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/service-lead">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/service-lead?successNotification&detailChange=service-lead">
                         Change<span class="govuk-visually-hidden"> service lead</span>
-                    </a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Next task
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{ data['nextTask'] }}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/next-task">
-                        Change<span class="govuk-visually-hidden"> next task</span>
                     </a>
                 </dd>
             </div>
@@ -64,13 +95,13 @@
                         {{ data['caseType'] | capitalize }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/case-type">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/case-type?successNotification&detailChange=case-type">
                             Change<span class="govuk-visually-hidden"> case type</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/case-type" class="govuk-link govuk-link--no-visited-state">Select case type</a>
+                        <a href="/delivery/wat2/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select case type</a>
                     </dd>
                 {% endif %}
             </div>
@@ -83,72 +114,56 @@
                         {{ data['riskLevel'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/risk-level">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/risk-level?successNotification&detailChange=risk-level">
                             Change<span class="govuk-visually-hidden"> risk level</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/risk-level" class="govuk-link govuk-link--no-visited-state">
+                        <a href="/delivery/wat2/onb/check-details/risk-level?successNotification&detailChange=risk-level" class="govuk-link govuk-link--no-visited-state">
                             Select risk level
                         </a>
                     </dd>
                 {% endif %}
             </div>
-            <!-- <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Proceeding or withdrawn
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    <a href="#" class="govuk-link">Select if proceeding or withdrawn</a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Unsupportive victim
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    <a href="#" class="govuk-link">Select if supportive or unsupportive</a>
-                </dd>
-            </div> -->
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred method of contact
                 </dt>
-                {% if data['pmoc'] == "" %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/pmoc" class="govuk-link govuk-link--no-visited-state">
-                            Select preferred method of contact
-                        </a>
-                    </dd>
-                {% else %}
+                {% if data['pmoc'] %}
                     <dd class="govuk-summary-list__value">
                         {{ data['pmoc'] | capitalize }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/pmoc">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/pmoc?successNotification&detailChange=pmoc">
                             Change<span class="govuk-visually-hidden"> preferred method of contact</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat2/onb/check-details/pmoc?successNotification&detailChange=pmoc" class="govuk-link govuk-link--no-visited-state">
+                            Select preferred method of contact
                         </a>
                     </dd>
                 {% endif %}
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Preferred corresponding language
+                    Preferred correspondence language
                 </dt>
-                {% if data['preferredCorrespondingLanguage'] == "English" or data['preferredCorrespondingLanguage'] == "Welsh" %}
+                {% if data['preferredCorrespondenceLanguage'] == "English" or data['preferredCorrespondenceLanguage'] == "Welsh" %}
                     <dd class="govuk-summary-list__value">
-                        {{ data['preferredCorrespondingLanguage'] }}
+                        {{ data['preferredCorrespondenceLanguage'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-corresponding-language">
-                            Change<span class="govuk-visually-hidden"> preferred corresponding language</span>
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language">
+                            Change<span class="govuk-visually-hidden"> preferred correspondence language</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/preferred-corresponding-language" class="govuk-link govuk-link--no-visited-state">
-                            Select preferred corresponding language
+                        <a href="/delivery/wat2/onb/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language" class="govuk-link govuk-link--no-visited-state">
+                            Select preferred correspondence language
                         </a>
                     </dd>
                 {% endif %}
@@ -162,13 +177,13 @@
                         {{ data['translatorNeeded'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/translator-needed">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/translator-needed?successNotification&detailChange=translator-needed">
                             Change<span class="govuk-visually-hidden"> if translator needed</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/translator-needed" class="govuk-link govuk-link--no-visited-state">
+                        <a href="/delivery/wat2/onb/check-details/translator-needed?successNotification&detailChange=translator-needed" class="govuk-link govuk-link--no-visited-state">
                             Select if translator needed
                         </a>
                     </dd>
@@ -183,13 +198,13 @@
                         {{ data['preferredContactTimes'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-contact-times">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times">
                             Change<span class="govuk-visually-hidden"> preferred contact times</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/preferred-contact-times" class="govuk-link govuk-link--no-visited-state">
+                        <a href="/delivery/wat2/onb/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times" class="govuk-link govuk-link--no-visited-state">
                             Enter preferred contact times
                         </a>
                     </dd>
@@ -204,13 +219,13 @@
                         {{ data['preferredName'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-name">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/preferred-name?successNotification&detailChange=preferred-name">
                             Change<span class="govuk-visually-hidden"> preferred name</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/preferred-name" class="govuk-link govuk-link--no-visited-state">
+                        <a href="/delivery/wat2/onb/check-details/preferred-name?successNotification&detailChange=preferred-name" class="govuk-link govuk-link--no-visited-state">
                             Enter preferred name
                         </a>
                     </dd>
@@ -225,13 +240,13 @@
                         {{ data['vpsStatus'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/vps-status">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/vps-status?successNotification&detailChange=vps-status">
                             Change<span class="govuk-visually-hidden"> Victim Personal Statement status</span>
                         </a>
                     </dd>
                 {% else %}
                 <dd class="govuk-summary-list__value">
-                    <a href="/delivery/wat2/onb/check-details/vps-status" class="govuk-link govuk-link--no-visited-state">
+                    <a href="/delivery/wat2/onb/check-details/vps-status?successNotification&detailChange=vps-status" class="govuk-link govuk-link--no-visited-state">
                         Select Victim Personal Statement status
                     </a>
                 </dd>
@@ -239,15 +254,15 @@
             </div>
         </dl>
         <h2 class="govuk-heading-m">
-            Now onboard the victim
+            Now confirm their details
         </h2>
         <p class="govuk-body">
-            By confirming these details you will onboard {{ data['victimForename'] }} {{ data['victimSurname'] }} to the {{ serviceName }}. They can then be assigned to a member of the {{ data['serviceLead'] }} service.
+            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
         </p>
         <form action="/delivery/wat2/onb/check-details-answer" method="post" novalidate>
             <input type="hidden" name="answers-checked" value="true">
             <button type="submit" class="govuk-button" data-module="govuk-button">
-                Confirm and onboard
+                Confirm details
             </button>
         </form>
     </div>
