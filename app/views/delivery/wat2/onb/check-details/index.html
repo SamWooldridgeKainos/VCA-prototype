@@ -25,7 +25,7 @@
                 <div class="govuk-notification-banner__content">
                     {% if data['detailChange'] == "no" %}
                     <h3 class="govuk-notification-banner__heading">
-                        {{ data['victimForename'] }} {{ data['victimSurname'] }} is now onboarded and allocated to the {{ data['serviceLead'] }} service. 
+                        You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} and allocated them to the {{ data['serviceLead'] }} service. 
                     </h3>
                     {% elif data['detailChange'] == "service-lead" %}
                     <h3 class="govuk-notification-banner__heading">

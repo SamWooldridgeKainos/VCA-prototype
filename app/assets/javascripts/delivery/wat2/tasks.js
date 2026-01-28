@@ -10,6 +10,7 @@ var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
 var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
@@ -35,6 +36,9 @@ function renderChips() {
     
     // Render assignee chips
     renderChipCategory(ownerCheckboxes, 'Assignee');
+    
+    // Render victim liaison officer chips
+    renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
     
     // Render area chips
     renderChipCategory(areaCheckboxes, 'Area');
@@ -85,6 +89,8 @@ function createChip(checkbox) {
 function updateClearFiltersVisibility() {
     var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
     return checkbox.checked;
+    }) || Array.from(vloCheckboxes).some(function (checkbox) {
+    return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     }) || Array.from(serviceCheckboxes).some(function (checkbox) {
@@ -107,6 +113,9 @@ if (clearFiltersLink) {
     clearFiltersLink.addEventListener('click', function (e) {
     e.preventDefault();
     ownerCheckboxes.forEach(function (checkbox) {
+        checkbox.checked = false;
+    });
+    vloCheckboxes.forEach(function (checkbox) {
         checkbox.checked = false;
     });
     areaCheckboxes.forEach(function (checkbox) {
@@ -145,91 +154,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
 }
 // Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
 // Old search input listener removed - autocomplete handles this now
-})();
-
-// Initialize accessible-autocomplete for Area filter
-(function () {
-var areas = [
-    { label: 'Avon and Somerset', value: 'avon-somerset' },
-    { label: 'Bedfordshire', value: 'bedfordshire' },
-    { label: 'Cambridgeshire', value: 'cambridgeshire' },
-    { label: 'Cheshire', value: 'cheshire' },
-    { label: 'Cleveland', value: 'cleveland' },
-    { label: 'Cumbria', value: 'cumbria' },
-    { label: 'Devon and Cornwall', value: 'devon-cornwall' },
-    { label: 'Durham', value: 'durham' },
-    { label: 'Dyfed Powys', value: 'dyfed-powys' },
-    { label: 'Essex', value: 'essex' },
-    { label: 'Gloucestershire', value: 'gloucestershire' },
-    { label: 'Greater Manchester', value: 'greater-manchester' },
-    { label: 'Gwent', value: 'gwent' },
-    { label: 'Hampshire and Isle of Wight', value: 'hampshire-iow' },
-    { label: 'Hertfordshire', value: 'hertfordshire' },
-    { label: 'HMCPSI', value: 'hmcpsi' },
-    { label: 'Humberside', value: 'humberside' },
-    { label: 'Kent', value: 'kent' },
-    { label: 'Lancashire', value: 'lancashire' },
-    { label: 'Leatherhead', value: 'leatherhead' },
-    { label: 'Leicestershire', value: 'leicestershire' },
-    { label: 'Lincolnshire', value: 'lincolnshire' },
-    { label: 'London', value: 'london' },
-    { label: 'Merseyside', value: 'merseyside' },
-    { label: 'Norfolk', value: 'norfolk' },
-    { label: 'North Wales', value: 'north-wales' },
-    { label: 'North Yorkshire', value: 'north-yorkshire' },
-    { label: 'Northamptonshire', value: 'northamptonshire' },
-    { label: 'Northumbria', value: 'northumbria' },
-    { label: 'Nottinghamshire', value: 'nottinghamshire' },
-    { label: 'Records Management Unit area', value: 'rmu-area' },
-    { label: 'South Wales', value: 'south-wales' },
-    { label: 'South Yorkshire', value: 'south-yorkshire' },
-    { label: 'Stafford', value: 'stafford' },
-    { label: 'Suffolk', value: 'suffolk' },
-    { label: 'Surrey', value: 'surrey' },
-    { label: 'Sussex', value: 'sussex' },
-    { label: 'Thames Valley', value: 'thames-valley' },
-    { label: 'Warwickshire', value: 'warwickshire' },
-    { label: 'West Mercia', value: 'west-mercia' },
-    { label: 'West Midlands', value: 'west-midlands' },
-    { label: 'West Yorkshire', value: 'west-yorkshire' },
-    { label: 'Wiltshire', value: 'wiltshire' }
-];
-
-var container = document.querySelector('#area-autocomplete');
-var selectedContainer = document.getElementById('area-selected-container');
-var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
-var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-
-if (container && typeof accessibleAutocomplete !== 'undefined') {
-    accessibleAutocomplete({
-    element: container,
-    id: 'area-autocomplete-input',
-    source: areas.map(function (a) { return a.label; }),
-    showAllValues: true,
-    minLength: 0,
-    confirmOnBlur: true,
-    onConfirm: function (selected) {
-        if (!selected) { 
-        return; 
-        }
-        var item = areas.find(function (a) { return a.label === selected; });
-        if (item) {
-        // Find the corresponding checkbox and check it
-        areaCheckboxes.forEach(function (checkbox) {
-            if (checkbox.value === item.value) {
-            checkbox.checked = true;
-            // Show the checkbox container
-            areaCheckboxesContainer.style.display = '';
-            // Clear the autocomplete input
-            var input = container.querySelector('input');
-            if (input) input.value = '';
-            }
-        });
-        }
-    }
-    });
-}
-});
+})();;
 
 // Initialize accessible-autocomplete for Area filter
 function initializeAreaAutocomplete() {
@@ -443,15 +368,118 @@ accessibleAutocomplete({
 });
 }
 
+// Initialize accessible-autocomplete for VLO filter
+function initializeVloAutocomplete() {
+console.log('initializeVloAutocomplete called');
+var vlos = [
+    { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
+    { label: 'Unassigned', value: 'unassigned' },
+    { label: 'KUMAR, Priya', value: 'kumar-priya' },
+    { label: 'BISHOP, James', value: 'bishop-james' },
+    { label: 'MORRISON, Claire', value: 'morrison-claire' },
+    { label: 'HAYES, Michael', value: 'hayes-michael' },
+    { label: 'ANDERSON, David', value: 'anderson-david' },
+    { label: 'WRIGHT, Hannah', value: 'wright-hannah' },
+    { label: 'MARTINEZ, Carlos', value: 'martinez-carlos' },
+    { label: 'JOHNSON, Patricia', value: 'johnson-patricia' },
+    { label: 'CHEN, Michael', value: 'chen-michael' },
+    { label: 'PATEL, Ravi', value: 'patel-ravi' },
+    { label: 'O\'CONNELL, Siobhan', value: 'oconnell-siobhan' },
+    { label: 'THOMPSON, Robert', value: 'thompson-robert' },
+    { label: 'GARCÍA, Luis', value: 'garcía-luis' },
+    { label: 'HENDERSON, Louise', value: 'henderson-louise' },
+    { label: 'WILLIAMS, Anna', value: 'williams-anna' },
+    { label: 'STEWART, James', value: 'stewart-james' },
+    { label: 'LEWIS, Elizabeth', value: 'lewis-elizabeth' },
+    { label: 'WALKER, George', value: 'walker-george' },
+    { label: 'CLARK, Victoria', value: 'clark-victoria' }
+];
+
+var container = document.querySelector('#vlo-autocomplete');
+var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
+
+console.log('VLO container:', container);
+console.log('VLO checkboxes found:', vloCheckboxes.length);
+
+if (!container) {
+    console.error('VLO autocomplete container not found');
+    return;
+}
+
+if (typeof accessibleAutocomplete === 'undefined') {
+    console.error('accessibleAutocomplete library not loaded');
+    return;
+}
+
+console.log('Initializing VLO accessible-autocomplete');
+
+// Create source function that returns matching VLO labels
+var sourceFunction = function(query, populateResults) {
+    if (!query) {
+    populateResults(vlos.map(function(v) { return v.label; }));
+    } else {
+    var filtered = vlos.filter(function(v) {
+        return v.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    populateResults(filtered.map(function(v) { return v.label; }));
+    }
+};
+
+accessibleAutocomplete({
+    element: container,
+    id: 'vlo-autocomplete-input',
+    source: sourceFunction,
+    showAllValues: true,
+    minLength: 0,
+    confirmOnBlur: true,
+    templates: {
+    inputValue: function(result) {
+        return '';
+    },
+    suggestion: function(result) {
+        return result ? result.label || result : '';
+    }
+    },
+    onConfirm: function (selected) {
+    if (!selected) { 
+        return; 
+    }
+    var item = vlos.find(function (v) { 
+        return v.label === selected || v.label === (selected.label || selected); 
+    });
+    if (item) {
+        // Find and check the selected checkbox
+        vloCheckboxes.forEach(function (checkbox) {
+        if (checkbox.value === item.value) {
+            checkbox.checked = true;
+            // Show this checkbox's parent item
+            var parentItem = checkbox.closest('.govuk-checkboxes__item');
+            if (parentItem) {
+            parentItem.style.display = 'flex';
+            }
+            vloCheckboxesContainer.style.display = '';
+        }
+        });
+        // Clear the input field after selection
+        var input = container.querySelector('input');
+        if (input) input.value = '';
+    }
+    }
+});
+}
+
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
     initializeAreaAutocomplete();
     initializeOwnerAutocomplete();
+    initializeVloAutocomplete();
 });
 } else {
 initializeAreaAutocomplete();
 initializeOwnerAutocomplete();
+initializeVloAutocomplete();
 }
 
 // Add change event listener to area checkboxes to hide when unchecked
@@ -470,6 +498,19 @@ if (e.target && e.target.classList.contains('area-checkbox')) {
 // Add change event listener to owner checkboxes to hide when unchecked
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('owner-checkbox')) {
+    var checkbox = e.target;
+    var parentItem = checkbox.closest('.govuk-checkboxes__item');
+    if (parentItem) {
+    if (!checkbox.checked) {
+        parentItem.style.display = 'none';
+    }
+    }
+}
+}, true);
+
+// Add change event listener to vlo checkboxes to hide when unchecked
+document.addEventListener('change', function(e) {
+if (e.target && e.target.classList.contains('vlo-checkbox')) {
     var checkbox = e.target;
     var parentItem = checkbox.closest('.govuk-checkboxes__item');
     if (parentItem) {
