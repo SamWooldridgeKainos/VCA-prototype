@@ -21,7 +21,7 @@
 
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              What is the status of {{ data['victimForename'] }} {{ data['victimSurname'] }}'s Victim Personal Statement?
+              What is the status of {{ data['victimForename'] }} {{ data['victimSurname'] }}'s Victim Personal Statement (VPS)?
             </h1>
           </legend>
 
@@ -55,7 +55,13 @@
               </label>
             </div>
 
-          </div>
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-not-received" name="vpsStatus" value="Not received" data-value="not-received" {{ checked('vpsStatus','Not received') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-not-received">
+                Not received
+              </label>
+            </div>
+
         </fieldset>
       </div>
 

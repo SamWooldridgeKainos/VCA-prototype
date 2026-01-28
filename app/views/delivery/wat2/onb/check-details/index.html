@@ -33,11 +33,11 @@
                     </h3>
                     {% elif data['detailChange'] == "case-type" %}
                     <h3 class="govuk-notification-banner__heading">
-                        You changed the case type for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['caseType'] }}.
+                        You changed the charging type for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['caseType'] }}.
                     </h3>
                     {% elif data['detailChange'] == "risk-level" %}
                     <h3 class="govuk-notification-banner__heading">
-                        You changed the risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+                        You changed the domestic abuse risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
                     </h3>
                     {% elif data['detailChange'] == "pmoc" %}
                     <h3 class="govuk-notification-banner__heading">
@@ -88,7 +88,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Case type
+                    Charging type
                 </dt>
                 {% if data['caseType'] %}
                     <dd class="govuk-summary-list__value">
@@ -96,18 +96,18 @@
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/case-type?successNotification&detailChange=case-type">
-                            Change<span class="govuk-visually-hidden"> case type</span>
+                            Change<span class="govuk-visually-hidden"> charging type</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat2/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select case type</a>
+                        <a href="/delivery/wat2/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
                     </dd>
                 {% endif %}
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Risk level
+                    Domestic abuse risk level
                 </dt>
                 {% if data['riskLevel'] %}
                     <dd class="govuk-summary-list__value">
@@ -115,13 +115,13 @@
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/check-details/risk-level?successNotification&detailChange=risk-level">
-                            Change<span class="govuk-visually-hidden"> risk level</span>
+                            Change<span class="govuk-visually-hidden"> domestic abuse risk level</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
                         <a href="/delivery/wat2/onb/check-details/risk-level?successNotification&detailChange=risk-level" class="govuk-link govuk-link--no-visited-state">
-                            Select risk level
+                            Select domestic abuse risk level
                         </a>
                     </dd>
                 {% endif %}
