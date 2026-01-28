@@ -36,7 +36,7 @@ router.post('/logging-answer', function(request, response) {
 	if (logging == "yes"){
 		response.redirect("/ur/meetings-2/purpose2")
 	} else {
-		response.redirect("/ur/meetings-2//purpose")
+		response.redirect("/ur/meetings-2/purpose")
 	}
 })
 
