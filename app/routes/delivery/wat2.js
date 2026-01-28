@@ -59,6 +59,17 @@ module.exports = router => {
 
     router.post('/delivery/wat2/onb/next-task-answer', function(request, response) {
 
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "Other") {
+            response.redirect("/delivery/wat2/onb/manual-task")
+        } else {
+            response.redirect("/delivery/wat2/onb/onboarded")
+        }
+    })
+
+    router.post('/delivery/wat2/onb/manual-task-answer', function(request, response) {
+
         response.redirect("/delivery/wat2/onb/onboarded")
     })
 
