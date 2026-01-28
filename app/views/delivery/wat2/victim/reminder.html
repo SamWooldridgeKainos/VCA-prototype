@@ -1,85 +1,29 @@
 {% extends "layouts/main.html" %}
-{% set pageName="Create a reminder" %}
+{% set pageName="Set a reminder" %}
 
 {% block header %}
-<header class="govuk-header" data-module="govuk-header">
-  <div class="govuk-header__container govuk-width-container">
-    <div class="govuk-header__logo">
-      <a href="#" class="govuk-header__link govuk-header__link--homepage">
-        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
-        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
-      </a>
-    </div>
-  </div>
-</header>
-
-<div class="govuk-service-navigation"
-  data-module="govuk-service-navigation">
-  <div class="govuk-width-container">
-    <div class="govuk-service-navigation__container">
-      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
-          Menu
-        </button>
-        <ul class="govuk-service-navigation__list" id="navigation">
-          <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/delivery/wat2/pcd/overview">
-              Overview
-            </a>
-          </li>
-          <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-            <a class="govuk-service-navigation__link" href="/delivery/wat2/pcd/tasks" aria-current="true">
-              Tasks
-            </a>
-          </li>
-          <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/delivery/wat2/pcd/victims">
-              Victims
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</div>
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-<div class="govuk-breadcrumbs">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/delivery/wat2/pcd/tasks">Tasks</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item" aria-current="page">Create a task</li>
-  </ol>
-</div>
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
 {% block content %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
 
-        <h1 class="govuk-heading-l">Create a task</h1>
+        <h1 class="govuk-heading-l">Set a reminder for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
 
         <form action="/delivery/wat2/pcd/tasks" method="post">
-
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--m" for="victim-name-autocomplete-input">
-                    Victim name (optional)
-                </label>
-                <div id="victim-name-autocomplete"></div>
-                <input type="hidden" id="victim-name" name="victim-name" value="">
-            </div>
-
             
-
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--m" for="task-name">
-                    Task name
+                <label class="govuk-label govuk-label--m" for="reminder-name">
+                    Reminder name
                 </label>
-                <input class="govuk-input" id="task-name" name="task-name" type="text">
+                <input class="govuk-input" id="reminder-name" name="reminder-name" type="text">
             </div>
-
             <div class="govuk-form-group">
               <label class="govuk-label govuk-label--m" for="due-date">
                 Due date
@@ -226,7 +170,7 @@
             </script>
 
             <button class="govuk-button" data-module="govuk-button">
-                Create task
+                Set reminder
             </button>
         </form>
     </div>
