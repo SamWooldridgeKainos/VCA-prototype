@@ -119,6 +119,14 @@ module.exports = router => {
         response.redirect("/delivery/wat2/victim/tasks?success=yes&successReason=task-created")
     })
 
+    router.post('/delivery/wat2/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/delivery/wat2/tasks?success=yes&successReason=assignee-updated")
+    })
+
     //pcd
 
     router.post('/delivery/wat2/pcd/sign-in-answer', function(request, response) {
