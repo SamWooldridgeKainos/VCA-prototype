@@ -3,14 +3,13 @@ if (window.GOVUKFrontend && window.GOVUKFrontend.Radios) {
 var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govuk-radios"]'));
 }
 
-// Handle Owner filter chips
+// Handle VLO filter chips
 (function () {
-var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
 var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
-var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
@@ -35,10 +34,7 @@ function renderChips() {
     }
     
     // Render assignee chips
-    renderChipCategory(ownerCheckboxes, 'Assignee');
-    
-    // Render victim liaison officer chips
-    renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
+    renderChipCategory(vloCheckboxes, 'Assignee');
     
     // Render area chips
     renderChipCategory(areaCheckboxes, 'Area');
@@ -87,9 +83,7 @@ function createChip(checkbox) {
 
 // Update visibility of clear filters link
 function updateClearFiltersVisibility() {
-    var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
-    return checkbox.checked;
-    }) || Array.from(vloCheckboxes).some(function (checkbox) {
+    var hasCheckedFilters = Array.from(vloCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
     return checkbox.checked;
@@ -112,9 +106,6 @@ var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
 if (clearFiltersLink) {
     clearFiltersLink.addEventListener('click', function (e) {
     e.preventDefault();
-    ownerCheckboxes.forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
     vloCheckboxes.forEach(function (checkbox) {
         checkbox.checked = false;
     });
@@ -137,8 +128,8 @@ if (clearFiltersLink) {
 // Render chips on page load
 renderChips();
 
-// Show checked owner items on page load
-ownerCheckboxes.forEach(function (checkbox) {
+// Show checked vlo items on page load
+vloCheckboxes.forEach(function (checkbox) {
     if (checkbox.checked) {
     var parentItem = checkbox.closest('.govuk-checkboxes__item');
     if (parentItem) {
@@ -147,12 +138,12 @@ ownerCheckboxes.forEach(function (checkbox) {
     }
 });
 
-// Show the owner checkboxes container if there are checked items
-var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
-    ownerCheckboxesContainer.style.display = '';
+// Show the vlo checkboxes container if there are checked items
+var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
+    vloCheckboxesContainer.style.display = '';
 }
-// Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
+// Filter vlo list based on autocomplete (now handled by initializeVloAutocomplete)
 // Old search input listener removed - autocomplete handles this now
 })();;
 
@@ -273,9 +264,9 @@ accessibleAutocomplete({
 });
 }
 
-// Initialize accessible-autocomplete for assignee (Owner) filter
-function initializeOwnerAutocomplete() {
-var owners = [
+// Initialize accessible-autocomplete for assignee (Victim Liaison Officer) filter
+function initializeVloAutocomplete() {
+var vlos = [
     { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
     { label: 'Unassigned', value: 'unassigned' },
     { label: 'KUMAR, Priya', value: 'kumar-priya' },
@@ -300,8 +291,8 @@ var owners = [
 ];
 
 var container = document.querySelector('#assignee-autocomplete');
-var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 
 if (!container) {
     console.error('Assignee autocomplete container not found');
@@ -313,12 +304,12 @@ if (typeof accessibleAutocomplete === 'undefined') {
     return;
 }
 
-// Create source function that returns matching owner labels
+// Create source function that returns matching vlo labels
 var sourceFunction = function(query, populateResults) {
     if (!query) {
-    populateResults(owners.map(function(o) { return o.label; }));
+    populateResults(vlos.map(function(o) { return o.label; }));
     } else {
-    var filtered = owners.filter(function(o) {
+    var filtered = vlos.filter(function(o) {
         return o.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
     });
     populateResults(filtered.map(function(o) { return o.label; }));
@@ -344,12 +335,12 @@ accessibleAutocomplete({
     if (!selected) { 
         return; 
     }
-    var item = owners.find(function (o) { 
+    var item = vlos.find(function (o) { 
         return o.label === selected || o.label === (selected.label || selected); 
     });
     if (item) {
         // Find and check the selected checkbox
-        ownerCheckboxes.forEach(function (checkbox) {
+        vloCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
             // Show this checkbox's parent item
@@ -357,7 +348,7 @@ accessibleAutocomplete({
             if (parentItem) {
             parentItem.style.display = 'flex';
             }
-            ownerCheckboxesContainer.style.display = '';
+            vloCheckboxesContainer.style.display = '';
         }
         });
         // Clear the input field after selection
@@ -473,31 +464,16 @@ accessibleAutocomplete({
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
     initializeAreaAutocomplete();
-    initializeOwnerAutocomplete();
     initializeVloAutocomplete();
 });
 } else {
 initializeAreaAutocomplete();
-initializeOwnerAutocomplete();
 initializeVloAutocomplete();
 }
 
 // Add change event listener to area checkboxes to hide when unchecked
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('area-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
-}
-}, true);
-
-// Add change event listener to owner checkboxes to hide when unchecked
-document.addEventListener('change', function(e) {
-if (e.target && e.target.classList.contains('owner-checkbox')) {
     var checkbox = e.target;
     var parentItem = checkbox.closest('.govuk-checkboxes__item');
     if (parentItem) {

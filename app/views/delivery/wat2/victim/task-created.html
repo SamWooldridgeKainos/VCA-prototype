@@ -20,12 +20,12 @@
         {% if data['nextTask'] == "No task at this time" %}Onboarding complete{% else %}Task created{% endif %}
       </h1> -->
       <h1 class="govuk-panel__title">
-        Victim onboarded
+        Task created
       </h1>
     </div>
 
     <p class="govuk-body">
-      You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }}{% if data['nextTask'] == "No task at this time" %} but you set {{ data['nextTask'] | lower }}{% else %} and set a next task to {{ data['nextTask'] | lower }} by {{ data['taskDueDate'] | formatDate }}{% endif %}.
+      You set a next task to {{ data['nextTask'] | lower }} by {{ data['taskDueDate'] | formatDate }}.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
@@ -34,7 +34,7 @@
       {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a Victim Liaison Officer.
     </p>
 
-    <a href="/delivery/wat2/victims" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/delivery/wat2/tasks" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
