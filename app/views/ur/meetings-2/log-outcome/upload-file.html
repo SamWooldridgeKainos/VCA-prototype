@@ -9,7 +9,7 @@
 {% block content %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      <h1 class="govuk-heading-l">Add meeting notes</h1>
+
 
 
 
@@ -19,12 +19,30 @@
 
 
 
-<div class="govuk-form-group">
-  <label class="govuk-label" for="more-detail">
 
-  </label>
-  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"></textarea>
-</div>
+
+{{ govukRadios({
+      name: "meeting2",
+      value: data['meeting2'],
+      fieldset: {
+        legend: {
+          text: "Have meeting notes been saved in CMS?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+    }) }}
+
             <div class="govuk-button-group">
 
   <a href="any-actions-agreed" role="button" draggable="false" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
