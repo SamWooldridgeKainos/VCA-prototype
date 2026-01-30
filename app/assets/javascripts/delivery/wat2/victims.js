@@ -6,12 +6,12 @@ var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govu
 // Track whether search criteria form has been submitted
 var searchFormSubmitted = false;
 
-// Handle Owner filter chips
+// Handle Victim Liaison Officer filter chips
 (function () {
-var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+var serviceRadios = document.querySelectorAll('.service-radio');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
@@ -36,8 +36,8 @@ function renderChips() {
     }
     }
     
-    // Render owner chips
-    renderChipCategory(ownerCheckboxes, 'Owner');
+    // Render Victim Liaison Officer chips
+    renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
     
     // Render victim chips
     renderChipCategory(victimCheckboxes, 'Victim');
@@ -56,8 +56,8 @@ function renderSearchCriteriaChips() {
     searchCriteriaChipsContainer.innerHTML = '';
     var hasSearchCriteria = false;
     
-    function renderChipCategory(checkboxes, heading) {
-        var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
+    function renderChipCategory(items, heading) {
+        var checkedItems = Array.from(items).filter(function(item) { return item.checked; });
         if (checkedItems.length > 0) {
             hasSearchCriteria = true;
             var h3 = document.createElement('h3');
@@ -66,13 +66,13 @@ function renderSearchCriteriaChips() {
             h3.textContent = heading;
             searchCriteriaChipsContainer.appendChild(h3);
             
-            checkedItems.forEach(function(checkbox) {
-                createChip(checkbox, searchCriteriaChipsContainer);
+            checkedItems.forEach(function(item) {
+                createChip(item, searchCriteriaChipsContainer);
             });
         }
     }
     
-    renderChipCategory(serviceCheckboxes, 'Service');
+    renderChipCategory(serviceRadios, 'Service');
     renderChipCategory(areaCheckboxes, 'Area');
     
     // Update heading text and tag
@@ -135,14 +135,14 @@ function createChip(checkbox, container) {
 
 // Update visibility of clear filters link
 function updateClearFiltersVisibility() {
-    var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
+    var hasCheckedFilters = Array.from(vloCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     }) || Array.from(victimCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
     return checkbox.checked;
-    }) || Array.from(serviceCheckboxes).some(function (checkbox) {
-    return checkbox.checked;
+    }) || Array.from(serviceRadios).some(function (radio) {
+    return radio.checked;
     }) || Array.from(victimCategoryCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     });
@@ -175,14 +175,14 @@ function updateClearFiltersVisibility() {
 
 // Apply filters to victim list
 function applyVictimFilters() {
-    var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+    var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
     var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-    var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+    var serviceRadios = document.querySelectorAll('.service-radio');
     var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
     
     // Get all checked filter values
-    var selectedOwners = Array.from(ownerCheckboxes)
+    var selectedVlos = Array.from(vloCheckboxes)
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
@@ -194,16 +194,16 @@ function applyVictimFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
-    var selectedServices = Array.from(serviceCheckboxes)
-        .filter(function(cb) { return cb.checked; })
-        .map(function(cb) { return cb.getAttribute('data-label'); });
+    var selectedServices = Array.from(serviceRadios)
+        .filter(function(radio) { return radio.checked; })
+        .map(function(radio) { return radio.getAttribute('data-label'); });
     
     var selectedVictimCategories = Array.from(victimCategoryCheckboxes)
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
     
-    // Determine if any immediate filters are active (Owner, Victim, Category)
-    var hasImmediateFilters = selectedOwners.length > 0 || selectedVictims.length > 0 || 
+    // Determine if any immediate filters are active (Victim Liaison Officer, Victim, Category)
+    var hasImmediateFilters = selectedVlos.length > 0 || selectedVictims.length > 0 || 
                               selectedVictimCategories.length > 0;
     
     // Determine if search criteria filters are active (Service, Area)
@@ -250,15 +250,15 @@ function applyVictimFilters() {
             return '';
         }
         
-        // Check Owner filter
-        if (selectedOwners.length > 0) {
-            var owner = getFieldValue('Owner');
-            var matchesOwner = selectedOwners.some(function(owner) {
-                // Remove "(you)" suffix from owner label for matching
-                var ownerToMatch = owner.replace(/\s*\(you\)\s*$/, '');
-                return owner.indexOf(ownerToMatch) !== -1;
+        // Check Victim Liaison Officer filter
+        if (selectedVlos.length > 0) {
+            var vlo = getFieldValue('Victim Liaison Officer');
+            var matchesVlo = selectedVlos.some(function(vlo) {
+                // Remove "(you)" suffix from vlo label for matching
+                var vloToMatch = vlo.replace(/\s*\(you\)\s*$/, '');
+                return vlo.indexOf(vloToMatch) !== -1;
             });
-            shouldShow = shouldShow && matchesOwner;
+            shouldShow = shouldShow && matchesVlo;
         }
         
         // Check Victim filter
@@ -329,7 +329,7 @@ function applyVictimFilters() {
     
     // Show "no results" message if no victims match filters
     var noResultsMessage = document.getElementById('no-results-message');
-    if (visibleCount === 0 && (selectedOwners.length > 0 || selectedVictims.length > 0 || selectedServices.length > 0 || 
+    if (visibleCount === 0 && (selectedVlos.length > 0 || selectedVictims.length > 0 || selectedServices.length > 0 || 
                                selectedAreas.length > 0 || selectedVictimCategories.length > 0)) {
         if (!noResultsMessage) {
             noResultsMessage = document.createElement('div');
@@ -346,16 +346,16 @@ function applyVictimFilters() {
         noResultsMessage.style.display = 'none';
     }
     
-    // Show/hide filters section - only show if there are visible results
+    // Show/hide filters section - show if search results are displayed
     if (filtersSection) {
-        filtersSection.style.display = visibleCount > 0 ? '' : 'none';
+        filtersSection.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
     }
     
     // Hide Service row if Onboarded is "No"
     hideServiceRowWhenOnboardedNo();
 }
 
-// Hide Service and Owner rows when Onboarded value is "No"
+// Hide Service and Victim Liaison Officer rows when Onboarded value is "No"
 function hideServiceRowWhenOnboardedNo() {
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
     
@@ -383,15 +383,15 @@ function hideServiceRowWhenOnboardedNo() {
         var onboardedMatch = onboardedValue.match(/^(Yes|No)/i);
         var onboardedStatus = onboardedMatch ? onboardedMatch[1].toLowerCase() : '';
         
-        // Find and hide/show the Owner row only
+        // Find and hide/show the Victim Liaison Officer row only
         var rows = record.querySelectorAll('.govuk-summary-list__row');
         rows.forEach(function(row) {
             var keyEl = row.querySelector('.govuk-summary-list__key');
             if (keyEl) {
                 var fieldName = keyEl.textContent.trim();
-                // Hide the Owner row if Onboarded is "No", otherwise show it
+                // Hide the Victim Liaison Officer row if Onboarded is "No", otherwise show it
                 // Service row should always be visible
-                if (fieldName === 'Owner') {
+                if (fieldName === 'Victim Liaison Officer') {
                     row.style.display = onboardedStatus === 'no' ? 'none' : '';
                 }
             }
@@ -771,8 +771,8 @@ applyVictimFilters();
 // Hide Service row when Onboarded is "No" on page load
 hideServiceRowWhenOnboardedNo();
 
-// Show checked owner items on page load
-ownerCheckboxes.forEach(function (checkbox) {
+// Show checked vlo items on page load
+vloCheckboxes.forEach(function (checkbox) {
     if (checkbox.checked) {
     var parentItem = checkbox.closest('.govuk-checkboxes__item');
     if (parentItem) {
@@ -781,26 +781,26 @@ ownerCheckboxes.forEach(function (checkbox) {
     }
 });
 
-// Show the owner checkboxes container if there are checked items
-var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
-    ownerCheckboxesContainer.style.display = '';
+// Show the vlo checkboxes container if there are checked items
+var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
+    vloCheckboxesContainer.style.display = '';
 }
 
 // Add event listeners to filter checkboxes
-// Owner, Victim Category, and Onboarded apply immediately on change
+// Victim Liaison Officer, Victim Category, and Onboarded apply immediately on change
 // Service and Area only apply when Search button is clicked
 (function() {
-    var immediateFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
-    var searchCriteriaCheckboxes = document.querySelectorAll('.service-checkbox, .area-checkbox');
+    var immediateFilterCheckboxes = document.querySelectorAll('.vlo-checkbox, .victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
+    var searchCriteriaCheckboxes = document.querySelectorAll('.service-radio, .area-checkbox');
     
     // Immediate filters
     immediateFilterCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+            var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
             var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
             var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-            var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+            var serviceRadios = document.querySelectorAll('.service-radio');
             var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
             var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
             
@@ -847,7 +847,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
                     }
                 }
                 
-                renderChipCategory(ownerCheckboxes, 'Owner');
+                renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
                 renderChipCategory(victimCheckboxes, 'Victim');
                 renderChipCategory(victimCategoryCheckboxes, 'Victim category');
                 renderChipCategory(onboardedCheckboxes, 'Onboarded');
@@ -856,7 +856,7 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
             
             var updateClearFiltersVisibility = function() {
                 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
-                var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (checkbox) {
+                var hasCheckedFilters = Array.from(vloCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
                 }) || Array.from(victimCheckboxes).some(function (checkbox) {
                     return checkbox.checked;
@@ -897,15 +897,27 @@ if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
     });
     
     // Search criteria form submission
-    var searchCriteriaForm = document.getElementById('search-criteria-form');
-    if (searchCriteriaForm) {
-        searchCriteriaForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            searchFormSubmitted = true;
-            renderChips();
-            renderSearchCriteriaChips();
-            applyVictimFilters();
-        });
+    function attachServiceAreaFormListener() {
+        var serviceAreaForm = document.getElementById('service-area-form');
+        if (serviceAreaForm && !serviceAreaForm.dataset.listenerAttached) {
+            serviceAreaForm.dataset.listenerAttached = 'true';
+            serviceAreaForm.addEventListener('submit', function(e) {
+                console.log('Service/Area form submitted');
+                e.preventDefault();
+                e.stopPropagation();
+                searchFormSubmitted = true;
+                renderChips();
+                renderSearchCriteriaChips();
+                applyVictimFilters();
+                return false;
+            }, true);
+        }
+    }
+    
+    // Attach listener immediately and also on DOM ready to ensure it's set
+    attachServiceAreaFormListener();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachServiceAreaFormListener);
     }
     
     // Update chips display for Service and Area on checkbox change (but don't filter)
@@ -938,15 +950,15 @@ if (clearFiltersLink) {
         }
         
         // Only clear the filters, not search criteria
-        uncheckAndTriggerChange(ownerCheckboxes);
+        uncheckAndTriggerChange(vloCheckboxes);
         uncheckAndTriggerChange(victimCheckboxes);
         uncheckAndTriggerChange(victimCategoryCheckboxes);
         uncheckAndTriggerChange(onboardedCheckboxes);
         
-        // Clear and hide the owner checkboxes container
-        var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-        if (ownerCheckboxesContainer) {
-            ownerCheckboxesContainer.style.display = 'none';
+        // Clear and hide the vlo checkboxes container
+        var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+        if (vloCheckboxesContainer) {
+            vloCheckboxesContainer.style.display = 'none';
         }
         var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
         if (victimCheckboxesContainer) {
@@ -954,8 +966,8 @@ if (clearFiltersLink) {
         }
         
         // Clear autocomplete inputs for filters only
-        var ownerInput = document.querySelector('#owner-autocomplete-input');
-        if (ownerInput) ownerInput.value = '';
+        var vloInput = document.querySelector('#vlo-autocomplete-input');
+        if (vloInput) vloInput.value = '';
         var victimInput = document.querySelector('#victim-autocomplete-input');
         if (victimInput) victimInput.value = '';
         
@@ -975,17 +987,17 @@ if (clearSearchCriteriaLink) {
         e.preventDefault();
         
         // Helper function to uncheck and trigger change event
-        function uncheckAndTriggerChange(checkboxes) {
-            checkboxes.forEach(function (checkbox) {
-                checkbox.checked = false;
+        function uncheckAndTriggerChange(items) {
+            items.forEach(function (item) {
+                item.checked = false;
                 // Trigger change event to ensure listeners fire
                 var changeEvent = new Event('change', { bubbles: true });
-                checkbox.dispatchEvent(changeEvent);
+                item.dispatchEvent(changeEvent);
             });
         }
         
         // Only clear search criteria (Service and Area), not filters
-        uncheckAndTriggerChange(serviceCheckboxes);
+        uncheckAndTriggerChange(serviceRadios);
         uncheckAndTriggerChange(areaCheckboxes);
         
         // Clear and hide the area checkboxes container
@@ -998,6 +1010,10 @@ if (clearSearchCriteriaLink) {
         var areaInput = document.querySelector('#area-autocomplete-input');
         if (areaInput) areaInput.value = '';
         
+        // Clear search URN input
+        var searchUrnInput = document.getElementById('search-urn');
+        if (searchUrnInput) searchUrnInput.value = '';
+        
         // Reset search form submitted flag
         searchFormSubmitted = false;
         
@@ -1009,7 +1025,7 @@ if (clearSearchCriteriaLink) {
 
 })();
 
-// Filter owner list based on autocomplete (now handled by initializeOwnerAutocomplete)
+// Filter vlo list based on autocomplete (now handled by initializeVloAutocomplete)
 // Old search input listener removed - autocomplete handles this now
 })();
 
@@ -1220,9 +1236,9 @@ accessibleAutocomplete({
 });
 }
 
-// Initialize accessible-autocomplete for Owner (Owner) filter
-function initializeOwnerAutocomplete() {
-var owners = [
+// Initialize accessible-autocomplete for Victim Liaison Officer filter
+function initializeVloAutocomplete() {
+var vlos = [
     { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
     { label: 'Unassigned', value: 'unassigned' },
     { label: 'KUMAR, Priya', value: 'kumar-priya' },
@@ -1246,12 +1262,12 @@ var owners = [
     { label: 'CLARK, Victoria', value: 'clark-victoria' }
 ];
 
-var container = document.querySelector('#owner-autocomplete');
-var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
+var container = document.querySelector('#vlo-autocomplete');
+var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 
 if (!container) {
-    console.error('Owner autocomplete container not found');
+    console.error('Victim Liaison Officer autocomplete container not found');
     return;
 }
 
@@ -1260,12 +1276,12 @@ if (typeof accessibleAutocomplete === 'undefined') {
     return;
 }
 
-// Create source function that returns matching owner labels
+// Create source function that returns matching vlo labels
 var sourceFunction = function(query, populateResults) {
     if (!query) {
-    populateResults(owners.map(function(o) { return o.label; }));
+    populateResults(vlos.map(function(o) { return o.label; }));
     } else {
-    var filtered = owners.filter(function(o) {
+    var filtered = vlos.filter(function(o) {
         return o.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
     });
     populateResults(filtered.map(function(o) { return o.label; }));
@@ -1274,7 +1290,7 @@ var sourceFunction = function(query, populateResults) {
 
 accessibleAutocomplete({
     element: container,
-    id: 'owner-autocomplete-input',
+    id: 'vlo-autocomplete-input',
     source: sourceFunction,
     showAllValues: true,
     minLength: 0,
@@ -1291,12 +1307,12 @@ accessibleAutocomplete({
     if (!selected) { 
         return; 
     }
-    var item = owners.find(function (o) { 
+    var item = vlos.find(function (o) { 
         return o.label === selected || o.label === (selected.label || selected); 
     });
     if (item) {
         // Find and check the selected checkbox
-        ownerCheckboxes.forEach(function (checkbox) {
+        vloCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
             // Show this checkbox's parent item
@@ -1304,7 +1320,7 @@ accessibleAutocomplete({
             if (parentItem) {
             parentItem.style.display = 'flex';
             }
-            ownerCheckboxesContainer.style.display = '';
+            vloCheckboxesContainer.style.display = '';
         }
         });
         // Clear the input field after selection
@@ -1400,12 +1416,12 @@ accessibleAutocomplete({
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
     initializeAreaAutocomplete();
-    initializeOwnerAutocomplete();
+    initializeVloAutocomplete();
     initializeVictimAutocomplete();
 });
 } else {
 initializeAreaAutocomplete();
-initializeOwnerAutocomplete();
+initializeVloAutocomplete();
 initializeVictimAutocomplete();
 }
 
@@ -1422,9 +1438,9 @@ if (e.target && e.target.classList.contains('area-checkbox')) {
 }
 }, true);
 
-// Add change event listener to owner checkboxes to hide when unchecked
+// Add change event listener to vlo checkboxes to hide when unchecked
 document.addEventListener('change', function(e) {
-if (e.target && e.target.classList.contains('owner-checkbox')) {
+if (e.target && e.target.classList.contains('vlo-checkbox')) {
     var checkbox = e.target;
     var parentItem = checkbox.closest('.govuk-checkboxes__item');
     if (parentItem) {
@@ -1448,7 +1464,7 @@ if (e.target && e.target.classList.contains('victim-checkbox')) {
 }
 }, true);
 (function () {
-var owners = [
+var vlos = [
     { label: 'Amanda Smith', value: 'amanda-smith' },
     { label: 'Benjamin Taylor', value: 'benjamin-taylor' },
     { label: 'Catherine Johnson', value: 'catherine-johnson' },
@@ -1456,14 +1472,14 @@ var owners = [
     { label: 'Emma Wilson', value: 'emma-wilson' }
 ];
 
-var container = document.querySelector('#owner-name-autocomplete');
-var hidden = document.getElementById('owner-name');
+var container = document.querySelector('#vlo-name-autocomplete');
+var hidden = document.getElementById('vlo-name');
 
 if (container && typeof accessibleAutocomplete !== 'undefined') {
     accessibleAutocomplete({
     element: container,
-    id: 'owner-name-autocomplete-input',
-    source: owners.map(function (a) { return a.label; }),
+    id: 'vlo-name-autocomplete-input',
+    source: vlos.map(function (a) { return a.label; }),
     showAllValues: true,
     minLength: 0,
     confirmOnBlur: true,
@@ -1472,7 +1488,7 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
         hidden.value = ''; 
         return; 
         }
-        var item = owners.find(function (a) { return a.label === selected; });
+        var item = vlos.find(function (a) { return a.label === selected; });
         if (item) {
         hidden.value = item.value;
         var input = container.querySelector('input');

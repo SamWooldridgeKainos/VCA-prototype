@@ -63,9 +63,16 @@ module.exports = router => {
 
         if (nextTask == "Other") {
             response.redirect("/delivery/wat2/onb/manual-task")
-        } else {
+        } else if (nextTask == "No task at this time") {
             response.redirect("/delivery/wat2/onb/onboarded")
+        } else {
+            response.redirect("/delivery/wat2/onb/next-task-due-date")
         }
+    })
+
+    router.post('/delivery/wat2/onb/next-task-due-date-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/onboarded")
     })
 
     router.post('/delivery/wat2/onb/manual-task-answer', function(request, response) {
@@ -73,12 +80,43 @@ module.exports = router => {
         response.redirect("/delivery/wat2/onb/onboarded")
     })
 
-    router.post('/delivery/wat2/onb/owner-answer', function(request, response) {
+    router.post('/delivery/wat2/onb/vlo-answer', function(request, response) {
 
-        // Store owner in session
-        request.session.data['owner'] = request.body.owner || ''
+        // Store vlo in session
+        request.session.data['vlo'] = request.body.vlo || ''
 
-        response.redirect("/delivery/wat2/victims?success=yes&successReason=owner-updated")
+        response.redirect("/delivery/wat2/victims?success=yes&successReason=vlo-updated")
+    })
+
+    router.post('/delivery/wat2/onb/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/delivery/wat2/onb/tasks?success=yes&successReason=assignee-updated")
+    })
+
+    router.post('/delivery/wat2/victim/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "Other") {
+            response.redirect("/delivery/wat2/victim/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/delivery/wat2/victim/task-created")
+        } else {
+            response.redirect("/delivery/wat2/victim/next-task-due-date")
+        }
+    })
+
+    router.post('/delivery/wat2/victim/next-task-due-date-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/task-created")
+    })
+
+    router.post('/delivery/wat2/victim/task-created-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/tasks?success=yes&successReason=task-created")
     })
 
     router.post('/delivery/wat2/task-assignee-answer', function(request, response) {

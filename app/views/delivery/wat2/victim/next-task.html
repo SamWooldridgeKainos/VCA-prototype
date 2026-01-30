@@ -14,7 +14,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form action="/delivery/wat2/onb/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/delivery/wat2/victim/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
@@ -41,12 +41,12 @@
                         </label>
                     </div>
 
-                    <div class="govuk-radios__item">
+                    <!-- <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="Inform of mixed charges" data-value="mixed-charges" {{ checked('nextTask','Inform of mixed charges') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
                             Inform of mixed charges
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="Inform of a stopped charge" data-value="stopped-charge" {{ checked('nextTask','Inform of a stopped charge') }}>
@@ -68,10 +68,18 @@
                             Arrange a CPS pre-trial meeting
                         </label>
                     </div>
-                    <div class="govuk-radios__item">
+
+                    <!-- <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-bfs-meeting" name="nextTask" value="Arrange a Bereaved Family Scheme meeting" data-value="bfs-meeting" {{ checked('nextTask','Arrange a Bereaved Family Scheme meeting') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-bfs-meeting">
                             Arrange a Bereaved Family Scheme meeting
+                        </label>
+                    </div> -->
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-other" name="nextTask" value="Other" data-value="other" {{ checked('nextTask','Other') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-other">
+                            Another task (not listed)
                         </label>
                     </div>
 
@@ -80,7 +88,7 @@
         </div>
 
         <button type="submit" class="govuk-button" data-module="govuk-button">
-            Set task
+            Continue
         </button>
 
     </form>

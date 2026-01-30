@@ -239,3 +239,8 @@
 .app-filter .govuk-checkboxes__label::before {
   background: govuk-colour('white')
 }
+
+// Hide the cross icon on search input fields
+.moj-search__input::-webkit-search-cancel-button {
+  display: none;
+}
