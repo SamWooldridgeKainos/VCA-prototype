@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Victim Liaison Officer" %}
+{% set pageName="Victim liaison officer" %}
 
 {% block header %}
 {% include "/delivery/wat2/partials/header/none-selected.html" %}
@@ -20,7 +20,7 @@
 
         <h1 class="govuk-label-wrapper">
           <label class="govuk-label govuk-label--l" for="my-autocomplete-container">
-            Who is the Victim Liaison Officer for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+            Who is the victim liaison officer for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
           </label>
         </h1>
 
@@ -42,5 +42,5 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
-<script src="/public/javascripts/delivery/wat2/onb/vlo.js"></script>
+<script src="/public/javascripts/delivery/wat2/vlo.js"></script>
 {% endblock %}

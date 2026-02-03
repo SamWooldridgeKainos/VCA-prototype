@@ -16,13 +16,13 @@
 
         <h1 class="govuk-heading-l">Set a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
 
-        <form action="/delivery/wat2/victim/manual-task-answer" method="post">
+        <form action="/delivery/wat2/victim/new-task/manual-task-answer" method="post">
             
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-label--m" for="next-task-name">
                     Task name
                 </label>
-                <input class="govuk-input" id="next-task-name" name="nextTask" type="text">
+                <input class="govuk-input" id="next-task-name" name="taskName" type="text">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-label--m" for="task-due-date">
@@ -36,10 +36,10 @@
 
                 <div class="moj-datepicker" id="next-task-due-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
                     <input type="text" class="govuk-input moj-js-datepicker-input" id="next-task-due-date"
-                        name="nextTaskDueDate"
+                        name="taskDueDate"
                         autocomplete="off"
                         aria-describedby="next-task-due-date-hint"
-                        value="{{ data['nextTaskDueDate'] }}" />
+                        value="{{ data['taskDueDate'] }}" />
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                 <label class="govuk-label govuk-label--m" for="task-note">
                     Note (optional)
                 </label>
-                <textarea class="govuk-textarea" id="task-note" name="task-note" rows="3"></textarea>
+                <textarea class="govuk-textarea" id="task-note" name="taskNote" rows="3">{{ data['taskNote'] }}</textarea>
             </div>
 
             <button class="govuk-button" data-module="govuk-button">

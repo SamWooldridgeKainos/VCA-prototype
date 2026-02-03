@@ -1,5 +1,5 @@
 {% extends "layouts/main.html" %}
-{% set pageName="Next task" %}
+{% set pageName="Task selection" %}
 
 {% block header %}
 {% include "/delivery/wat2/partials/header/none-selected.html" %}
@@ -14,14 +14,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form action="/delivery/wat2/victim/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/delivery/wat2/victim/new-task/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        What is the next task for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                        What task do you want to create for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
                     </h1>
                 </legend>
 

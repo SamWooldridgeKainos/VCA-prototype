@@ -25,7 +25,7 @@
     </div>
 
     <p class="govuk-body">
-      You set a next task to {{ data['nextTask'] | lower }} by {{ data['taskDueDate'] | formatDate }}.
+      You created a task {% if data['manualTask'] == "yes" %}of '{{ data['taskName'] }}'{% else %}to {{ data['nextTask'] | lower }}{% endif %} due {{ data['taskDueDate'] | formatDate }}.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>

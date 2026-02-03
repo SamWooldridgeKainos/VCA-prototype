@@ -25,13 +25,13 @@
     </div>
 
     <p class="govuk-body">
-      You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }}{% if data['nextTask'] == "No task at this time" %} but you set {{ data['nextTask'] | lower }}{% else %} and set a next task to {{ data['nextTask'] | lower }} by {{ data['taskDueDate'] | formatDate }}{% endif %}.
+      You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }}{% if data['nextTask'] == "No task at this time" %} but no task was created{% else %} and created a task {% if data['manualTask'] == "yes" %}of '{{ data['manualTaskName'] }}'{% else %}to {{ data['nextTask'] | lower }}{% endif %} due {{ data['nextTaskDueDate'] | formatDate }}{% endif %}.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
     
     <p class="govuk-body">
-      {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a Victim Liaison Officer.
+      {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a victim liaison officer.
     </p>
 
     <a href="/delivery/wat2/victims" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
