@@ -6,132 +6,208 @@ var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govu
 // Track whether search criteria form has been submitted
 var searchFormSubmitted = false;
 
-// Handle Victim Liaison Officer filter chips
+// ===== localStorage Persistence for Victims Filters =====
+// Store and restore filter settings when navigating away and returning
+(function() {
+    var STORAGE_KEY = 'vca-victims-filters';
+    
+    // Function to save all filter states to localStorage
+    function saveFiltersToStorage() {
+        var state = {
+            vloChecked: [],
+            victimChecked: [],
+            areaChecked: [],
+            serviceChecked: [],
+            victimCategoryChecked: [],
+            onboardedChecked: [],
+            searchFormSubmitted: searchFormSubmitted,
+            searchByValue: '',
+            caseReferenceValue: document.getElementById('search-urn') ? document.getElementById('search-urn').value : '',
+            searchUrnValue: document.getElementById('search-urn') ? document.getElementById('search-urn').value : '',
+            vloInput: document.querySelector('#vlo-autocomplete-input') ? document.querySelector('#vlo-autocomplete-input').value : '',
+            victimInput: document.querySelector('#victim-autocomplete-input') ? document.querySelector('#victim-autocomplete-input').value : '',
+            areaInput: document.querySelector('#area-autocomplete-input') ? document.querySelector('#area-autocomplete-input').value : ''
+        };
+        
+        // Collect selected "Search by" radio
+        var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+        searchByRadios.forEach(function(radio) {
+            if (radio.checked) {
+                state.searchByValue = radio.value;
+            }
+        });
+        
+        // Collect checked VLO checkboxes
+        document.querySelectorAll('.vlo-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.vloChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Victim checkboxes
+        document.querySelectorAll('.victim-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.victimChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Area checkboxes
+        document.querySelectorAll('.area-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.areaChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Service radios
+        document.querySelectorAll('.service-radio').forEach(function(radio) {
+            if (radio.checked) {
+                state.serviceChecked.push(radio.id);
+            }
+        });
+        
+        // Collect checked Victim Category checkboxes
+        document.querySelectorAll('.victim-category-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.victimCategoryChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Onboarded checkboxes
+        document.querySelectorAll('.onboarded-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.onboardedChecked.push(cb.id);
+            }
+        });
+        
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+            console.warn('Failed to save filters to localStorage:', e);
+        }
+    }
+    
+    // Function to restore filters from localStorage
+    function restoreFiltersFromStorage() {
+        try {
+            var saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return false;
+            
+            var state = JSON.parse(saved);
+            var restored = false;
+            
+            // Restore VLO checkboxes
+            state.vloChecked.forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore Victim checkboxes
+            state.victimChecked.forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore Area checkboxes
+            state.areaChecked.forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore Service radios
+            state.serviceChecked.forEach(function(id) {
+                var radio = document.getElementById(id);
+                if (radio) {
+                    radio.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore Victim Category checkboxes
+            state.victimCategoryChecked.forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore Onboarded checkboxes
+            state.onboardedChecked.forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    restored = true;
+                }
+            });
+            
+            // Restore search form submitted state
+            searchFormSubmitted = state.searchFormSubmitted || false;
+            
+            // Restore "Search by" radio selection
+            if (state.searchByValue) {
+                var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+                searchByRadios.forEach(function(radio) {
+                    if (radio.value === state.searchByValue) {
+                        radio.checked = true;
+                        restored = true;
+                    }
+                });
+            }
+            
+            // Restore search URN/Case reference input value
+            var searchInput = document.getElementById('search-urn');
+            if (searchInput && state.caseReferenceValue) {
+                searchInput.value = state.caseReferenceValue;
+                restored = true;
+            }
+            
+            // Restore VLO autocomplete input
+            var vloInput = document.querySelector('#vlo-autocomplete-input');
+            if (vloInput && state.vloInput) {
+                vloInput.value = state.vloInput;
+            }
+            
+            // Restore Victim autocomplete input
+            var victimInput = document.querySelector('#victim-autocomplete-input');
+            if (victimInput && state.victimInput) {
+                victimInput.value = state.victimInput;
+            }
+            
+            // Restore Area autocomplete input
+            var areaInput = document.querySelector('#area-autocomplete-input');
+            if (areaInput && state.areaInput) {
+                areaInput.value = state.areaInput;
+            }
+            
+            return restored;
+        } catch (e) {
+            console.warn('Failed to restore filters from localStorage:', e);
+            return false;
+        }
+    }
+    
+    // Make functions available globally for use throughout the script
+    window.saveFiltersToStorage = saveFiltersToStorage;
+    window.restoreFiltersFromStorage = restoreFiltersFromStorage;
+})();
+
+// Handle Victim liaison officer filter chips
 (function () {
 var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 var serviceRadios = document.querySelectorAll('.service-radio');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
-var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
-
-// Render chips
-function renderChips() {
-    selectedFiltersChips.innerHTML = '';
-    
-    // Helper function to add heading and render chips for a category
-    function renderChipCategory(checkboxes, heading) {
-    var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
-    if (checkedItems.length > 0) {
-        var h3 = document.createElement('h3');
-        h3.className = 'govuk-heading-s govuk-!-margin-top-3';
-        h3.style.marginBottom = '8px';
-        h3.textContent = heading;
-        selectedFiltersChips.appendChild(h3);
-        
-        checkedItems.forEach(function(checkbox) {
-        createChip(checkbox, selectedFiltersChips);
-        });
-    }
-    }
-    
-    // Render Victim Liaison Officer chips
-    renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
-    
-    // Render victim chips
-    renderChipCategory(victimCheckboxes, 'Victim');
-    
-    // Render victim category chips
-    renderChipCategory(victimCategoryCheckboxes, 'Victim category');
-    
-    updateClearFiltersVisibility();
-}
-
-// Render search criteria chips (Service and Area)
-function renderSearchCriteriaChips() {
-    var searchCriteriaChipsContainer = document.getElementById('search-criteria-chips');
-    if (!searchCriteriaChipsContainer) return;
-    
-    searchCriteriaChipsContainer.innerHTML = '';
-    var hasSearchCriteria = false;
-    
-    function renderChipCategory(items, heading) {
-        var checkedItems = Array.from(items).filter(function(item) { return item.checked; });
-        if (checkedItems.length > 0) {
-            hasSearchCriteria = true;
-            var h3 = document.createElement('h3');
-            h3.className = 'govuk-heading-s govuk-!-margin-top-3';
-            h3.style.marginBottom = '8px';
-            h3.textContent = heading;
-            searchCriteriaChipsContainer.appendChild(h3);
-            
-            checkedItems.forEach(function(item) {
-                createChip(item, searchCriteriaChipsContainer);
-            });
-        }
-    }
-    
-    renderChipCategory(serviceRadios, 'Service');
-    renderChipCategory(areaCheckboxes, 'Area');
-    
-    // Update heading text and tag
-    var heading = document.getElementById('selected-search-criteria-heading');
-    if (heading) {
-        heading.textContent = hasSearchCriteria ? 'Selected search criteria' : 'No search criteria selected';
-        // Change from p to h2 when selections are made, or back to p when none
-        if (hasSearchCriteria && heading.tagName !== 'H2') {
-            var h2 = document.createElement('h2');
-            h2.id = heading.id;
-            h2.className = 'govuk-heading-m';
-            h2.textContent = heading.textContent;
-            heading.parentNode.replaceChild(h2, heading);
-        } else if (!hasSearchCriteria && heading.tagName !== 'P') {
-            var p = document.createElement('p');
-            p.id = heading.id;
-            p.className = 'govuk-body';
-            p.textContent = heading.textContent;
-            heading.parentNode.replaceChild(p, heading);
-        }
-    }
-    
-    // Update visibility of clear search criteria link
-    var clearSearchCriteriaWrapper = document.getElementById('clear-search-criteria-wrapper');
-    if (clearSearchCriteriaWrapper) {
-        clearSearchCriteriaWrapper.style.display = hasSearchCriteria ? '' : 'none';
-    }
-}
-
-// Create a chip element
-function createChip(checkbox, container) {
-    var chip = document.createElement('div');
-    chip.className = 'moj-filter-tags__tag';
-    chip.style.cssText = 'display: flex; align-items: baseline; background-color: #ffffff; color: #0b0c0c; padding: 5px 10px; margin-right: 5px; margin-bottom: 8px; border: 1px solid #0b0c0c; border-radius: 0;';
-    
-    var chipText = document.createElement('span');
-    chipText.className = 'govuk-body govuk-!-margin-0';
-    var label = checkbox.getAttribute('data-label');
-    
-    chipText.textContent = label;
-    
-    var removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.setAttribute('aria-label', 'Remove ' + checkbox.getAttribute('data-label') + ' filter');
-    removeBtn.style.cssText = 'background: none; border: none; padding: 0 4px; margin-left: auto; cursor: pointer; color: #0b0c0c; font-weight: normal; font-size: 24px; line-height: 0.8; flex-shrink: 0;';
-    removeBtn.textContent = '×';
-    
-    removeBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    checkbox.checked = false;
-    renderChips();
-    renderSearchCriteriaChips();
-    updateClearFiltersVisibility();
-    });
-    
-    chip.appendChild(chipText);
-    chip.appendChild(removeBtn);
-    container.appendChild(chip);
-}
 
 // Update visibility of clear filters link
 function updateClearFiltersVisibility() {
@@ -202,7 +278,7 @@ function applyVictimFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
     
-    // Determine if any immediate filters are active (Victim Liaison Officer, Victim, Category)
+    // Determine if any immediate filters are active (Victim liaison officer, Victim, Category)
     var hasImmediateFilters = selectedVlos.length > 0 || selectedVictims.length > 0 || 
                               selectedVictimCategories.length > 0;
     
@@ -250,9 +326,9 @@ function applyVictimFilters() {
             return '';
         }
         
-        // Check Victim Liaison Officer filter
+        // Check Victim liaison officer filter
         if (selectedVlos.length > 0) {
-            var vlo = getFieldValue('Victim Liaison Officer');
+            var vlo = getFieldValue('Victim liaison officer');
             var matchesVlo = selectedVlos.some(function(vlo) {
                 // Remove "(you)" suffix from vlo label for matching
                 var vloToMatch = vlo.replace(/\s*\(you\)\s*$/, '');
@@ -355,7 +431,7 @@ function applyVictimFilters() {
     hideServiceRowWhenOnboardedNo();
 }
 
-// Hide Service and Victim Liaison Officer rows when Onboarded value is "No"
+// Hide Service and Victim liaison officer rows when Onboarded value is "No"
 function hideServiceRowWhenOnboardedNo() {
     var victimRecords = document.querySelectorAll('.govuk-summary-list');
     
@@ -383,15 +459,15 @@ function hideServiceRowWhenOnboardedNo() {
         var onboardedMatch = onboardedValue.match(/^(Yes|No)/i);
         var onboardedStatus = onboardedMatch ? onboardedMatch[1].toLowerCase() : '';
         
-        // Find and hide/show the Victim Liaison Officer row only
+        // Find and hide/show the Victim liaison officer row only
         var rows = record.querySelectorAll('.govuk-summary-list__row');
         rows.forEach(function(row) {
             var keyEl = row.querySelector('.govuk-summary-list__key');
             if (keyEl) {
                 var fieldName = keyEl.textContent.trim();
-                // Hide the Victim Liaison Officer row if Onboarded is "No", otherwise show it
+                // Hide the Victim liaison officer row if Onboarded is "No", otherwise show it
                 // Service row should always be visible
-                if (fieldName === 'Victim Liaison Officer') {
+                if (fieldName === 'Victim liaison officer') {
                     row.style.display = onboardedStatus === 'no' ? 'none' : '';
                 }
             }
@@ -747,6 +823,7 @@ function hideServiceRowWhenOnboardedNo() {
     searchForm.addEventListener('submit', function(e) {
         e.preventDefault();
         applySearch();
+        window.saveFiltersToStorage();
     });
     
     // Handle clear search link
@@ -756,14 +833,14 @@ function hideServiceRowWhenOnboardedNo() {
             searchInput.value = '';
             clearSearchWrapper.style.display = 'none';
             applySearch();
+            window.saveFiltersToStorage();
             searchInput.focus();
         });
     }
 })();
 
-// Render chips on page load
-renderChips();
-renderSearchCriteriaChips();
+// Restore filter settings from localStorage if available
+var filtersRestored = window.restoreFiltersFromStorage();
 
 // Apply filters on page load if any are selected
 applyVictimFilters();
@@ -787,8 +864,101 @@ if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
     vloCheckboxesContainer.style.display = '';
 }
 
+// Show checked victim items on page load
+var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
+victimCheckboxes.forEach(function (checkbox) {
+    if (checkbox.checked) {
+        var parentItem = checkbox.closest('.govuk-checkboxes__item');
+        if (parentItem) {
+            parentItem.style.display = 'flex';
+        }
+    }
+});
+
+// Show the victim checkboxes container if there are checked items
+var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
+if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
+    victimCheckboxesContainer.style.display = '';
+}
+
+// Show checked area items on page load
+var areaCheckboxes = document.querySelectorAll('.area-checkbox');
+areaCheckboxes.forEach(function (checkbox) {
+    if (checkbox.checked) {
+        var parentItem = checkbox.closest('.govuk-checkboxes__item');
+        if (parentItem) {
+            parentItem.style.display = 'flex';
+        }
+    }
+});
+
+// Show the area checkboxes container if there are checked items
+var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
+if (Array.from(areaCheckboxes).some(function (cb) { return cb.checked; })) {
+    areaCheckboxesContainer.style.display = '';
+}
+
+// Handle restored search form state visibility
+(function() {
+    var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+    var caseReferenceSection = document.getElementById('case-reference-section');
+    var serviceAreaForm = document.getElementById('service-area-form');
+    var selectedSearchCriteria = document.getElementById('selected-search-criteria');
+    var searchCriteriaForm = document.getElementById('search-criteria-form');
+    
+    // Check which searchBy option is selected (restored from storage or default)
+    var selectedSearchBy = '';
+    searchByRadios.forEach(function(radio) {
+        if (radio.checked) {
+            selectedSearchBy = radio.value;
+        }
+    });
+    
+    // Show appropriate sections based on selected searchBy value
+    if (selectedSearchBy === 'case-reference') {
+        // Show case reference section, hide service-area form
+        if (caseReferenceSection) caseReferenceSection.style.display = '';
+        if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+        if (selectedSearchCriteria) selectedSearchCriteria.style.display = 'none';
+    } else if (selectedSearchBy === 'service-area') {
+        // Show service/area form
+        if (caseReferenceSection) caseReferenceSection.style.display = 'none';
+        if (serviceAreaForm) serviceAreaForm.style.display = '';
+        var hasServiceOrAreaSelected = Array.from(document.querySelectorAll('.service-radio')).some(function(r) { return r.checked; }) ||
+                                       Array.from(areaCheckboxes).some(function(cb) { return cb.checked; });
+        if (hasServiceOrAreaSelected && selectedSearchCriteria) {
+            selectedSearchCriteria.style.display = '';
+        }
+    }
+})();
+
+// Add event listener to searchBy radios to save selection when changed
+(function() {
+    var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+    var caseReferenceSection = document.getElementById('case-reference-section');
+    var serviceAreaForm = document.getElementById('service-area-form');
+    var selectedSearchCriteria = document.getElementById('selected-search-criteria');
+    
+    searchByRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            // Save the selection
+            window.saveFiltersToStorage();
+            
+            // Show/hide appropriate sections based on selection
+            if (radio.value === 'case-reference') {
+                if (caseReferenceSection) caseReferenceSection.style.display = '';
+                if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+                if (selectedSearchCriteria) selectedSearchCriteria.style.display = 'none';
+            } else if (radio.value === 'service-area') {
+                if (caseReferenceSection) caseReferenceSection.style.display = 'none';
+                if (serviceAreaForm) serviceAreaForm.style.display = '';
+            }
+        });
+    });
+})();
+
 // Add event listeners to filter checkboxes
-// Victim Liaison Officer, Victim Category, and Onboarded apply immediately on change
+// Victim liaison officer, Victim Category, and Onboarded apply immediately on change
 // Service and Area only apply when Search button is clicked
 (function() {
     var immediateFilterCheckboxes = document.querySelectorAll('.vlo-checkbox, .victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
@@ -797,102 +967,8 @@ if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
     // Immediate filters
     immediateFilterCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
-            var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
-            var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-            var serviceRadios = document.querySelectorAll('.service-radio');
-            var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
-            var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
-            
-            var renderChips = function() {
-                var selectedFiltersChips = document.getElementById('selected-filters-chips');
-                selectedFiltersChips.innerHTML = '';
-                
-                function renderChipCategory(checkboxes, heading) {
-                    var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
-                    if (checkedItems.length > 0) {
-                        var h3 = document.createElement('h3');
-                        h3.className = 'govuk-heading-s govuk-!-margin-top-3';
-                        h3.style.marginBottom = '8px';
-                        h3.textContent = heading;
-                        selectedFiltersChips.appendChild(h3);
-                        
-                        checkedItems.forEach(function(checkbox) {
-                            var chip = document.createElement('div');
-                            chip.className = 'moj-filter-tags__tag';
-                            chip.style.cssText = 'display: flex; align-items: baseline; background-color: #ffffff; color: #0b0c0c; padding: 5px 10px; margin-right: 5px; margin-bottom: 8px; border: 1px solid #0b0c0c; border-radius: 0;';
-                            
-                            var chipText = document.createElement('span');
-                            chipText.className = 'govuk-body govuk-!-margin-0';
-                            chipText.textContent = checkbox.getAttribute('data-label');
-                            
-                            var removeBtn = document.createElement('button');
-                            removeBtn.type = 'button';
-                            removeBtn.setAttribute('aria-label', 'Remove ' + checkbox.getAttribute('data-label') + ' filter');
-                            removeBtn.style.cssText = 'background: none; border: none; padding: 0 4px; margin-left: auto; cursor: pointer; color: #0b0c0c; font-weight: normal; font-size: 24px; line-height: 0.8; flex-shrink: 0;';
-                            removeBtn.textContent = '×';
-                            
-                            removeBtn.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                checkbox.checked = false;
-                                renderChips();
-                                updateClearFiltersVisibility();
-                                applyVictimFilters();
-                            });
-                            
-                            chip.appendChild(chipText);
-                            chip.appendChild(removeBtn);
-                            selectedFiltersChips.appendChild(chip);
-                        });
-                    }
-                }
-                
-                renderChipCategory(vloCheckboxes, 'Victim Liaison Officer');
-                renderChipCategory(victimCheckboxes, 'Victim');
-                renderChipCategory(victimCategoryCheckboxes, 'Victim category');
-                renderChipCategory(onboardedCheckboxes, 'Onboarded');
-                updateClearFiltersVisibility();
-            };
-            
-            var updateClearFiltersVisibility = function() {
-                var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
-                var hasCheckedFilters = Array.from(vloCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                }) || Array.from(victimCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                }) || Array.from(victimCategoryCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                }) || Array.from(onboardedCheckboxes).some(function (checkbox) {
-                    return checkbox.checked;
-                });
-                clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
-                
-                var heading = document.getElementById('selected-filters-heading');
-                if (heading) {
-                    var newText = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
-                    
-                    // If we need to change the tag type
-                    if (hasCheckedFilters && heading.tagName !== 'H2') {
-                        var h2 = document.createElement('h2');
-                        h2.id = heading.id;
-                        h2.className = 'govuk-heading-m';
-                        h2.textContent = newText;
-                        heading.parentNode.replaceChild(h2, heading);
-                    } else if (!hasCheckedFilters && heading.tagName !== 'P') {
-                        var p = document.createElement('p');
-                        p.id = heading.id;
-                        p.className = 'govuk-body';
-                        p.textContent = newText;
-                        heading.parentNode.replaceChild(p, heading);
-                    } else {
-                        // Same tag type, just update text
-                        heading.textContent = newText;
-                    }
-                }
-            };
-            
-            renderChips();
             applyVictimFilters();
+            window.saveFiltersToStorage();
         });
     });
     
@@ -906,9 +982,8 @@ if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
                 e.preventDefault();
                 e.stopPropagation();
                 searchFormSubmitted = true;
-                renderChips();
-                renderSearchCriteriaChips();
                 applyVictimFilters();
+                window.saveFiltersToStorage();
                 return false;
             }, true);
         }
@@ -920,18 +995,15 @@ if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
         document.addEventListener('DOMContentLoaded', attachServiceAreaFormListener);
     }
     
-    // Update chips display for Service and Area on checkbox change (but don't filter)
+    // Update filter storage for Service and Area on checkbox change (but don't filter)
     searchCriteriaCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            renderChips();
-            renderSearchCriteriaChips();
+            window.saveFiltersToStorage();
         });
     });
 
 // Expose functions to window so they can be called from other scopes
 window.applyVictimFilters = applyVictimFilters;
-window.renderChips = renderChips;
-window.renderSearchCriteriaChips = renderSearchCriteriaChips;
 
 // Add click handler to Clear filters link
 var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
@@ -972,11 +1044,10 @@ if (clearFiltersLink) {
         if (victimInput) victimInput.value = '';
         
         // Update UI
-        renderChips();
-        renderSearchCriteriaChips();
         updateClearFiltersVisibility();
         applyVictimFilters();
         hideServiceRowWhenOnboardedNo();
+        window.saveFiltersToStorage();
     });
 }
 
@@ -1017,9 +1088,9 @@ if (clearSearchCriteriaLink) {
         // Reset search form submitted flag
         searchFormSubmitted = false;
         
-        // Update UI - render search criteria chips and apply filters
-        renderSearchCriteriaChips();
+        // Update UI and apply filters
         applyVictimFilters();
+        window.saveFiltersToStorage();
     });
 }
 
@@ -1107,8 +1178,6 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
             if (input) input.value = '';
             }
         });
-        // Render search criteria chips immediately
-        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
         }
     }
     });
@@ -1227,16 +1296,14 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
-        // Apply filters and render chips immediately
-        if (window.renderSearchCriteriaChips) window.renderSearchCriteriaChips();
+        // Apply filters immediately
         if (window.applyVictimFilters) window.applyVictimFilters();
-        if (window.renderChips) window.renderChips();
     }
     }
 });
 }
 
-// Initialize accessible-autocomplete for Victim Liaison Officer filter
+// Initialize accessible-autocomplete for Victim liaison officer filter
 function initializeVloAutocomplete() {
 var vlos = [
     { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
@@ -1267,7 +1334,7 @@ var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container')
 var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 
 if (!container) {
-    console.error('Victim Liaison Officer autocomplete container not found');
+    console.error('Victim liaison officer autocomplete container not found');
     return;
 }
 
@@ -1326,9 +1393,8 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
-        // Apply filters and render chips immediately
+        // Apply filters immediately
         if (window.applyVictimFilters) window.applyVictimFilters();
-        if (window.renderChips) window.renderChips();
     }
     }
 });
@@ -1404,9 +1470,8 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
-        // Apply filters and render chips immediately
+        // Apply filters immediately
         if (window.applyVictimFilters) window.applyVictimFilters();
-        if (window.renderChips) window.renderChips();
     }
     }
 });
