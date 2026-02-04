@@ -191,8 +191,9 @@
   color: govuk-colour("black");
   display: inline-block;
   margin-top: govuk-spacing(1);
-  padding: govuk-spacing(1);
+  padding: govuk-spacing(1) govuk-spacing(2);
   text-decoration: none;
+  cursor: pointer;
 
   &:link,
   &:visited {
@@ -202,6 +203,8 @@
   &:focus {
     color: $govuk-focus-text-colour;
     background-color: $govuk-focus-colour;
+    outline: 3px solid transparent;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
   }
 
   &:hover {
@@ -210,18 +213,12 @@
   }
 
   &:after {
-    background-image: url("/public/images/icon-tag-remove-cross.svg");
-    content: '';
+    content: '✕';
     display: inline-block;
     font-weight: bold;
-    height: 10px;
+    font-size: 12px;
     margin-left: govuk-spacing(1);
     vertical-align: middle;
-    width: 10px;
-  }
-
-  &:hover:after {
-    background-image: url("/public/images/icon-tag-remove-cross-white.svg");
   }
 
 }

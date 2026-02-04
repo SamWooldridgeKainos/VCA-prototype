@@ -14,14 +14,82 @@ var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
 var selectedFiltersChips = document.getElementById('selected-filters-chips');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
+// Get inline selection containers
+var vloSelectedContainer = document.getElementById('vlo-selected-container');
+var taskAssigneeSelectedContainer = document.getElementById('task-assignee-selected-container');
+var areaSelectedContainer = document.getElementById('area-selected-container');
+
+// Render chips in the inline selection containers (Area, VLO, Task Assignee)
+function renderInlineChips() {
+    // Render VLO chips
+    if (vloSelectedContainer) {
+        vloSelectedContainer.innerHTML = '';
+        var vloChecked = Array.from(vloCheckboxes).filter(function(cb) { return cb.checked; });
+        vloChecked.forEach(function(checkbox) {
+            createInlineChip(checkbox, vloSelectedContainer);
+        });
+    }
+    
+    // Render Task Assignee chips
+    if (taskAssigneeSelectedContainer) {
+        taskAssigneeSelectedContainer.innerHTML = '';
+        var assigneeChecked = Array.from(taskAssigneeCheckboxes).filter(function(cb) { return cb.checked; });
+        assigneeChecked.forEach(function(checkbox) {
+            createInlineChip(checkbox, taskAssigneeSelectedContainer);
+        });
+    }
+    
+    // Render Area chips
+    if (areaSelectedContainer) {
+        areaSelectedContainer.innerHTML = '';
+        var areaChecked = Array.from(areaCheckboxes).filter(function(cb) { return cb.checked; });
+        areaChecked.forEach(function(checkbox) {
+            createInlineChip(checkbox, areaSelectedContainer);
+        });
+    }
+}
+
+// Create an inline chip element for the filter section
+function createInlineChip(checkbox, container) {
+    var chip = document.createElement('div');
+    chip.className = 'moj-filter-tags__tag';
+    chip.style.cssText = 'display: inline-flex; align-items: baseline; background-color: #ffffff; color: #0b0c0c; padding: 5px 10px; margin-right: 5px; margin-bottom: 8px; border: 1px solid #0b0c0c; border-radius: 0;';
+    
+    var chipText = document.createElement('span');
+    chipText.className = 'govuk-body govuk-!-margin-0';
+    chipText.style.fontSize = '16px';
+    var label = checkbox.getAttribute('data-label');
+    chipText.textContent = label;
+    
+    var removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.setAttribute('aria-label', 'Remove ' + label + ' filter');
+    removeBtn.style.cssText = 'background: none; border: none; padding: 0 4px; margin-left: 8px; cursor: pointer; color: #0b0c0c; font-weight: normal; font-size: 24px; line-height: 0.8; flex-shrink: 0;';
+    removeBtn.textContent = '×';
+    
+    removeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        checkbox.checked = false;
+        renderChips();
+        renderInlineChips();
+        updateClearFiltersVisibility();
+    });
+    
+    chip.appendChild(chipText);
+    chip.appendChild(removeBtn);
+    container.appendChild(chip);
+}
+
 // Render chips
 function renderChips() {
-    selectedFiltersChips.innerHTML = '';
+    if (selectedFiltersChips) {
+        selectedFiltersChips.innerHTML = '';
+    }
     
     // Helper function to add heading and render chips for a category
     function renderChipCategory(checkboxes, heading) {
     var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
-    if (checkedItems.length > 0) {
+    if (checkedItems.length > 0 && selectedFiltersChips) {
         var h3 = document.createElement('h3');
         h3.className = 'govuk-heading-s govuk-!-margin-top-3';
         h3.style.marginBottom = '8px';
@@ -52,6 +120,9 @@ function renderChips() {
     // Render onboarded chips
     renderChipCategory(onboardedCheckboxes, 'Onboarded');
     
+    // Also render inline chips
+    renderInlineChips();
+    
     updateClearFiltersVisibility();
 }
 
@@ -77,12 +148,15 @@ function createChip(checkbox) {
     e.preventDefault();
     checkbox.checked = false;
     renderChips();
+    renderInlineChips();
     updateClearFiltersVisibility();
     });
     
     chip.appendChild(chipText);
     chip.appendChild(removeBtn);
-    selectedFiltersChips.appendChild(chip);
+    if (selectedFiltersChips) {
+        selectedFiltersChips.appendChild(chip);
+    }
 }
 
 // Update visibility of clear filters link
@@ -100,11 +174,15 @@ function updateClearFiltersVisibility() {
     }) || Array.from(onboardedCheckboxes).some(function (checkbox) {
     return checkbox.checked;
     });
-    clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
+    if (clearFiltersWrapper) {
+        clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
+    }
     
     // Update heading text
     var heading = document.getElementById('selected-filters-heading');
-    heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+    if (heading) {
+        heading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
+    }
 }
 
 // Add click handler to Clear filters link
@@ -131,27 +209,18 @@ if (clearFiltersLink) {
         checkbox.checked = false;
     });
     renderChips();
+    renderInlineChips();
     });
 }
 
 // Render chips on page load
 renderChips();
+renderInlineChips();
 
-// Show checked task assignee items on page load
-taskAssigneeCheckboxes.forEach(function (checkbox) {
-    if (checkbox.checked) {
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-        parentItem.style.display = 'flex';
-    }
-    }
-});
+// Expose functions to global scope for use in autocomplete handlers
+window.renderChips = renderChips;
+window.renderInlineChips = renderInlineChips;
 
-// Show the task assignee checkboxes container if there are checked items
-var taskAssigneeCheckboxesContainer = document.getElementById('task-assignee-checkboxes-container');
-if (Array.from(taskAssigneeCheckboxes).some(function (cb) { return cb.checked; })) {
-    taskAssigneeCheckboxesContainer.style.display = '';
-}
 // Filter vlo list based on autocomplete (now handled by initializeVloAutocomplete)
 // Old search input listener removed - autocomplete handles this now
 })();;
@@ -257,14 +326,11 @@ accessibleAutocomplete({
         areaCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
-            // Show this checkbox's parent item
-            var parentItem = checkbox.closest('.govuk-checkboxes__item');
-            if (parentItem) {
-            parentItem.style.display = 'flex';
-            }
-            areaCheckboxesContainer.style.display = '';
         }
         });
+        // Render inline chips and update selected filters
+        if (window.renderInlineChips) window.renderInlineChips();
+        if (window.renderChips) window.renderChips();
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
@@ -359,14 +425,11 @@ accessibleAutocomplete({
         if (checkbox.value === item.value) {
             console.log('Checking task assignee checkbox:', checkbox.value);
             checkbox.checked = true;
-            // Show this checkbox's parent item
-            var parentItem = checkbox.closest('.govuk-checkboxes__item');
-            if (parentItem) {
-            parentItem.style.display = 'flex';
-            }
-            taskAssigneeCheckboxesContainer.style.display = '';
         }
         });
+        // Render inline chips and update selected filters
+        if (window.renderInlineChips) window.renderInlineChips();
+        if (window.renderChips) window.renderChips();
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
@@ -460,14 +523,11 @@ accessibleAutocomplete({
         vloCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
-            // Show this checkbox's parent item
-            var parentItem = checkbox.closest('.govuk-checkboxes__item');
-            if (parentItem) {
-            parentItem.style.display = 'flex';
-            }
-            vloCheckboxesContainer.style.display = '';
         }
         });
+        // Render inline chips and update selected filters
+        if (window.renderInlineChips) window.renderInlineChips();
+        if (window.renderChips) window.renderChips();
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
@@ -489,45 +549,27 @@ initializeTaskAssigneeAutocomplete();
 initializeVloAutocomplete();
 }
 
-// Add change event listener to area checkboxes to hide when unchecked
+// Add change event listener to area checkboxes to update chips
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('area-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
-    renderChips();
+    if (window.renderChips) window.renderChips();
+    if (window.renderInlineChips) window.renderInlineChips();
 }
 }, true);
 
-// Add change event listener to vlo checkboxes to hide when unchecked
+// Add change event listener to vlo checkboxes to update chips
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('vlo-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
-    renderChips();
+    if (window.renderChips) window.renderChips();
+    if (window.renderInlineChips) window.renderInlineChips();
 }
 }, true);
 
-// Add change event listener to task-assignee checkboxes to hide when unchecked
+// Add change event listener to task-assignee checkboxes to update chips
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('task-assignee-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
-    renderChips();
+    if (window.renderChips) window.renderChips();
+    if (window.renderInlineChips) window.renderInlineChips();
 }
 }, true);
 

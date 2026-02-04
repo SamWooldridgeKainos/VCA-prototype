@@ -6,6 +6,7 @@
 // Add extra styles here
 @import "patterns/accessible-autocomplete";
 @import "patterns/content-editor";
+@import "patterns/filter-panel";
 @import "patterns/identity-bar";
 @import "patterns/overlay";
 @import "patterns/overview-cards";
@@ -50,4 +51,10 @@
   @include govuk-media-query($from: desktop) {
     padding-bottom: 10px;
   }
+}
+
+// Ensure radios and checkboxes have white backgrounds inside
+.govuk-radios__label::before,
+.govuk-checkboxes__label::before {
+  background-color: govuk-colour('white');
 }

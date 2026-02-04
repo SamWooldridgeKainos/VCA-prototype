@@ -278,12 +278,12 @@ function applyVictimFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.value; });
     
-    // Determine if any immediate filters are active (Victim liaison officer, Victim, Category)
-    var hasImmediateFilters = selectedVlos.length > 0 || selectedVictims.length > 0 || 
+    // Determine if any immediate filters are active (Victim, Category)
+    var hasImmediateFilters = selectedVictims.length > 0 || 
                               selectedVictimCategories.length > 0;
     
-    // Determine if search criteria filters are active (Service, Area)
-    var hasSearchCriteria = selectedAreas.length > 0 || selectedServices.length > 0;
+    // Determine if search criteria filters are active (Service, Area, VLO)
+    var hasSearchCriteria = selectedAreas.length > 0 || selectedServices.length > 0 || selectedVlos.length > 0;
     
     // Show victims/filters only if: immediate filters are selected OR search form was submitted
     var shouldShowResults = hasImmediateFilters || (searchFormSubmitted && hasSearchCriteria);
@@ -326,8 +326,8 @@ function applyVictimFilters() {
             return '';
         }
         
-        // Check Victim liaison officer filter
-        if (selectedVlos.length > 0) {
+        // Check Victim liaison officer filter (only apply if search form has been submitted)
+        if (selectedVlos.length > 0 && searchFormSubmitted) {
             var vlo = getFieldValue('Victim liaison officer');
             var matchesVlo = selectedVlos.some(function(vlo) {
                 // Remove "(you)" suffix from vlo label for matching
@@ -396,7 +396,9 @@ function applyVictimFilters() {
         }
         
         
-        // Show or hide the record
+        // Mark record as filtered or not using data attribute (pagination uses this)
+        record.setAttribute('data-filtered', shouldShow ? 'visible' : 'hidden');
+        // Initially show/hide based on filter (pagination will override display for visible records)
         record.style.display = shouldShow ? '' : 'none';
         if (shouldShow) {
             visibleCount++;
@@ -429,6 +431,11 @@ function applyVictimFilters() {
     
     // Hide Service row if Onboarded is "No"
     hideServiceRowWhenOnboardedNo();
+    
+    // Recalculate pagination to limit results to 5 per page
+    if (window.recalculatePagination) {
+        window.recalculatePagination();
+    }
 }
 
 // Hide Service and Victim liaison officer rows when Onboarded value is "No"
@@ -488,10 +495,10 @@ function hideServiceRowWhenOnboardedNo() {
             page.style.display = '';
         });
         
-        // Count visible records across all pages
+        // Count visible records across all pages (use data-filtered attribute)
         var visibleRecords = 0;
         victimRecords.forEach(function(record) {
-            if (record.style.display !== 'none') {
+            if (record.getAttribute('data-filtered') === 'visible') {
                 visibleRecords++;
             }
         });
@@ -506,11 +513,12 @@ function hideServiceRowWhenOnboardedNo() {
         showPage(1, totalPages);
     }
     
-    function updatePaginationPages(totalPages) {
+    function updatePaginationPages(totalPages, currentPage) {
         var paginationNav = document.querySelector('.govuk-pagination');
+        var paginationList = document.querySelector('.govuk-pagination__list');
         
         // Hide entire pagination if only one page
-        if (totalPages === 1) {
+        if (totalPages <= 1) {
             if (paginationNav) {
                 paginationNav.style.display = 'none';
             }
@@ -522,24 +530,116 @@ function hideServiceRowWhenOnboardedNo() {
             paginationNav.style.display = '';
         }
         
-        // Hide all page items first
-        var paginationItems = document.querySelectorAll('.govuk-pagination__item');
-        paginationItems.forEach(function(item, index) {
-            item.style.display = 'none';
-        });
+        if (!paginationList) return;
         
-        // Show only the required number of page items
-        paginationItems.forEach(function(item, index) {
-            var pageNum = index + 1;
-            if (pageNum <= totalPages) {
-                item.style.display = '';
+        // Default to page 1 if not specified
+        currentPage = currentPage || 1;
+        
+        // Clear existing pagination items
+        paginationList.innerHTML = '';
+        
+        // Calculate which page numbers to show based on GOV.UK Design System guidelines
+        // Pattern: show first page, last page, current page, and pages immediately around current
+        // Use ellipses (...) to replace skipped pages
+        var pagesToShow = getPagesToShow(currentPage, totalPages);
+        
+        // Build pagination items
+        var previousPageNum = null;
+        pagesToShow.forEach(function(pageNum) {
+            // Add ellipsis if there's a gap
+            if (previousPageNum !== null && pageNum > previousPageNum + 1) {
+                var ellipsisItem = document.createElement('li');
+                ellipsisItem.className = 'govuk-pagination__item govuk-pagination__item--ellipses';
+                ellipsisItem.textContent = '⋯'; // Midline horizontal ellipsis (GOV.UK standard)
+                paginationList.appendChild(ellipsisItem);
             }
+            
+            var newItem = document.createElement('li');
+            newItem.className = 'govuk-pagination__item';
+            
+            if (pageNum === currentPage) {
+                newItem.classList.add('govuk-pagination__item--current');
+            }
+            
+            var newLink = document.createElement('a');
+            newLink.className = 'govuk-link govuk-pagination__link';
+            newLink.href = '#';
+            newLink.setAttribute('aria-label', 'Page ' + pageNum);
+            newLink.setAttribute('data-page', pageNum);
+            newLink.textContent = pageNum;
+            
+            if (pageNum === currentPage) {
+                newLink.setAttribute('aria-current', 'page');
+            }
+            
+            newItem.appendChild(newLink);
+            paginationList.appendChild(newItem);
+            
+            previousPageNum = pageNum;
         });
     }
     
+    // Get the array of page numbers to display based on GOV.UK Design System patterns
+    // Examples from the design system:
+    // [1] 2 ... 100           (page 1)
+    // 1 [2] 3 ... 100         (page 2)
+    // 1 2 [3] 4 ... 100       (page 3)
+    // 1 2 3 [4] 5 ... 100     (page 4)
+    // 1 ... 4 [5] 6 ... 100   (page 5, middle)
+    // 1 ... 97 [98] 99 100    (page 98)
+    // 1 ... 98 [99] 100       (page 99)
+    // 1 ... 99 [100]          (page 100)
+    function getPagesToShow(currentPage, totalPages) {
+        var pages = [];
+        
+        // If 7 or fewer pages, show all of them (no ellipsis needed)
+        if (totalPages <= 7) {
+            for (var i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+            return pages;
+        }
+        
+        // Always include first page
+        pages.push(1);
+        
+        // Near the start: show 1 2 3 4 5 ... last
+        if (currentPage <= 4) {
+            for (var i = 2; i <= Math.min(currentPage + 1, 5); i++) {
+                pages.push(i);
+            }
+            pages.push(totalPages);
+            return pages;
+        }
+        
+        // Near the end: show 1 ... (last-4) (last-3) (last-2) (last-1) last
+        if (currentPage >= totalPages - 3) {
+            for (var i = Math.max(currentPage - 1, totalPages - 4); i <= totalPages; i++) {
+                pages.push(i);
+            }
+            return pages;
+        }
+        
+        // Middle: show 1 ... (current-1) current (current+1) ... last
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push(totalPages);
+        
+        return pages;
+    }
+    
     function showPage(pageNumber, totalPages) {
+        // Calculate totalPages dynamically if not provided
         if (!totalPages) {
-            totalPages = 3;
+            var victimRecords = document.querySelectorAll('.govuk-summary-list');
+            var visibleCount = 0;
+            victimRecords.forEach(function(record) {
+                if (record.getAttribute('data-filtered') === 'visible') {
+                    visibleCount++;
+                }
+            });
+            totalPages = Math.ceil(visibleCount / RESULTS_PER_PAGE) || 1;
         }
         
         // Validate page number
@@ -556,9 +656,9 @@ function hideServiceRowWhenOnboardedNo() {
             page.style.display = '';
         });
         
-        // Collect all records that pass filters
+        // Collect all records that pass filters (use data-filtered attribute)
         victimRecords.forEach(function(record) {
-            if (record.style.display !== 'none') {
+            if (record.getAttribute('data-filtered') === 'visible') {
                 visibleRecords.push(record);
             }
         });
@@ -567,7 +667,7 @@ function hideServiceRowWhenOnboardedNo() {
         var startIndex = (pageNumber - 1) * RESULTS_PER_PAGE;
         var endIndex = startIndex + RESULTS_PER_PAGE;
         
-        // Hide all records
+        // Hide all records (both filtered and non-filtered)
         victimRecords.forEach(function(record) {
             record.style.display = 'none';
         });
@@ -577,45 +677,41 @@ function hideServiceRowWhenOnboardedNo() {
             visibleRecords[i].style.display = '';
         }
         
-        // Update pagination styling
-        var paginationItems = document.querySelectorAll('.govuk-pagination__item');
-        paginationItems.forEach(function(item, index) {
-            var pageNum = index + 1;
-            var pageLink = item.querySelector('.govuk-pagination__link');
-            
-            if (pageNum === pageNumber) {
-                item.classList.add('govuk-pagination__item--current');
-                if (pageLink) {
-                    pageLink.setAttribute('aria-current', 'page');
-                }
-            } else {
-                item.classList.remove('govuk-pagination__item--current');
-                if (pageLink) {
-                    pageLink.removeAttribute('aria-current');
-                }
-            }
-        })
+        // Update pagination with ellipsis pattern for current page
+        updatePaginationPages(totalPages, pageNumber);
         
         // Update previous/next button visibility
         var prevButton = document.getElementById('pagination-prev');
         var nextButton = document.getElementById('pagination-next');
         
-        if (pageNumber === 1) {
-            prevButton.parentElement.style.display = 'none';
-        } else {
-            prevButton.parentElement.style.display = 'block';
-            prevButton.setAttribute('data-page', pageNumber - 1);
+        if (prevButton && prevButton.parentElement) {
+            if (pageNumber === 1) {
+                prevButton.parentElement.style.display = 'none';
+            } else {
+                prevButton.parentElement.style.display = '';
+                prevButton.setAttribute('data-page', pageNumber - 1);
+            }
         }
         
-        if (pageNumber === totalPages) {
-            nextButton.parentElement.style.display = 'none';
-        } else {
-            nextButton.parentElement.style.display = 'block';
-            nextButton.setAttribute('data-page', pageNumber + 1);
+        if (nextButton && nextButton.parentElement) {
+            if (pageNumber === totalPages) {
+                nextButton.parentElement.style.display = 'none';
+            } else {
+                nextButton.parentElement.style.display = '';
+                nextButton.setAttribute('data-page', pageNumber + 1);
+            }
         }
         
         // Update page title for screen readers
         document.title = 'Victims (page ' + pageNumber + ' of ' + totalPages + ')';
+        
+        // Update results count text
+        var resultsCountEl = document.getElementById('results-count');
+        if (resultsCountEl) {
+            var firstResult = startIndex + 1;
+            var lastResult = Math.min(endIndex, visibleRecords.length);
+            resultsCountEl.textContent = 'Showing results ' + firstResult + ' to ' + lastResult + ' of ' + visibleRecords.length + ' total results';
+        }
         
         // Scroll to top of results
         var container = document.getElementById('victims-container');
@@ -626,19 +722,23 @@ function hideServiceRowWhenOnboardedNo() {
     
     // Set up pagination link event listeners
     function setupPaginationListeners() {
-        var pageLinks = document.querySelectorAll('.govuk-pagination__list .govuk-pagination__link');
+        var paginationList = document.querySelector('.govuk-pagination__list');
         var prevButton = document.getElementById('pagination-prev');
         var nextButton = document.getElementById('pagination-next');
         
-        pageLinks.forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                var pageNum = parseInt(this.getAttribute('data-page'));
-                if (!isNaN(pageNum)) {
-                    showPage(pageNum);
+        // Use event delegation on the pagination list to handle dynamically added page links
+        if (paginationList) {
+            paginationList.addEventListener('click', function(e) {
+                var link = e.target.closest('.govuk-pagination__link');
+                if (link) {
+                    e.preventDefault();
+                    var pageNum = parseInt(link.getAttribute('data-page'));
+                    if (!isNaN(pageNum)) {
+                        showPage(pageNum);
+                    }
                 }
             });
-        });
+        }
         
         if (prevButton) {
             prevButton.addEventListener('click', function(e) {
@@ -772,16 +872,12 @@ function hideServiceRowWhenOnboardedNo() {
                                caseReference.toLowerCase().indexOf(searchTerm) !== -1;
             }
             
-            // Apply both search and filter visibility
-            if (matchesSearch) {
-                // Check if this record is also passing the active filters
-                var currentDisplay = record.style.display;
-                record.style.display = (currentDisplay === 'none') ? 'none' : '';
-                if (record.style.display !== 'none') {
-                    visibleCount++;
-                }
-            } else {
-                record.style.display = 'none';
+            // Apply both search and filter visibility using data-filtered attribute
+            var shouldShow = matchesSearch;
+            record.setAttribute('data-filtered', shouldShow ? 'visible' : 'hidden');
+            record.style.display = shouldShow ? '' : 'none';
+            if (shouldShow) {
+                visibleCount++;
             }
         });
         
@@ -806,6 +902,11 @@ function hideServiceRowWhenOnboardedNo() {
             }
             noResultsMessage.textContent = 'No victims match your search.';
             noResultsMessage.style.display = '';
+        }
+        
+        // Recalculate pagination to limit results to 5 per page
+        if (window.recalculatePagination) {
+            window.recalculatePagination();
         }
     }
     
@@ -848,20 +949,14 @@ applyVictimFilters();
 // Hide Service row when Onboarded is "No" on page load
 hideServiceRowWhenOnboardedNo();
 
-// Show checked vlo items on page load
-vloCheckboxes.forEach(function (checkbox) {
-    if (checkbox.checked) {
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-        parentItem.style.display = 'flex';
-    }
-    }
-});
+// Render VLO chips on page load (after filters are restored)
+if (window.renderVloChips) {
+    window.renderVloChips();
+}
 
-// Show the vlo checkboxes container if there are checked items
-var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
-if (Array.from(vloCheckboxes).some(function (cb) { return cb.checked; })) {
-    vloCheckboxesContainer.style.display = '';
+// Render Area chips on page load (after filters are restored)
+if (window.renderAreaChips) {
+    window.renderAreaChips();
 }
 
 // Show checked victim items on page load
@@ -879,23 +974,6 @@ victimCheckboxes.forEach(function (checkbox) {
 var victimCheckboxesContainer = document.getElementById('victim-checkboxes-container');
 if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
     victimCheckboxesContainer.style.display = '';
-}
-
-// Show checked area items on page load
-var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-areaCheckboxes.forEach(function (checkbox) {
-    if (checkbox.checked) {
-        var parentItem = checkbox.closest('.govuk-checkboxes__item');
-        if (parentItem) {
-            parentItem.style.display = 'flex';
-        }
-    }
-});
-
-// Show the area checkboxes container if there are checked items
-var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
-if (Array.from(areaCheckboxes).some(function (cb) { return cb.checked; })) {
-    areaCheckboxesContainer.style.display = '';
 }
 
 // Handle restored search form state visibility
@@ -958,11 +1036,11 @@ if (Array.from(areaCheckboxes).some(function (cb) { return cb.checked; })) {
 })();
 
 // Add event listeners to filter checkboxes
-// Victim liaison officer, Victim Category, and Onboarded apply immediately on change
-// Service and Area only apply when Search button is clicked
+// Victim and Victim Category apply immediately on change
+// Service, Area, and VLO only apply when Search button is clicked
 (function() {
-    var immediateFilterCheckboxes = document.querySelectorAll('.vlo-checkbox, .victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
-    var searchCriteriaCheckboxes = document.querySelectorAll('.service-radio, .area-checkbox');
+    var immediateFilterCheckboxes = document.querySelectorAll('.victim-checkbox, .victim-category-checkbox, .onboarded-checkbox');
+    var searchCriteriaCheckboxes = document.querySelectorAll('.service-radio, .area-checkbox, .vlo-checkbox');
     
     // Immediate filters
     immediateFilterCheckboxes.forEach(function(checkbox) {
@@ -995,10 +1073,16 @@ if (Array.from(areaCheckboxes).some(function (cb) { return cb.checked; })) {
         document.addEventListener('DOMContentLoaded', attachServiceAreaFormListener);
     }
     
-    // Update filter storage for Service and Area on checkbox change (but don't filter)
+    // Update filter storage for Service, Area, and VLO on checkbox change (but don't filter)
+    // Reset searchFormSubmitted so user must click Search again to apply changes
     searchCriteriaCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
+            searchFormSubmitted = false;
+            applyVictimFilters();
             window.saveFiltersToStorage();
+            if (window.updateClearSearchFiltersVisibility) {
+                window.updateClearSearchFiltersVisibility();
+            }
         });
     });
 
@@ -1094,6 +1178,86 @@ if (clearSearchCriteriaLink) {
     });
 }
 
+// Add click handler to Clear search button (clears service, area, and VLO selections)
+var clearSearchFiltersButton = document.getElementById('clear-search-filters');
+if (clearSearchFiltersButton) {
+    clearSearchFiltersButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(items) {
+            items.forEach(function (item) {
+                item.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                item.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Clear search criteria (Service, Area, and VLO)
+        uncheckAndTriggerChange(serviceRadios);
+        uncheckAndTriggerChange(areaCheckboxes);
+        uncheckAndTriggerChange(vloCheckboxes);
+        
+        // Clear and hide the area checkboxes container
+        var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
+        if (areaCheckboxesContainer) {
+            areaCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear and hide the VLO checkboxes container
+        var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
+        if (vloCheckboxesContainer) {
+            vloCheckboxesContainer.style.display = 'none';
+        }
+        
+        // Clear autocomplete inputs
+        var areaInput = document.querySelector('#area-autocomplete-input');
+        if (areaInput) areaInput.value = '';
+        var vloInput = document.querySelector('#vlo-autocomplete-input');
+        if (vloInput) vloInput.value = '';
+        
+        // Clear area and VLO chips
+        var areaChipsContainer = document.getElementById('area-chips-container');
+        if (areaChipsContainer) areaChipsContainer.innerHTML = '';
+        var vloChipsContainer = document.getElementById('vlo-chips-container');
+        if (vloChipsContainer) vloChipsContainer.innerHTML = '';
+        
+        // Reset search form submitted flag
+        searchFormSubmitted = false;
+        
+        // Hide the clear search wrapper
+        var clearSearchFiltersWrapper = document.getElementById('clear-search-filters-wrapper');
+        if (clearSearchFiltersWrapper) clearSearchFiltersWrapper.style.display = 'none';
+        
+        // Update UI and apply filters
+        applyVictimFilters();
+        window.saveFiltersToStorage();
+    });
+}
+
+// Function to update clear search filters link visibility
+function updateClearSearchFiltersVisibility() {
+    var clearSearchFiltersWrapper = document.getElementById('clear-search-filters-wrapper');
+    if (!clearSearchFiltersWrapper) return;
+    
+    var hasServiceSelected = Array.from(serviceRadios).some(function(r) { return r.checked; });
+    var hasAreaSelected = Array.from(areaCheckboxes).some(function(cb) { return cb.checked; });
+    var hasVloSelected = Array.from(vloCheckboxes).some(function(cb) { return cb.checked; });
+    
+    if (hasServiceSelected || hasAreaSelected || hasVloSelected) {
+        clearSearchFiltersWrapper.style.display = '';
+    } else {
+        clearSearchFiltersWrapper.style.display = 'none';
+    }
+}
+
+// Make it available globally
+window.updateClearSearchFiltersVisibility = updateClearSearchFiltersVisibility;
+
+// Update visibility on page load
+updateClearSearchFiltersVisibility();
+
 })();
 
 // Filter vlo list based on autocomplete (now handled by initializeVloAutocomplete)
@@ -1149,7 +1313,6 @@ var areas = [
 ];
 
 var container = document.querySelector('#area-autocomplete');
-var selectedContainer = document.getElementById('area-selected-container');
 var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 
@@ -1171,11 +1334,11 @@ if (container && typeof accessibleAutocomplete !== 'undefined') {
         areaCheckboxes.forEach(function (checkbox) {
             if (checkbox.value === item.value) {
             checkbox.checked = true;
-            // Show the checkbox container
-            areaCheckboxesContainer.style.display = '';
             // Clear the autocomplete input
             var input = container.querySelector('input');
             if (input) input.value = '';
+            // Render chips
+            if (window.renderAreaChips) window.renderAreaChips();
             }
         });
         }
@@ -1258,6 +1421,35 @@ var sourceFunction = function(query, populateResults) {
     }
 };
 
+var areaChipsContainer = document.getElementById('area-chips-container');
+
+// Function to render area chips
+function renderAreaChips() {
+    if (!areaChipsContainer) return;
+    areaChipsContainer.innerHTML = '';
+    areaCheckboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var label = checkbox.getAttribute('data-label') || checkbox.value;
+            var li = document.createElement('li');
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'app-filter__tag';
+            button.textContent = label;
+            button.setAttribute('data-value', checkbox.value);
+            button.addEventListener('click', function() {
+                checkbox.checked = false;
+                renderAreaChips();
+                if (window.applyVictimFilters) window.applyVictimFilters();
+            });
+            li.appendChild(button);
+            areaChipsContainer.appendChild(li);
+        }
+    });
+}
+
+// Initial render of chips
+renderAreaChips();
+
 accessibleAutocomplete({
     element: container,
     id: 'area-autocomplete-input',
@@ -1285,14 +1477,10 @@ accessibleAutocomplete({
         areaCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
-            // Show this checkbox's parent item
-            var parentItem = checkbox.closest('.govuk-checkboxes__item');
-            if (parentItem) {
-            parentItem.style.display = 'flex';
-            }
-            areaCheckboxesContainer.style.display = '';
         }
         });
+        // Render chips
+        renderAreaChips();
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
@@ -1301,6 +1489,9 @@ accessibleAutocomplete({
     }
     }
 });
+
+// Expose renderAreaChips globally for use by restore functions
+window.renderAreaChips = renderAreaChips;
 }
 
 // Initialize accessible-autocomplete for Victim liaison officer filter
@@ -1355,6 +1546,35 @@ var sourceFunction = function(query, populateResults) {
     }
 };
 
+var vloChipsContainer = document.getElementById('vlo-chips-container');
+
+// Function to render VLO chips
+function renderVloChips() {
+    if (!vloChipsContainer) return;
+    vloChipsContainer.innerHTML = '';
+    vloCheckboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var label = checkbox.getAttribute('data-label') || checkbox.value;
+            var li = document.createElement('li');
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'app-filter__tag';
+            button.textContent = label;
+            button.setAttribute('data-value', checkbox.value);
+            button.addEventListener('click', function() {
+                checkbox.checked = false;
+                renderVloChips();
+                if (window.applyVictimFilters) window.applyVictimFilters();
+            });
+            li.appendChild(button);
+            vloChipsContainer.appendChild(li);
+        }
+    });
+}
+
+// Initial render of chips
+renderVloChips();
+
 accessibleAutocomplete({
     element: container,
     id: 'vlo-autocomplete-input',
@@ -1382,14 +1602,10 @@ accessibleAutocomplete({
         vloCheckboxes.forEach(function (checkbox) {
         if (checkbox.value === item.value) {
             checkbox.checked = true;
-            // Show this checkbox's parent item
-            var parentItem = checkbox.closest('.govuk-checkboxes__item');
-            if (parentItem) {
-            parentItem.style.display = 'flex';
-            }
-            vloCheckboxesContainer.style.display = '';
         }
         });
+        // Render chips
+        renderVloChips();
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
@@ -1398,6 +1614,9 @@ accessibleAutocomplete({
     }
     }
 });
+
+// Expose renderVloChips globally for use by restore functions
+window.renderVloChips = renderVloChips;
 }
 
 // Initialize accessible-autocomplete for Victim filter
@@ -1490,29 +1709,17 @@ initializeVloAutocomplete();
 initializeVictimAutocomplete();
 }
 
-// Add change event listener to area checkboxes to hide when unchecked
+// Add change event listener to area checkboxes to re-render chips
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('area-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
+    if (window.renderAreaChips) window.renderAreaChips();
 }
 }, true);
 
-// Add change event listener to vlo checkboxes to hide when unchecked
+// Add change event listener to vlo checkboxes to re-render chips
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('vlo-checkbox')) {
-    var checkbox = e.target;
-    var parentItem = checkbox.closest('.govuk-checkboxes__item');
-    if (parentItem) {
-    if (!checkbox.checked) {
-        parentItem.style.display = 'none';
-    }
-    }
+    if (window.renderVloChips) window.renderVloChips();
 }
 }, true);
 

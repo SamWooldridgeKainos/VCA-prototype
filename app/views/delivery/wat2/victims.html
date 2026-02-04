@@ -102,8 +102,8 @@
               <label class="govuk-label" for="area-autocomplete">Find area</label>
               <div id="area-autocomplete"></div>
             </div>
-            <div id="area-selected-container">
-            </div>
+            <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
             <div id="area-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input area-checkbox" id="area-1" name="area" type="checkbox" value="avon-somerset" data-label="Avon and Somerset">
@@ -246,6 +246,8 @@
               <label class="govuk-label" for="vlo-autocomplete">Find Victim liaison officer</label>
               <div id="vlo-autocomplete"></div>
             </div>
+            <ul id="vlo-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
             <div id="vlo-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-1" name="vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
@@ -338,6 +340,10 @@
         <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
           Search
         </button>
+
+        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-search-filters-wrapper" style="display: none;">
+          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-filters">Clear search</a>
+        </p>
       </form>
     </div>
   </div>
@@ -640,6 +646,7 @@
       </div>
     </nav>
     
+    <p class="govuk-body govuk-!-margin-top-3" id="results-count"></p>
 
   </div>
 

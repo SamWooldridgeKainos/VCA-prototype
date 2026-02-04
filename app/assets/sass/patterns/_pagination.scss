@@ -106,6 +106,19 @@
     }
 }
 
+// Ellipsis item for truncated pagination (GOV.UK Design System pattern)
+.govuk-pagination__item--ellipses {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 govuk-spacing(1);
+    font-size: govuk-px-to-rem(16px);
+    font-weight: 500;
+    color: $govuk-text-colour;
+}
+
 .govuk-pagination__link--prev,
 .govuk-pagination__link--next {
     display: flex;
