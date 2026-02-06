@@ -42,5 +42,8 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script>
+  var currentVlo = "{{ data['vlo'] | default('Unassigned') }}";
+</script>
 <script src="/public/javascripts/delivery/wat2/vlo.js"></script>
 {% endblock %}

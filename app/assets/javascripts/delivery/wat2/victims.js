@@ -6,6 +6,9 @@ var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govu
 // Track whether search criteria form has been submitted
 var searchFormSubmitted = false;
 
+// Track whether initial page setup is complete
+var initialSetupComplete = false;
+
 // ===== localStorage Persistence for Victims Filters =====
 // Store and restore filter settings when navigating away and returning
 (function() {
@@ -15,6 +18,7 @@ var searchFormSubmitted = false;
     function saveFiltersToStorage() {
         var state = {
             vloChecked: [],
+            serviceAreaVloChecked: [],
             victimChecked: [],
             areaChecked: [],
             serviceChecked: [],
@@ -41,6 +45,13 @@ var searchFormSubmitted = false;
         document.querySelectorAll('.vlo-checkbox').forEach(function(cb) {
             if (cb.checked) {
                 state.vloChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Service Area VLO checkboxes
+        document.querySelectorAll('.service-area-vlo-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.serviceAreaVloChecked.push(cb.id);
             }
         });
         
@@ -93,61 +104,80 @@ var searchFormSubmitted = false;
             if (!saved) return false;
             
             var state = JSON.parse(saved);
-            var restored = false;
+            
+            // If we have saved state, consider it restored (even if no filters are selected)
+            // This prevents default settings from being applied when user has intentionally
+            // configured a different search setup
             
             // Restore VLO checkboxes
-            state.vloChecked.forEach(function(id) {
-                var checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.vloChecked) {
+                state.vloChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+            
+            // Restore Service Area VLO checkboxes
+            if (state.serviceAreaVloChecked) {
+                state.serviceAreaVloChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
             
             // Restore Victim checkboxes
-            state.victimChecked.forEach(function(id) {
-                var checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.victimChecked) {
+                state.victimChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
             
             // Restore Area checkboxes
-            state.areaChecked.forEach(function(id) {
-                var checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.areaChecked) {
+                state.areaChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
             
             // Restore Service radios
-            state.serviceChecked.forEach(function(id) {
-                var radio = document.getElementById(id);
-                if (radio) {
-                    radio.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.serviceChecked) {
+                state.serviceChecked.forEach(function(id) {
+                    var radio = document.getElementById(id);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                });
+            }
             
             // Restore Victim Category checkboxes
-            state.victimCategoryChecked.forEach(function(id) {
-                var checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.victimCategoryChecked) {
+                state.victimCategoryChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
             
             // Restore Onboarded checkboxes
-            state.onboardedChecked.forEach(function(id) {
-                var checkbox = document.getElementById(id);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    restored = true;
-                }
-            });
+            if (state.onboardedChecked) {
+                state.onboardedChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
             
             // Restore search form submitted state
             searchFormSubmitted = state.searchFormSubmitted || false;
@@ -158,7 +188,6 @@ var searchFormSubmitted = false;
                 searchByRadios.forEach(function(radio) {
                     if (radio.value === state.searchByValue) {
                         radio.checked = true;
-                        restored = true;
                     }
                 });
             }
@@ -167,7 +196,6 @@ var searchFormSubmitted = false;
             var searchInput = document.getElementById('search-urn');
             if (searchInput && state.caseReferenceValue) {
                 searchInput.value = state.caseReferenceValue;
-                restored = true;
             }
             
             // Restore VLO autocomplete input
@@ -188,7 +216,8 @@ var searchFormSubmitted = false;
                 areaInput.value = state.areaInput;
             }
             
-            return restored;
+            // Return true because we had saved state to restore from
+            return true;
         } catch (e) {
             console.warn('Failed to restore filters from localStorage:', e);
             return false;
@@ -252,15 +281,24 @@ function updateClearFiltersVisibility() {
 // Apply filters to victim list
 function applyVictimFilters() {
     var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
+    var serviceAreaVloCheckboxes = document.querySelectorAll('.service-area-vlo-checkbox');
     var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
     var serviceRadios = document.querySelectorAll('.service-radio');
     var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
     
-    // Get all checked filter values
+    // Get all checked filter values - combine VLO checkboxes from both forms
     var selectedVlos = Array.from(vloCheckboxes)
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
+    
+    // Also include service-area-vlo checkboxes
+    var selectedServiceAreaVlos = Array.from(serviceAreaVloCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+    
+    // Combine both VLO selections
+    selectedVlos = selectedVlos.concat(selectedServiceAreaVlos);
     
     var selectedVictims = Array.from(victimCheckboxes)
         .filter(function(cb) { return cb.checked; })
@@ -328,11 +366,11 @@ function applyVictimFilters() {
         
         // Check Victim liaison officer filter (only apply if search form has been submitted)
         if (selectedVlos.length > 0 && searchFormSubmitted) {
-            var vlo = getFieldValue('Victim liaison officer');
-            var matchesVlo = selectedVlos.some(function(vlo) {
-                // Remove "(you)" suffix from vlo label for matching
-                var vloToMatch = vlo.replace(/\s*\(you\)\s*$/, '');
-                return vlo.indexOf(vloToMatch) !== -1;
+            var recordVlo = getFieldValue('Victim liaison officer');
+            var matchesVlo = selectedVlos.some(function(selectedVlo) {
+                // Remove "(you)" suffix from selected VLO label for matching
+                var vloToMatch = selectedVlo.replace(/\s*\(you\)\s*$/, '');
+                return recordVlo.indexOf(vloToMatch) !== -1;
             });
             shouldShow = shouldShow && matchesVlo;
         }
@@ -405,15 +443,15 @@ function applyVictimFilters() {
         }
     });
     
-    // Show "no results" message if no victims match filters
+    // Show "no results" message if no victims match filters (only when results area is visible)
     var noResultsMessage = document.getElementById('no-results-message');
-    if (visibleCount === 0 && (selectedVlos.length > 0 || selectedVictims.length > 0 || selectedServices.length > 0 || 
-                               selectedAreas.length > 0 || selectedVictimCategories.length > 0)) {
+    var isResultsAreaVisible = shouldShowResults || searchTerm !== '';
+    if (visibleCount === 0 && isResultsAreaVisible) {
         if (!noResultsMessage) {
             noResultsMessage = document.createElement('div');
             noResultsMessage.id = 'no-results-message';
-            noResultsMessage.className = 'govuk-inset-text';
-            noResultsMessage.textContent = 'No results found. Check the case reference or search using different details.';
+            noResultsMessage.className = 'govuk-inset-text govuk-!-margin-top-0';
+            noResultsMessage.textContent = 'No results found. Try changing your search criteria.';
             var victimContainer = document.getElementById('victims-container');
             if (victimContainer) {
                 victimContainer.parentNode.insertBefore(noResultsMessage, victimContainer.nextSibling);
@@ -505,6 +543,29 @@ function hideServiceRowWhenOnboardedNo() {
         
         // Calculate total pages needed
         var totalPages = Math.ceil(visibleRecords / RESULTS_PER_PAGE) || 1;
+        
+        // Get UI elements that should be hidden when no results
+        var paginationNav = document.querySelector('.govuk-pagination');
+        var resultsCountTop = document.getElementById('results-count');
+        var resultsCountBottom = document.getElementById('results-count-bottom');
+        var sortedByText = document.getElementById('sorted-by-text');
+        var resultsDivider = document.getElementById('results-divider');
+        
+        // Hide pagination, results count, sorted-by text, and divider when no results
+        if (visibleRecords === 0) {
+            if (paginationNav) paginationNav.style.display = 'none';
+            if (resultsCountTop) resultsCountTop.style.display = 'none';
+            if (resultsCountBottom) resultsCountBottom.style.display = 'none';
+            if (sortedByText) sortedByText.style.display = 'none';
+            if (resultsDivider) resultsDivider.style.display = 'none';
+            return;
+        } else {
+            // Show these elements when there are results
+            if (resultsCountTop) resultsCountTop.style.display = '';
+            if (resultsCountBottom) resultsCountBottom.style.display = '';
+            if (sortedByText) sortedByText.style.display = '';
+            if (resultsDivider) resultsDivider.style.display = '';
+        }
         
         // Update pagination buttons
         updatePaginationPages(totalPages);
@@ -675,6 +736,11 @@ function hideServiceRowWhenOnboardedNo() {
         // Show only records for current page
         for (var i = startIndex; i < endIndex && i < visibleRecords.length; i++) {
             visibleRecords[i].style.display = '';
+            // Also ensure parent victims-page is visible
+            var parentPage = visibleRecords[i].closest('.victims-page');
+            if (parentPage) {
+                parentPage.style.display = '';
+            }
         }
         
         // Update pagination with ellipsis pattern for current page
@@ -705,13 +771,14 @@ function hideServiceRowWhenOnboardedNo() {
         // Update page title for screen readers
         document.title = 'Victims (page ' + pageNumber + ' of ' + totalPages + ')';
         
-        // Update results count text
-        var resultsCountEl = document.getElementById('results-count');
-        if (resultsCountEl) {
-            var firstResult = startIndex + 1;
-            var lastResult = Math.min(endIndex, visibleRecords.length);
-            resultsCountEl.textContent = 'Showing results ' + firstResult + ' to ' + lastResult + ' of ' + visibleRecords.length + ' total results';
-        }
+        // Update results count text (both top and bottom elements)
+        var resultsCountTop = document.getElementById('results-count');
+        var resultsCountBottom = document.getElementById('results-count-bottom');
+        var firstResult = startIndex + 1;
+        var lastResult = Math.min(endIndex, visibleRecords.length);
+        var resultsText = 'Showing results ' + firstResult + ' to ' + lastResult + ' of ' + visibleRecords.length + ' total results';
+        if (resultsCountTop) resultsCountTop.textContent = resultsText;
+        if (resultsCountBottom) resultsCountBottom.textContent = resultsText;
         
         // Scroll to top of results
         var container = document.getElementById('victims-container');
@@ -894,7 +961,7 @@ function hideServiceRowWhenOnboardedNo() {
             if (!noResultsMessage) {
                 noResultsMessage = document.createElement('div');
                 noResultsMessage.id = 'no-results-message';
-                noResultsMessage.className = 'govuk-inset-text';
+                noResultsMessage.className = 'govuk-inset-text govuk-!-margin-top-0';
                 var victimContainer = document.getElementById('victims-container');
                 if (victimContainer) {
                     victimContainer.parentNode.insertBefore(noResultsMessage, victimContainer.nextSibling);
@@ -902,6 +969,8 @@ function hideServiceRowWhenOnboardedNo() {
             }
             noResultsMessage.textContent = 'No victims match your search.';
             noResultsMessage.style.display = '';
+        } else if (noResultsMessage) {
+            noResultsMessage.style.display = 'none';
         }
         
         // Recalculate pagination to limit results to 5 per page
@@ -938,10 +1007,40 @@ function hideServiceRowWhenOnboardedNo() {
             searchInput.focus();
         });
     }
+    
+    // Expose applySearch globally for use by restore logic
+    window.applySearch = applySearch;
 })();
 
 // Restore filter settings from localStorage if available
 var filtersRestored = window.restoreFiltersFromStorage();
+
+// Apply default filters on initial session (when no localStorage data exists)
+if (!filtersRestored) {
+    // Set default: "Search by Victim liaison officer" with "THOMPSON, Sarah (you)" selected
+    var vloOnlyRadio = document.getElementById('search-by-vlo');
+    if (vloOnlyRadio) {
+        vloOnlyRadio.checked = true;
+    }
+    
+    // Show the VLO-only form section
+    var vloOnlyForm = document.getElementById('vlo-only-form');
+    if (vloOnlyForm) {
+        vloOnlyForm.style.display = '';
+    }
+    
+    // Check the "THOMPSON, Sarah (you)" VLO checkbox
+    var thompsonCheckbox = document.getElementById('vlo-only-1');
+    if (thompsonCheckbox) {
+        thompsonCheckbox.checked = true;
+    }
+    
+    // Set searchFormSubmitted to true so filters are applied
+    searchFormSubmitted = true;
+    
+    // Save the initial state to localStorage
+    window.saveFiltersToStorage();
+}
 
 // Apply filters on page load if any are selected
 applyVictimFilters();
@@ -952,6 +1051,16 @@ hideServiceRowWhenOnboardedNo();
 // Render VLO chips on page load (after filters are restored)
 if (window.renderVloChips) {
     window.renderVloChips();
+}
+
+// Render VLO-only chips on page load (for the VLO search form)
+if (window.renderVloOnlyChips) {
+    window.renderVloOnlyChips();
+}
+
+// Render Service Area VLO chips on page load (for the Service/Area search form)
+if (window.renderServiceAreaVloChips) {
+    window.renderServiceAreaVloChips();
 }
 
 // Render Area chips on page load (after filters are restored)
@@ -981,6 +1090,7 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
     var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
     var caseReferenceSection = document.getElementById('case-reference-section');
     var serviceAreaForm = document.getElementById('service-area-form');
+    var vloOnlyForm = document.getElementById('vlo-only-form');
     var selectedSearchCriteria = document.getElementById('selected-search-criteria');
     var searchCriteriaForm = document.getElementById('search-criteria-form');
     
@@ -994,19 +1104,38 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
     
     // Show appropriate sections based on selected searchBy value
     if (selectedSearchBy === 'case-reference') {
-        // Show case reference section, hide service-area form
+        // Show case reference section, hide other forms
         if (caseReferenceSection) caseReferenceSection.style.display = '';
         if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+        if (vloOnlyForm) vloOnlyForm.style.display = 'none';
         if (selectedSearchCriteria) selectedSearchCriteria.style.display = 'none';
+        
+        // Also show the clear search link if there's a search value
+        var searchInput = document.getElementById('search-urn');
+        var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+        if (searchInput && searchInput.value && clearSearchWrapper) {
+            clearSearchWrapper.style.display = '';
+        }
+        
+        // Apply search to show results
+        if (searchInput && searchInput.value && window.applySearch) {
+            window.applySearch();
+        }
     } else if (selectedSearchBy === 'service-area') {
         // Show service/area form
         if (caseReferenceSection) caseReferenceSection.style.display = 'none';
         if (serviceAreaForm) serviceAreaForm.style.display = '';
+        if (vloOnlyForm) vloOnlyForm.style.display = 'none';
         var hasServiceOrAreaSelected = Array.from(document.querySelectorAll('.service-radio')).some(function(r) { return r.checked; }) ||
                                        Array.from(areaCheckboxes).some(function(cb) { return cb.checked; });
         if (hasServiceOrAreaSelected && selectedSearchCriteria) {
             selectedSearchCriteria.style.display = '';
         }
+    } else if (selectedSearchBy === 'vlo-only') {
+        // Show VLO-only form
+        if (caseReferenceSection) caseReferenceSection.style.display = 'none';
+        if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+        if (vloOnlyForm) vloOnlyForm.style.display = '';
     }
 })();
 
@@ -1015,6 +1144,7 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
     var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
     var caseReferenceSection = document.getElementById('case-reference-section');
     var serviceAreaForm = document.getElementById('service-area-form');
+    var vloOnlyForm = document.getElementById('vlo-only-form');
     var selectedSearchCriteria = document.getElementById('selected-search-criteria');
     
     searchByRadios.forEach(function(radio) {
@@ -1026,10 +1156,16 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
             if (radio.value === 'case-reference') {
                 if (caseReferenceSection) caseReferenceSection.style.display = '';
                 if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+                if (vloOnlyForm) vloOnlyForm.style.display = 'none';
                 if (selectedSearchCriteria) selectedSearchCriteria.style.display = 'none';
             } else if (radio.value === 'service-area') {
                 if (caseReferenceSection) caseReferenceSection.style.display = 'none';
                 if (serviceAreaForm) serviceAreaForm.style.display = '';
+                if (vloOnlyForm) vloOnlyForm.style.display = 'none';
+            } else if (radio.value === 'vlo-only') {
+                if (caseReferenceSection) caseReferenceSection.style.display = 'none';
+                if (serviceAreaForm) serviceAreaForm.style.display = 'none';
+                if (vloOnlyForm) vloOnlyForm.style.display = '';
             }
         });
     });
@@ -1067,18 +1203,43 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
         }
     }
     
+    // VLO-only form submission
+    function attachVloOnlyFormListener() {
+        var vloOnlyForm = document.getElementById('vlo-only-form');
+        if (vloOnlyForm && !vloOnlyForm.dataset.listenerAttached) {
+            vloOnlyForm.dataset.listenerAttached = 'true';
+            vloOnlyForm.addEventListener('submit', function(e) {
+                console.log('VLO-only form submitted');
+                e.preventDefault();
+                e.stopPropagation();
+                searchFormSubmitted = true;
+                applyVictimFilters();
+                window.saveFiltersToStorage();
+                // Update clear link visibility after form submission
+                if (window.updateClearVloOnlyFiltersVisibility) {
+                    window.updateClearVloOnlyFiltersVisibility();
+                }
+                return false;
+            }, true);
+        }
+    }
+    
     // Attach listener immediately and also on DOM ready to ensure it's set
     attachServiceAreaFormListener();
+    attachVloOnlyFormListener();
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', attachServiceAreaFormListener);
+        document.addEventListener('DOMContentLoaded', attachVloOnlyFormListener);
     }
     
     // Update filter storage for Service, Area, and VLO on checkbox change (but don't filter)
     // Reset searchFormSubmitted so user must click Search again to apply changes
+    // But only after initial setup is complete to avoid resetting during page load
     searchCriteriaCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
+            if (!initialSetupComplete) return; // Skip during initial setup
             searchFormSubmitted = false;
-            applyVictimFilters();
+            // Don't apply filters immediately - wait for Search button click
             window.saveFiltersToStorage();
             if (window.updateClearSearchFiltersVisibility) {
                 window.updateClearSearchFiltersVisibility();
@@ -1257,6 +1418,67 @@ window.updateClearSearchFiltersVisibility = updateClearSearchFiltersVisibility;
 
 // Update visibility on page load
 updateClearSearchFiltersVisibility();
+
+// Function to update clear VLO-only search link visibility
+function updateClearVloOnlyFiltersVisibility() {
+    var clearVloOnlyFiltersWrapper = document.getElementById('clear-vlo-only-filters-wrapper');
+    if (!clearVloOnlyFiltersWrapper) return;
+    
+    var vloOnlyCheckboxes = document.querySelectorAll('.vlo-checkbox');
+    var hasVloSelected = Array.from(vloOnlyCheckboxes).some(function(cb) { return cb.checked; });
+    
+    if (hasVloSelected) {
+        clearVloOnlyFiltersWrapper.style.display = '';
+    } else {
+        clearVloOnlyFiltersWrapper.style.display = 'none';
+    }
+}
+
+// Make it available globally
+window.updateClearVloOnlyFiltersVisibility = updateClearVloOnlyFiltersVisibility;
+
+// Update visibility on page load
+updateClearVloOnlyFiltersVisibility();
+
+// Add click handler to Clear VLO-only search link
+var clearVloOnlyFiltersLink = document.getElementById('clear-vlo-only-filters');
+if (clearVloOnlyFiltersLink) {
+    clearVloOnlyFiltersLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Helper function to uncheck and trigger change event
+        function uncheckAndTriggerChange(items) {
+            items.forEach(function (item) {
+                item.checked = false;
+                // Trigger change event to ensure listeners fire
+                var changeEvent = new Event('change', { bubbles: true });
+                item.dispatchEvent(changeEvent);
+            });
+        }
+        
+        // Clear VLO checkboxes in the VLO-only form
+        var vloOnlyCheckboxes = document.querySelectorAll('#vlo-only-checkboxes-container .vlo-checkbox');
+        uncheckAndTriggerChange(vloOnlyCheckboxes);
+        
+        // Clear VLO-only chips
+        var vloOnlyChipsContainer = document.getElementById('vlo-only-chips-container');
+        if (vloOnlyChipsContainer) vloOnlyChipsContainer.innerHTML = '';
+        
+        // Clear autocomplete input
+        var vloOnlyInput = document.querySelector('#vlo-only-autocomplete-input');
+        if (vloOnlyInput) vloOnlyInput.value = '';
+        
+        // Reset search form submitted flag
+        searchFormSubmitted = false;
+        
+        // Hide the clear search wrapper
+        updateClearVloOnlyFiltersVisibility();
+        
+        // Update UI and apply filters
+        applyVictimFilters();
+        window.saveFiltersToStorage();
+    });
+}
 
 })();
 
@@ -1439,7 +1661,9 @@ function renderAreaChips() {
             button.addEventListener('click', function() {
                 checkbox.checked = false;
                 renderAreaChips();
-                if (window.applyVictimFilters) window.applyVictimFilters();
+                // Don't apply filters immediately - wait for Search button click
+                searchFormSubmitted = false;
+                window.saveFiltersToStorage();
             });
             li.appendChild(button);
             areaChipsContainer.appendChild(li);
@@ -1484,8 +1708,9 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
-        // Apply filters immediately
-        if (window.applyVictimFilters) window.applyVictimFilters();
+        // Don't apply filters immediately - wait for Search button click
+        searchFormSubmitted = false;
+        window.saveFiltersToStorage();
     }
     }
 });
@@ -1525,7 +1750,7 @@ var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container')
 var vloCheckboxes = document.querySelectorAll('.vlo-checkbox');
 
 if (!container) {
-    console.error('Victim liaison officer autocomplete container not found');
+    // Container not on this page - silently return
     return;
 }
 
@@ -1564,7 +1789,9 @@ function renderVloChips() {
             button.addEventListener('click', function() {
                 checkbox.checked = false;
                 renderVloChips();
-                if (window.applyVictimFilters) window.applyVictimFilters();
+                // Don't apply filters immediately - wait for Search button click
+                searchFormSubmitted = false;
+                window.saveFiltersToStorage();
             });
             li.appendChild(button);
             vloChipsContainer.appendChild(li);
@@ -1609,14 +1836,279 @@ accessibleAutocomplete({
         // Clear the input field after selection
         var input = container.querySelector('input');
         if (input) input.value = '';
-        // Apply filters immediately
-        if (window.applyVictimFilters) window.applyVictimFilters();
+        // Don't apply filters immediately - wait for Search button click
+        searchFormSubmitted = false;
+        window.saveFiltersToStorage();
     }
     }
 });
 
 // Expose renderVloChips globally for use by restore functions
 window.renderVloChips = renderVloChips;
+}
+
+// Initialize accessible-autocomplete for VLO-only form
+function initializeVloOnlyAutocomplete() {
+var vlos = [
+    { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
+    { label: 'Unassigned', value: 'unassigned' },
+    { label: 'KUMAR, Priya', value: 'kumar-priya' },
+    { label: 'BISHOP, James', value: 'bishop-james' },
+    { label: 'MORRISON, Claire', value: 'morrison-claire' },
+    { label: 'HAYES, Michael', value: 'hayes-michael' },
+    { label: 'ANDERSON, David', value: 'anderson-david' },
+    { label: 'WRIGHT, Hannah', value: 'wright-hannah' },
+    { label: 'MARTINEZ, Carlos', value: 'martinez-carlos' },
+    { label: 'JOHNSON, Patricia', value: 'johnson-patricia' },
+    { label: 'CHEN, Michael', value: 'chen-michael' },
+    { label: 'PATEL, Ravi', value: 'patel-ravi' },
+    { label: 'O\'CONNELL, Siobhan', value: 'oconnell-siobhan' },
+    { label: 'THOMPSON, Robert', value: 'thompson-robert' },
+    { label: 'GARCÍA, Luis', value: 'garcía-luis' },
+    { label: 'HENDERSON, Louise', value: 'henderson-louise' },
+    { label: 'WILLIAMS, Anna', value: 'williams-anna' },
+    { label: 'STEWART, James', value: 'stewart-james' },
+    { label: 'LEWIS, Elizabeth', value: 'lewis-elizabeth' },
+    { label: 'WALKER, George', value: 'walker-george' },
+    { label: 'CLARK, Victoria', value: 'clark-victoria' }
+];
+
+var container = document.querySelector('#vlo-only-autocomplete');
+var vloOnlyCheckboxesContainer = document.getElementById('vlo-only-checkboxes-container');
+var vloOnlyCheckboxes = document.querySelectorAll('#vlo-only-checkboxes-container .vlo-checkbox');
+
+if (!container) {
+    console.error('VLO-only autocomplete container not found');
+    return;
+}
+
+if (typeof accessibleAutocomplete === 'undefined') {
+    console.error('accessibleAutocomplete library not loaded');
+    return;
+}
+
+// Create source function that returns matching vlo labels
+var sourceFunction = function(query, populateResults) {
+    if (!query) {
+    populateResults(vlos.map(function(o) { return o.label; }));
+    } else {
+    var filtered = vlos.filter(function(o) {
+        return o.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    populateResults(filtered.map(function(o) { return o.label; }));
+    }
+};
+
+var vloOnlyChipsContainer = document.getElementById('vlo-only-chips-container');
+
+// Function to render VLO-only chips
+function renderVloOnlyChips() {
+    if (!vloOnlyChipsContainer) return;
+    vloOnlyChipsContainer.innerHTML = '';
+    vloOnlyCheckboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var label = checkbox.getAttribute('data-label') || checkbox.value;
+            var li = document.createElement('li');
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'app-filter__tag';
+            button.textContent = label;
+            button.setAttribute('data-value', checkbox.value);
+            button.addEventListener('click', function() {
+                checkbox.checked = false;
+                renderVloOnlyChips();
+                // Don't apply filters immediately - wait for Search button click
+                searchFormSubmitted = false;
+                window.saveFiltersToStorage();
+                // Update clear link visibility
+                if (window.updateClearVloOnlyFiltersVisibility) {
+                    window.updateClearVloOnlyFiltersVisibility();
+                }
+            });
+            li.appendChild(button);
+            vloOnlyChipsContainer.appendChild(li);
+        }
+    });
+}
+
+// Initial render of chips
+renderVloOnlyChips();
+
+accessibleAutocomplete({
+    element: container,
+    id: 'vlo-only-autocomplete-input',
+    source: sourceFunction,
+    showAllValues: true,
+    minLength: 0,
+    confirmOnBlur: true,
+    templates: {
+    inputValue: function(result) {
+        return '';
+    },
+    suggestion: function(result) {
+        return result ? result.label || result : '';
+    }
+    },
+    onConfirm: function (selected) {
+    if (!selected) { 
+        return; 
+    }
+    var item = vlos.find(function (o) { 
+        return o.label === selected || o.label === (selected.label || selected); 
+    });
+    if (item) {
+        // Find and check the selected checkbox
+        vloOnlyCheckboxes.forEach(function (checkbox) {
+        if (checkbox.value === item.value) {
+            checkbox.checked = true;
+        }
+        });
+        // Render chips
+        renderVloOnlyChips();
+        // Clear the input field after selection
+        var input = container.querySelector('input');
+        if (input) input.value = '';
+        // Don't apply filters immediately - wait for Search button click
+        searchFormSubmitted = false;
+        window.saveFiltersToStorage();
+        // Update clear link visibility
+        if (window.updateClearVloOnlyFiltersVisibility) {
+            window.updateClearVloOnlyFiltersVisibility();
+        }
+    }
+    }
+});
+
+// Expose renderVloOnlyChips globally for use by restore functions
+window.renderVloOnlyChips = renderVloOnlyChips;
+}
+
+// Initialize accessible-autocomplete for Service and Area VLO filter
+function initializeServiceAreaVloAutocomplete() {
+var vlos = [
+    { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
+    { label: 'Unassigned', value: 'unassigned' },
+    { label: 'KUMAR, Priya', value: 'kumar-priya' },
+    { label: 'BISHOP, James', value: 'bishop-james' },
+    { label: 'MORRISON, Claire', value: 'morrison-claire' },
+    { label: 'HAYES, Michael', value: 'hayes-michael' },
+    { label: 'ANDERSON, David', value: 'anderson-david' },
+    { label: 'WRIGHT, Hannah', value: 'wright-hannah' },
+    { label: 'MARTINEZ, Carlos', value: 'martinez-carlos' },
+    { label: 'JOHNSON, Patricia', value: 'johnson-patricia' },
+    { label: 'CHEN, Michael', value: 'chen-michael' },
+    { label: 'PATEL, Ravi', value: 'patel-ravi' },
+    { label: 'O\'CONNELL, Siobhan', value: 'oconnell-siobhan' },
+    { label: 'THOMPSON, Robert', value: 'thompson-robert' },
+    { label: 'GARCÍA, Luis', value: 'garcía-luis' },
+    { label: 'HENDERSON, Louise', value: 'henderson-louise' },
+    { label: 'WILLIAMS, Anna', value: 'williams-anna' },
+    { label: 'STEWART, James', value: 'stewart-james' },
+    { label: 'LEWIS, Elizabeth', value: 'lewis-elizabeth' },
+    { label: 'WALKER, George', value: 'walker-george' },
+    { label: 'CLARK, Victoria', value: 'clark-victoria' }
+];
+
+var container = document.querySelector('#service-area-vlo-autocomplete');
+var serviceAreaVloCheckboxesContainer = document.getElementById('service-area-vlo-checkboxes-container');
+var serviceAreaVloCheckboxes = document.querySelectorAll('#service-area-vlo-checkboxes-container .service-area-vlo-checkbox');
+
+if (!container) {
+    // Container not on this page - silently return
+    return;
+}
+
+if (typeof accessibleAutocomplete === 'undefined') {
+    console.error('accessibleAutocomplete library not loaded');
+    return;
+}
+
+// Create source function that returns matching vlo labels
+var sourceFunction = function(query, populateResults) {
+    if (!query) {
+    populateResults(vlos.map(function(o) { return o.label; }));
+    } else {
+    var filtered = vlos.filter(function(o) {
+        return o.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    populateResults(filtered.map(function(o) { return o.label; }));
+    }
+};
+
+var serviceAreaVloChipsContainer = document.getElementById('service-area-vlo-chips-container');
+
+// Function to render Service Area VLO chips
+function renderServiceAreaVloChips() {
+    if (!serviceAreaVloChipsContainer) return;
+    serviceAreaVloChipsContainer.innerHTML = '';
+    serviceAreaVloCheckboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var label = checkbox.getAttribute('data-label') || checkbox.value;
+            var li = document.createElement('li');
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'app-filter__tag';
+            button.textContent = label;
+            button.setAttribute('data-value', checkbox.value);
+            button.addEventListener('click', function() {
+                checkbox.checked = false;
+                renderServiceAreaVloChips();
+                // Don't apply filters immediately - wait for Search button click
+                searchFormSubmitted = false;
+                window.saveFiltersToStorage();
+            });
+            li.appendChild(button);
+            serviceAreaVloChipsContainer.appendChild(li);
+        }
+    });
+}
+
+// Initial render of chips
+renderServiceAreaVloChips();
+
+accessibleAutocomplete({
+    element: container,
+    id: 'service-area-vlo-autocomplete-input',
+    source: sourceFunction,
+    showAllValues: true,
+    minLength: 0,
+    confirmOnBlur: true,
+    templates: {
+    inputValue: function(result) {
+        return '';
+    },
+    suggestion: function(result) {
+        return result ? result.label || result : '';
+    }
+    },
+    onConfirm: function (selected) {
+    if (!selected) { 
+        return; 
+    }
+    var item = vlos.find(function (o) { 
+        return o.label === selected || o.label === (selected.label || selected); 
+    });
+    if (item) {
+        // Find and check the selected checkbox
+        serviceAreaVloCheckboxes.forEach(function (checkbox) {
+        if (checkbox.value === item.value) {
+            checkbox.checked = true;
+        }
+        });
+        // Render chips
+        renderServiceAreaVloChips();
+        // Clear the input field after selection
+        var input = container.querySelector('input');
+        if (input) input.value = '';
+        // Don't apply filters immediately - wait for Search button click
+        searchFormSubmitted = false;
+        window.saveFiltersToStorage();
+    }
+    }
+});
+
+// Expose renderServiceAreaVloChips globally for use by restore functions
+window.renderServiceAreaVloChips = renderServiceAreaVloChips;
 }
 
 // Initialize accessible-autocomplete for Victim filter
@@ -1637,7 +2129,7 @@ var victimCheckboxesContainer = document.getElementById('victim-checkboxes-conta
 var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
 
 if (!container) {
-    console.error('Victim autocomplete container not found');
+    // Container not on this page - silently return
     return;
 }
 
@@ -1701,12 +2193,20 @@ if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
     initializeAreaAutocomplete();
     initializeVloAutocomplete();
+    initializeVloOnlyAutocomplete();
+    initializeServiceAreaVloAutocomplete();
     initializeVictimAutocomplete();
+    // Mark initial setup as complete after all initialization
+    initialSetupComplete = true;
 });
 } else {
 initializeAreaAutocomplete();
 initializeVloAutocomplete();
+initializeVloOnlyAutocomplete();
+initializeServiceAreaVloAutocomplete();
 initializeVictimAutocomplete();
+// Mark initial setup as complete after all initialization
+initialSetupComplete = true;
 }
 
 // Add change event listener to area checkboxes to re-render chips
@@ -1720,6 +2220,14 @@ if (e.target && e.target.classList.contains('area-checkbox')) {
 document.addEventListener('change', function(e) {
 if (e.target && e.target.classList.contains('vlo-checkbox')) {
     if (window.renderVloChips) window.renderVloChips();
+    if (window.renderVloOnlyChips) window.renderVloOnlyChips();
+}
+}, true);
+
+// Add change event listener to service-area-vlo checkboxes to re-render chips
+document.addEventListener('change', function(e) {
+if (e.target && e.target.classList.contains('service-area-vlo-checkbox')) {
+    if (window.renderServiceAreaVloChips) window.renderServiceAreaVloChips();
 }
 }, true);
 

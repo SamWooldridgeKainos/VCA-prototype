@@ -272,7 +272,8 @@ accessibleAutocomplete({
     element: document.querySelector('#my-autocomplete-container'),
     id: 'my-autocomplete', // To match it to the existing <label>.
     name: 'vlo', // Form field name for submission
-    source: vlo
+    source: vlo,
+    defaultValue: typeof currentVlo !== 'undefined' ? currentVlo : ''
 })
 
 
