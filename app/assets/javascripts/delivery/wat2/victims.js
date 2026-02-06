@@ -977,6 +977,11 @@ function hideServiceRowWhenOnboardedNo() {
         if (window.recalculatePagination) {
             window.recalculatePagination();
         }
+        
+        // Recalculate pagination to limit results to 5 per page
+        if (window.recalculatePagination) {
+            window.recalculatePagination();
+        }
     }
     
     // Handle search input change to show/hide clear link in real-time
