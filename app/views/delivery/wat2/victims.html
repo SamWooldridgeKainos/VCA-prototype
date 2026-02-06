@@ -9,8 +9,17 @@
 
 {% block content %}
 
-{% if data['success'] == "yes" and data['successReason'] == "vlo-updated" %}
-<div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+{% set vloName = data['vlo'] | default('') %}
+{% set vloNameParts = vloName.split(', ') %}
+{% if vloNameParts | length == 2 %}
+  {% set vloLastname = vloNameParts[0] | capitalize %}
+  {% set vloFirstnameRaw = vloNameParts[1] %}
+  {% set vloFirstname = vloFirstnameRaw.split(' (')[0] %}
+  {% set vloFormatted = vloFirstname + ' ' + vloLastname %}
+{% else %}
+  {% set vloFormatted = vloName %}
+{% endif %}
+<div id="vlo-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="display: none;">
   <div class="govuk-notification-banner__header">
     <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
       Success
@@ -18,11 +27,10 @@
   </div>
   <div class="govuk-notification-banner__content">
     <h3 class="govuk-notification-banner__heading">
-      Victim liaison officer updated for {{ data['victimForename'] }} {{ data['victimSurname'] }}
+      You changed the victim liaison officer for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ vloFormatted }}.
     </h3>
   </div>
 </div>
-{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -913,4 +921,20 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/delivery/wat2/victims.js"></script>
+<script>
+  // Show success banner if URL has success params, then remove them
+  (function() {
+    var url = new URL(window.location.href);
+    if (url.searchParams.get('success') === 'yes' && url.searchParams.get('successReason') === 'vlo-updated') {
+      var banner = document.getElementById('vlo-success-banner');
+      if (banner) {
+        banner.style.display = 'block';
+      }
+      // Remove params from URL so banner doesn't show on back/refresh
+      url.searchParams.delete('success');
+      url.searchParams.delete('successReason');
+      window.history.replaceState({}, document.title, url.pathname + url.search);
+    }
+  })();
+</script>
 {% endblock %}
