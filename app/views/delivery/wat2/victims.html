@@ -2076,4 +2076,20 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/delivery/wat2/victims.js"></script>
+<script>
+  // Show success banner if URL has success params, then remove them
+  (function() {
+    var url = new URL(window.location.href);
+    if (url.searchParams.get('success') === 'yes' && url.searchParams.get('successReason') === 'vlo-updated') {
+      var banner = document.getElementById('vlo-success-banner');
+      if (banner) {
+        banner.style.display = 'block';
+      }
+      // Remove params from URL so banner doesn't show on back/refresh
+      url.searchParams.delete('success');
+      url.searchParams.delete('successReason');
+      window.history.replaceState({}, document.title, url.pathname + url.search);
+    }
+  })();
+</script>
 {% endblock %}

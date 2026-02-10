@@ -46,7 +46,7 @@ router.post('/purpose-answer', function(request, response) {
 	if (purpose == "pre-trial"){
 		response.redirect("/ur/meetings/did-victim-request")
 	} else {
-		response.redirect("/ur/meetings//purpose")
+		response.redirect("/ur/meetings/did-victim-request")
 	}
 })
 
@@ -56,7 +56,7 @@ router.post('/purpose2-answer', function(request, response) {
 	if (purpose == "pre-trial"){
 		response.redirect("/ur/meetings/has-meeting-been-offered")
 	} else {
-		response.redirect("/ur/meetings//purpose")
+		response.redirect("/ur/meetings/has-meeting-been-offered")
 	}
 })
 
@@ -69,7 +69,7 @@ router.post('/purpose3-answer', function(request, response) {
 	if (purpose3 == "pre-trial"){
 		response.redirect("/ur/meetings-2/did-victim-request")
 	} else {
-		response.redirect("/ur/meetings-2//purpose")
+		response.redirect("/ur/meetings-2/did-victim-request")
 	}
 })
 
@@ -79,7 +79,7 @@ router.post('/purpose4-answer', function(request, response) {
 	if (purpose4 == "pre-trial"){
 		response.redirect("/ur/meetings-2/has-meeting-been-offered")
 	} else {
-		response.redirect("/ur/meetings-2//purpose")
+		response.redirect("/ur/meetings-2/has-meeting-been-offered")
 	}
   })
 router.post('/has-meeting-been-offered', function(request, response) {
