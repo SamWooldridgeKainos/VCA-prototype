@@ -3,6 +3,21 @@ if (window.GOVUKFrontend && window.GOVUKFrontend.Radios) {
 var radios = new GOVUKFrontend.Radios(document.querySelector('[data-module="govuk-radios"]'));
 }
 
+// Show success banner if URL has success params, then remove them
+(function() {
+    var url = new URL(window.location.href);
+    if (url.searchParams.get('success') === 'yes' && url.searchParams.get('successReason') === 'vlo-updated') {
+        var banner = document.getElementById('vlo-success-banner');
+        if (banner) {
+            banner.style.display = 'block';
+        }
+        // Remove params from URL so banner doesn't show on back/refresh
+        url.searchParams.delete('success');
+        url.searchParams.delete('successReason');
+        window.history.replaceState({}, document.title, url.pathname + url.search);
+    }
+})();
+
 // Track whether search criteria form has been submitted
 var searchFormSubmitted = false;
 
@@ -236,6 +251,7 @@ var victimCheckboxes = document.querySelectorAll('.victim-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
 var serviceRadios = document.querySelectorAll('.service-radio');
 var victimCategoryCheckboxes = document.querySelectorAll('.victim-category-checkbox');
+var onboardedCheckboxes = document.querySelectorAll('.onboarded-checkbox');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
 // Update visibility of clear filters link
@@ -387,19 +403,6 @@ function applyVictimFilters() {
         
         // Check Service filter (only apply if search form has been submitted)
         if (selectedServices.length > 0 && searchFormSubmitted) {
-            // Get the helper function to extract field values
-            function getFieldValue(fieldName) {
-                var rows = record.querySelectorAll('.govuk-summary-list__row');
-                for (var i = 0; i < rows.length; i++) {
-                    var keyEl = rows[i].querySelector('.govuk-summary-list__key');
-                    if (keyEl && keyEl.textContent.trim() === fieldName) {
-                        var valueEl = rows[i].querySelector('.govuk-summary-list__value');
-                        return valueEl ? valueEl.textContent.trim() : '';
-                    }
-                }
-                return '';
-            }
-            
             var matchesService = selectedServices.some(function(service) {
                 // Special handling for "Not onboarded" service filter
                 if (service === 'Not onboarded') {
@@ -438,6 +441,13 @@ function applyVictimFilters() {
         record.setAttribute('data-filtered', shouldShow ? 'visible' : 'hidden');
         // Initially show/hide based on filter (pagination will override display for visible records)
         record.style.display = shouldShow ? '' : 'none';
+        
+        // Also show/hide the parent wrapper div if it has the govuk-!-margin-bottom-9 class
+        var parentWrapper = record.parentElement;
+        if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+            parentWrapper.style.display = shouldShow ? '' : 'none';
+        }
+        
         if (shouldShow) {
             visibleCount++;
         }
@@ -728,14 +738,24 @@ function hideServiceRowWhenOnboardedNo() {
         var startIndex = (pageNumber - 1) * RESULTS_PER_PAGE;
         var endIndex = startIndex + RESULTS_PER_PAGE;
         
-        // Hide all records (both filtered and non-filtered)
+        // Hide all records (both filtered and non-filtered) and their parent wrappers
         victimRecords.forEach(function(record) {
             record.style.display = 'none';
+            // Also hide parent wrapper div if it has govuk-!-margin-bottom-9 class
+            var parentWrapper = record.parentElement;
+            if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+                parentWrapper.style.display = 'none';
+            }
         });
         
         // Show only records for current page
         for (var i = startIndex; i < endIndex && i < visibleRecords.length; i++) {
             visibleRecords[i].style.display = '';
+            // Also show parent wrapper div if it has govuk-!-margin-bottom-9 class
+            var parentWrapper = visibleRecords[i].parentElement;
+            if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+                parentWrapper.style.display = '';
+            }
             // Also ensure parent victims-page is visible
             var parentPage = visibleRecords[i].closest('.victims-page');
             if (parentPage) {
@@ -1487,92 +1507,7 @@ if (clearVloOnlyFiltersLink) {
 
 })();
 
-// Filter vlo list based on autocomplete (now handled by initializeVloAutocomplete)
-// Old search input listener removed - autocomplete handles this now
 })();
-
-// Initialize accessible-autocomplete for Area filter
-(function () {
-var areas = [
-    { label: 'Avon and Somerset', value: 'avon-somerset' },
-    { label: 'Bedfordshire', value: 'bedfordshire' },
-    { label: 'Cambridgeshire', value: 'cambridgeshire' },
-    { label: 'Cheshire', value: 'cheshire' },
-    { label: 'Cleveland', value: 'cleveland' },
-    { label: 'Cumbria', value: 'cumbria' },
-    { label: 'Devon and Cornwall', value: 'devon-cornwall' },
-    { label: 'Durham', value: 'durham' },
-    { label: 'Dyfed Powys', value: 'dyfed-powys' },
-    { label: 'Essex', value: 'essex' },
-    { label: 'Gloucestershire', value: 'gloucestershire' },
-    { label: 'Greater Manchester', value: 'greater-manchester' },
-    { label: 'Gwent', value: 'gwent' },
-    { label: 'Hampshire and Isle of Wight', value: 'hampshire-iow' },
-    { label: 'Hertfordshire', value: 'hertfordshire' },
-    { label: 'HMCPSI', value: 'hmcpsi' },
-    { label: 'Humberside', value: 'humberside' },
-    { label: 'Kent', value: 'kent' },
-    { label: 'Lancashire', value: 'lancashire' },
-    { label: 'Leatherhead', value: 'leatherhead' },
-    { label: 'Leicestershire', value: 'leicestershire' },
-    { label: 'Lincolnshire', value: 'lincolnshire' },
-    { label: 'London', value: 'london' },
-    { label: 'Merseyside', value: 'merseyside' },
-    { label: 'Norfolk', value: 'norfolk' },
-    { label: 'North Wales', value: 'north-wales' },
-    { label: 'North Yorkshire', value: 'north-yorkshire' },
-    { label: 'Northamptonshire', value: 'northamptonshire' },
-    { label: 'Northumbria', value: 'northumbria' },
-    { label: 'Nottinghamshire', value: 'nottinghamshire' },
-    { label: 'Records Management Unit area', value: 'rmu-area' },
-    { label: 'South Wales', value: 'south-wales' },
-    { label: 'South Yorkshire', value: 'south-yorkshire' },
-    { label: 'Stafford', value: 'stafford' },
-    { label: 'Suffolk', value: 'suffolk' },
-    { label: 'Surrey', value: 'surrey' },
-    { label: 'Sussex', value: 'sussex' },
-    { label: 'Thames Valley', value: 'thames-valley' },
-    { label: 'Warwickshire', value: 'warwickshire' },
-    { label: 'West Mercia', value: 'west-mercia' },
-    { label: 'West Midlands', value: 'west-midlands' },
-    { label: 'West Yorkshire', value: 'west-yorkshire' },
-    { label: 'Wiltshire', value: 'wiltshire' }
-];
-
-var container = document.querySelector('#area-autocomplete');
-var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
-var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-
-if (container && typeof accessibleAutocomplete !== 'undefined') {
-    accessibleAutocomplete({
-    element: container,
-    id: 'area-autocomplete-input',
-    source: areas.map(function (a) { return a.label; }),
-    showAllValues: true,
-    minLength: 0,
-    confirmOnBlur: true,
-    onConfirm: function (selected) {
-        if (!selected) { 
-        return; 
-        }
-        var item = areas.find(function (a) { return a.label === selected; });
-        if (item) {
-        // Find the corresponding checkbox and check it
-        areaCheckboxes.forEach(function (checkbox) {
-            if (checkbox.value === item.value) {
-            checkbox.checked = true;
-            // Clear the autocomplete input
-            var input = container.querySelector('input');
-            if (input) input.value = '';
-            // Render chips
-            if (window.renderAreaChips) window.renderAreaChips();
-            }
-        });
-        }
-    }
-    });
-}
-});
 
 // Initialize accessible-autocomplete for Area filter
 function initializeAreaAutocomplete() {
@@ -1719,6 +1654,12 @@ accessibleAutocomplete({
     }
     }
 });
+
+// Set aria-labelledby to reference the legend
+var areaAutocompleteInput = document.querySelector('#area-autocomplete-input');
+if (areaAutocompleteInput) {
+    areaAutocompleteInput.setAttribute('aria-labelledby', 'area-legend');
+}
 
 // Expose renderAreaChips globally for use by restore functions
 window.renderAreaChips = renderAreaChips;
@@ -1984,6 +1925,12 @@ accessibleAutocomplete({
     }
 });
 
+// Set aria-labelledby to reference the legend
+var vloOnlyAutocompleteInput = document.querySelector('#vlo-only-autocomplete-input');
+if (vloOnlyAutocompleteInput) {
+    vloOnlyAutocompleteInput.setAttribute('aria-labelledby', 'vlo-only-legend');
+}
+
 // Expose renderVloOnlyChips globally for use by restore functions
 window.renderVloOnlyChips = renderVloOnlyChips;
 }
@@ -2111,6 +2058,12 @@ accessibleAutocomplete({
     }
     }
 });
+
+// Set aria-labelledby to reference the legend
+var serviceAreaVloAutocompleteInput = document.querySelector('#service-area-vlo-autocomplete-input');
+if (serviceAreaVloAutocompleteInput) {
+    serviceAreaVloAutocompleteInput.setAttribute('aria-labelledby', 'service-area-vlo-legend');
+}
 
 // Expose renderServiceAreaVloChips globally for use by restore functions
 window.renderServiceAreaVloChips = renderServiceAreaVloChips;
@@ -2248,40 +2201,3 @@ if (e.target && e.target.classList.contains('victim-checkbox')) {
     }
 }
 }, true);
-(function () {
-var vlos = [
-    { label: 'Amanda Smith', value: 'amanda-smith' },
-    { label: 'Benjamin Taylor', value: 'benjamin-taylor' },
-    { label: 'Catherine Johnson', value: 'catherine-johnson' },
-    { label: 'David Brown', value: 'david-brown' },
-    { label: 'Emma Wilson', value: 'emma-wilson' }
-];
-
-var container = document.querySelector('#vlo-name-autocomplete');
-var hidden = document.getElementById('vlo-name');
-
-if (container && typeof accessibleAutocomplete !== 'undefined') {
-    accessibleAutocomplete({
-    element: container,
-    id: 'vlo-name-autocomplete-input',
-    source: vlos.map(function (a) { return a.label; }),
-    showAllValues: true,
-    minLength: 0,
-    confirmOnBlur: true,
-    onConfirm: function (selected) {
-        if (!selected) { 
-        hidden.value = ''; 
-        return; 
-        }
-        var item = vlos.find(function (a) { return a.label === selected; });
-        if (item) {
-        hidden.value = item.value;
-        var input = container.querySelector('input');
-        if (input) input.value = item.label;
-        } else {
-        hidden.value = selected;
-        }
-    }
-    });
-}
-})();
