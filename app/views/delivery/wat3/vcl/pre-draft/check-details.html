@@ -1,0 +1,83 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check the details before drafting the letter" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">
+            Check the details before drafting the letter
+        </h1>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred method of contact
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['pmoc'] | capitalize }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="/delivery/wat3/victim/victim-details/pmoc">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred contact times
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['preferredContactTimes'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred corresponding language
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['preferredCorrespondenceLanguage'] | capitalize }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> preferred corresponding language</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Translator required
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <a href="#" class="govuk-link">Select if translator required</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Domestic abuse risk level
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <a href="#" class="govuk-link">Select domestic abuse risk level</a>
+                </dd>
+            </div>
+        </dl>
+        <!-- <h2 class="govuk-heading-m">
+            Now start drafting the letter
+        </h2> -->
+        <!-- <p class="govuk-body">
+            By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+        </p> -->
+        <form action="/delivery/wat3/vcl/pre-draft/check-details-answer" method="post" novalidate>
+            <input type="hidden" name="answers-checked" value="true">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

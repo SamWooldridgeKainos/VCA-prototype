@@ -1,0 +1,16 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about a stopped or substantially altered charge.
+</p>
+
+{% if (data['nextTask'] == "stopped-charge") %}
+<a href="/delivery/wat3/vcl/draft/stopped-charge" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Draft a letter<span class="govuk-visually-hidden"> to inform about the stopped charge</span>
+</a>
+{% elif (data['nextTask'] == "altered-charge") %}
+<a href="/delivery/wat3/vcl/draft/substantially-altered-charge" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Draft a letter<span class="govuk-visually-hidden"> to inform about the substantially altered charge</span>
+</a>
+{% endif %}
+
+{% endblock %}

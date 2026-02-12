@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Overview" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/overview-selected.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Overview</h1>
+        <h2 class="govuk-heading-m">Tasks</h2>
+        <div class="app-overview-cards govuk-!-margin-bottom-9">
+            <a href="/delivery/wat3/onb/tasks" class="app-overview-card app-overview-card--red" aria-label="View overdue directions">
+                <span class="app-overview-card__count">1</span>
+                <span class="app-overview-card__status">overdue task</span>
+            </a>
+            <a href="/delivery/wat3/onb/tasks" class="app-overview-card app-overview-card--orange" aria-label="View directions due today">
+                <span class="app-overview-card__count">2</span>
+                <span class="app-overview-card__status">tasks due today</span>
+            </a>
+            <a href="/delivery/wat3/onb/tasks" class="app-overview-card app-overview-card--yellow" aria-label="View directions due tomorrow">
+                <span class="app-overview-card__count">1</span>
+                <span class="app-overview-card__status">task due tomorrow</span>
+            </a>
+            <a href="/delivery/wat3/onb/tasks" class="app-overview-card app-overview-card--pink" aria-label="View directions due tomorrow">
+                <span class="app-overview-card__count">12</span>
+                <span class="app-overview-card__status">open actions</span>
+            </a>
+        </div>
+        <h2 class="govuk-heading-m">Victims</h2>
+        <div class="app-overview-cards govuk-!-margin-bottom-9">
+            <a href="#" class="app-overview-card app-overview-card--blue" aria-label="View incomplete prosecutor profiles">
+                <span class="app-overview-card__count">4</span>
+                <span class="app-overview-card__status">without preferred method of contact</span>
+            </a>
+            <a href="#" class="app-overview-card app-overview-card--turquoise" aria-label="View incomplete prosecutor profiles">
+                <span class="app-overview-card__count">1</span>
+                <span class="app-overview-card__status">without preferred contact details</span>
+            </a>
+            <a href="#" class="app-overview-card app-overview-card--green" aria-label="View unassigned cases">
+                <span class="app-overview-card__count">37</span>
+                <span class="app-overview-card__status">unassigned victims</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

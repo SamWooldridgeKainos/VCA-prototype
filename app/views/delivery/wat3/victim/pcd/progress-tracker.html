@@ -1,0 +1,287 @@
+{% block content %}
+<h3 class="govuk-heading-s">
+    Progress tracker
+</h3>
+
+<!-- <p class="govuk-body">
+    PCD status: {{ data['pcdStatus'] }}
+</p> -->
+
+{% if (data['pmoc'] == "via-police") %}
+<div id="progress" class="app-progress-bar">
+    <ol class="app-progress-bar__list">
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the officer in charge by email using Outlook<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+    </ol>
+</div>
+
+{% elif (data['pmoc'] == "via-isva") %}
+<div id="progress" class="app-progress-bar">
+    <ol class="app-progress-bar__list">
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the independent sexual violence adviser (ISVA) by email using Outlook<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+    </ol>
+</div>
+
+{% else %}
+<div id="progress" class="app-progress-bar">
+    <ol class="app-progress-bar__list">
+        {% if (data['pcdStatus'] == "check-details") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Check details<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Draft the letter and send for review<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdStatus'] == "draft-not-started") or (data['pcdStatus'] == "draft-in-progress") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Check details<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Draft the letter and send for review<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdStatus'] == "draft-amendments-required") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Check details<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Draft the letter and send for review<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Amend the letter, then request a review<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Check details<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Draft the letter and send for review<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% endif %}
+
+        {% if (data['pcdStatus'] == "check-details") or (data['pcdStatus'] == "draft-not-started") or (data['pcdStatus'] == "draft-in-progress") or (data['pcdStatus'] == "draft-amendments-required") or (data['pcdStatus'] == "draft-under-review") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Check for updates on the review<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Amend if needed<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Check for updates on the review<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% endif %}
+        {% endif %}
+
+        {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+
+        {% if (data['pcdStatus'] == "check-details") or (data['pcdStatus'] == "draft-not-started") or (data['pcdStatus'] == "draft-in-progress") or (data['pcdStatus'] == "draft-amendments-required") or (data['pcdStatus'] == "draft-under-review") or (data['pcdStatus'] == "before-call-1") or (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Telephone the victim and log the call<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Add details from the call to the letter if needed<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim using their preferred method (email or post)<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+
+        {% if (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") or (data['pcdStatus'] == "after-call-attempt-3") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Telephone the victim and log the call<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Add details from the call to the letter if needed<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "Email") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by email<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "Post") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by post<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+        {% endif %}
+
+        {% if (data['pcdStatus'] == "draft-approved-to-send") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Telephone the victim and log the call<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Add details from the call to the letter if needed<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "Email") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by email<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdFumoc'] == "post") or (data['pcdVictimInformed3'] == "No") or (data['pcdAttemptToContactAgain'] == "Post") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by post<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdFumoc'] == "none") %}
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim using their preferred method (email or post)<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+        {% endif %}
+
+        {% endif %}
+
+        {% if (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
+        {% if (data['pcdStatus'] == "email-delivered") or (data['pcdStatus'] == "email-after-call-1") or (data['pcdStatus'] == "email-after-call-2") or (data['pcdStatus'] == "email-after-call-3") or (data['pcdStatus'] == "email-failure-permanent") or (data['pcdStatus'] == "email-failure-permanent-with-success") or (data['pcdStatus'] == "email-failure-technical") or (data['pcdStatus'] == "email-failure-temporary") or (data['pcdStatus'] == "email-sending") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Review the letter before sending it<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% elif (data['pcdStatus'] == "letter-dispatched") or (data['pcdStatus'] == "letter-after-call-1") or (data['pcdStatus'] == "letter-after-call-2") or (data['pcdStatus'] == "letter-after-call-3") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Review the letter before sending it<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Review the letter before sending it<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+        {% endif %}
+
+        {% if (data['pmoc'] == "email") %}
+        {% if (data['pcdSent'] == "yes") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by email<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by email<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+        {% elif (data['pmoc'] == "post") %}
+        {% if (data['pcdSent'] == "yes") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by post<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Send the letter to the victim by post<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+
+        {% elif (data['pmoc'] == "") %}
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon app-progress-bar__icon--complete"></span>
+            <span class="app-progress-bar__label">
+                Review the letter<span class="govuk-visually-hidden"> completed</span>
+            </span>
+        </li>
+        <li class="app-progress-bar__item">
+            <span class="app-progress-bar__icon"></span>
+            <span class="app-progress-bar__label">
+                Find out and update the victim's preferred method of contact to proceed further<span class="govuk-visually-hidden"> not completed</span>
+            </span>
+        </li>
+        {% endif %}
+    </ol>
+</div>
+{% endblock %}

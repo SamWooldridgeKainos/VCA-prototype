@@ -1,0 +1,20 @@
+{% block content %}
+<div class="app-identity-bar">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <span class="govuk-!-font-weight-bold govuk-!-margin-right-2 govuk-!-margin-bottom-0" style="display: inline-block">
+          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </span>
+        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
+        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
+          Vulnerable
+        </strong>
+        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
+          Intimidated
+        </strong>
+      </span>
+    </div>
+  </div>
+</div>
+{% endblock %}

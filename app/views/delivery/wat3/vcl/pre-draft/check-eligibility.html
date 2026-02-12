@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check eligibility" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">Check eligibility</h1>
+        
+        <form action="/delivery/wat3/pcd/pre-draft/check-eligibility-answer" method="post" novalidate>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Has {{ data['victimForename'] }} {{ data['victimSurname'] }} withdrawn from the case?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="pcd-withdrawn-yes" name="pcdWithdrawn" type="radio" value="Yes">
+                        <label class="govuk-label govuk-radios__label" for="pcd-withdrawn-yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="pcd-withdrawn-no" name="pcdWithdrawn" type="radio" value="No">
+                        <label class="govuk-label govuk-radios__label" for="pcd-withdrawn-no">
+                            No
+                        </label>
+                    </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Has {{ data['victimForename'] }} {{ data['victimSurname'] }} opted out of communications?
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="pcd-opt-out-yes" name="pcdOptOut" type="radio" value="Yes">
+                        <label class="govuk-label govuk-radios__label" for="pcd-opt-out-yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="pcd-opt-out-no" name="pcdOptOut" type="radio" value="No">
+                        <label class="govuk-label govuk-radios__label" for="pcd-opt-out-no">
+                            No
+                        </label>
+                    </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

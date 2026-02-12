@@ -1,0 +1,88 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}.
+</p>
+
+{% if (data['vclCallAttempt'] == "1") %}
+{% include "/delivery/wat3/victim/vcl/details/call-attempt-1.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% elif (data['vclCallAttempt'] == "2") %}
+{% include "/delivery/wat3/victim/vcl/details/call-attempt-2.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/wat3/victim/vcl/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+{% elif (data['vclCallAttempt'] == "3") %}
+{% include "/delivery/wat3/victim/vcl/details/call-attempt-3.html" %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% include "/delivery/wat3/victim/vcl/details/call-attempt-2.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% include "/delivery/wat3/victim/vcl/details/call-attempt-1.html" %}
+  </div>
+</details>
+
+{% else %}
+{% endif %}
+
+<!-- <p class="govuk-body">
+    The letter is ready to send. No amendments are required.
+</p>
+
+<p class="govuk-body">
+    You must review the letter before sending to the victim.
+</p>
+
+{% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
+<a href="/delivery/wat3/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+</a>
+
+{% else %}
+{% endif %} -->
+
+{% if (data['pmoc'] == "email") and (data['victimEmailAddress'] == "") %}
+<p class="govuk-body">
+    You must confirm the preferred method of contact first then <a href="/delivery/wat3/vcl/victim-details/email-address.html" class="govuk-link">enter an email address</a>.
+</p>
+{% elif (data['pmoc'] == "post") and (data['victimAddressLine1'] == "") %}
+<p class="govuk-body">
+    You must confirm the preferred method of contact first then <a href="/delivery/wat3/vcl/victim-details/address.html" class="govuk-link">enter a address</a>.
+</p>
+{% else %}
+<p class="govuk-body">
+    The letter is ready to send. No amendments are required.
+</p>
+
+<p class="govuk-body">
+    You must review the letter before sending to the victim.
+</p>
+
+  {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
+  <a href="/delivery/wat3/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+      Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
+  </a>
+
+  {% else %}
+  {% endif %}
+
+{% endif %}
+{% endblock %}
