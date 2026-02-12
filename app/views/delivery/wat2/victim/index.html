@@ -3,11 +3,11 @@
 {% set pageName="Victim" %}
 
 {% block header %}
-{% include "/delivery/wat2/partials/header/victims-selected.html" %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat2/partials/identity-bar/index.html" %}
+{% include "/delivery/wat2/partials/identity-bar/victim-page.html" %}
 {% endblock %}
 
 {% block content %}
@@ -20,6 +20,180 @@
       {% include "/delivery/wat2/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
+
+    <nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-labelledby="case-name">
+      <ul class="x-govuk-secondary-navigation__list">
+        {% if (data['secondaryNav'] == "victim-details") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% elif (data['secondaryNav'] == "case-contacts") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% elif (data['secondaryNav'] == "pcd") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% elif (data['secondaryNav'] == "ptm") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% elif (data['secondaryNav'] == "vcl") %}
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% else %}
+          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=overview">Case overview</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link"  href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
+          </li>
+
+          <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
+          </li>
+
+          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
+          {% else %}
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
+            </li>
+
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
+            </li>
+          {% endif %}
+
+        {% endif %}
+      </ul>
+    </nav>
 
     {% if (data['success'] == "yes") %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -50,180 +224,6 @@
 
     {% else %}
     {% endif %}
-
-    <nav class="x-govuk-secondary-navigation" aria-labelledby="case-name">
-      <ul class="x-govuk-secondary-navigation__list">
-        {% if (data['secondaryNav'] == "victim-details") %}
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% elif (data['secondaryNav'] == "case-contacts") %}
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% elif (data['secondaryNav'] == "pcd") %}
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% elif (data['secondaryNav'] == "ptm") %}
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% elif (data['secondaryNav'] == "vcl") %}
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% else %}
-          <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
-            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="/delivery/wat2/victim?secondaryNav=overview">Overview</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=victim-details">Victim details</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link"  href="/delivery/wat2/victim?secondaryNav=case-contacts">Case contacts</a>
-          </li>
-
-          <li class="x-govuk-secondary-navigation__list-item">
-            <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=pcd">Pre-charge decision</a>
-          </li>
-
-          {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") or (data['nextTask'] == "mixed-charges") %}
-          {% else %}
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=ptm">Pre-trial</a>
-            </li>
-
-            <li class="x-govuk-secondary-navigation__list-item">
-              <a class="x-govuk-secondary-navigation__link" href="/delivery/wat2/victim?secondaryNav=vcl">VCL Scheme</a>
-            </li>
-          {% endif %}
-
-        {% endif %}
-      </ul>
-    </nav>
 
     {% if (data['secondaryNav'] == "overview") %}
       {% include "/delivery/wat2/victim/overview.html" %}

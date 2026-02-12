@@ -1,0 +1,102 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check details" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+      <h1 class="govuk-heading-l">Check the details before sending the email</h1>
+
+      <h2 class="govuk-heading-m">Email details</h2>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if (data['pcdType'] == "dtc") %}
+            Decision to charge
+            {% elif (data['pcdType'] == "nfa") %}
+            No Further action
+            {% endif %}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Included
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Information pack<br>
+            Crest survey
+          </dd>
+          <!-- <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> attachments</span></a>
+          </dd> -->
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            From
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Victim Services shared mailbox<br>{{ data['sharedMailbox'] }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            To
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if (data['recipient'] == "victim") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim)
+            {% elif (data['recipient'] == "oic") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim) via {{ data['oicRank'] }} {{ data['oicForename'] }} {{ data['oicSurname'] }} (officer in charge)
+            {% elif (data['recipient'] == "isva") %}
+            {{ data['victimForename'] }} {{ data['victimSurname'] }} (victim) via {{ data['isvaForename'] }} {{ data['isvaSurname'] }} (ISVA)
+            {% endif %}<br>
+            {% if (data['recipient'] == "victim") %}
+            {{ data['victimEmailAddress'] }}
+            {% elif (data['recipient'] == "oic") %}
+            {{ data['oicEmailAddress'] }}
+            {% elif (data['recipient'] == "isva") %}
+            {{ data['isvaEmailAddress'] }}
+            {% endif %}
+          </dd>
+        </div>
+
+      </dl>
+
+      {% if (data['nfaStatus'] == "email-delivered") %}
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Only send this email to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
+        </strong>
+      </div>
+      {% endif %}
+
+      <h2 class="govuk-heading-m">Now send your email</h2>
+
+      <p class="govuk-body">
+        This will inform the victim about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+      </p>
+
+      <input type="hidden" name="answers-checked" value="true">
+
+      <div class="govuk-button-group">
+        <a href="/delivery/wat3/pcd/send/delivered" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Send email
+        </a>
+        <a class="govuk-link" href="/delivery/wat3/victim?pcdStatus=draft-approved-to-send&secondaryNav=pcd">Send email later</a>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

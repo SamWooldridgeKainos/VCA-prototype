@@ -1,0 +1,80 @@
+{% extends "layouts/main.html" %}
+{% set pageName="VPS status" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/check-details/vps-status-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the status of {{ data['victimForename'] }} {{ data['victimSurname'] }}'s Victim Personal Statement (VPS)?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-received" name="vpsStatus" value="Received" data-value="received" {{ checked('vpsStatus','Received') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-received">
+                Received
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-declined" name="vpsStatus" value="Declined" data-value="declined" {{ checked('vpsStatus','Declined') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-declined">
+                Declined
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-offering-support" name="vpsStatus" value="Offering VPS support" data-value="offering-vps-support" {{ checked('vpsStatus','Offering VPS support') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-offering-support">
+                Offering VPS support
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-needs-updating" name="vpsStatus" value="VPS needs updating" data-value="vps-needs-updating" {{ checked('vpsStatus','VPS needs updating') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-needs-updating">
+                VPS needs updating
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="vps-status-not-received" name="vpsStatus" value="Not received" data-value="not-received" {{ checked('vpsStatus','Not received') }}>
+              <label class="govuk-label govuk-radios__label" for="vps-status-not-received">
+                Not received
+              </label>
+            </div>
+
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat3/check-details/vps-status.js"></script>
+{% endblock %}

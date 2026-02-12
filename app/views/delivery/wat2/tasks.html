@@ -8,132 +8,149 @@
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
+
+{% set assigneeName = data['taskAssignee'] | default('') %}
+{% set assigneeNameParts = assigneeName.split(', ') %}
+{% if assigneeNameParts | length == 2 %}
+  {% set assigneeLastname = assigneeNameParts[0] | capitalize %}
+  {% set assigneeFirstnameRaw = assigneeNameParts[1] %}
+  {% set assigneeFirstname = assigneeFirstnameRaw.split(' (')[0] %}
+  {% set assigneeFormatted = assigneeFirstname + ' ' + assigneeLastname %}
+{% else %}
+  {% set assigneeFormatted = assigneeName %}
+{% endif %}
+
+<div id="due-date-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task due date to {{ data['taskDueDate'] | formatDate }}.
+    </h3>
+  </div>
+</div>
+
+<div id="assignee-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title-assignee" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title-assignee">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task assignee to {{ assigneeFormatted }}.
+    </h3>
+  </div>
+</div>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
     <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
-
-    <!-- <div class="moj-page-header-actions">
-      <div class="moj-page-header-actions__title">
-        <h1 class="govuk-heading-l" id="main-heading">Tasks (13)</h1>
-      </div>
-      <div class="moj-page-header-actions__actions">
-        <div class="moj-button-group moj-button-group--inline">
-          <a href="/delivery/wat2/pcd/create-task.html" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-            Create a new task
-          </a>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 
   <div class="govuk-grid-column-one-quarter">
     <div class="tasks-filters">
-      <h2 class="govuk-heading-m" id="selected-filters-heading">No filters selected</h2>
-      <div id="selected-filters-chips" style="margin-bottom: 16px;"></div>
-      <p class="govuk-body" id="clear-filters-wrapper" style="display: none;">
-        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/tasks/clear-filters">Clear filters</a>
-      </p>
-
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-      <h2 class="govuk-heading-m">Filters</h2>
+      <h2 class="govuk-heading-m">Search</h2>
 
       <form id="filters-form">
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Assignee
+            <legend id="task-assignee-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Task assignee
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <label class="govuk-label" for="assignee-autocomplete">Find assignee</label>
               <div id="assignee-autocomplete"></div>
             </div>
-            <div id="owner-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+            <ul id="task-assignee-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
+            <div id="task-assignee-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-1" name="owner" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)" checked>
-                <label class="govuk-label govuk-checkboxes__label" for="owner-1">THOMPSON, Sarah (you)</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-1" name="taskAssignee" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)" checked>
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-1">THOMPSON, Sarah (you)</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-21" name="owner" type="checkbox" value="unassigned" data-label="Unassigned">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-21">Unassigned</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-21" name="taskAssignee" type="checkbox" value="unassigned" data-label="Unassigned">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-21">Unassigned</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-2" name="owner" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-2">KUMAR, Priya</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-2" name="taskAssignee" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-2">KUMAR, Priya</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-3" name="owner" type="checkbox" value="bishop-james" data-label="BISHOP, James">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-3">BISHOP, James</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-3" name="taskAssignee" type="checkbox" value="bishop-james" data-label="BISHOP, James">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-3">BISHOP, James</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-4" name="owner" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-4">MORRISON, Claire</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-4" name="taskAssignee" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-4">MORRISON, Claire</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-5" name="owner" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-5">HAYES, Michael</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-5" name="taskAssignee" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-5">HAYES, Michael</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-6" name="owner" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-6">ANDERSON, David</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-6" name="taskAssignee" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-6">ANDERSON, David</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-7" name="owner" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-7">WRIGHT, Hannah</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-7" name="taskAssignee" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-7">WRIGHT, Hannah</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-8" name="owner" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-8">MARTINEZ, Carlos</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-8" name="taskAssignee" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-8">MARTINEZ, Carlos</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-9" name="owner" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-9">JOHNSON, Patricia</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-9" name="taskAssignee" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-9">JOHNSON, Patricia</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-10" name="owner" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-10">CHEN, Michael</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-10" name="taskAssignee" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-10">CHEN, Michael</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-11" name="owner" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-11">PATEL, Ravi</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-11" name="taskAssignee" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-11">PATEL, Ravi</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-12" name="owner" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-12">O'CONNELL, Siobhan</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-12" name="taskAssignee" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-12">O'CONNELL, Siobhan</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-13" name="owner" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-13">THOMPSON, Robert</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-13" name="taskAssignee" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-13">THOMPSON, Robert</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-14" name="owner" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-14">GARCÍA, Luis</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-14" name="taskAssignee" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-14">GARCÍA, Luis</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-15" name="owner" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-15">HENDERSON, Louise</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-15" name="taskAssignee" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-15">HENDERSON, Louise</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-16" name="owner" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-16">WILLIAMS, Anna</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-16" name="taskAssignee" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-16">WILLIAMS, Anna</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-17" name="owner" type="checkbox" value="stewart-james" data-label="STEWART, James">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-17">STEWART, James</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-17" name="taskAssignee" type="checkbox" value="stewart-james" data-label="STEWART, James">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-17">STEWART, James</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-18" name="owner" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-18">LEWIS, Elizabeth</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-18" name="taskAssignee" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-18">LEWIS, Elizabeth</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-19" name="owner" type="checkbox" value="walker-george" data-label="WALKER, George">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-19">WALKER, George</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-19" name="taskAssignee" type="checkbox" value="walker-george" data-label="WALKER, George">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-19">WALKER, George</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input owner-checkbox" id="owner-20" name="owner" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
-                <label class="govuk-label govuk-checkboxes__label" for="owner-20">CLARK, Victoria</label>
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-20" name="taskAssignee" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-20">CLARK, Victoria</label>
               </div>
             </div>
           </fieldset>
@@ -146,40 +163,33 @@
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Service
             </legend>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-1" name="service" type="checkbox" value="universal" data-label="Universal">
-                <label class="govuk-label govuk-checkboxes__label" for="service-1">Universal</label>
+            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
+                <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
               </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-2" name="service" type="checkbox" value="enhanced" data-label="Enhanced">
-                <label class="govuk-label govuk-checkboxes__label" for="service-2">Enhanced</label>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
+                <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
               </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-3" name="service" type="checkbox" value="rasso" data-label="RASSO">
-                <label class="govuk-label govuk-checkboxes__label" for="service-3">RASSO</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-4" name="service" type="checkbox" value="bereaved-family" data-label="Bereaved Family Service">
-                <label class="govuk-label govuk-checkboxes__label" for="service-4">Bereaved Family Service</label>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
+                <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
               </div>
             </div>
           </fieldset>
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            <legend id="area-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Area
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <label class="govuk-label" for="area-autocomplete">Find area</label>
               <div id="area-autocomplete"></div>
             </div>
-            <div id="area-selected-container">
-            </div>
+            <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
             <div id="area-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input area-checkbox" id="area-1" name="area" type="checkbox" value="avon-somerset" data-label="Avon and Somerset">
@@ -357,290 +367,1253 @@
           </fieldset>
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Search
+        </button>
 
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Task type
-            </legend>
-            <!-- <div class="govuk-form-group">
-              <label class="govuk-label" for="search">Find task</label>
-              <input class="govuk-input" id="search" name="search" type="text" />
-            </div> -->
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-1" name="assignee" type="checkbox" value="assignee-1">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-1">Decision to charge</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-2" name="assignee" type="checkbox" value="assignee-2">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-2">No further action decision</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-2" name="assignee" type="checkbox" value="assignee-2">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-2">No further action meeting</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-2" name="assignee" type="checkbox" value="assignee-2">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-2">Pre-trial meeting</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-3" name="assignee" type="checkbox" value="assignee-3">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-3">VCL decision</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="assignee-3" name="assignee" type="checkbox" value="assignee-3">
-                <label class="govuk-label govuk-checkboxes__label" for="assignee-3">VCL meeting</label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
+        <p class="govuk-body" id="clear-filters-wrapper" style="display: none;">
+          <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat2/onb/tasks/clear-filters">Clear search</a>
+        </p>
+
       </form>
     </div>
   </div>
 
-  <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-three-quarters">
 
-    <div class="moj-search tasks-filters govuk-!-padding-4 govuk-!-margin-bottom-4">
-      <form action="#" method="post">
-        <div class="govuk-form-group">
-
-          <label class="govuk-label govuk-label--s" for="search-urn">
-            Search by victim or case reference
-          </label>
-    
-          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">
-                   
-        </div>
-    
-        <button type="submit" class="govuk-button moj-search__button" data-module="govuk-button">
-          Search
-        </button>
-    
-      </form>
-
-      <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
-        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
-      </p>
-    </div>
-
-    <p class="govuk-!-font-size-16">
+    <!-- <p class="govuk-!-font-size-16">
       <b class="govuk-!-margin-right-1">Sort by:</b>
       <span class="">Due date</span>
       <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
       <a href="?taskSort=Hearing date">Hearing date</a>
       <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
       <a href="?taskSort=PACE">Decision date</a>
-      <!-- <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
-      <a href="?taskSort=Custody time limit">Custody time limit</a>
-      <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
-      <a href="?taskSort=Statutory time limit">Statutory time limit</a> -->
-    </p>
+    </p> -->
 
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <p class="govuk-body-s" id="results-count"></p>
 
-    <dl class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">DOE, Jane</a><br>54KR1626525
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Inform of decision to charge</span><br>
-          <span class="govuk-tag govuk-tag--red govuk-!-margin-top-1 govuk-!-margin-bottom-1">Overdue</span> 13 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link govuk-link--no-visited-state" href="#">
-            Check and send<span class="govuk-visually-hidden"> decision to charge email</span>
-          </a>
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, John</a><br>54KR1626525
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Inform of no further action decision</span><br>
-          <span class="govuk-tag govuk-tag--pink govuk-!-margin-top-1 govuk-!-margin-bottom-1">Due today</span> 14 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link govuk-link--no-visited-state" href="#">
-            Call again at 14:00<span class="govuk-visually-hidden"> of John Smith (54KR1626525)</span>
-          </a>
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, Jackie</a><br>54KR1626525
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Arrange CPS pre-trial meeting</span><br>
-          <span class="govuk-tag govuk-tag--pink govuk-!-margin-top-1 govuk-!-margin-bottom-1">Due today</span> 14 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link govuk-link--no-visited-state" href="#">
-            View letter and make call<span class="govuk-visually-hidden"> of Jackie Smith (54KR1626525)</span>
-          </a>
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">JOHNSON, Alice</a><br>54KR1626525/1
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Inform of substantially altered charge (VCL)</span><br>
-          Due 17 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link govuk-link--no-visited-state" href="#">
-            Amend draft<span class="govuk-visually-hidden"> of Alice Johnson (54KR1626525/1)</span>
-          </a>
-        </dd>
-      </div>
-      {% if ((data['pcdStatus'] == "draft-under-review") or (data['pcdStatus'] == "ineligible") or (data['pcdSent'] == "yes")) %}
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="#" class="govuk-link govuk-link--no-visited-state">WIGGINS, Barry</a><br>64KR1626925
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Inform of stopped charge (VCL)</span><br>
-          Due 19 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link govuk-link--no-visited-state" href="#">
-            Amend draft<span class="govuk-visually-hidden"> of Barry Wiggins (64KR1626925)</span>
-          </a>
-        </dd>
-      </div>
-      {% else %}
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-          <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a><br>{{ data['caseUrn'] }}
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <span class="govuk-!-font-weight-bold">Inform of {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span><br>
-          Due 18 November 2025
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          {% if (data['pcdStatus'] == "check-eligibility") %}
-            <a href="/delivery/wat2/pcd/pre-draft/check-eligibility" class="govuk-link govuk-link--no-visited-state">
-              Check eligibility<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
+    <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Due date</p>
 
-          {% elif (data['pcdStatus'] == "check-details") %}
-            <a href="/delivery/wat2/pcd/pre-draft/check-details" class="govuk-link govuk-link--no-visited-state">
-              Check details<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
+    <hr id="results-divider" class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6">
 
-          {% elif (data['pcdStatus'] == "draft-not-started") %}
-            <a href="/delivery/wat2/pcd/draft/pcd-type" class="govuk-link govuk-link--no-visited-state">
-              Draft letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">DOE, Jane</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of decision to charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div> -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            London
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Check and send</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
 
-          {% elif (data['pcdStatus'] == "draft-in-progress") %}
-            <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-              Continue draft<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, John</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of no further action decision</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 14 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Manchester
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Call again at 14:00</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
 
-          {% elif (data['pcdStatus'] == "draft-amendments-required") %}
-            <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-              Amend draft<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">SMITH, Jackie</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Arrange CPS pre-trial meeting</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 14 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            RASSO
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            West Midlands
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">View letter and make call</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
 
-          {% elif (data['pcdStatus'] == "before-call-1") %}
-            <a href="/delivery/wat2/pcd/call/phone-call-1" class="govuk-link govuk-link--no-visited-state">
-              View letter and make call<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
-
-          {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
-            <a href="/delivery/wat2/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">
-              Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
-
-          {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
-            <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-              Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-            </a>
-
-          {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
-            {% if (data['pcdFumoc'] == "email") or (data['pcdFumoc'] == "post") %}
-              <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-                Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% else %}
-              <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-                Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% endif %}
-
-          {% elif (data['pcdStatus'] == "draft-ready-to-send") %}
-            {% if (data['pmoc'] == "") %}
-              <a href="/delivery/wat2/pcd/victim-details/preferred-method-of-contact" class="govuk-link govuk-link--no-visited-state">
-                Select preferred method of contact<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% else %}
-              <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">
-                Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% endif %}
-
-          {% elif (data['pcdStatus'] == "draft-approved-to-send") %}
-            {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
-              <a href="/delivery/wat2/pcd/send/check-email-details" class="govuk-link govuk-link--no-visited-state">
-                  Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
-              <a href="/delivery/wat2/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">
-                  Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% elif (data['pmoc'] == "via-police") %}
-              <a href="/delivery/wat2/pcd/send/check-email-details?recipient=oic" class="govuk-link govuk-link--no-visited-state">
-                  Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% elif (data['pmoc'] == "via-isva") %}
-              <a href="/delivery/wat2/pcd/send/check-email-details?recipient=isva" class="govuk-link govuk-link--no-visited-state">
-                  Check details before sending<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
-              </a>
-            {% endif %}
-          {% else %}
-            <p class="govuk-body">No tasks!!</p>
-          {% endif %}
-        </dd>
-      </div>
-      {% endif %}
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-top-9">
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><a href="#" class="govuk-link govuk-link--no-visited-state">JONES, Oliver A</a></h2>
-      <p class="govuk-body govuk-!-margin-bottom-0">42AE4523851</p>
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">JOHNSON, Alice</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525/1</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of substantially altered charge (VCL)</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            17 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Kent
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Amend draft</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+    
+    {% if ((data['pcdStatus'] == "draft-under-review") or (data['pcdStatus'] == "ineligible") or (data['pcdSent'] == "yes")) %}
       
-      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Task</dt><dd class="govuk-summary-list__value"><span class="govuk-!-font-weight-bold">Inform of no further action decision</span></dd></div>
-      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Due</dt><dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025</dd></div>
-      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Owner</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah (you)</dd></div>
-      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Assignee</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah (you)<br><a href="#" class="govuk-link">Change<span class="govuk-visually-hidden"> assignee</span></a></dd></div>
-      <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Next action</dt><dd class="govuk-summary-list__value"><a href="#" class="govuk-link">Finish and send</a></dd></div>
-    </dl>
+    {% else %}
+      <div class="govuk-!-margin-bottom-9">
+        <dl class="govuk-summary-list">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+            <a href="/delivery/wat2/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
+          </h2>
+          <!-- <p class="govuk-body govuk-!-margin-bottom-0">{{ data['caseUrn'] }}</p> -->
+          
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Task
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <span class="govuk-!-font-weight-bold">{% if (data['pcdType'] == "dtc") %}Inform of decision to charge{% elif (data['pcdType'] == "nfa") %}Inform of no further action decision{% else %}{{ data['nextTask'] }}{% endif %}</span>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Due date
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['nextTaskDueDate'] | formatDate or data['taskDueDate'] | formatDate }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a href="/delivery/wat2/change-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+            </dd>
+          </div>
+          <!-- <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Victim Liaison Officer</dt><dd class="govuk-summary-list__value">{{ data['vlo'] }}</dd>
+          </div> -->
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Service
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['service'] or 'Universal' }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Area
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['area'] or 'London' }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Task assignee
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['taskAssignee'] or data['vlo'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a href="/delivery/wat2/task-assignee" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Next action
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if (data['pcdStatus'] == "check-eligibility") %}
+                <a href="/delivery/wat2/pcd/pre-draft/check-eligibility" class="govuk-link govuk-link--no-visited-state">Check eligibility</a>
+              {% elif (data['pcdStatus'] == "check-details") %}
+                <a href="/delivery/wat2/pcd/pre-draft/check-details" class="govuk-link govuk-link--no-visited-state">Check details</a>
+              {% elif (data['pcdStatus'] == "draft-not-started") %}
+                <a href="/delivery/wat2/pcd/draft/pcd-type" class="govuk-link govuk-link--no-visited-state">Draft letter</a>
+              {% elif (data['pcdStatus'] == "draft-in-progress") %}
+                <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Continue draft</a>
+              {% elif (data['pcdStatus'] == "draft-amendments-required") %}
+                <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Amend draft</a>
+              {% elif (data['pcdStatus'] == "before-call-1") %}
+                <a href="/delivery/wat2/pcd/call/phone-call-1" class="govuk-link govuk-link--no-visited-state">View letter and make call</a>
+              {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
+                <a href="/delivery/wat2/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another call</a>
+              {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
+                <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
+              {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
+                {% if (data['pcdFumoc'] == "email") or (data['pcdFumoc'] == "post") %}
+                  <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
+                {% else %}
+                  <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send to CMS</a>
+                {% endif %}
+              {% elif (data['pcdStatus'] == "draft-ready-to-send") %}
+                {% if (data['pmoc'] == "") %}
+                  <a href="/delivery/wat2/pcd/victim-details/preferred-method-of-contact" class="govuk-link govuk-link--no-visited-state">Select preferred method of contact</a>
+                {% else %}
+                  <a href="/delivery/wat2/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
+                {% endif %}
+              {% elif (data['pcdStatus'] == "draft-approved-to-send") %}
+                {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
+                  <a href="/delivery/wat2/pcd/send/check-email-details" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
+                {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
+                  <a href="/delivery/wat2/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log a letter</a>
+                {% elif (data['pmoc'] == "via-police") %}
+                  <a href="/delivery/wat2/pcd/send/check-email-details?recipient=oic" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
+                {% elif (data['pmoc'] == "via-isva") %}
+                  <a href="/delivery/wat2/pcd/send/check-email-details?recipient=isva" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
+                {% endif %}
+              {% else %}
+                <p class="govuk-body">No tasks!!</p>
+              {% endif %}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    {% endif %}
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">JONES, Oliver A</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">42AE4523851</p> -->
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of no further action decision</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--red">Overdue</span> 13 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div> -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Avon and Somerset
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link">Finish and send</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">PATEL, Aisha</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of no further action decision</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            20 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            RASSO
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Greater Manchester
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            KUMAR, Priya
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Draft letter</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">BROWN, Michael</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Arrange a CPS pre-trial meeting</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 16 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Hertfordshire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Contact court liaison</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">WILLIAMS, Rebecca</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a stopped charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--red">Overdue</span> 10 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Lancashire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Unassigned
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Check and send</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">TAYLOR, Emma</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of decision to charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            22 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            RASSO
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Merseyside
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            BISHOP, James
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Review draft</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">DAVIES, Thomas</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Arrange CPS pre-trial meeting</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 14 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            South Wales
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            MORRISON, Claire
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Schedule meeting</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">WIGGINS, Barry</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">64KR1626925</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of stopped charge (VCL)</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            19 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Victim Liaison Officer</dt><dd class="govuk-summary-list__value">THOMPSON, Sarah (you)</dd></div> -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Essex
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Amend draft</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, Charlotte</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a substantially altered charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            18 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Norfolk
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">View letter and make call</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">EVANS, Sophie</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of substantially altered charge (VCL)</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 15 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            RASSO
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Devon and Cornwall
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            HAYES, Michael
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Continue draft</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">ROBERTS, Daniel</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a decision to charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            24 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            West Yorkshire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            ANDERSON, David
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Draft letter</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">CLARK, Hannah</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a no further action decision</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--red">Overdue</span> 12 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Gloucestershire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            WRIGHT, Hannah
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Call again at 15:30</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">LEWIS, James</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of stopped charge (VCL)</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            21 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Enhanced
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Hampshire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Check eligibility</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">WALKER, Amelia</a>
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of decision to charge</span>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-tag govuk-tag--pink">Due today</span> 14 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Bedfordshire
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            MARTINEZ, Carlos
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Check details</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
 
     <nav class="govuk-pagination" aria-label="Pagination">
+      <div class="govuk-pagination__prev" style="display: none;">
+        <a class="govuk-link govuk-pagination__link" href="#" rel="prev" id="pagination-prev">
+          <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+            <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+          </svg>
+          <span class="govuk-pagination__link-title">
+            Previous<span class="govuk-visually-hidden"> page</span>
+          </span>
+        </a>
+      </div>
       <ul class="govuk-pagination__list">
         <li class="govuk-pagination__item govuk-pagination__item--current">
-          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page" data-page="1">
             1
           </a>
         </li>
         <li class="govuk-pagination__item">
-          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2" data-page="2">
             2
           </a>
         </li>
         <li class="govuk-pagination__item">
-          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3" data-page="3">
             3
           </a>
         </li>
       </ul>
       <div class="govuk-pagination__next">
-        <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+        <a class="govuk-link govuk-pagination__link" href="#" rel="next" id="pagination-next" data-page="2">
           <span class="govuk-pagination__link-title">
             Next<span class="govuk-visually-hidden"> page</span>
           </span>
@@ -652,343 +1625,8 @@
     </nav>
 
   </div>
-
-  <div class="govuk-grid-column-one-quarter">
-      <div class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-m">Recently viewed victims</h2>
-          <ul class="govuk-list">
-              <li>
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">MEGSON, Verity</a>
-                  <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
-              </li>
-              <li class="govuk-!-margin-top-3">
-                  <a href="/delivery/wat2/victim" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
-                  <p class="govuk-body govuk-!-margin-top-1">{{ data['caseUrn'] }}</p>
-              </li>
-              <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">CHEN, Emily</a>
-                  <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
-              </li>
-              <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, James</a>
-                  <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
-              </li>
-              <li class="govuk-!-margin-top-3">
-                  <a href="#" class="govuk-link govuk-link--no-visited-state">MARTINEZ, Lucy</a>
-                  <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
-              </li>
-          </ul>
-      </div>
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js"></script>
-
-<script>
-  // Handle clear filters link visibility and functionality
-  var clearFiltersLink = document.querySelector('#clear-filters-wrapper a');
-  var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
-  var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
-  var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-  var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
-  var selectedFiltersChips = document.getElementById('selected-filters-chips');
-  var selectedFiltersHeading = document.getElementById('selected-filters-heading');
-  var applyFiltersBtn = document.getElementById('apply-filters-btn');
-
-  // Function to update clear filters visibility
-  function updateClearFiltersVisibility() {
-    var hasCheckedFilters = Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; }) ||
-                            Array.from(areaCheckboxes).some(function (cb) { return cb.checked; }) ||
-                            Array.from(serviceCheckboxes).some(function (cb) { return cb.checked; });
-    clearFiltersWrapper.style.display = hasCheckedFilters ? '' : 'none';
-    selectedFiltersHeading.textContent = hasCheckedFilters ? 'Selected filters' : 'No filters selected';
-  }
-
-  // Show/hide clear filters link based on initial state
-  updateClearFiltersVisibility();
-
-  // Handle clear filters link click
-  if (clearFiltersLink) {
-    clearFiltersLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      ownerCheckboxes.forEach(function(cb) { cb.checked = false; });
-      areaCheckboxes.forEach(function(cb) { cb.checked = false; });
-      serviceCheckboxes.forEach(function(cb) { cb.checked = false; });
-      renderChips();
-      updateClearFiltersVisibility();
-    });
-  }
-
-  // Render chips
-  function renderChips() {
-    selectedFiltersChips.innerHTML = '';
-    
-    function renderChipCategory(checkboxes, heading) {
-      var checkedItems = Array.from(checkboxes).filter(function(cb) { return cb.checked; });
-      if (checkedItems.length > 0) {
-        var h3 = document.createElement('h3');
-        h3.className = 'govuk-heading-s govuk-!-margin-top-3';
-        h3.style.marginBottom = '8px';
-        h3.textContent = heading;
-        selectedFiltersChips.appendChild(h3);
-        
-        checkedItems.forEach(function(checkbox) {
-          createChip(checkbox);
-        });
-      }
-    }
-    
-    renderChipCategory(ownerCheckboxes, 'Assignee');
-    renderChipCategory(areaCheckboxes, 'Area');
-    renderChipCategory(serviceCheckboxes, 'Service');
-    
-    updateClearFiltersVisibility();
-  }
-
-  // Create a chip element
-  function createChip(checkbox) {
-    var chip = document.createElement('div');
-    chip.className = 'moj-filter-tags__tag';
-    chip.style.cssText = 'display: flex; align-items: baseline; background-color: #ffffff; color: #0b0c0c; padding: 5px 10px; margin-right: 5px; margin-bottom: 8px; border: 1px solid #0b0c0c; border-radius: 0;';
-    
-    var chipText = document.createElement('span');
-    chipText.className = 'govuk-body govuk-!-margin-0';
-    var label = checkbox.getAttribute('data-label');
-    
-    chipText.textContent = label;
-    
-    var removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.setAttribute('aria-label', 'Remove ' + label + ' filter');
-    removeBtn.style.cssText = 'background: none; border: none; padding: 0 4px; margin-left: auto; cursor: pointer; color: #0b0c0c; font-weight: normal; font-size: 24px; line-height: 0.8; flex-shrink: 0;';
-    removeBtn.textContent = '×';
-    
-    removeBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      checkbox.checked = false;
-      // Re-render chips after removing a filter
-      renderChips();
-    });
-    
-    chip.appendChild(chipText);
-    chip.appendChild(removeBtn);
-    selectedFiltersChips.appendChild(chip);
-  }
-
-  // Add change event listeners to all checkboxes
-  var allFilterCheckboxes = document.querySelectorAll('.owner-checkbox, .area-checkbox, .service-checkbox');
-  allFilterCheckboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-      renderChips();
-    });
-  });
-
-  // Render chips on page load
-
-  // Show checked owner items on page load
-  ownerCheckboxes.forEach(function (checkbox) {
-    if (checkbox.checked) {
-      var parentItem = checkbox.closest('.govuk-checkboxes__item');
-      if (parentItem) {
-        parentItem.style.display = 'flex';
-      }
-    }
-  });
-
-  // Show the owner checkboxes container if there are checked items
-  var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-  if (Array.from(ownerCheckboxes).some(function (cb) { return cb.checked; })) {
-    ownerCheckboxesContainer.style.display = '';
-  }
-
-  // Initialize accessible-autocomplete for assignee (Owner) filter
-  function initializeOwnerAutocomplete() {
-    var owners = [
-      { label: 'THOMPSON, Sarah (you)', value: 'thompson-sarah' },
-      { label: 'Unassigned', value: 'unassigned' },
-      { label: 'KUMAR, Priya', value: 'kumar-priya' },
-      { label: 'BISHOP, James', value: 'bishop-james' },
-      { label: 'MORRISON, Claire', value: 'morrison-claire' },
-      { label: 'HAYES, Michael', value: 'hayes-michael' },
-      { label: 'ANDERSON, David', value: 'anderson-david' },
-      { label: 'WRIGHT, Hannah', value: 'wright-hannah' },
-      { label: 'MARTINEZ, Carlos', value: 'martinez-carlos' },
-      { label: 'JOHNSON, Patricia', value: 'johnson-patricia' },
-      { label: 'CHEN, Michael', value: 'chen-michael' },
-      { label: 'PATEL, Ravi', value: 'patel-ravi' },
-      { label: 'O\'CONNELL, Siobhan', value: 'oconnell-siobhan' },
-      { label: 'THOMPSON, Robert', value: 'thompson-robert' },
-      { label: 'GARCÍA, Luis', value: 'garcía-luis' },
-      { label: 'HENDERSON, Louise', value: 'henderson-louise' },
-      { label: 'WILLIAMS, Anna', value: 'williams-anna' },
-      { label: 'STEWART, James', value: 'stewart-james' },
-      { label: 'LEWIS, Elizabeth', value: 'lewis-elizabeth' },
-      { label: 'WALKER, George', value: 'walker-george' },
-      { label: 'CLARK, Victoria', value: 'clark-victoria' }
-    ];
-
-    var container = document.querySelector('#assignee-autocomplete');
-    var ownerCheckboxesContainer = document.getElementById('owner-checkboxes-container');
-    var ownerCheckboxes = document.querySelectorAll('.owner-checkbox');
-
-    if (!container) {
-      console.error('Assignee autocomplete container not found');
-      return;
-    }
-
-    if (typeof accessibleAutocomplete === 'undefined') {
-      console.error('accessibleAutocomplete library not loaded');
-      return;
-    }
-
-    var sourceFunction = function(query, populateResults) {
-      if (!query) {
-        populateResults(owners.map(function(o) { return o.label; }));
-      } else {
-        var filtered = owners.filter(function(o) {
-          return o.label.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-        });
-        populateResults(filtered.map(function(o) { return o.label; }));
-      }
-    };
-
-    accessibleAutocomplete({
-      element: container,
-      id: 'assignee-autocomplete-input',
-      source: sourceFunction,
-      showAllValues: true,
-      minLength: 0,
-      confirmOnBlur: true,
-      templates: {
-        inputValue: function(result) {
-          return '';
-        },
-        suggestion: function(result) {
-          return result ? result.label || result : '';
-        }
-      },
-      onConfirm: function (selected) {
-        if (!selected) { 
-          return; 
-        }
-        var item = owners.find(function (o) { 
-          return o.label === selected || o.label === (selected.label || selected); 
-        });
-        if (item) {
-          ownerCheckboxes.forEach(function (checkbox) {
-            if (checkbox.value === item.value) {
-              checkbox.checked = true;
-              var parentItem = checkbox.closest('.govuk-checkboxes__item');
-              if (parentItem) {
-                parentItem.style.display = 'flex';
-              }
-              ownerCheckboxesContainer.style.display = '';
-            }
-          });
-          var input = container.querySelector('input');
-          if (input) input.value = '';
-        }
-      }
-    });
-  }
-
-  // Initialize accessible-autocomplete for Area filter
-  function initializeAreaAutocomplete() {
-    var areas = [
-      { label: 'Avon and Somerset', value: 'avon-somerset' },
-      { label: 'Bedfordshire', value: 'bedfordshire' },
-      { label: 'Cambridgeshire', value: 'cambridgeshire' },
-      { label: 'Cheshire', value: 'cheshire' },
-      { label: 'Cleveland', value: 'cleveland' },
-      { label: 'Cumbria', value: 'cumbria' },
-      { label: 'Devon and Cornwall', value: 'devon-cornwall' },
-      { label: 'Durham', value: 'durham' },
-      { label: 'Dyfed Powys', value: 'dyfed-powys' },
-      { label: 'Essex', value: 'essex' },
-      { label: 'Gloucestershire', value: 'gloucestershire' },
-      { label: 'Greater Manchester', value: 'greater-manchester' },
-      { label: 'Gwent', value: 'gwent' },
-      { label: 'Hampshire and Isle of Wight', value: 'hampshire-iow' },
-      { label: 'Hertfordshire', value: 'hertfordshire' },
-      { label: 'HMCPSI', value: 'hmcpsi' },
-      { label: 'Humberside', value: 'humberside' },
-      { label: 'Kent', value: 'kent' },
-      { label: 'Lancashire', value: 'lancashire' },
-      { label: 'Leatherhead', value: 'leatherhead' },
-      { label: 'Leicestershire', value: 'leicestershire' },
-      { label: 'Lincolnshire', value: 'lincolnshire' },
-      { label: 'London', value: 'london' },
-      { label: 'Merseyside', value: 'merseyside' },
-      { label: 'Norfolk', value: 'norfolk' },
-      { label: 'North Wales', value: 'north-wales' },
-      { label: 'North Yorkshire', value: 'north-yorkshire' },
-      { label: 'Northamptonshire', value: 'northamptonshire' },
-      { label: 'Northumbria', value: 'northumbria' },
-      { label: 'Nottinghamshire', value: 'nottinghamshire' },
-      { label: 'Records Management Unit area', value: 'rmu-area' },
-      { label: 'South Wales', value: 'south-wales' },
-      { label: 'South Yorkshire', value: 'south-yorkshire' },
-      { label: 'Stafford', value: 'stafford' },
-      { label: 'Suffolk', value: 'suffolk' },
-      { label: 'Surrey', value: 'surrey' },
-      { label: 'Sussex', value: 'sussex' },
-      { label: 'Thames Valley', value: 'thames-valley' },
-      { label: 'Warwickshire', value: 'warwickshire' },
-      { label: 'West Mercia', value: 'west-mercia' },
-      { label: 'West Midlands', value: 'west-midlands' },
-      { label: 'West Yorkshire', value: 'west-yorkshire' },
-      { label: 'Wiltshire', value: 'wiltshire' }
-    ];
-
-    var container = document.querySelector('#area-autocomplete');
-    var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
-    var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-
-    if (!container) {
-      console.error('Area autocomplete container not found');
-      return;
-    }
-
-    if (typeof accessibleAutocomplete === 'undefined') {
-      console.error('accessibleAutocomplete library not loaded');
-      return;
-    }
-
-    accessibleAutocomplete({
-      element: container,
-      id: 'area-autocomplete-input',
-      source: areas.map(function (a) { return a.label; }),
-      showAllValues: true,
-      minLength: 0,
-      confirmOnBlur: true,
-      onConfirm: function (selected) {
-        if (!selected) { 
-          return; 
-        }
-        var item = areas.find(function (a) { return a.label === selected; });
-        if (item) {
-          areaCheckboxes.forEach(function (checkbox) {
-            if (checkbox.value === item.value) {
-              checkbox.checked = true;
-              areaCheckboxesContainer.style.display = '';
-              var input = container.querySelector('input');
-              if (input) input.value = '';
-            }
-          });
-        }
-      }
-    });
-  }
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeAreaAutocomplete();
-      initializeOwnerAutocomplete();
-    });
-  } else {
-    initializeAreaAutocomplete();
-    initializeOwnerAutocomplete();
-  }
-</script>
+<script src="/public/javascripts/delivery/wat2/tasks.js"></script>
 {% endblock %}

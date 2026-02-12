@@ -1,0 +1,315 @@
+var taskAssignee = new Array();
+taskAssignee[0] = "THOMPSON, Sarah (you)";
+taskAssignee[1] = "Unassigned";
+taskAssignee[2] = "KUMAR, Priya";
+taskAssignee[3] = "BISHOP, James";
+taskAssignee[4] = "MORRISON, Claire";
+taskAssignee[5] = "HAYES, Michael";
+taskAssignee[6] = "ANDERSON, David";
+taskAssignee[7] = "WRIGHT, Hannah";
+taskAssignee[8] = "MARTINEZ, Carlos";
+taskAssignee[9] = "JOHNSON, Patricia";
+taskAssignee[10] = "CHEN, Michael";
+taskAssignee[11] = "PATEL, Ravi";
+taskAssignee[12] = "O'CONNELL, Siobhan";
+taskAssignee[13] = "THOMPSON, Robert";
+taskAssignee[14] = "GARCÍA, Luis";
+taskAssignee[15] = "HENDERSON, Louise";
+taskAssignee[16] = "WILLIAMS, Anna";
+taskAssignee[17] = "STEWART, James";
+taskAssignee[18] = "LEWIS, Elizabeth";
+taskAssignee[19] = "WALKER, George";
+taskAssignee[20] = "CLARK, Victoria";
+taskAssignee[21] = "SMITH, James";
+taskAssignee[22] = "JOHNSON, Michael";
+taskAssignee[23] = "WILLIAMS, David";
+taskAssignee[24] = "BROWN, Robert";
+taskAssignee[25] = "JONES, William";
+taskAssignee[26] = "CLARK, Jeffrey";
+taskAssignee[27] = "RAMIREZ, Frank";
+taskAssignee[28] = "LEWIS, Eric";
+taskAssignee[29] = "ROBINSON, Gary";
+taskAssignee[30] = "WALKER, Nicholas";
+taskAssignee[31] = "YOUNG, Jonathan";
+taskAssignee[32] = "ALLEN, Scott";
+taskAssignee[33] = "KING, Brandon";
+taskAssignee[34] = "WRIGHT, Benjamin";
+taskAssignee[35] = "LOPEZ, Samuel";
+taskAssignee[36] = "HILL, Frank";
+taskAssignee[37] = "SCOTT, Alexander";
+taskAssignee[38] = "GREEN, Raymond";
+taskAssignee[39] = "ADAMS, Patrick";
+taskAssignee[40] = "NELSON, Jack";
+taskAssignee[41] = "CARTER, Dennis";
+taskAssignee[42] = "ROBERTS, Jerry";
+taskAssignee[43] = "PHILLIPS, Tyler";
+taskAssignee[44] = "CAMPBELL, Aaron";
+taskAssignee[45] = "PARKER, Jose";
+taskAssignee[46] = "EVANS, Adam";
+taskAssignee[47] = "EDWARDS, Henry";
+taskAssignee[48] = "COLLINS, Douglas";
+taskAssignee[49] = "REYES, Peter";
+taskAssignee[50] = "STEWART, Zachary";
+taskAssignee[51] = "MORRIS, Kyle";
+taskAssignee[52] = "MORALES, Walter";
+taskAssignee[53] = "MURPHY, Harold";
+taskAssignee[54] = "COOK, Keith";
+taskAssignee[55] = "ROGERS, Christian";
+taskAssignee[56] = "GUTIERREZ, Terry";
+taskAssignee[57] = "ORTIZ, Sean";
+taskAssignee[58] = "MORGAN, Austin";
+taskAssignee[59] = "COOPER, Gerald";
+taskAssignee[60] = "PETERSON, Carl";
+taskAssignee[61] = "HOWARD, Roger";
+taskAssignee[62] = "GRAHAM, Kyle";
+taskAssignee[63] = "BRENNAN, Lawrence";
+taskAssignee[64] = "FORD, Nicholas";
+taskAssignee[65] = "SULLIVAN, Justin";
+taskAssignee[66] = "BELL, Samuel";
+taskAssignee[67] = "GOMEZ, Frank";
+taskAssignee[68] = "MAXWELL, Gregory";
+taskAssignee[69] = "CHAMBERS, Raymond";
+taskAssignee[70] = "런, Russell";
+taskAssignee[71] = "HUNT, Bobby";
+taskAssignee[72] = "BENSON, Vincent";
+taskAssignee[73] = "PALMER, Ralph";
+taskAssignee[74] = "HUDSON, Roy";
+taskAssignee[75] = "GARRETT, Eugene";
+taskAssignee[76] = "GARRETT, Russell";
+taskAssignee[77] = "HALE, Randy";
+taskAssignee[78] = "RICHARDSON, Vincent";
+taskAssignee[79] = "RITTER, Wayne";
+taskAssignee[80] = "VEGA, Carlos";
+taskAssignee[81] = "BECK, Stephen";
+taskAssignee[82] = "SIERRA, George";
+taskAssignee[83] = "CALDWELL, Kenneth";
+taskAssignee[84] = "SANTIAGO, Mark";
+taskAssignee[85] = "MUNOZ, Rodney";
+taskAssignee[86] = "POWERS, Bert";
+taskAssignee[87] = "NICHOLS, Jim";
+taskAssignee[88] = "HARMON, Ted";
+taskAssignee[89] = "HOLLOWAY, Lee";
+taskAssignee[90] = "MALDONADO, Sam";
+taskAssignee[91] = "KENT, Julius";
+taskAssignee[92] = "ARNOLD, Alvin";
+taskAssignee[93] = "PENA, Chester";
+taskAssignee[94] = "POTTER, Leroy";
+taskAssignee[95] = "BOWMAN, Ernest";
+taskAssignee[96] = "MEDINA, Martin";
+taskAssignee[97] = "FOWLER, Herbert";
+taskAssignee[98] = "BREWER, Jackie";
+taskAssignee[99] = "HOFFMAN, Fred";
+taskAssignee[100] = "CARLSON, Nathan";
+taskAssignee[101] = "SILVA, Horace";
+taskAssignee[102] = "PEARSON, Archie";
+taskAssignee[103] = "Holland, Herman";
+taskAssignee[104] = "DOUGLAS, Ryan";
+taskAssignee[105] = "FLEMING, Saul";
+taskAssignee[106] = "JENSEN, Roman";
+taskAssignee[107] = "VARGAS, Morris";
+taskAssignee[108] = "BYRNE, Phillip";
+taskAssignee[109] = "DIAMOND, Travis";
+taskAssignee[110] = "MANN, Andy";
+taskAssignee[111] = "VINCENT, Lorenzo";
+taskAssignee[112] = "KEMP, Clint";
+taskAssignee[113] = "LAMB, Elmer";
+taskAssignee[114] = "HARDY, Ethan";
+taskAssignee[115] = "SHIELDS, Bob";
+taskAssignee[116] = "CARPENTER, Simon";
+taskAssignee[117] = "WHITLEY, Sandy";
+taskAssignee[118] = "STONE, Jamie";
+taskAssignee[119] = "SAVAGE, Marco";
+taskAssignee[120] = "SPRINGER, Blake";
+taskAssignee[121] = "CLINE, Edgar";
+taskAssignee[122] = "HARDY, Corey";
+taskAssignee[123] = "BLANCHARD, Richie";
+taskAssignee[124] = "DYER, Alberto";
+taskAssignee[125] = "GARLAND, Wade";
+taskAssignee[126] = "CAMERON, Virgil";
+taskAssignee[127] = "LOVEJOY, Marcus";
+taskAssignee[128] = "MCCARTHY, Glenn";
+taskAssignee[129] = "CURRY, Dexter";
+taskAssignee[130] = "ROSEN, Nolan";
+taskAssignee[131] = "BASS, Forrest";
+taskAssignee[132] = "RALLS, Sylvester";
+taskAssignee[133] = "MCGILL, Alfonso";
+taskAssignee[134] = "HICKS, Roscoe";
+taskAssignee[135] = "MCNEAL, Cornell";
+taskAssignee[136] = "MCBRIDE, Grady";
+taskAssignee[137] = "MCGUIRE, Louie";
+taskAssignee[138] = "MCCOMBS, Dewey";
+taskAssignee[139] = "MCKENZIE, Jedediah";
+taskAssignee[140] = "OLSON, Huey";
+taskAssignee[141] = "PARK, Fidel";
+taskAssignee[142] = "PAINTER, Dalton";
+taskAssignee[143] = "PALMER, Tyrone";
+taskAssignee[144] = "PARKS, Mikey";
+taskAssignee[145] = "PATRICK, Israel";
+taskAssignee[146] = "PATTERSON, Barrett";
+taskAssignee[147] = "PATTON, Horace";
+taskAssignee[148] = "PAUL, Royce";
+taskAssignee[149] = "PAYNE, Marlin";
+taskAssignee[150] = "PEAK, Thurman";
+taskAssignee[151] = "PEADEN, Milo";
+taskAssignee[152] = "PEARCE, Leif";
+taskAssignee[153] = "PEDERSON, Rip";
+taskAssignee[154] = "PEEBLES, Doyle";
+taskAssignee[155] = "PEELER, Lance";
+taskAssignee[156] = "PENA, Merle";
+taskAssignee[157] = "PENDLETON, Merrill";
+taskAssignee[158] = "PENNELL, Neville";
+taskAssignee[159] = "PENNINGTON, Miles";
+taskAssignee[160] = "PENNY, Mitch";
+taskAssignee[161] = "PENSON, Monty";
+taskAssignee[162] = "PENTECOST, Myron";
+taskAssignee[163] = "PEOPLES, Napoleon";
+taskAssignee[164] = "PERDUE, Nelson";
+taskAssignee[165] = "PERKINS, Newton";
+taskAssignee[166] = "PERRIN, Norbert";
+taskAssignee[167] = "PERRY, Orville";
+taskAssignee[168] = "PERSON, Ozzie";
+taskAssignee[169] = "PESTER, Pace";
+taskAssignee[170] = "PETER, Paddy";
+taskAssignee[171] = "PETERS, Palmer";
+taskAssignee[172] = "PETTIGREW, Parker";
+taskAssignee[173] = "PETTIS, Pearce";
+taskAssignee[174] = "PETTITT, Penn";
+taskAssignee[175] = "PFEIFFER, Perry";
+taskAssignee[176] = "PHEBUS, Pete";
+taskAssignee[177] = "PHELPS, Petey";
+taskAssignee[178] = "PHILLIPS, Pierre";
+taskAssignee[179] = "PHINNEY, Pinckney";
+taskAssignee[180] = "PICKETT, Preston";
+taskAssignee[181] = "PICKETT, Quentin";
+taskAssignee[182] = "PICKFORD, Quincy";
+taskAssignee[183] = "PIDGEON, Quinn";
+taskAssignee[184] = "PIDGIN, Quinton";
+taskAssignee[185] = "PIERCE, Rafael";
+taskAssignee[186] = "PIERSON, Raleigh";
+taskAssignee[187] = "PIETTE, Ralph";
+taskAssignee[188] = "PIGEON, Ramiro";
+taskAssignee[189] = "PIGGOTT, Ramsay";
+taskAssignee[190] = "PIKE, Randi";
+taskAssignee[191] = "PILCHER, Randy";
+taskAssignee[192] = "PILE, Ransom";
+taskAssignee[193] = "PILKINGTON, Raoul";
+taskAssignee[194] = "PILLAR, Raphael";
+taskAssignee[195] = "PILLION, Raul";
+taskAssignee[196] = "PILLION, Rawley";
+taskAssignee[197] = "PILLOW, Raymond";
+taskAssignee[198] = "PILON, Rayner";
+taskAssignee[199] = "PILOT, Redmond";
+taskAssignee[200] = "PIMM, Reed";
+taskAssignee[201] = "PIMPERTON, Rees";
+taskAssignee[202] = "PIMPLE, Reese";
+taskAssignee[203] = "PINCKNEY, Reeves";
+taskAssignee[204] = "PINDER, Reginald";
+taskAssignee[205] = "PINE, Reid";
+taskAssignee[206] = "PING, Reuben";
+taskAssignee[207] = "PINGER, Rev";
+taskAssignee[208] = "PINK, Revi";
+taskAssignee[209] = "PINKERTON, Reynaldo";
+taskAssignee[210] = "PINKHAM, Reynolds";
+taskAssignee[211] = "PINKIE, Rhett";
+taskAssignee[212] = "PINKLEY, Rhodney";
+taskAssignee[213] = "PINKSTON, Rhys";
+taskAssignee[214] = "PINNELL, Ricardo";
+taskAssignee[215] = "PINNER, Richard";
+taskAssignee[216] = "PINNEY, Richerd";
+taskAssignee[217] = "PINNICK, Richey";
+taskAssignee[218] = "PINSON, Richie";
+taskAssignee[219] = "PINTER, Rick";
+taskAssignee[220] = "PINTOZZI, Ricky";
+taskAssignee[221] = "PINUCCI, Rico";
+taskAssignee[222] = "PINX, Rider";
+taskAssignee[223] = "PINYAK, Rigby";
+taskAssignee[224] = "PINZA, Riggs";
+taskAssignee[225] = "PINZO, Riley";
+taskAssignee[226] = "PION, Rion";
+taskAssignee[227] = "PIONEER, Ripley";
+taskAssignee[228] = "PIOUS, Risher";
+taskAssignee[229] = "PIPER, Ritchey";
+taskAssignee[230] = "PIPHER, Ritchie";
+taskAssignee[231] = "PIPKORN, Rittenhouse";
+taskAssignee[232] = "PIPP, Ritter";
+taskAssignee[233] = "PIPPIN, River";
+taskAssignee[234] = "PIPPINGER, Roach";
+taskAssignee[235] = "PIPPO, Roach";
+taskAssignee[236] = "PIQUARD, Roald";
+taskAssignee[237] = "PIQUET, Roar";
+taskAssignee[238] = "PIQUETTE, Robbins";
+taskAssignee[239] = "PIRACAS, Roberts";
+taskAssignee[240] = "PICARD, Robinson";
+taskAssignee[241] = "PIRARD, Rocco";
+taskAssignee[242] = "PIRATE, Roche";
+taskAssignee[243] = "PIRAZZINI, Rock";
+taskAssignee[244] = "PIRAZOLLI, Rocky";
+taskAssignee[245] = "PIRAZZOLI, Roddie";
+taskAssignee[246] = "PIRCH, Roddy";
+taskAssignee[247] = "GARCIA, Richard";
+taskAssignee[248] = "MILLER, Joseph";
+taskAssignee[249] = "DAVIS, Thomas";
+taskAssignee[250] = "RODRIGUEZ, Charles";
+taskAssignee[251] = "MARTINEZ, Christopher";
+taskAssignee[252] = "HERNANDEZ, Daniel";
+taskAssignee[253] = "LOPEZ, Matthew";
+taskAssignee[254] = "GONZALEZ, Anthony";
+taskAssignee[255] = "WILSON, Mark";
+taskAssignee[256] = "ANDERSON, Donald";
+taskAssignee[257] = "TAYLOR, Stephen";
+taskAssignee[258] = "THOMAS, Paul";
+taskAssignee[259] = "MOORE, Andrew";
+taskAssignee[260] = "JACKSON, Kenneth";
+taskAssignee[261] = "MARTIN, Joshua";
+taskAssignee[262] = "LEE, Kevin";
+taskAssignee[263] = "PEREZ, Brian";
+taskAssignee[264] = "THOMPSON, Edward";
+taskAssignee[265] = "WHITE, Ronald";
+taskAssignee[266] = "HARRIS, Timothy";
+taskAssignee[267] = "SANCHEZ, Jason";
+
+accessibleAutocomplete({
+    element: document.querySelector('#my-autocomplete-container'),
+    id: 'my-autocomplete', // To match it to the existing <label>.
+    name: 'taskAssignee', // Form field name for submission
+    source: taskAssignee
+})
+
+
+
+// Errors
+function validateForm() {
+    $('#error-form-group').removeClass('govuk-form-group--error');
+    $('#taskAssignee').removeClass('govuk-input--error');
+    $('#error-message-1').remove();
+    $('#error-message-1').html('');
+    $('#error-summary').remove();
+    $('#error-summary-list').html('');
+    $('#error-list-item-1').html('');
+
+    var taskAssignee = document.forms["myForm"]["taskAssignee"].value;
+  
+    if (taskAssignee == "" || taskAssignee == null) {
+
+      $('#myForm').before(
+        '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul id="error-summary-list" class="govuk-list govuk-error-summary__list"><li id="error-list-item-1"></li><li id="error-list-item-2"></li></ul></div></div>'
+      );
+
+      // Error form group styling
+      $('#error-form-group').addClass('govuk-form-group--error');
+
+      // Error input field styling
+      $('#taskAssignee').addClass('govuk-input--error');
+
+      // Error message
+      $('#my-autocomplete-container').prepend('<p id="error-message-1" class="govuk-error-message"></p>');
+      $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> Select a task assignee</span>');
+
+      // Error summary
+      $('#error-list-item-1').html('<a href="#error-1">Select a task assignee</a>');
+  
+      $('#error-summary').focus();
+  
+      return false;
+    }
+  }

@@ -1,0 +1,179 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Set a reminder" %}
+
+{% block header %}
+{% include "/delivery/wat2/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat2/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">Set a reminder for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
+
+        <form action="/delivery/wat2/pcd/tasks" method="post">
+            
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="reminder-name">
+                    Reminder name
+                </label>
+                <input class="govuk-input" id="reminder-name" name="reminder-name" type="text">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--m" for="due-date">
+                Due date
+              </label>
+              <input class="govuk-input govuk-input--width-10" id="due-date" name="due-date" type="date" placeholder="">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="task-note">
+                    Note (optional)
+                </label>
+                <textarea class="govuk-textarea" id="task-note" name="task-note" rows="3"></textarea>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="team-members-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Assignees
+                    </legend>
+                    <div id="team-members-hint" class="govuk-hint">
+                        Start typing to find a team member — select to add them to the task. Use the Remove button to unassign.
+                    </div>
+
+                    <!-- Autocomplete container -->
+                    <div id="team-members-autocomplete" class="govuk-!-margin-top-2"></div>
+
+                    <!-- Selected items and hidden inputs will be appended here -->
+                    <div id="selected-team-members" class="govuk-!-margin-top-2"></div>
+                </fieldset>
+            </div>
+
+            <!-- accessible-autocomplete CSS + JS (CDN) -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js"></script>
+
+            <script>
+            (function () {
+                var team = [
+                { label: 'Sarah Wilson', value: 'sarah-wilson' },
+                { label: 'Mike Johnson', value: 'mike-johnson' },
+                { label: 'Emma Brown', value: 'emma-brown' },
+                { label: 'Alexandra Fernandez', value: 'alexandra-fernandez' },
+                { label: 'Fred Wilson-Rowe', value: 'fred-wilson-rowe' },
+                { label: 'Jack Jackson', value: 'jack-jackson' }
+                ];
+
+                var container = document.querySelector('#team-members-autocomplete');
+                var selectedContainer = document.querySelector('#selected-team-members');
+
+                function addSelected(name, value) {
+                // wrapper for tag + remove button
+                var item = document.createElement('div');
+                item.className = 'govuk-!-display-inline-block govuk-!-margin-right-2';
+                item.style.marginBottom = '6px';
+
+                var tag = document.createElement('span');
+                tag.className = 'govuk-tag';
+                tag.textContent = name;
+
+                var removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'govuk-button govuk-button--secondary govuk-!-margin-left-1';
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function () {
+                    // remove hidden input and tag container
+                    var hidden = selectedContainer.querySelector('input[type="hidden"][value="' + value + '"]');
+                    if (hidden) hidden.parentNode.removeChild(hidden);
+                    if (item.parentNode) item.parentNode.removeChild(item);
+                });
+
+                item.appendChild(tag);
+                item.appendChild(removeBtn);
+                selectedContainer.appendChild(item);
+
+                // hidden input to submit selected values
+                var hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'team-members[]';
+                hiddenInput.value = value;
+                selectedContainer.appendChild(hiddenInput);
+                }
+
+                // Initialize victim name accessible-autocomplete
+                (function () {
+                  var victims = [
+                    { label: 'DOE, Jane', value: 'doe-jane' },
+                    { label: 'JOHNSON, Alice', value: 'johnson-alice' },
+                    { label: 'PHILLIPS, Sarah', value: 'phillips-sarah' },
+                    { label: 'SMITH, John', value: 'smith-john' },
+                    { label: 'SMITH, Jackie', value: 'smith-jackie' }
+                  ];
+
+                  var vcontainer = document.querySelector('#victim-name-autocomplete');
+                  var vhidden = document.getElementById('victim-name');
+
+                  accessibleAutocomplete({
+                    element: vcontainer,
+                    id: 'victim-name-autocomplete-input',
+                    source: victims.map(function (v) { return v.label; }),
+                    showAllValues: true,
+                    minLength: 0,
+                    confirmOnBlur: true,
+                    onConfirm: function (selected) {
+                      if (!selected) { vhidden.value = ''; return; }
+                      var item = victims.find(function (v) { return v.label === selected; });
+                      if (item) {
+                        vhidden.value = item.value;
+                        var vis = vcontainer.querySelector('input');
+                        if (vis) vis.value = item.label;
+                      } else {
+                        vhidden.value = selected;
+                      }
+                    }
+                  });
+                })();
+
+                // Initialize accessible-autocomplete for team members
+                accessibleAutocomplete({
+                element: container,
+                id: 'team-members-autocomplete-input',
+                source: team.map(function (t) { return t.label; }),
+                showAllValues: true,
+                minLength: 0,
+                confirmOnBlur: false,
+                onConfirm: function (selected) {
+                    if (!selected) return;
+                    var item = team.find(function (t) { return t.label === selected; });
+                    if (!item) return;
+                    // prevent duplicates
+                    if (selectedContainer.querySelector('input[type="hidden"][value="' + item.value + '"]')) return;
+                    addSelected(item.label, item.value);
+                    // clear the autocomplete input
+                    var input = container.querySelector('input');
+                    if (input) input.value = '';
+                }
+                });
+
+                // Ensure the generated input references the hint for accessibility
+                setTimeout(function () {
+                var input = container.querySelector('input');
+                if (input) input.setAttribute('aria-describedby', 'team-members-hint');
+                }, 0);
+            })();
+            </script>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Set reminder
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

@@ -59,15 +59,92 @@ module.exports = router => {
 
     router.post('/delivery/wat2/onb/next-task-answer', function(request, response) {
 
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "Other") {
+            response.redirect("/delivery/wat2/onb/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/delivery/wat2/onb/check-task?manualTask=no")
+        } else {
+            response.redirect("/delivery/wat2/onb/next-task-due-date")
+        }
+    })
+
+    router.post('/delivery/wat2/onb/next-task-due-date-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-task?manualTask=no")
+    })
+
+    router.post('/delivery/wat2/onb/manual-task-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/onb/check-task?manualTask=yes")
+    })
+
+    router.post('/delivery/wat2/onb/check-task-answer', function(request, response) {
+
         response.redirect("/delivery/wat2/onb/onboarded")
     })
 
-    router.post('/delivery/wat2/onb/owner-answer', function(request, response) {
+    router.post('/delivery/wat2/onb/vlo-answer', function(request, response) {
 
-        // Store owner in session
-        request.session.data['owner'] = request.body.owner || ''
+        // Store vlo in session
+        request.session.data['vlo'] = request.body.vlo || ''
 
-        response.redirect("/delivery/wat2/victims?success=yes&successReason=owner-updated")
+        response.redirect("/delivery/wat2/victims?success=yes&successReason=vlo-updated")
+    })
+
+    router.post('/delivery/wat2/onb/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/delivery/wat2/onb/tasks?success=yes&successReason=assignee-updated")
+    })
+
+    router.post('/delivery/wat2/victim/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "Other") {
+            response.redirect("/delivery/wat2/victim/new-task/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/delivery/wat2/victim/new-task/check-task")
+        } else {
+            response.redirect("/delivery/wat2/victim/new-task/task-due-date")
+        }
+    })
+
+    router.post('/delivery/wat2/victim/new-task/task-due-date-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/new-task/check-task")
+    })
+
+    router.post('/delivery/wat2/victim/new-task/manual-task-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/new-task/check-task?manualTask=yes")
+    })
+
+    router.post('/delivery/wat2/victim/new-task/check-task-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/new-task/task-created")
+    })
+
+    router.post('/delivery/wat2/victim/new-task/task-created-answer', function(request, response) {
+
+        response.redirect("/delivery/wat2/victim/tasks")
+    })
+
+    router.post('/delivery/wat2/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/delivery/wat2/tasks?success=yes&successReason=assignee-updated")
+    })
+
+    router.post('/delivery/wat2/change-task-due-date-answer', function(request, response) {
+        
+        response.redirect("/delivery/wat2/tasks?success=yes&successReason=due-date-updated")
     })
 
     //pcd

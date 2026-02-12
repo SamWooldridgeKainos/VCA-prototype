@@ -83,12 +83,12 @@
 
                     <div class="govuk-radios__divider">or</div> -->
 
-                    <div class="govuk-radios__item">
+                    <!-- <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="Inform of mixed charges" data-value="mixed-charges" {{ checked('nextTask','Inform of mixed charges') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
                             Inform of mixed charges
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="Inform of a stopped charge" data-value="stopped-charge" {{ checked('nextTask','Inform of a stopped charge') }}>
@@ -98,9 +98,9 @@
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-altered-charge" name="nextTask" value="Inform of an altered charge" data-value="altered-charge" {{ checked('nextTask','Inform of an altered charge') }}>
+                        <input type="radio" class="govuk-radios__input" id="next-task-altered-charge" name="nextTask" value="Inform of a substantially altered charge" data-value="altered-charge" {{ checked('nextTask','Inform of a substantially altered charge') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-altered-charge">
-                            Inform of an altered charge
+                            Inform of a substantially altered charge
                         </label>
                     </div>
 
@@ -110,10 +110,18 @@
                             Arrange a CPS pre-trial meeting
                         </label>
                     </div>
-                    <div class="govuk-radios__item">
+
+                    <!-- <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-bfs-meeting" name="nextTask" value="Arrange a Bereaved Family Scheme meeting" data-value="bfs-meeting" {{ checked('nextTask','Arrange a Bereaved Family Scheme meeting') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-bfs-meeting">
                             Arrange a Bereaved Family Scheme meeting
+                        </label>
+                    </div> -->
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-other" name="nextTask" value="Other" data-value="other" {{ checked('nextTask','Other') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-other">
+                            Another task (not listed)
                         </label>
                     </div>
 
@@ -125,11 +133,13 @@
                             No task at this time
                         </label>
                     </div>
+
+                </div>
             </fieldset>
         </div>
 
         <button type="submit" class="govuk-button" data-module="govuk-button">
-            Save and continue
+            Continue
         </button>
 
     </form>
