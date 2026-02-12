@@ -1,0 +1,103 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Letter logged" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Letter logged
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %} letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+    </p>
+
+    <!-- <p class="govuk-body">
+      The information pack and Crest survey were also sent.
+    </p> -->
+
+    <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      You can view the logged letter on the 'VCL Scheme' tab of the victim's page, within the Victim Case Application.
+    </p>
+
+    <p class="govuk-body">
+      The letter was automatically saved to CMS.
+    </p>
+
+    {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+
+    {% if (data['vclCallAttempt'] == "1") %}
+    {% if (data['vclVictimInformed1'] == "Yes") %}
+    <a href="/delivery/wat3/victim?vclStatus=fu-letter-after-call-1&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/wat3/victim?vclStatus=letter-after-call-attempt-1&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['vclCallAttempt'] == "2") %}
+    {% if (data['vclVictimInformed2'] == "Yes") %}
+    <a href="/delivery/wat3/victim?vclStatus=fu-letter-after-call-2&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/wat3/victim?vclStatus=letter-after-call-attempt-2&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+    {% elif (data['vclCallAttempt'] == "3") %}
+    {% if (data['vclVictimInformed3'] == "Yes") %}
+    <a href="/delivery/wat3/victim?vclStatus=fu-letter-after-call-3&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% else %}
+    <a href="/delivery/wat3/victim?vclStatus=letter-after-call-attempt-3&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+    {% endif %}
+    {% elif (data['pmoc'] == "post") %}
+
+    <a href="/delivery/wat3/victim?vclStatus=letter-dispatched&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    <!-- {% if (data['vclCallAttempt'] == "") %}
+    <a href="/delivery/wat3/victim?vclStatus=email-delivered&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['vclCallAttempt'] == "1") %}
+    <a href="/delivery/wat3/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% elif (data['vclCallAttempt'] == "2") %}
+    <a href="/delivery/wat3/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+    {% endif %} -->
+    {% else %}
+    <a href="/delivery/wat3/victim?vclStatus=letter-dispatched&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

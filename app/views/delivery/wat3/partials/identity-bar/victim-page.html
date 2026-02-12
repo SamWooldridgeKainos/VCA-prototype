@@ -1,0 +1,27 @@
+{% block content %}
+<div class="app-identity-bar">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <h1 class="govuk-heading-s govuk-!-margin-right-2 govuk-!-margin-bottom-0" style="display: inline-block">
+          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </h1>
+        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
+        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
+          Vulnerable
+        </strong>
+        <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
+          Intimidated
+        </strong>
+      </span>
+    </div>
+    <div class="app-identity-bar__actions">
+      <div class="app-identity-bar__menu">
+        <a href="/delivery/wat3/victim/new-task/task-selection" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-module="govuk-button" data-govuk-button-init="">
+          Create task
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

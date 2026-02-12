@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred method of contact" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/check-details/pmoc-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred method of contact?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-home-phone" name="pmoc" value="Home phone" data-value="home-phone" {{ checked('pmoc','Home phone') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-home-phone">
+                Home phone
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-mobile" name="pmoc" value="Mobile" data-value="mobile" {{ checked('pmoc','Mobile') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-mobile">
+                Mobile
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-email" name="pmoc" value="Email" data-value="email" {{ checked('pmoc','Email') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-post" name="pmoc" value="Post" data-value="post" {{ checked('pmoc','Post') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-post">
+                Post
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-via-police" name="pmoc" value="Via police" data-value="via-police" {{ checked('pmoc','Via police') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-via-police">
+                Via police
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-method-of-contact-via-isva" name="pmoc" value="Via ISVA" data-value="via-isva" {{ checked('pmoc','Via ISVA') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-method-of-contact-via-isva">
+                Via independent sexual violence adviser (ISVA)
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat3/check-details/pmoc.js"></script>
+{% endblock %}

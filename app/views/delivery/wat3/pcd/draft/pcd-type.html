@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Pre-charge decision type" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/pcd/draft/pcd-type-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        What do you need to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} about?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="pcd-type-dtc" name="pcdType" value="dtc" {{ checked('pcdType','dtc') }}>
+                        <label class="govuk-label govuk-radios__label" for="pcd-type-dtc">
+                            Decision to charge
+                        </label>
+                    </div>
+
+                    <!-- <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="charging-decision-mixed-charges" name="decisionType" value="mixed-charges" {{ checked('decisionType','mixed-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="charging-decision-mixed-charges">
+                            Mixed charges
+                        </label>
+                    </div> -->
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="pcd-type-nfa" name="pcdType" value="nfa" {{ checked('pcdType','nfa') }}>
+                        <label class="govuk-label govuk-radios__label" for="pcd-type-nfa">
+                            No further action
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/nfa/draft/pcd-type.js"></script>
+{% endblock %}
