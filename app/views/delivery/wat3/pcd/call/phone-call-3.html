@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -17,13 +18,13 @@
 
             <h1 class="govuk-heading-l">Telephone call 3</h1>
 
-            <div class="govuk-warning-text">
+            <!-- <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong class="govuk-warning-text__text">
                     <span class="govuk-visually-hidden">Warning</span>
                     Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
                 </strong>
-            </div>
+            </div> -->
 
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="phone-call-date-3">
@@ -148,11 +149,10 @@
             </div>
 
             <button type="submit" class="govuk-button" data-module="govuk-button">
-                Continue
+                Save and continue
             </button>
         </form>
     </div>
-    {% include "/delivery/wat3/pcd/call/call-support.html" %}
 </div>
 {% endblock %}
 

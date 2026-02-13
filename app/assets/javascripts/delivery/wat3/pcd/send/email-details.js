@@ -2,26 +2,26 @@
 function validateForm() {
 
   $('#error-form-group-1').removeClass('govuk-form-group--error');
-  $('#letter-dispatch-date').removeClass('govuk-input--error');
+  $('#email-dispatch-date').removeClass('govuk-input--error');
   $('#error-message-1').remove();
   $('#error-message-1').html('');
   $('#error-summary').remove();
   $('#error-summary-list').html('');
   $('#error-list-item-1').html('');
 
-  var letterDispatchDate = document.forms["myForm"]["letter-dispatch-date"].value;
+  var emailDispatchDate = document.forms["myForm"]["email-dispatch-date"].value;
 
-  if (letterDispatchDate == "" || letterDispatchDate == null) {
+  if (emailDispatchDate == "" || emailDispatchDate == null) {
     // Error form group styling
     $('#error-form-group-1').addClass('govuk-form-group--error');
 
     // Error message
-    $('#letter-dispatch-date-picker').before(
+    $('#email-dispatch-date-picker').before(
       '<p class="govuk-error-message" id="error-message-1"><span class="govuk-visually-hidden">Error:</span> Select or enter the date sent</p>'
     );
 
     // Error input field styling
-    $('#letter-dispatch-date').addClass('govuk-input--error');
+    $('#email-dispatch-date').addClass('govuk-input--error');
 
     // Error summary
     $('#myForm').before(

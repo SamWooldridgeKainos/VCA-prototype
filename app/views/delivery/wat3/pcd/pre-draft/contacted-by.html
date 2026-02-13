@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+{% set pageName="How did you contact the victim?" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/pcd/pre-draft/contacted-by-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How did you contact {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-telephone" name="contactedBy" value="call" {{ checked('contactedBy','call') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-telephone">
+                Telephone call
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-email" name="contactedBy" value="email" {{ checked('contactedBy','email') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-post" name="contactedBy" value="post" {{ checked('contactedBy','post') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-post">
+                Post
+              </label>
+            </div>
+
+            <!-- <div class="govuk-radios__divider">or</div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-not-contacted" name="contactedBy" value="not-contacted" {{ checked('contactedBy','not-contacted') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-not-contacted">
+                No contact was possible
+              </label>
+            </div> -->
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat3/pcd/pre-draft/contacted-by.js"></script>
+{% endblock %}

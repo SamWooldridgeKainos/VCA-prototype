@@ -3,8 +3,8 @@
     {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}.
 </p>
 
-<a href="/delivery/wat3/vcl/pre-draft/check-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Check details<span class="govuk-visually-hidden"> before informing about the stopped charge or substantially altered charge</span>
+<a href="/delivery/wat3/pcd/call/was-text-message-sent" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Log text message details<span class="govuk-visually-hidden"> to inform about the {{ data['pcdType'] }}</span>
 </a>
 
 {% endblock %}

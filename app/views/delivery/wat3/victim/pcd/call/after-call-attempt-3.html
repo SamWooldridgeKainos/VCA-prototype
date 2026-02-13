@@ -1,6 +1,6 @@
 {% block content %}
 <p class="govuk-body">
-  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}.
 </p>
 
 {% include "/delivery/wat3/victim/pcd/details/call-attempt-3.html" %}
@@ -25,7 +25,7 @@
 </p>
 
 <!-- <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+    Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a> -->
 
 <p class="govuk-body">
@@ -33,6 +33,6 @@
 </p>
 
 <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 {% endblock %}

@@ -22,7 +22,7 @@
 </p>
 
 <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 
 {% else %}
@@ -52,7 +52,7 @@
 </p>
 
 <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+    Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 {% endif %}
 {% endblock %}

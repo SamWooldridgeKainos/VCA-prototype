@@ -1,6 +1,6 @@
 {% block content %}
 <p class="govuk-body">
-  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+  {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}.
 </p>
 
 {% include "/delivery/wat3/victim/pcd/details/call-attempt-1.html" %}
@@ -13,11 +13,11 @@
 
 {% if (data['pcdSecondCallHour']) == "" %}
 <a href="/delivery/wat3/pcd/call/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-  Log a text message<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+  Log a text message<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 {% else %}
 <a href="/delivery/wat3/pcd/call/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-  Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+  Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 {% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 {% block content %}
 <p class="govuk-body">
-    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}.
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}.
 </p>
 
 {% if (data['pcdCallAttempt'] == "1") %}
@@ -53,7 +53,7 @@
 
 {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
 <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+    Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 
 {% else %}
@@ -78,7 +78,7 @@
 
   {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
   <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-      Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
+      Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
   </a>
 
   {% else %}
