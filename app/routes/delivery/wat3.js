@@ -156,7 +156,22 @@ module.exports = router => {
 
     router.get('/delivery/wat3/pcd/pre-draft/check-details-answer', function(request, response) {
 
-        response.redirect("/delivery/wat3/pcd/draft/compose-letter?pcdStatus=draft-in-progress")
+        response.redirect("/delivery/wat3/pcd/pre-draft/contacted-by?pcdStatus=log-not-started")
+    })
+
+    router.post('/delivery/wat3/pcd/pre-draft/contacted-by-answer', function(request, response) {
+
+        var contactedBy = request.session.data['contactedBy']
+
+        if (contactedBy == "call") {
+            response.redirect("/delivery/wat3/pcd/call/phone-call-1")
+        } else if (contactedBy == "email") {
+            response.redirect("/delivery/wat3/pcd/send/email-details")
+        } else if (contactedBy == "post") {
+            response.redirect("/delivery/wat3/pcd/send/letter-details")
+        } else {
+            response.redirect("/delivery/wat3/pcd/pre-draft/contact-details?contactMethod=other")
+        }
     })
 
     router.post('/delivery/wat3/pcd/draft/cd-modal/request-review-answer', function(request, response) {
@@ -169,9 +184,9 @@ module.exports = router => {
         var pcdVictimInformed1 = request.session.data['pcdVictimInformed1']
 
         if (pcdVictimInformed1 == "Yes"){
-            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdCallAttempt=1&success=yes&successReason=informed-after-call-1")
+            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=1&success=yes&successReason=informed-after-call-1")
         } else {
-            response.redirect("/delivery/wat3/pcd/call/was-text-message-sent?pcdCallAttempt=1&success=yes&successReason=not-informed-after-call-1")
+            response.redirect("/delivery/wat3/pcd/call/was-text-message-sent?pcdStatus=before-text-logged&pcdCallAttempt=1&success=yes&successReason=not-informed-after-call-1")
         }
     })
 
@@ -205,15 +220,15 @@ module.exports = router => {
 
         } else if (pcdAttemptToContactAgain == "email") {
             if (pcdCallAttempt == "1") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
             } else if (pcdCallAttempt == "2") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
             } else {
-                response.redirect("/delivery/wat3/victim?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
             }
             
         } else {
-            response.redirect("/delivery/wat3/victim?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=post&secondaryNav=pcd")
+            response.redirect("/delivery/wat3/pcd/send/letter-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=post&secondaryNav=pcd")
         }
     })
 
@@ -221,7 +236,7 @@ module.exports = router => {
 
         var pcdVictimInformed2 = request.session.data['pcdVictimInformed2']
         if (pcdVictimInformed2 == "Yes"){
-            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdCallAttempt=2&success=yes&successReason=informed-after-call-2")
+            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=2&success=yes&successReason=informed-after-call-2")
         } else {
             response.redirect("/delivery/wat3/victim?pcdStatus=after-call-attempt-2&pcdCallAttempt=2&success=yes&successReason=not-informed-after-call-2&secondaryNav=pcd")
         }
@@ -234,20 +249,20 @@ module.exports = router => {
 
         if (pcdFumoc == "Email"){
             if (pcdCallAttempt == "1") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-1&pcdFumoc=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=informed-after-call-1&pcdFumoc=email&secondaryNav=pcd")
             } else if (pcdCallAttempt == "2") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-2&pcdFumoc=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=informed-after-call-2&pcdFumoc=email&secondaryNav=pcd")
             } else {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-3&pcdFumoc=email&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/email-details?pcdStatus=informed-after-call-3&pcdFumoc=email&secondaryNav=pcd")
             }
 
         } else if (pcdFumoc == "Post") {
             if (pcdCallAttempt == "1") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-1&pcdFumoc=post&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/letter-details?pcdStatus=informed-after-call-1&pcdFumoc=post&secondaryNav=pcd")
             } else if (pcdCallAttempt == "2") {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-2&pcdFumoc=post&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/letter-details?pcdStatus=informed-after-call-2&pcdFumoc=post&secondaryNav=pcd")
             } else {
-                response.redirect("/delivery/wat3/victim?pcdStatus=informed-after-call-3&pcdFumoc=post&secondaryNav=pcd")
+                response.redirect("/delivery/wat3/pcd/send/letter-details?pcdStatus=informed-after-call-3&pcdFumoc=post&secondaryNav=pcd")
             }
 
         } else {
@@ -266,26 +281,15 @@ module.exports = router => {
         var pcdVictimInformed3 = request.session.data['pcdVictimInformed3']
 
         if (pcdVictimInformed3 == "Yes"){
-            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdCallAttempt=3&success=yes&successReason=informed-after-call-3")
+            response.redirect("/delivery/wat3/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=3&success=yes&successReason=informed-after-call-3")
         } else {
             response.redirect("/delivery/wat3/victim?pcdStatus=after-call-attempt-3&pcdCallAttempt=3&success=yes&successReason=not-informed-after-call-3&secondaryNav=pcd")
         }
     })
 
-    router.post('/delivery/wat3/pcd/send/check-email-details-answer', function(request, response) {
+    router.post('/delivery/wat3/pcd/send/email-details-answer', function(request, response) {
 
-        var sendEmailNow = request.session.data['sendEmailNow']
-
-        if (sendEmailNow == "Yes"){
-            response.redirect("/delivery/wat3/pcd/send/delivered")
-        } else {
-            response.redirect("/delivery/wat3/victim?pcdStatus=approved-to-send&pmoc=mobile&pcdFumoc=email&secondaryNav=pcd")
-        }
-    })
-
-    router.post('/delivery/wat3/pcd/send/check-letter-details-answer', function(request, response) {
-
-        response.redirect("/delivery/wat3/pcd/send/letter-added-to-print-queue")
+        response.redirect("/delivery/wat3/pcd/send/email-logged")
     })
 
     router.post('/delivery/wat3/pcd/send/letter-details-answer', function(request, response) {

@@ -1,0 +1,47 @@
+{% block content %}
+{% if (data['pcdCallAttempt'] == "1") %}
+    {% include "/delivery/wat3/victim/pcd/details/call-attempt-1.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+{% elif (data['pcdCallAttempt'] == "2") %}
+
+    {% include "/delivery/wat3/victim/pcd/details/call-attempt-2.html" %}
+
+    <details class="govuk-details">
+        <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+            Previous contact attempts
+            </span>
+        </summary>
+        <div class="govuk-details__text">
+            {% include "/delivery/wat3/victim/pcd/details/call-attempt-1.html" %}
+        </div>
+    </details>
+
+{% elif (data['pcdCallAttempt'] == "3") %}
+
+    {% include "/delivery/wat3/victim/pcd/details/call-attempt-3.html" %}
+
+    <details class="govuk-details">
+        <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+            Previous contact attempts
+            </span>
+        </summary>
+        <div class="govuk-details__text">
+            {% include "/delivery/wat3/victim/pcd/details/call-attempt-2.html" %}
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            {% include "/delivery/wat3/victim/pcd/details/call-attempt-1.html" %}
+        </div>
+    </details>
+    
+{% endif %}
+
+<a href="/delivery/wat3/pcd/call/was-text-message-sent" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Select letter dispatch method<span class="govuk-visually-hidden"> to inform about the {{ data['pcdType'] }}</span>
+</a>
+
+{% endblock %}

@@ -1,0 +1,270 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check the details before drafting the letter" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        {% if (data['successNotification'] == "yes") and (data['onboardedStatus'] == "Yes")  %}
+            <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                        Success
+                    </h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    {% if data['detailChange'] == "no" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} and allocated them to the {{ data['serviceLead'] }} service. 
+                    </h3>
+                    {% elif data['detailChange'] == "service-lead" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to the {{ data['serviceLead'] }} service. 
+                    </h3>
+                    {% elif data['detailChange'] == "case-type" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the charging type for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['caseType'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "risk-level" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the domestic abuse risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "pmoc" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-correspondence-language" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredCorrespondenceLanguage'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "translator-needed" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the translator needed status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['translatorNeeded'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-contact-times" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred contact times for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredContactTimes'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-name" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred name for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredName'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "vps-status" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
+                    </h3>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <h1 class="govuk-heading-l">
+            Check the details for {{ data['victimForename'] }} {{ data['victimSurname'] }}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Service lead
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['serviceLead'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/service-lead?successNotification&detailChange=service-lead">
+                        Change<span class="govuk-visually-hidden"> service lead</span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Charging type
+                </dt>
+                {% if data['caseType'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['caseType'] | capitalize }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/case-type?successNotification&detailChange=case-type">
+                            Change<span class="govuk-visually-hidden"> charging type</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Domestic abuse risk level
+                </dt>
+                {% if data['riskLevel'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['riskLevel'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/risk-level?successNotification&detailChange=risk-level">
+                            Change<span class="govuk-visually-hidden"> domestic abuse risk level</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/risk-level?successNotification&detailChange=risk-level" class="govuk-link govuk-link--no-visited-state">
+                            Select domestic abuse risk level
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred method of contact
+                </dt>
+                {% if data['pmoc'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['pmoc'] | capitalize }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/pmoc?successNotification&detailChange=pmoc">
+                            Change<span class="govuk-visually-hidden"> preferred method of contact</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/pmoc?successNotification&detailChange=pmoc" class="govuk-link govuk-link--no-visited-state">
+                            Select preferred method of contact
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred correspondence language
+                </dt>
+                {% if data['preferredCorrespondenceLanguage'] == "English" or data['preferredCorrespondenceLanguage'] == "Welsh" %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['preferredCorrespondenceLanguage'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language">
+                            Change<span class="govuk-visually-hidden"> preferred correspondence language</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language" class="govuk-link govuk-link--no-visited-state">
+                            Select preferred correspondence language
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Translator needed
+                </dt>
+                {% if data['translatorNeeded'] == "Yes" or data['translatorNeeded'] == "No" %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['translatorNeeded'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/translator-needed?successNotification&detailChange=translator-needed">
+                            Change<span class="govuk-visually-hidden"> if translator needed</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/translator-needed?successNotification&detailChange=translator-needed" class="govuk-link govuk-link--no-visited-state">
+                            Select if translator needed
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred contact times
+                </dt>
+                {% if data['preferredContactTimes'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['preferredContactTimes'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times">
+                            Change<span class="govuk-visually-hidden"> preferred contact times</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times" class="govuk-link govuk-link--no-visited-state">
+                            Enter preferred contact times
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred name
+                </dt>
+                {% if data['preferredName'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['preferredName'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/preferred-name?successNotification&detailChange=preferred-name">
+                            Change<span class="govuk-visually-hidden"> preferred name</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/pcd/pre-draft/check-details/preferred-name?successNotification&detailChange=preferred-name" class="govuk-link govuk-link--no-visited-state">
+                            Enter preferred name
+                        </a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Victim Personal Statement status
+                </dt>
+                {% if data['vpsStatus'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['vpsStatus'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/pcd/pre-draft/check-details/vps-status?successNotification&detailChange=vps-status">
+                            Change<span class="govuk-visually-hidden"> Victim Personal Statement status</span>
+                        </a>
+                    </dd>
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                    <a href="/delivery/wat3/pcd/pre-draft/check-details/vps-status?successNotification&detailChange=vps-status" class="govuk-link govuk-link--no-visited-state">
+                        Select Victim Personal Statement status
+                    </a>
+                </dd>
+                {% endif %}
+            </div>
+        </dl>
+        <h2 class="govuk-heading-m">
+            Now confirm their details
+        </h2>
+        <p class="govuk-body">
+            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+        </p>
+        <form action="/delivery/wat3/pcd/pre-draft/check-details-answer" method="post" novalidate>
+            <input type="hidden" name="answers-checked" value="true">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Confirm details
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

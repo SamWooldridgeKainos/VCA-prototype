@@ -1,11 +1,12 @@
 {% extends "layouts/main.html" %}
-{% set pageName="Letter details" %}
+{% set pageName="Email details" %}
 
 {% block header %}
 {% include "/delivery/wat3/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -13,36 +14,36 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
 
-        <form action="/delivery/wat3/pcd/send/letter-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
-            <h1 class="govuk-heading-l">Letter details</h1>
+        <form action="/delivery/wat3/pcd/send/email-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+            <h1 class="govuk-heading-l">Email details</h1>
             
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="date">
                     Date sent
                 </label>
 
-                <div class="govuk-hint" id="letter-dispatch-date-hint">
+                <div class="govuk-hint" id="email-dispatch-date-hint">
                     Use the date picker or enter a date. For example, 17/05/2025
                 </div>
 
-                <div class="moj-datepicker" id="letter-dispatch-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+                <div class="moj-datepicker" id="email-dispatch-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
         
-                    <input type="text" class="govuk-input moj-js-datepicker-input" id="letter-dispatch-date"
-                        name="letterDispatchDate"
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="email-dispatch-date"
+                        name="emailDispatchDate"
                         autocomplete="off"
-                        aria-describedby="letter-dispatch-date-hint"
-                        value="{{ data['letterDispatchDate'] }}" />
+                        aria-describedby="email-dispatch-date-hint"
+                        value="{{ data['emailDispatchDate'] }}" />
                 </div>
             </div>
 
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--m" for="letter-dispatch-notes">
+                    <label class="govuk-label govuk-label--m" for="email-dispatch-notes">
                         Notes (optional)
                     </label>
                 </h1>
 
-                <textarea class="govuk-textarea" id="letter-dispatch-notes" name="letterDispatchNotes" rows="4"></textarea>
+                <textarea class="govuk-textarea" id="email-dispatch-notes" name="emailDispatchNotes" rows="4"></textarea>
             </div>
 
             <button type="submit" class="govuk-button" data-module="govuk-button">
@@ -54,5 +55,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/delivery/wat3/pcd/send/letter-details.js"></script>
+<script src="/public/javascripts/delivery/wat3/pcd/send/email-details.js"></script>
 {% endblock %}

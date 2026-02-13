@@ -18,7 +18,7 @@
     </div>
 
     <p class="govuk-body">
-      The {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %} letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+      The {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %} letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
     </p>
 
     <!-- <p class="govuk-body">
@@ -27,73 +27,52 @@
 
     <h2 class="govuk-heading-m">Further information</h2>
 
-    <p class="govuk-body">
-      You can view the logged letter on the 'Pre-charge decision' tab of the victim's page, within the Victim Case Application.
-    </p>
+    <!-- <p class="govuk-body">
+      You can view the logged letter on the 'Charging decision' tab of the victim's page, within the Victim Case Application.
+    </p> -->
 
     <p class="govuk-body">
       The letter was automatically saved to CMS.
     </p>
 
-    {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
+    {% if (data['contactedBy'] == "call") %}
 
-    {% if (data['pcdCallAttempt'] == "1") %}
-    {% if (data['pcdVictimInformed1'] == "Yes") %}
-    <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-1&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
+      {% if (data['pcdCallAttempt'] == "1") %}
+        {% if (data['pcdVictimInformed1'] == "Yes") %}
+        <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+
+      {% elif (data['pcdCallAttempt'] == "2") %}
+        {% if (data['pcdVictimInformed2'] == "Yes") %}
+        <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+
+      {% elif (data['pcdCallAttempt'] == "3") %}
+        {% if (data['pcdVictimInformed3'] == "Yes") %}
+        <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+      {% endif %}
+
     {% else %}
-    <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-1&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-    {% endif %}
-
-    {% elif (data['pcdCallAttempt'] == "2") %}
-    {% if (data['pcdVictimInformed2'] == "Yes") %}
-    <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-2&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-    {% else %}
-    <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-2&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-    {% endif %}
-
-    {% elif (data['pcdCallAttempt'] == "3") %}
-    {% if (data['pcdVictimInformed3'] == "Yes") %}
-    <a href="/delivery/wat3/victim?pcdStatus=fu-letter-after-call-3&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-    {% else %}
-    <a href="/delivery/wat3/victim?pcdStatus=letter-after-call-attempt-3&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-    {% endif %}
-    {% endif %}
-    {% elif (data['pmoc'] == "post") %}
-
-    <a href="/delivery/wat3/victim?pcdStatus=letter-dispatched&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-
-    <!-- {% if (data['pcdCallAttempt'] == "") %}
-    <a href="/delivery/wat3/victim?pcdStatus=email-delivered&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-
-    {% elif (data['pcdCallAttempt'] == "1") %}
-    <a href="/delivery/wat3/victim?pcdStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-
-    {% elif (data['pcdCallAttempt'] == "2") %}
-    <a href="/delivery/wat3/victim?pcdStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
-
-    {% endif %} -->
-    {% else %}
-    <a href="/delivery/wat3/victim?pcdStatus=letter-dispatched&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/delivery/wat3/victim?pcdStatus=letter-dispatched&pcdSent=yes&success=no&secondaryNav=pcd&nextTask" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}

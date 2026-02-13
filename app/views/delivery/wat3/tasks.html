@@ -656,8 +656,7 @@
       </dl>
     </div>
     
-    {% if ((data['pcdStatus'] == "draft-under-review") or (data['pcdStatus'] == "ineligible") or (data['pcdSent'] == "yes")) %}
-      
+    {% if (data['pcdSent'] == "yes") or (data['pcdFumoc'] == "None") %}
     {% else %}
       <div class="govuk-!-margin-bottom-9">
         <dl class="govuk-summary-list">
@@ -720,46 +719,24 @@
               Next action
             </dt>
             <dd class="govuk-summary-list__value">
-              {% if (data['pcdStatus'] == "check-eligibility") %}
-                <a href="/delivery/wat3/pcd/pre-draft/check-eligibility" class="govuk-link govuk-link--no-visited-state">Check eligibility</a>
-              {% elif (data['pcdStatus'] == "check-details") %}
+              {% if (data['pcdStatus'] == "check-details") %}
                 <a href="/delivery/wat3/pcd/pre-draft/check-details" class="govuk-link govuk-link--no-visited-state">Check details</a>
-              {% elif (data['pcdStatus'] == "draft-not-started") %}
-                <a href="/delivery/wat3/pcd/draft/pcd-type" class="govuk-link govuk-link--no-visited-state">Draft letter</a>
-              {% elif (data['pcdStatus'] == "draft-in-progress") %}
-                <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Continue draft</a>
-              {% elif (data['pcdStatus'] == "draft-amendments-required") %}
-                <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Amend draft</a>
-              {% elif (data['pcdStatus'] == "before-call-1") %}
-                <a href="/delivery/wat3/pcd/call/phone-call-1" class="govuk-link govuk-link--no-visited-state">View letter and make call</a>
+              {% elif (data['pcdStatus'] == "log-not-started") %}
+                <a href="/delivery/wat3/pcd/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log an attempt</a>
+              {% elif (data['pcdStatus'] == "before-text-logged") %}
+                <a href="/delivery/wat3/pcd/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
               {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
-                <a href="/delivery/wat3/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another call</a>
+                <a href="/delivery/wat3/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
               {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
-                <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
+                <a href="/delivery/wat3/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
+              {% elif (data['pcdStatus'] == "select-fumoc") %}
+                <a href="/delivery/wat3/pcd/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
               {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
-                {% if (data['pcdFumoc'] == "email") or (data['pcdFumoc'] == "post") %}
-                  <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
-                {% else %}
-                  <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send to CMS</a>
+                {% if (data['pcdFumoc'] == "email") %}
+                  <a href="/delivery/wat3/pcd/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
+                {% elif (data['pcdFumoc'] == "post") %}
+                  <a href="/delivery/wat3/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
                 {% endif %}
-              {% elif (data['pcdStatus'] == "draft-ready-to-send") %}
-                {% if (data['pmoc'] == "") %}
-                  <a href="/delivery/wat3/pcd/victim-details/preferred-method-of-contact" class="govuk-link govuk-link--no-visited-state">Select preferred method of contact</a>
-                {% else %}
-                  <a href="/delivery/wat3/pcd/draft/compose-letter" class="govuk-link govuk-link--no-visited-state">Review and send</a>
-                {% endif %}
-              {% elif (data['pcdStatus'] == "draft-approved-to-send") %}
-                {% if (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") or (data['pmoc'] == "email") %}
-                  <a href="/delivery/wat3/pcd/send/check-email-details" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
-                {% elif (data['pcdFumoc'] == "post") or (data['pcdAttemptToContactAgain'] == "post") or (data['pmoc'] == "post") %}
-                  <a href="/delivery/wat3/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log a letter</a>
-                {% elif (data['pmoc'] == "via-police") %}
-                  <a href="/delivery/wat3/pcd/send/check-email-details?recipient=oic" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
-                {% elif (data['pmoc'] == "via-isva") %}
-                  <a href="/delivery/wat3/pcd/send/check-email-details?recipient=isva" class="govuk-link govuk-link--no-visited-state">Check details before sending</a>
-                {% endif %}
-              {% else %}
-                <p class="govuk-body">No tasks!!</p>
               {% endif %}
             </dd>
           </div>

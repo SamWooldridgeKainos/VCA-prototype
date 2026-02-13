@@ -15,13 +15,13 @@
     </div>
 
     <p class="govuk-body">
-      Your letter to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} ({{ data['victimEmailAddress'] }}) of the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %} is approved to send.
+      Your letter to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} ({{ data['victimEmailAddress'] }}) of the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %} is approved to send.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
     <p class="govuk-body">
-      You can now send an email or add a letter to the print queue from the 'Pre-charge decision' tab of the victim's page, within the Victim Case Application.
+      You can now send an email or add a letter to the print queue from the 'Charging decision' tab of the victim's page, within the Victim Case Application.
     </p>
 
     <a href="/delivery/wat3/victim?pcdStatus=draft-approved-to-send&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">

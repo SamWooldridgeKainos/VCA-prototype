@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -20,7 +21,7 @@
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        How does {{ data['victimForename'] }} {{ data['victimSurname'] }} want to receive the letter?
+                        How did {{ data['victimForename'] }} {{ data['victimSurname'] }} want to receive the letter?
                     </h1>
                 </legend>
 
@@ -45,7 +46,7 @@
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="follow-up-method-of-contact-none" name="pcdFumoc" value="None" {{ checked('pcdFumoc','None') }} data-aria-controls="conditional-pcdFumoc-none">
                         <label class="govuk-label govuk-radios__label" for="follow-up-method-of-contact-none">
-                            They do not want a letter
+                            They did not want a letter
                         </label>
                     </div>
 
