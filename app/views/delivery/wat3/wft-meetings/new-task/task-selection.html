@@ -1,0 +1,116 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Task selection" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/wft-meetings/new-task/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        What task do you want to create for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-dtc" name="nextTask" value="Inform of a decision to charge" data-value="dtc" {{ checked('nextTask','Inform of a decision to charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-dtc">
+                            Inform of a decision to charge
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-nfa" name="nextTask" value="Inform of a no further action decision" data-value="nfa" {{ checked('nextTask','Inform of a no further action decision') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-nfa">
+                            Inform of a no further action decision
+                        </label>
+                    </div>
+
+                    <!-- <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="Inform of mixed charges" data-value="mixed-charges" {{ checked('nextTask','Inform of mixed charges') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
+                            Inform of mixed charges
+                        </label>
+                    </div> -->
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="Inform of a stopped charge" data-value="stopped-charge" {{ checked('nextTask','Inform of a stopped charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-stopped-charge">
+                            Inform of a stopped charge
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-altered-charge" name="nextTask" value="Inform of a substantially altered charge" data-value="altered-charge" {{ checked('nextTask','Inform of a substantially altered charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-altered-charge">
+                            Inform of a substantially altered charge
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-ptm" name="nextTask" value="Log offered meeting" data-value="ptm" {{ checked('nextTask','Log offered meeting') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-ptm">
+                            Log offered meeting
+                        </label>
+                    </div>
+
+                      <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-ptm" name="nextTask" value="Log arranged meeting" data-value="ptm" {{ checked('nextTask','Log arranged meeting') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-ptm">
+                            Log arranged meeting
+                        </label>
+                    </div>
+
+  <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-ptm" name="nextTask" value="Log meeting outcome" data-value="ptm" {{ checked('nextTask','Log meeting outcome') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-ptm">
+                            Log meeting outcome
+                        </label>
+                    </div>
+
+                    <!-- <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-bfs-meeting" name="nextTask" value="Arrange a Bereaved Family Scheme meeting" data-value="bfs-meeting" {{ checked('nextTask','Arrange a Bereaved Family Scheme meeting') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-bfs-meeting">
+                            Arrange a Bereaved Family Scheme meeting
+                        </label>
+                    </div> -->
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="next-task-other" name="nextTask" value="Other" data-value="other" {{ checked('nextTask','Other') }}>
+                        <label class="govuk-label govuk-radios__label" for="next-task-other">
+                            Another task (not listed)
+                        </label>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat3/onb/next-task.js"></script>
+{% endblock %}

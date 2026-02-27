@@ -1,0 +1,174 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check the task details are correct" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">
+            Check the task details
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Taskf
+                </dt>
+                {% if data['nextTask'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['nextTask'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-selection">
+                            Change<span class="govuk-visually-hidden"> next task</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/victim/new-task/task-selection" class="govuk-link govuk-link--no-visited-state">Select next task</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                 Purpose
+                </dt>
+             
+                    <dd class="govuk-summary-list__value">
+                    CPS pre-trial meeting
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-selection">
+                            Change<span class="govuk-visually-hidden"> next task</span>
+                        </a>
+                    </dd>
+           
+                   
+           
+            </div>
+            {% if data['manualTask'] == "yes" %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Task name
+                    </dt>
+                    {% if data['taskName'] %}
+                        <dd class="govuk-summary-list__value">
+                            {{ data['taskName'] }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/manual-task">
+                                Change<span class="govuk-visually-hidden"> task name</span>
+                            </a>
+                        </dd>
+                    {% else %}
+                        <dd class="govuk-summary-list__value">
+                            <a href="/delivery/wat3/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter task name</a>
+                        </dd>
+                    {% endif %}
+                </div>
+
+
+                  <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Purpose
+                </dt>
+         
+                    <dd class="govuk-summary-list__value">
+                      CPS pre-trial meeting
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-selection">
+                            Change<span class="govuk-visually-hidden"> next task</span>
+                        </a>
+                    </dd>
+              
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/victim/new-task/task-selection" class="govuk-link govuk-link--no-visited-state">Select next task</a>
+                    </dd>
+             
+            </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    {% if data['taskDueDate'] %}
+                        <dd class="govuk-summary-list__value">
+                            {{ data['taskDueDate'] | formatDate }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/manual-task">
+                                Change<span class="govuk-visually-hidden"> task due date</span>
+                            </a>
+                        </dd>
+                    {% else %}
+                        <dd class="govuk-summary-list__value">
+                            <a href="/delivery/wat3/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
+                        </dd>
+                    {% endif %}
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Note
+                    </dt>
+                    {% if data['taskNote'] == "" %}
+                        <dd class="govuk-summary-list__value">
+                            <a href="/delivery/wat3/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter note</a>
+                        </dd>
+                    {% else %}
+                        <dd class="govuk-summary-list__value">
+                            {{ data['taskNote'] | nl2br }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/manual-task">
+                                Change<span class="govuk-visually-hidden"> task note</span>
+                            </a>
+                        </dd>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    {% if data['taskDueDate'] %}
+                        <dd class="govuk-summary-list__value">
+                            {{ data['taskDueDate'] | formatDate }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-due-date">
+                                Change<span class="govuk-visually-hidden"> task due date</span>
+                            </a>
+                        </dd>
+                    {% else %}
+                        <dd class="govuk-summary-list__value">
+                            <a href="/delivery/wat3/victim/new-task/task-due-date" class="govuk-link govuk-link--no-visited-state">Select task due date</a>
+                        </dd>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </dl>
+        <h2 class="govuk-heading-m">
+            Now confirm the details
+        </h2>
+        <p class="govuk-body">
+            After you confirm the details, a task for {{ data['victimForename'] }} {{ data['victimSurname'] }} will be created.
+        </p>
+        <form action="task-created" method="post" novalidate>
+            <input type="hidden" name="answers-checked" value="true">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Confirm and create
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -284,7 +284,7 @@ router.post('/did-victim-request2', function(request, response) {
 	if (meeting2 == "yes"){
 		response.redirect("/ur/meetings-2/meeting-date")
 	} else {
-		response.redirect("/ur/meetings-2/meeting-date")
+		response.redirect("/ur/meetings-2/choose-meeting")
 	}
 })
 

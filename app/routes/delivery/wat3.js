@@ -473,4 +473,35 @@ module.exports = router => {
         response.redirect("/delivery/wat3/victim?success=yes&successReason=pmoc-updated#victim-details")
     })
 
+
+     router.post('/delivery/wat3/wft-meetings/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "ptm") {
+            response.redirect("/delivery/wat3/onb/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/delivery/wat3/onb/check-task?manualTask=no")
+        } else {
+            response.redirect("/delivery/wat3/wft-meetings/new-task/purposet")
+        }
+    })
+
+   
+router.post('/delivery/wat3/wft-meetings/new-task/purposet-answer', function(request, response) {
+
+	var purposet = request.session.data['purposet']
+	if (purposet == "yes"){
+		response.redirect("/delivery/wat3/wft-meetings/new-task/task-due-date")
+	} else {
+		response.redirect("/delivery/wat3/wft-meetings/new-task/task-due-date")
+	}
+})
+
+  router.post('/delivery/wat3/wft-meetings/new-task/task-due-date-answer', function(request, response) {
+
+        response.redirect("/delivery/wat3/wft-meetings/new-task/check-task")
+    })
+
+
 }

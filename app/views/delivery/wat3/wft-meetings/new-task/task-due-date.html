@@ -1,0 +1,81 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Task due date" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat3/wft-meetings/new-task/task-due-date-answer" method="post">
+            
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="next-task-due-date">
+                        When is the task due?
+                    </label>
+                </h1>
+
+                <div class="govuk-hint" id="task-due-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="task-due-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="task-due-date"
+                        name="taskDueDate"
+                        autocomplete="off"
+                        aria-describedby="task-due-date-hint"
+                        value="{{ data['taskDueDate'] }}" />
+                </div>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Calculate today + 5 working days on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        var inputField = document.getElementById('task-due-date');
+        
+        // Only set default if no value is already present
+        if (!inputField.value) {
+            var targetDate = calculateWorkingDaysAhead(5);
+            inputField.value = formatDateForInput(targetDate);
+        }
+    });
+
+    function calculateWorkingDaysAhead(days) {
+        var date = new Date();
+        var count = 0;
+
+        while (count < days) {
+            date.setDate(date.getDate() + 1);
+            var dayOfWeek = date.getDay();
+            // 0 = Sunday, 6 = Saturday
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                count++;
+            }
+        }
+
+        return date;
+    }
+
+    function formatDateForInput(date) {
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return day + '/' + month + '/' + year;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,494 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Tasks" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/tasks-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+
+{% set assigneeName = data['taskAssignee'] | default('') %}
+{% set assigneeNameParts = assigneeName.split(', ') %}
+{% if assigneeNameParts | length == 2 %}
+  {% set assigneeLastname = assigneeNameParts[0] | capitalize %}
+  {% set assigneeFirstnameRaw = assigneeNameParts[1] %}
+  {% set assigneeFirstname = assigneeFirstnameRaw.split(' (')[0] %}
+  {% set assigneeFormatted = assigneeFirstname + ' ' + assigneeLastname %}
+{% else %}
+  {% set assigneeFormatted = assigneeName %}
+{% endif %}
+
+<div id="due-date-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task due date to {{ data['taskDueDate'] | formatDate }}.
+    </h3>
+  </div>
+</div>
+
+<div id="assignee-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title-assignee" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title-assignee">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task assignee to {{ assigneeFormatted }}.
+    </h3>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
+  </div>
+
+  <div class="govuk-grid-column-one-quarter">
+    <div class="tasks-filters">
+      <h2 class="govuk-heading-m">Search</h2>
+
+      <form id="filters-form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend id="task-assignee-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Task assignee
+            </legend>
+            <div class="govuk-form-group govuk-!-margin-bottom-2">
+              <div id="assignee-autocomplete"></div>
+            </div>
+            <ul id="task-assignee-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
+            <div id="task-assignee-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-1" name="taskAssignee" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)" checked>
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-1">THOMPSON, Sarah (you)</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-21" name="taskAssignee" type="checkbox" value="unassigned" data-label="Unassigned">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-21">Unassigned</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-2" name="taskAssignee" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-2">KUMAR, Priya</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-3" name="taskAssignee" type="checkbox" value="bishop-james" data-label="BISHOP, James">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-3">BISHOP, James</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-4" name="taskAssignee" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-4">MORRISON, Claire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-5" name="taskAssignee" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-5">HAYES, Michael</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-6" name="taskAssignee" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-6">ANDERSON, David</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-7" name="taskAssignee" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-7">WRIGHT, Hannah</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-8" name="taskAssignee" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-8">MARTINEZ, Carlos</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-9" name="taskAssignee" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-9">JOHNSON, Patricia</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-10" name="taskAssignee" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-10">CHEN, Michael</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-11" name="taskAssignee" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-11">PATEL, Ravi</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-12" name="taskAssignee" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-12">O'CONNELL, Siobhan</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-13" name="taskAssignee" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-13">THOMPSON, Robert</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-14" name="taskAssignee" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-14">GARCÍA, Luis</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-15" name="taskAssignee" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-15">HENDERSON, Louise</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-16" name="taskAssignee" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-16">WILLIAMS, Anna</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-17" name="taskAssignee" type="checkbox" value="stewart-james" data-label="STEWART, James">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-17">STEWART, James</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-18" name="taskAssignee" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-18">LEWIS, Elizabeth</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-19" name="taskAssignee" type="checkbox" value="walker-george" data-label="WALKER, George">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-19">WALKER, George</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-assignee-checkbox" id="task-assignee-20" name="taskAssignee" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
+                <label class="govuk-label govuk-checkboxes__label" for="task-assignee-20">CLARK, Victoria</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Service
+            </legend>
+            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
+                <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
+                <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
+                <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend id="area-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Area
+            </legend>
+            <div class="govuk-form-group govuk-!-margin-bottom-2">
+              <div id="area-autocomplete"></div>
+            </div>
+            <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            </ul>
+            <div id="area-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-1" name="area" type="checkbox" value="avon-somerset" data-label="Avon and Somerset">
+                <label class="govuk-label govuk-checkboxes__label" for="area-1">Avon and Somerset</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-2" name="area" type="checkbox" value="bedfordshire" data-label="Bedfordshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-2">Bedfordshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-3" name="area" type="checkbox" value="cambridgeshire" data-label="Cambridgeshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-3">Cambridgeshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-4" name="area" type="checkbox" value="cheshire" data-label="Cheshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-4">Cheshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-5" name="area" type="checkbox" value="cleveland" data-label="Cleveland">
+                <label class="govuk-label govuk-checkboxes__label" for="area-5">Cleveland</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-6" name="area" type="checkbox" value="cumbria" data-label="Cumbria">
+                <label class="govuk-label govuk-checkboxes__label" for="area-6">Cumbria</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-7" name="area" type="checkbox" value="devon-cornwall" data-label="Devon and Cornwall">
+                <label class="govuk-label govuk-checkboxes__label" for="area-7">Devon and Cornwall</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-8" name="area" type="checkbox" value="durham" data-label="Durham">
+                <label class="govuk-label govuk-checkboxes__label" for="area-8">Durham</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-9" name="area" type="checkbox" value="dyfed-powys" data-label="Dyfed Powys">
+                <label class="govuk-label govuk-checkboxes__label" for="area-9">Dyfed Powys</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-10" name="area" type="checkbox" value="essex" data-label="Essex">
+                <label class="govuk-label govuk-checkboxes__label" for="area-10">Essex</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-11" name="area" type="checkbox" value="gloucestershire" data-label="Gloucestershire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-11">Gloucestershire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-12" name="area" type="checkbox" value="greater-manchester" data-label="Greater Manchester">
+                <label class="govuk-label govuk-checkboxes__label" for="area-12">Greater Manchester</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-13" name="area" type="checkbox" value="gwent" data-label="Gwent">
+                <label class="govuk-label govuk-checkboxes__label" for="area-13">Gwent</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-14" name="area" type="checkbox" value="hampshire-iow" data-label="Hampshire and Isle of Wight">
+                <label class="govuk-label govuk-checkboxes__label" for="area-14">Hampshire and Isle of Wight</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-15" name="area" type="checkbox" value="hertfordshire" data-label="Hertfordshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-15">Hertfordshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-16" name="area" type="checkbox" value="hmcpsi" data-label="HMCPSI">
+                <label class="govuk-label govuk-checkboxes__label" for="area-16">HMCPSI</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-17" name="area" type="checkbox" value="humberside" data-label="Humberside">
+                <label class="govuk-label govuk-checkboxes__label" for="area-17">Humberside</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-18" name="area" type="checkbox" value="kent" data-label="Kent">
+                <label class="govuk-label govuk-checkboxes__label" for="area-18">Kent</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-19" name="area" type="checkbox" value="lancashire" data-label="Lancashire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-19">Lancashire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-20" name="area" type="checkbox" value="leatherhead" data-label="Leatherhead">
+                <label class="govuk-label govuk-checkboxes__label" for="area-20">Leatherhead</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-21" name="area" type="checkbox" value="leicestershire" data-label="Leicestershire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-21">Leicestershire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-22" name="area" type="checkbox" value="lincolnshire" data-label="Lincolnshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-22">Lincolnshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-23" name="area" type="checkbox" value="london" data-label="London">
+                <label class="govuk-label govuk-checkboxes__label" for="area-23">London</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-24" name="area" type="checkbox" value="merseyside" data-label="Merseyside">
+                <label class="govuk-label govuk-checkboxes__label" for="area-24">Merseyside</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-25" name="area" type="checkbox" value="norfolk" data-label="Norfolk">
+                <label class="govuk-label govuk-checkboxes__label" for="area-25">Norfolk</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-26" name="area" type="checkbox" value="north-wales" data-label="North Wales">
+                <label class="govuk-label govuk-checkboxes__label" for="area-26">North Wales</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-27" name="area" type="checkbox" value="north-yorkshire" data-label="North Yorkshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-27">North Yorkshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-28" name="area" type="checkbox" value="northamptonshire" data-label="Northamptonshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-28">Northamptonshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-29" name="area" type="checkbox" value="northumbria" data-label="Northumbria">
+                <label class="govuk-label govuk-checkboxes__label" for="area-29">Northumbria</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-30" name="area" type="checkbox" value="nottinghamshire" data-label="Nottinghamshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-30">Nottinghamshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-31" name="area" type="checkbox" value="rmu-area" data-label="Records Management Unit area">
+                <label class="govuk-label govuk-checkboxes__label" for="area-31">Records Management Unit area</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-32" name="area" type="checkbox" value="south-wales" data-label="South Wales">
+                <label class="govuk-label govuk-checkboxes__label" for="area-32">South Wales</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-33" name="area" type="checkbox" value="south-yorkshire" data-label="South Yorkshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-33">South Yorkshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-34" name="area" type="checkbox" value="stafford" data-label="Stafford">
+                <label class="govuk-label govuk-checkboxes__label" for="area-34">Stafford</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-35" name="area" type="checkbox" value="suffolk" data-label="Suffolk">
+                <label class="govuk-label govuk-checkboxes__label" for="area-35">Suffolk</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-36" name="area" type="checkbox" value="surrey" data-label="Surrey">
+                <label class="govuk-label govuk-checkboxes__label" for="area-36">Surrey</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-37" name="area" type="checkbox" value="sussex" data-label="Sussex">
+                <label class="govuk-label govuk-checkboxes__label" for="area-37">Sussex</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-38" name="area" type="checkbox" value="thames-valley" data-label="Thames Valley">
+                <label class="govuk-label govuk-checkboxes__label" for="area-38">Thames Valley</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-39" name="area" type="checkbox" value="warwickshire" data-label="Warwickshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-39">Warwickshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-40" name="area" type="checkbox" value="west-mercia" data-label="West Mercia">
+                <label class="govuk-label govuk-checkboxes__label" for="area-40">West Mercia</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-41" name="area" type="checkbox" value="west-midlands" data-label="West Midlands">
+                <label class="govuk-label govuk-checkboxes__label" for="area-41">West Midlands</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-42" name="area" type="checkbox" value="west-yorkshire" data-label="West Yorkshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-42">West Yorkshire</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input area-checkbox" id="area-43" name="area" type="checkbox" value="wiltshire" data-label="Wiltshire">
+                <label class="govuk-label govuk-checkboxes__label" for="area-43">Wiltshire</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Search
+        </button>
+
+        <p class="govuk-body" id="clear-filters-wrapper" style="display: none;">
+          <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/onb/tasks/clear-filters">Clear search</a>
+        </p>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+
+    <!-- <p class="govuk-!-font-size-16">
+      <b class="govuk-!-margin-right-1">Sort by:</b>
+      <span class="">Due date</span>
+      <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
+      <a href="?taskSort=Hearing date">Hearing date</a>
+      <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
+      <a href="?taskSort=PACE">Decision date</a>
+    </p> -->
+
+    <p class="govuk-body-s" id="results-count"></p>
+
+    <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Due date</p>
+
+    <hr id="results-divider" class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6">
+
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a href="#" class="govuk-link govuk-link--no-visited-state">PHILLIPS, Sarah</a>
+      </h2>
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log offered meeting</span>
+          </dd>
+        </div>
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Purpose
+          </dt>
+          <dd class="govuk-summary-list__value">
+          CPS pre-trial meeting
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+          13 November 2025
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="/ur/meetings/has-meeting-been-offered" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div> -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            London
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+      <a href="/ur/meetings/has-meeting-been-offered" class="govuk-link govuk-link--no-visited-state">Log offer</a>          </dd>
+        </div>
+      </dl>
+    </div>
+
+   
+   
+    
+    
+
+
+  
+
+
+
+   
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/delivery/wat3/tasks.js"></script>
+{% endblock %}

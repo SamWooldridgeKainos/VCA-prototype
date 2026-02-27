@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Victim onboarded" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <!-- <h1 class="govuk-panel__title">
+        {% if data['nextTask'] == "No task at this time" %}Onboarding complete{% else %}Task created{% endif %}
+      </h1> -->
+      <h1 class="govuk-panel__title">
+        Task created
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      You created a task {% if data['manualTask'] == "yes" %}of '{{ data['taskName'] }}'{% else %}to {{ data['nextTask'] | lower }}{% endif %} due {{ data['taskDueDate'] | formatDate }}.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    
+    <p class="govuk-body">
+      {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a Victim Liaison Officer.
+    </p>
+
+    <a href="../tasks" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

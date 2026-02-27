@@ -1,0 +1,94 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Task selection" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/delivery/wat3/wft-meetings/new-task/purposet-answer" method="post">
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+          {% set emailHtml %}
+      {{ govukTextarea({
+        id: "contact-by-email",
+        name: "contactByEmail",
+        type: "text",
+        autocomplete: "email",
+        spellcheck: false,
+        classes: "govuk-input--width-20",
+        label: {
+          text: "Provide details"
+        }
+      }) }}
+      {% endset -%}
+
+    {{ govukRadios({
+      name: "purposet",
+      value: data['purposet'],
+      fieldset: {
+        legend: {
+          text: "What is the purpose of the meeting?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "pre-trial",
+          text: "CPS pre-trial meeting"
+        },
+        {
+          value: "inform-victim",
+          text: "Inform victim about charging decision"
+        },
+        {
+          value: "inform-victim",
+          text: "Stopped or substantially altered charge (VCL Scheme)"
+        },
+         {
+          value: "inform-victim",
+          text: "Victims' Right to Review (VRR)"
+        },
+        {
+          value: "inform-victim",
+          text: "Victim complaint"
+        },
+        {
+          value: "bereavement",
+          text: "Other",
+            conditional: {
+              html: emailHtml
+            }
+        }
+      ]
+    }) }}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      {{ govukButton({
+        text: "Cancel",
+        classes: "govuk-button--secondary"
+      }) }}
+    </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/wat3/onb/next-task.js"></script>
+{% endblock %}
