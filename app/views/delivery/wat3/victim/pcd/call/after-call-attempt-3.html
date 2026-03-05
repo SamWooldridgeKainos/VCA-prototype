@@ -28,11 +28,15 @@
     Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a> -->
 
-<p class="govuk-body">
+<!-- <p class="govuk-body">
     First, you must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
 
 <a href="/delivery/wat3/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
+</a> -->
+
+<a href="/delivery/wat3/pcd/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %}</span>
 </a>
 {% endblock %}
