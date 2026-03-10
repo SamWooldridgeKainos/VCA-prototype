@@ -5,6 +5,10 @@
 {% include "/delivery/wat3/partials/header/none-selected.html" %}
 {% endblock %}
 
+{% block beforeContent %}
+{% include "/delivery/wat3/partials/identity-bar/index.html" %}
+{% endblock %}
+
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
@@ -25,15 +29,15 @@
       The information pack and Crest survey were also sent.
     </p> -->
 
-    <h2 class="govuk-heading-m">Further information</h2>
+    <!-- <h2 class="govuk-heading-m">Further information</h2> -->
 
     <!-- <p class="govuk-body">
       You can view the logged letter on the 'Charging decision' tab of the victim's page, within the Victim Case Application.
     </p> -->
 
-    <p class="govuk-body">
+    <!-- <p class="govuk-body">
       The letter was automatically saved to CMS.
-    </p>
+    </p> -->
 
     {% if (data['contactedBy'] == "call") %}
 
