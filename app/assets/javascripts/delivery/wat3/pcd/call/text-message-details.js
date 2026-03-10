@@ -25,10 +25,8 @@ function validateForm() {
   var pcdTextMessageMinutes = document.forms["myForm"]["pcdTextMessageMinutes"].value;
   var pcdSecondCallHour = document.forms["myForm"]["pcdSecondCallHour"].value;
   var pcdSecondCallMinutes = document.forms["myForm"]["pcdSecondCallMinutes"].value;
-  var pcdThirdCallHour = document.forms["myForm"]["pcdThirdCallHour"].value;
-  var pcdThirdCallMinutes = document.forms["myForm"]["pcdThirdCallMinutes"].value;
 
-  if (pcdTextMessageDate == "" || pcdTextMessageDate == null || pcdTextMessageHour == "" || pcdTextMessageHour == null || pcdTextMessageMinutes == "" || pcdTextMessageMinutes == null || pcdSecondCallHour == "" || pcdSecondCallHour == null || pcdSecondCallMinutes == "" || pcdSecondCallMinutes == null || pcdThirdCallHour == "" || pcdThirdCallHour == null || pcdThirdCallMinutes == "" || pcdThirdCallMinutes == null) {
+  if (pcdTextMessageDate == "" || pcdTextMessageDate == null || pcdTextMessageHour == "" || pcdTextMessageHour == null || pcdTextMessageMinutes == "" || pcdTextMessageMinutes == null || pcdSecondCallHour == "" || pcdSecondCallHour == null || pcdSecondCallMinutes == "" || pcdSecondCallMinutes == null) {
 
     // Error summary
     $('#myForm').before(
