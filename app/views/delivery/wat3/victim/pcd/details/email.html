@@ -5,15 +5,15 @@
             Email sent
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ "today" | govukDate(showWeekday=true) }} at 11:39
+            {{ "today" | govukDate(showWeekday=true) }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-            Email address
+            Notes
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ data['victimEmailAddress'] }}
+            {{ data['emailDispatchNotes'] }}
         </dd>
     </div>
     <!-- <div class="govuk-summary-list__row">

@@ -25,10 +25,8 @@ function validateForm() {
   var vclTextMessageMinutes = document.forms["myForm"]["vclTextMessageMinutes"].value;
   var vclSecondCallHour = document.forms["myForm"]["vclSecondCallHour"].value;
   var vclSecondCallMinutes = document.forms["myForm"]["vclSecondCallMinutes"].value;
-  var vclThirdCallHour = document.forms["myForm"]["vclThirdCallHour"].value;
-  var vclThirdCallMinutes = document.forms["myForm"]["vclThirdCallMinutes"].value;
 
-  if (vclTextMessageDate == "" || vclTextMessageDate == null || vclTextMessageHour == "" || vclTextMessageHour == null || vclTextMessageMinutes == "" || vclTextMessageMinutes == null || vclSecondCallHour == "" || vclSecondCallHour == null || vclSecondCallMinutes == "" || vclSecondCallMinutes == null || vclThirdCallHour == "" || vclThirdCallHour == null || vclThirdCallMinutes == "" || vclThirdCallMinutes == null) {
+  if (vclTextMessageDate == "" || vclTextMessageDate == null || vclTextMessageHour == "" || vclTextMessageHour == null || vclTextMessageMinutes == "" || vclTextMessageMinutes == null || vclSecondCallHour == "" || vclSecondCallHour == null || vclSecondCallMinutes == "" || vclSecondCallMinutes == null) {
 
     // Error summary
     $('#myForm').before(
