@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div class="govuk-summary-card">
+        <!-- <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">
                     Case information
@@ -73,6 +73,90 @@
                 <p class="govuk-body govuk-!-margin-bottom-0">Area: {{ data['area'] }}</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Police force:</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Next hearing:</p>
+            </div>
+        </div> -->
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    Case information
+                </h2>
+            </div>
+
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Case status
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ data['caseStatus'] or 'Pending' }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Charging type
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ data['caseType'] or 'Green' }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/charging-type">Change<span class="govuk-visually-hidden"> charging type</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Monitoring codes
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p class="govuk-body">
+                                Mental health
+                            </p>
+                            <p class="govuk-body">
+                                Domestic violence
+                            </p>
+                            <p class="govuk-body">
+                                Prohibited weapons
+                            </p>
+                            <p class="govuk-body">
+                                Human trafficking
+                            </p>
+                            <p class="govuk-body">
+                                Media interest
+                            </p>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Area
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ data['area'] }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/area">Change<span class="govuk-visually-hidden"> area</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Police force
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ data['policeForce'] }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/police-force">Change<span class="govuk-visually-hidden"> police force</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Next hearing
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ data['nextHearing'] }}
+                        </dd>
+                    </div>
+                </dl>
             </div>
         </div>
 

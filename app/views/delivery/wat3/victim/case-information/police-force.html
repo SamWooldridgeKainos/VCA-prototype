@@ -1,0 +1,106 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change police force" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat3/victim/case-information/police-force-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="police-force-select">
+            Which police force is responsible for this case?
+          </label>
+        </h1>
+
+        <div id="police-force-autocomplete-wrapper">
+          <select class="govuk-select" id="police-force-select" name="policeForce">
+            <option value="">Select a police force</option>
+            <option value="Avon and Somerset Police" {{ "selected" if data['policeForce'] == "Avon and Somerset Police" }}>Avon and Somerset Police</option>
+            <option value="Bedfordshire Police" {{ "selected" if data['policeForce'] == "Bedfordshire Police" }}>Bedfordshire Police</option>
+            <option value="British Transport Police" {{ "selected" if data['policeForce'] == "British Transport Police" }}>British Transport Police</option>
+            <option value="Cambridgeshire Constabulary" {{ "selected" if data['policeForce'] == "Cambridgeshire Constabulary" }}>Cambridgeshire Constabulary</option>
+            <option value="Cheshire Constabulary" {{ "selected" if data['policeForce'] == "Cheshire Constabulary" }}>Cheshire Constabulary</option>
+            <option value="City of London Police" {{ "selected" if data['policeForce'] == "City of London Police" }}>City of London Police</option>
+            <option value="Cleveland Police" {{ "selected" if data['policeForce'] == "Cleveland Police" }}>Cleveland Police</option>
+            <option value="Cumbria Constabulary" {{ "selected" if data['policeForce'] == "Cumbria Constabulary" }}>Cumbria Constabulary</option>
+            <option value="Derbyshire Constabulary" {{ "selected" if data['policeForce'] == "Derbyshire Constabulary" }}>Derbyshire Constabulary</option>
+            <option value="Devon and Cornwall Police" {{ "selected" if data['policeForce'] == "Devon and Cornwall Police" }}>Devon and Cornwall Police</option>
+            <option value="Dorset Police" {{ "selected" if data['policeForce'] == "Dorset Police" }}>Dorset Police</option>
+            <option value="Durham Constabulary" {{ "selected" if data['policeForce'] == "Durham Constabulary" }}>Durham Constabulary</option>
+            <option value="Dyfed-Powys Police" {{ "selected" if data['policeForce'] == "Dyfed-Powys Police" }}>Dyfed-Powys Police</option>
+            <option value="Essex Police" {{ "selected" if data['policeForce'] == "Essex Police" }}>Essex Police</option>
+            <option value="Gloucestershire Constabulary" {{ "selected" if data['policeForce'] == "Gloucestershire Constabulary" }}>Gloucestershire Constabulary</option>
+            <option value="Greater Manchester Police" {{ "selected" if data['policeForce'] == "Greater Manchester Police" }}>Greater Manchester Police</option>
+            <option value="Gwent Police" {{ "selected" if data['policeForce'] == "Gwent Police" }}>Gwent Police</option>
+            <option value="Hampshire and Isle of Wight Constabulary" {{ "selected" if data['policeForce'] == "Hampshire and Isle of Wight Constabulary" }}>Hampshire and Isle of Wight Constabulary</option>
+            <option value="Hertfordshire Constabulary" {{ "selected" if data['policeForce'] == "Hertfordshire Constabulary" }}>Hertfordshire Constabulary</option>
+            <option value="Humberside Police" {{ "selected" if data['policeForce'] == "Humberside Police" }}>Humberside Police</option>
+            <option value="Kent Police" {{ "selected" if data['policeForce'] == "Kent Police" }}>Kent Police</option>
+            <option value="Lancashire Constabulary" {{ "selected" if data['policeForce'] == "Lancashire Constabulary" }}>Lancashire Constabulary</option>
+            <option value="Leicestershire Police" {{ "selected" if data['policeForce'] == "Leicestershire Police" }}>Leicestershire Police</option>
+            <option value="Lincolnshire Police" {{ "selected" if data['policeForce'] == "Lincolnshire Police" }}>Lincolnshire Police</option>
+            <option value="Merseyside Police" {{ "selected" if data['policeForce'] == "Merseyside Police" }}>Merseyside Police</option>
+            <option value="Metropolitan Police Service" {{ "selected" if data['policeForce'] == "Metropolitan Police Service" }}>Metropolitan Police Service</option>
+            <option value="Norfolk Constabulary" {{ "selected" if data['policeForce'] == "Norfolk Constabulary" }}>Norfolk Constabulary</option>
+            <option value="North Wales Police" {{ "selected" if data['policeForce'] == "North Wales Police" }}>North Wales Police</option>
+            <option value="North Yorkshire Police" {{ "selected" if data['policeForce'] == "North Yorkshire Police" }}>North Yorkshire Police</option>
+            <option value="Northamptonshire Police" {{ "selected" if data['policeForce'] == "Northamptonshire Police" }}>Northamptonshire Police</option>
+            <option value="Northumbria Police" {{ "selected" if data['policeForce'] == "Northumbria Police" }}>Northumbria Police</option>
+            <option value="Nottinghamshire Police" {{ "selected" if data['policeForce'] == "Nottinghamshire Police" }}>Nottinghamshire Police</option>
+            <option value="South Wales Police" {{ "selected" if data['policeForce'] == "South Wales Police" }}>South Wales Police</option>
+            <option value="South Yorkshire Police" {{ "selected" if data['policeForce'] == "South Yorkshire Police" }}>South Yorkshire Police</option>
+            <option value="Staffordshire Police" {{ "selected" if data['policeForce'] == "Staffordshire Police" }}>Staffordshire Police</option>
+            <option value="Suffolk Constabulary" {{ "selected" if data['policeForce'] == "Suffolk Constabulary" }}>Suffolk Constabulary</option>
+            <option value="Surrey Police" {{ "selected" if data['policeForce'] == "Surrey Police" }}>Surrey Police</option>
+            <option value="Sussex Police" {{ "selected" if data['policeForce'] == "Sussex Police" }}>Sussex Police</option>
+            <option value="Thames Valley Police" {{ "selected" if data['policeForce'] == "Thames Valley Police" }}>Thames Valley Police</option>
+            <option value="Warwickshire Police" {{ "selected" if data['policeForce'] == "Warwickshire Police" }}>Warwickshire Police</option>
+            <option value="West Mercia Police" {{ "selected" if data['policeForce'] == "West Mercia Police" }}>West Mercia Police</option>
+            <option value="West Midlands Police" {{ "selected" if data['policeForce'] == "West Midlands Police" }}>West Midlands Police</option>
+            <option value="West Yorkshire Police" {{ "selected" if data['policeForce'] == "West Yorkshire Police" }}>West Yorkshire Police</option>
+            <option value="Wiltshire Police" {{ "selected" if data['policeForce'] == "Wiltshire Police" }}>Wiltshire Police</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+  window.addEventListener('load', function () {
+    if (typeof accessibleAutocomplete === 'undefined') {
+      console.error('accessibleAutocomplete library not loaded');
+      return;
+    }
+    var selectEl = document.querySelector('#police-force-select');
+    if (selectEl) {
+      accessibleAutocomplete.enhanceSelectElement({
+        selectElement: selectEl,
+        showAllValues: true,
+        defaultValue: selectEl.value || ''
+      });
+    }
+  });
+</script>
+<script src="/public/javascripts/delivery/wat3/case-information/police-force.js"></script>
+{% endblock %}
