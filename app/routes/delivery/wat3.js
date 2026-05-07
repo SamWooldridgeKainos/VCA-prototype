@@ -380,6 +380,23 @@ module.exports = router => {
         response.redirect("/delivery/wat3/victim?success=yes&successReason=pmoc-updated#victim-details")
     })
 
+    //case information
+
+    router.post('/delivery/wat3/victim/case-information/charging-type-answer', function(request, response) {
+
+        response.redirect("/delivery/wat3/victim?success=yes&successReason=charging-type-updated#overview")
+    })
+
+    router.post('/delivery/wat3/victim/case-information/area-answer', function(request, response) {
+
+        response.redirect("/delivery/wat3/victim?success=yes&successReason=area-updated#overview")
+    })
+
+    router.post('/delivery/wat3/victim/case-information/police-force-answer', function(request, response) {
+
+        response.redirect("/delivery/wat3/victim?success=yes&successReason=police-force-updated#overview")
+    })
+
     //vcl
 
     router.post('/delivery/wat3/vcl/pre-draft/contacted-by-answer', function(request, response) {
