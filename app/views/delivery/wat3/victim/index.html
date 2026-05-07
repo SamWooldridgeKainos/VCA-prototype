@@ -217,6 +217,23 @@
         });
       });
     });
+
+    // Activate the appropriate sub-tab based on the secondaryNav query param
+    var secondaryNavMap = {
+      'other': 'comms-other',
+      'ptm': 'comms-ptm',
+      'pcd': 'comms-pcd',
+      'vcl': 'comms-pcd'
+    };
+    var params = new URLSearchParams(window.location.search);
+    var secondaryNav = params.get('secondaryNav');
+    var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    if (targetSubTab) {
+      var targetLink = document.querySelector('[data-comms-tab="' + targetSubTab + '"]');
+      if (targetLink) {
+        targetLink.click();
+      }
+    }
   })();
 </script>
 {% endblock %}
