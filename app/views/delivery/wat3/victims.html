@@ -40,8 +40,8 @@
   </div>
   <div class="govuk-notification-banner__content">
     <h3 class="govuk-notification-banner__heading">
-      {% if data['serviceLead'] == 'None' %}
-        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to Not aligned.
+      {% if data['serviceLead'] == 'Not aligned' %}
+        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to Not aligned to a service.
       {% else %}
         You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['serviceLead'] }}.
       {% endif %}
@@ -573,7 +573,7 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 {% if data['onboardedStatus'] == 'Yes' %}
-                  {% if data['serviceLead'] == 'None' %}
+                  {% if data['serviceLead'] == 'Not aligned' %}
                     Not aligned
                   {% else %}
                     {{ data['serviceLead'] or data['service'] or 'Universal' }}
@@ -584,7 +584,7 @@
               </dd>
               {% if data['onboardedStatus'] == 'Yes' %}
               <dd class="govuk-summary-list__actions">
-                <a href="/delivery/wat3/change-service" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service for {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</span></a>
+                <a href="/delivery/wat3/change-service" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service lead for {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</span></a>
               </dd>
               {% elif data['onboardedStatus'] != 'Yes' %}
               <dd class="govuk-summary-list__actions">
@@ -662,7 +662,7 @@
               </dd>
               {% if record.service in ['Universal', 'Enhanced', 'RASSO'] %}
               <dd class="govuk-summary-list__actions">
-                <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service for {{ record.surname }}, {{ record.forename }}</span></a>
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service lead for {{ record.surname }}, {{ record.forename }}</span></a>
               </dd>
               {% elif not record.onboarded %}
               <dd class="govuk-summary-list__actions">

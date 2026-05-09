@@ -28,10 +28,19 @@
           <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
 
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="translator-needed-yes" name="translatorNeeded" value="Yes" data-value="yes" {{ checked('translatorNeeded','Yes') }}>
+              <input type="radio" class="govuk-radios__input" id="translator-needed-yes" name="translatorNeeded" value="Yes" data-value="yes" data-aria-controls="conditional-translator-needed-yes" {{ checked('translatorNeeded','Yes') }}>
               <label class="govuk-label govuk-radios__label" for="translator-needed-yes">
                 Yes
               </label>
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-translator-needed-yes">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="translator-needed-details">
+                  Details
+                </label>
+                <textarea class="govuk-textarea" id="translator-needed-details" name="translatorNeededDetails" rows="3">{{ data['translatorNeededDetails'] }}</textarea>
+              </div>
             </div>
 
             <div class="govuk-radios__item">

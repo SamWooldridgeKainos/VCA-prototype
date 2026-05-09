@@ -13,9 +13,9 @@ function validateForm() {
     $('#error-summary').focus();
 
     $('#error-form-group-1').addClass('govuk-form-group--error');
-    $('#reasonable-adjustments').before('<p class="govuk-error-message" id="error-message-1"><span class="govuk-visually-hidden">Error:</span> Enter the reasonable adjustments for the victim</p>');
+    $('#reasonable-adjustments').before('<p class="govuk-error-message" id="error-message-1"><span class="govuk-visually-hidden">Error:</span> Enter reasonable adjustments</p>');
     $('#reasonable-adjustments').addClass('govuk-textarea--error');
-    $('#error-list-item-1').html('<a href="#error-message-1">Enter the reasonable adjustments for the victim</a>');
+    $('#error-list-item-1').html('<a href="#error-message-1">Enter reasonable adjustments</a>');
 
     return false;
   }

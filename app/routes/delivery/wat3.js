@@ -10,6 +10,25 @@ function toSortDate(dateString, hour, minutes) {
 
 module.exports = router => {
 
+    // Clear success flags when navigating between pages (GET requests).
+    // Success banners are triggered via redirects with ?success=yes (or
+    // ?successNotification=yes). The prototype kit copies session.data into
+    // res.locals.data BEFORE this handler runs, so we must update both for
+    // the template to see the cleared values.
+    router.get('/delivery/wat3/*', function(request, response, next) {
+        if (request.query.success === undefined) {
+            request.session.data.success = 'no'
+            request.session.data.successReason = ''
+            response.locals.data.success = 'no'
+            response.locals.data.successReason = ''
+        }
+        if (request.query.successNotification === undefined) {
+            request.session.data.successNotification = 'no'
+            response.locals.data.successNotification = 'no'
+        }
+        next()
+    })
+
     //onb
 
     router.post('/delivery/wat3/sign-in-answer', function(request, response) {
@@ -249,7 +268,7 @@ module.exports = router => {
 
     router.post('/delivery/wat3/pcd/pre-draft/not-contacted-reason-answer', function(request, response) {
 
-        response.redirect("/delivery/wat3/victim?secondaryNav=pcd")
+        response.redirect("/delivery/wat3/victim?secondaryNav=pcd&pcdStatus=not-contacted-logged&success=yes&successReason=not-contacted-logged#communications")
     })
 
     router.post('/delivery/wat3/pcd/draft/cd-modal/request-review-answer', function(request, response) {

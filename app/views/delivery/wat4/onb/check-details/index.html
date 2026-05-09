@@ -25,15 +25,15 @@
                 <div class="govuk-notification-banner__content">
                     {% if data['detailChange'] == "no" %}
                     <h3 class="govuk-notification-banner__heading">
-                        {% if data['serviceLead'] == 'None' %}
+                        {% if data['serviceLead'] == 'Not aligned' %}
                             You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} but did not align them to a service.
                         {% else %}
-                            You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} and allocated them to the {{ data['serviceLead'] }} service.
+                            You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} and aligned them to the {{ data['serviceLead'] }} service.
                         {% endif %}
                     </h3>
                     {% elif data['detailChange'] == "service-lead" %}
                     <h3 class="govuk-notification-banner__heading">
-                        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['serviceLead'] == "None" %}not aligned{% else %}the {{ data['serviceLead'] }} service{% endif %}.
+                        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['serviceLead'] == "Not aligned" %}Not aligned to a service{% else %}the {{ data['serviceLead'] }} service{% endif %}.
                     </h3>
                     {% elif data['detailChange'] == "case-type" %}
                     <h3 class="govuk-notification-banner__heading">
@@ -82,7 +82,7 @@
                     Service lead
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data['serviceLead'] == 'None' %}
+                    {% if data['serviceLead'] == 'Not aligned' %}
                         Not aligned
                     {% else %}
                         {{ data['serviceLead'] }}

@@ -489,11 +489,11 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Service
+              Service lead
             </dt>
             <dd class="govuk-summary-list__value">
               {% if data['onboardedStatus'] == 'Yes' %}
-                {% if data['serviceLead'] == 'None' %}
+                {% if data['serviceLead'] == 'Not aligned' %}
                   Not aligned
                 {% else %}
                   {{ data['serviceLead'] or data['service'] or 'Universal' }}
