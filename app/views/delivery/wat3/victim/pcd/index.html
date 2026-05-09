@@ -231,6 +231,9 @@
                                 {% elif (data['pcdStatus'] == "log-not-started") %}
                                     {% include "/delivery/wat3/victim/pcd/pre-draft/log-not-started.html" %}
 
+                                {% elif (data['pcdStatus'] == "not-contacted-logged") %}
+                                    {% include "/delivery/wat3/victim/pcd/pre-draft/not-contacted-logged.html" %}
+
                                 <!-- Record -->
                                 {% elif (data['pcdStatus'] == "before-text-logged") %}
                                     {% include "/delivery/wat3/victim/pcd/call/before-text-logged.html" %}

@@ -10,11 +10,30 @@ function toSortDate(dateString, hour, minutes) {
 
 module.exports = router => {
 
+    // Clear success flags when navigating between pages (GET requests).
+    // Success banners are triggered via redirects with ?success=yes (or
+    // ?successNotification=yes). The prototype kit copies session.data into
+    // res.locals.data BEFORE this handler runs, so we must update both for
+    // the template to see the cleared values.
+    router.get('/delivery/wat4/*', function(request, response, next) {
+        if (request.query.success === undefined) {
+            request.session.data.success = 'no'
+            request.session.data.successReason = ''
+            response.locals.data.success = 'no'
+            response.locals.data.successReason = ''
+        }
+        if (request.query.successNotification === undefined) {
+            request.session.data.successNotification = 'no'
+            response.locals.data.successNotification = 'no'
+        }
+        next()
+    })
+
     //onb
 
     router.post('/delivery/wat4/sign-in-answer', function(request, response) {
 
-        response.redirect("/delivery/wat4/tasks")
+        response.redirect("/delivery/wat4/overview")
     })
 
     router.post('/delivery/wat4/onb/service-lead-answer', function(request, response) {
@@ -388,9 +407,16 @@ module.exports = router => {
             response.redirect("/delivery/wat4/pcd/send/email-details")
         } else if (contactedBy == "post") {
             response.redirect("/delivery/wat4/pcd/send/letter-details")
+        } else if (contactedBy == "not-contacted") {
+            response.redirect("/delivery/wat4/pcd/pre-draft/not-contacted-reason")
         } else {
             response.redirect("/delivery/wat4/pcd/pre-draft/contact-details?contactMethod=other")
         }
+    })
+
+    router.post('/delivery/wat4/pcd/pre-draft/not-contacted-reason-answer', function(request, response) {
+
+        response.redirect("/delivery/wat4/victim?secondaryNav=pcd&pcdStatus=not-contacted-logged&success=yes&successReason=not-contacted-logged#communications")
     })
 
     router.post('/delivery/wat4/pcd/draft/cd-modal/request-review-answer', function(request, response) {

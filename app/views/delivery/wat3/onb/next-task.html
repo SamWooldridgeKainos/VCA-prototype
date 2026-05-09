@@ -41,16 +41,6 @@
                         </label>
                     </div>
 
-                    <!-- {% if (data['serviceLead'] == "RASSO") %}
-                    {% else %}
-                    <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="mixed-charges" data-value="mixed-charges" {{ checked('nextTask','mixed-charges') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
-                            Inform of mixed charges
-                        </label>
-                    </div>
-                    {% endif %}
-
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="stopped-charge" data-value="Inform of a stopped charge" {{ checked('nextTask','stopped-charge') }}>
                         <label class="govuk-label govuk-radios__label" for="next-task-stopped-charge">
@@ -64,59 +54,6 @@
                             Inform of a substantially altered charge
                         </label>
                     </div>
-
-                    {% if (data['serviceLead'] == "RASSO") %}
-                    <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-ptm" name="nextTask" value="ptm" data-value="Arrange a CPS pre-trial meeting" {{ checked('nextTask','ptm') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-ptm">
-                            Arrange a CPS pre-trial meeting
-                        </label>
-                    </div>
-                    {% elif (data['serviceLead'] == "Bereaved Family") %}
-                    <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-bfs-meeting" name="nextTask" value="bfs-meeting" data-value="Arrange a Bereaved Family Scheme meeting" {{ checked('nextTask','bfs-meeting') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-bfs-meeting">
-                            Arrange a Bereaved Family Scheme meeting
-                        </label>
-                    </div>
-                    {% endif %}
-
-                    <div class="govuk-radios__divider">or</div> -->
-
-                    <!-- <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-mixed-charges" name="nextTask" value="mixed-charges" data-value="Inform of mixed charges" {{ checked('nextTask','mixed-charges') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-mixed-charges">
-                            Inform of mixed charges
-                        </label>
-                    </div> -->
-
-                    <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-stopped-charge" name="nextTask" value="stopped-charge" data-value="Inform of a stopped charge" {{ checked('nextTask','stopped-charge') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-stopped-charge">
-                            Inform of a stopped charge
-                        </label>
-                    </div>
-
-                    <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-altered-charge" name="nextTask" value="altered-charge" data-value="Inform of a substantially altered charge" {{ checked('nextTask','altered-charge') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-altered-charge">
-                            Inform of a substantially altered charge
-                        </label>
-                    </div>
-
-                    <!-- <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-ptm" name="nextTask" value="ptm" data-value="Arrange a CPS pre-trial meeting" {{ checked('nextTask','ptm') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-ptm">
-                            Arrange a CPS pre-trial meeting
-                        </label>
-                    </div> -->
-
-                    <!-- <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="next-task-bfs-meeting" name="nextTask" value="bfs-meeting" data-value="Arrange a Bereaved Family Scheme meeting" {{ checked('nextTask','bfs-meeting') }}>
-                        <label class="govuk-label govuk-radios__label" for="next-task-bfs-meeting">
-                            Arrange a Bereaved Family Scheme meeting
-                        </label>
-                    </div> -->
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="next-task-meeting-offer" name="nextTask" value="meeting-offer" data-value="Log offered meeting" {{ checked('nextTask','meeting-offer') }}>
