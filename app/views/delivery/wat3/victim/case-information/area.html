@@ -19,13 +19,13 @@
 
         <h1 class="govuk-label-wrapper">
           <label class="govuk-label govuk-label--l" for="area-select">
-            Which area is responsible for this case?
+            Which CPS area is responsible for this case?
           </label>
         </h1>
 
         <div id="area-autocomplete-wrapper">
           <select class="govuk-select" id="area-select" name="area">
-            <option value="">Select an area</option>
+            <option value="">Select a CPS area</option>
             <option value="CPS Cymru-Wales" {{ "selected" if data['area'] == "CPS Cymru-Wales" }}>CPS Cymru-Wales</option>
             <option value="CPS East Midlands" {{ "selected" if data['area'] == "CPS East Midlands" }}>CPS East Midlands</option>
             <option value="CPS East of England" {{ "selected" if data['area'] == "CPS East of England" }}>CPS East of England</option>
