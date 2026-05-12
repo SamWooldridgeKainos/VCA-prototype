@@ -27,25 +27,5 @@ function validateForm() {
         return false;
     }
 
-    var selectedTask = $('[name=nextTask]:checked').val();
-    var meetingTasks = ['meeting-offer', 'meeting-arranged', 'meeting-outcome'];
-
-    if (existingTask && selectedTask === existingTask && meetingTasks.indexOf(selectedTask) === -1) {
-        // Error form group styling
-        $('#error-form-group').addClass('govuk-form-group--error');
-
-        // Error message
-        $('#radio-group').before('<p id="error-message-1" class="govuk-error-message"></p>');
-        $('#error-message-1').html('<span id="error-1"><span class="govuk-visually-hidden">Error:</span> You cannot create this task because it is already in progress</span>');
-
-        // Error summary
-        $('#myForm').before(
-            '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"><li><a href="#error-1">You cannot create this task because it is already in progress</a></li></ul></div></div>'
-        );
-        $('#error-summary').focus();
-
-        return false;
-    }
-
     return true;
 }
