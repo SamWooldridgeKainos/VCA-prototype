@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "This task already exists" %}
+
+{% block header %}
+{% include "/delivery/wat3/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">
+            This task already exists
+        </h1>
+
+        <p class="govuk-body">
+            A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}. You can view or update it from the Tasks page.
+        </p>
+
+        <h2 class="govuk-heading-m">Existing task details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Task
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data['existingTask'] == "dtc" %}
+                        Inform of a decision to charge
+                    {% elif data['existingTask'] == "nfa" %}
+                        Inform of a no further action decision
+                    {% elif data['existingTask'] == "stopped-charge" %}
+                        Inform of a stopped charge
+                    {% elif data['existingTask'] == "altered-charge" %}
+                        Inform of a substantially altered charge
+                    {% elif data['existingTask'] == "meeting-offer" %}
+                        Log offered meeting
+                    {% elif data['existingTask'] == "meeting-arranged" %}
+                        Log arranged meeting
+                    {% elif data['existingTask'] == "meeting-outcome" %}
+                        Log meeting outcome
+                    {% elif data['existingTask'] == "other" %}
+                        {{ data['existingManualTaskName'] }}
+                    {% else %}
+                        {{ data['existingTask'] }}
+                    {% endif %}
+                </dd>
+            </div>
+            {% if data['existingTask'] == "meeting-offer" or data['existingTask'] == "meeting-arranged" or data['existingTask'] == "meeting-outcome" %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Purpose
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {% if data['existingMeetingPurpose'] == "pre-trial" %}
+                            CPS pre-trial meeting
+                        {% elif data['existingMeetingPurpose'] == "charging-decision" %}
+                            Inform victim about charging decision
+                        {% elif data['existingMeetingPurpose'] == "stopped-altered" %}
+                            Stopped or substantially altered charge (VCL Scheme)
+                        {% elif data['existingMeetingPurpose'] == "vrr" %}
+                            Victims' Right to Review (VRR)
+                        {% elif data['existingMeetingPurpose'] == "complaint" %}
+                            Victim complaint
+                        {% else %}
+                            {{ data['existingMeetingPurpose'] }}
+                        {% endif %}
+                    </dd>
+                </div>
+            {% endif %}
+            {% if data['existingTaskDueDate'] %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{ data['existingTaskDueDate'] | formatDate }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/change-task-due-date">
+                            Change<span class="govuk-visually-hidden"> due date</span>
+                        </a>
+                    </dd>
+                </div>
+            {% endif %}
+            {% if data['existingTask'] == "other" %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Note
+                    </dt>
+                    {% if data['existingTaskNote'] %}
+                        <dd class="govuk-summary-list__value">
+                            {{ data['existingTaskNote'] | nl2br }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/update-manual-task">
+                                Change<span class="govuk-visually-hidden"> note</span>
+                            </a>
+                        </dd>
+                    {% else %}
+                        <dd class="govuk-summary-list__value">
+                            <a href="/delivery/wat3/update-manual-task" class="govuk-link govuk-link--no-visited-state">Enter note</a>
+                        </dd>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </dl>
+
+        <a href="/delivery/wat3/tasks" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+
+    </div>
+</div>
+{% endblock %}

@@ -193,9 +193,28 @@ module.exports = router => {
 
     router.post('/delivery/wat3/victim/new-task/check-task-answer', function(request, response) {
 
+        var nextTask = request.session.data['nextTask'] || ''
+        var meetingPurpose = request.session.data['meetingPurpose'] || ''
+        var existingTask = request.session.data['existingTask'] || ''
+        var existingMeetingPurpose = request.session.data['existingMeetingPurpose'] || ''
+
+        var meetingTasks = ['meeting-offer', 'meeting-arranged', 'meeting-outcome']
+        var isMeetingTask = meetingTasks.indexOf(nextTask) !== -1
+
+        // Block duplicate non-meeting tasks, or meeting tasks with the same purpose
+        var duplicateNonMeeting = existingTask && nextTask === existingTask && !isMeetingTask && nextTask !== 'other' && nextTask !== 'no-task'
+        var duplicateMeeting = existingTask && isMeetingTask && nextTask === existingTask && meetingPurpose && meetingPurpose === existingMeetingPurpose
+
+        if (duplicateNonMeeting || duplicateMeeting) {
+            return response.redirect("/delivery/wat3/victim/new-task/task-already-exists")
+        }
+
         // Update existing task tracking when a task is confirmed
-        request.session.data['existingTask'] = request.session.data['nextTask'] || ''
-        request.session.data['existingMeetingPurpose'] = request.session.data['meetingPurpose'] || ''
+        request.session.data['existingTask'] = nextTask
+        request.session.data['existingMeetingPurpose'] = meetingPurpose
+        request.session.data['existingTaskDueDate'] = request.session.data['taskDueDate'] || ''
+        request.session.data['existingManualTaskName'] = request.session.data['manualTaskName'] || ''
+        request.session.data['existingTaskNote'] = request.session.data['taskNote'] || ''
 
         response.redirect("/delivery/wat3/victim/new-task/task-created")
     })
@@ -409,11 +428,6 @@ module.exports = router => {
     router.post('/delivery/wat3/victim/case-information/area-answer', function(request, response) {
 
         response.redirect("/delivery/wat3/victim?success=yes&successReason=area-updated#overview")
-    })
-
-    router.post('/delivery/wat3/victim/case-information/police-force-answer', function(request, response) {
-
-        response.redirect("/delivery/wat3/victim?success=yes&successReason=police-force-updated#overview")
     })
 
     //vcl
