@@ -564,6 +564,12 @@
                     <a href="/delivery/wat3/vcl/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
                   {% endif %}
                 {% endif %}
+              {% elif (data['nextTask'] == "meeting-offer") %}
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Log offer</a>
+              {% elif (data['nextTask'] == "meeting-arranged") %}
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Confirm arranged meeting</a>
+              {% elif (data['nextTask'] == "meeting-outcome") %}
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Log outcome</a>
               {% elif (data['nextTask'] == "other") %}
                 <a href="/delivery/wat3/update-manual-task" class="govuk-link govuk-link--no-visited-state">Update task</a>
               {% endif %}

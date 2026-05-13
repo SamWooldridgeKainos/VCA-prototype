@@ -140,6 +140,17 @@ module.exports = router => {
     router.get('/delivery/wat3/victim/new-task/task-selection', function(request, response) {
         var fromCheck = request.query.fromCheck === 'yes'
         delete request.session.data['fromCheck']
+
+        // Clear previous task data when starting a new task (not returning from check page)
+        if (!fromCheck) {
+            delete request.session.data['nextTask']
+            delete request.session.data['meetingPurpose']
+            delete request.session.data['meetingPurposeDetails']
+            delete request.session.data['taskDueDate']
+            delete request.session.data['manualTaskName']
+            delete request.session.data['taskNote']
+        }
+
         response.render('delivery/wat3/victim/new-task/task-selection', {
             fromCheck: fromCheck
         })
@@ -175,13 +186,28 @@ module.exports = router => {
 
     router.get('/delivery/wat3/victim/new-task/task-due-date', function(request, response) {
         var fromCheck = request.query.fromCheck === 'yes'
+        var fromTaskAlreadyExists = request.query.fromTaskAlreadyExists === 'yes'
         delete request.session.data['fromCheck']
         response.render('delivery/wat3/victim/new-task/task-due-date', {
-            fromCheck: fromCheck
+            fromCheck: fromCheck,
+            fromTaskAlreadyExists: fromTaskAlreadyExists
         })
     })
 
+    router.post('/delivery/wat3/victim/new-task/task-already-exists-answer', function(request, response) {
+
+        // Restore the pre-existing task due date so the Tasks page shows the original value
+        request.session.data['taskDueDate'] = request.session.data['existingTaskDueDate'] || ''
+
+        response.redirect("/delivery/wat3/tasks")
+    })
+
     router.post('/delivery/wat3/victim/new-task/task-due-date-answer', function(request, response) {
+
+        if (request.body.fromTaskAlreadyExists === 'yes') {
+            request.session.data['existingTaskDueDate'] = request.session.data['taskDueDate'] || ''
+            return response.redirect("/delivery/wat3/tasks?success=yes&successReason=due-date-updated")
+        }
 
         response.redirect("/delivery/wat3/victim/new-task/check-task")
     })
@@ -200,10 +226,11 @@ module.exports = router => {
 
         var meetingTasks = ['meeting-offer', 'meeting-arranged', 'meeting-outcome']
         var isMeetingTask = meetingTasks.indexOf(nextTask) !== -1
+        var existingIsMeetingTask = meetingTasks.indexOf(existingTask) !== -1
 
-        // Block duplicate non-meeting tasks, or meeting tasks with the same purpose
+        // Block duplicate non-meeting tasks, or meeting tasks with the same purpose (regardless of meeting type)
         var duplicateNonMeeting = existingTask && nextTask === existingTask && !isMeetingTask && nextTask !== 'other' && nextTask !== 'no-task'
-        var duplicateMeeting = existingTask && isMeetingTask && nextTask === existingTask && meetingPurpose && meetingPurpose === existingMeetingPurpose
+        var duplicateMeeting = existingIsMeetingTask && isMeetingTask && meetingPurpose && meetingPurpose === existingMeetingPurpose
 
         if (duplicateNonMeeting || duplicateMeeting) {
             return response.redirect("/delivery/wat3/victim/new-task/task-already-exists")

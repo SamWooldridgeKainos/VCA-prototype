@@ -41,7 +41,7 @@
       </ul>
 
       <div class="govuk-tabs__panel" id="overview">
-        {% if (data['success'] == "yes") and (data['successReason'] == "charging-type-updated" or data['successReason'] == "area-updated" or data['successReason'] == "police-force-updated") %}
+        {% if (data['success'] == "yes") and (data['successReason'] == "charging-type-updated" or data['successReason'] == "area-updated") %}
           <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
             <div class="govuk-notification-banner__header">
               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -54,8 +54,6 @@
                   You changed the charging type to {{ data['caseType'] }}
                 {% elif (data['successReason'] == "area-updated") %}
                   You changed the area to {{ data['area'] }}
-                {% elif (data['successReason'] == "police-force-updated") %}
-                  You changed the police force to {{ data['policeForce'] }}
                 {% endif %}
               </h3>
             </div>
