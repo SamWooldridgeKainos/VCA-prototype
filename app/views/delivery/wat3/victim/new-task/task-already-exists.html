@@ -20,7 +20,25 @@
         </h1>
 
         <p class="govuk-body">
-            A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}. You can view or update it from the Tasks page.
+            {% if data['existingTask'] == "meeting-offer" or data['existingTask'] == "meeting-arranged" or data['existingTask'] == "meeting-outcome" %}
+                A meeting task with the purpose of
+                {% if data['existingMeetingPurpose'] == "pre-trial" %}
+                    CPS pre-trial meeting
+                {% elif data['existingMeetingPurpose'] == "charging-decision" %}
+                    Inform victim about charging decision
+                {% elif data['existingMeetingPurpose'] == "stopped-altered" %}
+                    Stopped or substantially altered charge (VCL Scheme)
+                {% elif data['existingMeetingPurpose'] == "vrr" %}
+                    Victims' Right to Review (VRR)
+                {% elif data['existingMeetingPurpose'] == "complaint" %}
+                    Victim complaint
+                {% else %}
+                    {{ data['existingMeetingPurpose'] }}
+                {% endif %}
+                is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+            {% else %}
+                A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}. You can view or update it from the Tasks page.
+            {% endif %}
         </p>
 
         <h2 class="govuk-heading-m">Existing task details</h2>
@@ -83,38 +101,19 @@
                         {{ data['existingTaskDueDate'] | formatDate }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/change-task-due-date">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-due-date?fromTaskAlreadyExists=yes">
                             Change<span class="govuk-visually-hidden"> due date</span>
                         </a>
                     </dd>
                 </div>
             {% endif %}
-            {% if data['existingTask'] == "other" %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Note
-                    </dt>
-                    {% if data['existingTaskNote'] %}
-                        <dd class="govuk-summary-list__value">
-                            {{ data['existingTaskNote'] | nl2br }}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/update-manual-task">
-                                Change<span class="govuk-visually-hidden"> note</span>
-                            </a>
-                        </dd>
-                    {% else %}
-                        <dd class="govuk-summary-list__value">
-                            <a href="/delivery/wat3/update-manual-task" class="govuk-link govuk-link--no-visited-state">Enter note</a>
-                        </dd>
-                    {% endif %}
-                </div>
-            {% endif %}
         </dl>
 
-        <a href="/delivery/wat3/tasks" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-            Continue
-        </a>
+        <form action="/delivery/wat3/victim/new-task/task-already-exists-answer" method="post">
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
 
     </div>
 </div>

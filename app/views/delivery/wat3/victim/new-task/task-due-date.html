@@ -15,7 +15,10 @@
     <div class="govuk-grid-column-one-half">
 
         <form action="/delivery/wat3/victim/new-task/task-due-date-answer" method="post">
-            
+            {% if fromTaskAlreadyExists %}
+            <input type="hidden" name="fromTaskAlreadyExists" value="yes">
+            {% endif %}
+
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--l" for="next-task-due-date">
