@@ -37,7 +37,7 @@
                 {% endif %}
                 is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
             {% else %}
-                A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}. You can view or update it from the Tasks page.
+                A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
             {% endif %}
         </p>
 
@@ -104,6 +104,15 @@
                         <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/new-task/task-due-date?fromTaskAlreadyExists=yes">
                             Change<span class="govuk-visually-hidden"> due date</span>
                         </a>
+                    </dd>
+                </div>
+            {% else %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <a href="/delivery/wat3/victim/new-task/task-due-date?fromTaskAlreadyExists=yes" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
                     </dd>
                 </div>
             {% endif %}

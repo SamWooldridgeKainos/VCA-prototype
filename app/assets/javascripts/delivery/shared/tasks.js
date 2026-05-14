@@ -541,6 +541,8 @@ initialSetupComplete = true;
         
         if (successReason === 'due-date-updated') {
             banner = document.getElementById('due-date-success-banner');
+        } else if (successReason === 'due-date-removed') {
+            banner = document.getElementById('due-date-removed-banner');
         } else if (successReason === 'assignee-updated') {
             banner = document.getElementById('assignee-success-banner');
         } else if (successReason === 'manual-task-completed') {

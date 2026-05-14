@@ -19,7 +19,8 @@
         </h1>
 
         <form action="/delivery/wat3/change-task-due-date-answer" method="post" onsubmit="return validateForm()">
-            
+            <input type="hidden" name="previousTaskDueDate" value="{{ data['taskDueDate'] }}">
+
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="task-due-date">
                     Due date
