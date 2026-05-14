@@ -260,8 +260,18 @@ module.exports = router => {
     })
 
     router.post('/delivery/wat3/change-task-due-date-answer', function(request, response) {
-        
-        response.redirect("/delivery/wat3/tasks?success=yes&successReason=due-date-updated")
+        var previousDueDate = request.body['previousTaskDueDate'] || ''
+        var newDueDate = request.body['taskDueDate'] || ''
+
+        console.log('DEBUG due date change:', JSON.stringify({ body: request.body, previousDueDate: previousDueDate, newDueDate: newDueDate }))
+
+        if (!newDueDate && previousDueDate) {
+            response.redirect("/delivery/wat3/tasks?success=yes&successReason=due-date-removed")
+        } else if (newDueDate === previousDueDate) {
+            response.redirect("/delivery/wat3/tasks")
+        } else {
+            response.redirect("/delivery/wat3/tasks?success=yes&successReason=due-date-updated")
+        }
     })
 
     router.post('/delivery/wat3/change-service-answer', function(request, response) {

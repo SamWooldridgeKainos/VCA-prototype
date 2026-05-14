@@ -15,7 +15,8 @@
     <div class="govuk-grid-column-one-half">
 
         <form action="/delivery/wat3/change-task-due-date-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
-            
+            <input type="hidden" name="previousTaskDueDate" value="{{ data['taskDueDate'] }}">
+
             <div class="govuk-form-group" id="error-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--l" for="next-task-due-date">
