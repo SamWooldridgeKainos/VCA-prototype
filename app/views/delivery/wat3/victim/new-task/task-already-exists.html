@@ -20,6 +20,7 @@
         </h1>
 
         <p class="govuk-body">
+            You cannot create this task. 
             {% if data['existingTask'] == "meeting-offer" or data['existingTask'] == "meeting-arranged" or data['existingTask'] == "meeting-outcome" %}
                 A meeting task with the purpose of
                 {% if data['existingMeetingPurpose'] == "pre-trial" %}
