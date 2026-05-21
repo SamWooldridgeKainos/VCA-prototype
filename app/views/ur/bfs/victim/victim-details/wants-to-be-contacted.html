@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change wants to be contacted" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/wants-to-be-contacted-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Does {{ data['victimForename'] }} {{ data['victimSurname'] }} want to be contacted?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="wants-contact-yes" name="wantsToBeContacted" type="radio" value="Yes" {{ checked('wantsToBeContacted','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="wants-contact-yes">Yes</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="wants-contact-no" name="wantsToBeContacted" type="radio" value="No" {{ checked('wantsToBeContacted','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="wants-contact-no">No</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

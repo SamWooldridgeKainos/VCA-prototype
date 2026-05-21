@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change sex and gender identity" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/sex-and-gender-identity-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s sex and gender identity?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sex-gender-1" name="sexAndGenderIdentity" type="radio" value="Male" {{ checked('sexAndGenderIdentity','Male') }}>
+                            <label class="govuk-label govuk-radios__label" for="sex-gender-1">Male</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sex-gender-2" name="sexAndGenderIdentity" type="radio" value="Female" {{ checked('sexAndGenderIdentity','Female') }}>
+                            <label class="govuk-label govuk-radios__label" for="sex-gender-2">Female</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sex-gender-3" name="sexAndGenderIdentity" type="radio" value="Non-binary" {{ checked('sexAndGenderIdentity','Non-binary') }}>
+                            <label class="govuk-label govuk-radios__label" for="sex-gender-3">Non-binary</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sex-gender-4" name="sexAndGenderIdentity" type="radio" value="Preferred not to say" {{ checked('sexAndGenderIdentity','Preferred not to say') }}>
+                            <label class="govuk-label govuk-radios__label" for="sex-gender-4">Preferred not to say</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change date of birth" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/date-of-birth-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s date of birth?
+                        </h1>
+                    </legend>
+                    <div id="dob-hint" class="govuk-hint">
+                        For example, 27 3 2007
+                    </div>
+                    <div class="govuk-date-input" id="dob">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="dob-day">
+                                    Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-day" name="victimDobDay" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="dob-month">
+                                    Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-month" name="victimDobMonth" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="dob-year">
+                                    Year
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-year" name="victimDobYear" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change special measures" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/special-measures-answer" method="post">
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="specialMeasures">
+                        What special measures are required for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                    </label>
+                </h1>
+                <textarea class="govuk-textarea" id="specialMeasures" name="specialMeasures" rows="4">{{ data['specialMeasures'] }}</textarea>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

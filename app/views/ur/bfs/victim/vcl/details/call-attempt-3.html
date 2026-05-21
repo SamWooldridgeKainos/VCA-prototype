@@ -1,0 +1,66 @@
+{% block content %}
+<dl class="govuk-summary-list govuk-!-margin-bottom-4">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Telephone call 3
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ "today" | govukDate(showWeekday=true) }} at {{ data['vclCallHour3'] }}:{{ data['vclCallMinutes3'] }}
+        </dd>
+    </div>
+    <!-- <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['victimPhoneNumber'] }}
+        </dd>
+    </div> -->
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Call direction
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {% if (data['vclCallType3'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Victim informed
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['vclVictimInformed3'] }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Signposted support
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {% if data['vclSupportSignposted3'] is string %}
+                {% if data['vclSupportSignposted3'] == 'Other' %}{{ data['vclSupportSignpostedOtherDetail3'] }}{% else %}{{ data['vclSupportSignposted3'] }}{% endif %}
+            {% elif data['vclSupportSignposted3'] %}
+                {% for item in data['vclSupportSignposted3'] %}
+                    {% if item == 'Other' %}{{ data['vclSupportSignpostedOtherDetail3'] }}{% else %}{{ item }}{% endif %}{% if not loop.last %}<br>{% endif %}
+                {% endfor %}
+            {% endif %}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Survey interview discussed
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['vclSurveyInterviewDiscussed3'] }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Notes
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['vclCallNotes3'] }}
+        </dd>
+    </div>
+</dl>
+{% endblock %}
