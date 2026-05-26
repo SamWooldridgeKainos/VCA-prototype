@@ -302,6 +302,18 @@ module.exports = router => {
         response.redirect("/delivery/wat3/pcd/pre-draft/contacted-by?pcdStatus=log-not-started")
     })
 
+    router.post('/delivery/wat3/pcd/draft/pcd-type-answer', function(request, response) {
+
+        var pcdType = request.session.data['pcdType']
+        if (pcdType == "dtc"){
+            response.redirect("/delivery/wat3/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=dtc&nextTask=dtc&existingTask=dtc")
+        } else if (pcdType == "nfa") {
+            response.redirect("/delivery/wat3/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=nfa&nextTask=nfa&existingTask=nfa")
+        } else {
+            response.redirect("#")
+        }
+    })
+
     router.post('/delivery/wat3/pcd/pre-draft/contacted-by-answer', function(request, response) {
 
         var contactedBy = request.session.data['contactedBy']

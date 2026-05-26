@@ -429,8 +429,6 @@ assigneeFormatted = assigneeName %} {% endif %}
           </fieldset>
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
-
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -1115,10 +1113,11 @@ assigneeFormatted = assigneeName %} {% endif %}
       class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6"
     />
 
-    {% for record in taskRecords %} {% if loop.index == 5 %} {# Insert
-    session-data record (PHILLIPS) between JOHNSON and JONES, maintaining
-    original order #} {% if (data['pcdSent'] == "yes") or (data['pcdFumoc'] ==
-    "None") %} {% else %}
+    {% for record in taskRecords %}
+    {% if loop.index == 5 %}
+    {# Insert session-data record (PHILLIPS) between JOHNSON and JONES, maintaining original order #}
+    {% if (data['pcdSent'] == "yes") or (data['pcdFumoc'] == "None") or (data['nextTask'] == "") or (data['nextTask'] == "no-task") %}
+    {% else %}
     <div class="govuk-!-margin-bottom-9" id="manual-task-container">
       <dl class="govuk-summary-list">
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
@@ -1134,19 +1133,24 @@ assigneeFormatted = assigneeName %} {% endif %}
           <dt class="govuk-summary-list__key">Task</dt>
           <dd class="govuk-summary-list__value">
             <span class="govuk-!-font-weight-bold">
-              {% if (data['nextTask'] == "dtc") %} Inform of a decision to
-              charge {% elif (data['nextTask'] == "nfa") %} Inform of a no
-              further action decision {% elif (data['nextTask'] ==
-              "stopped-charge") %} Inform of a stopped charge {% elif
-              (data['nextTask'] == "altered-charge") %} Inform of a
-              substantially altered charge {% elif (data['nextTask'] ==
-              "meeting-offer") %} Log offered meeting {% elif (data['nextTask']
-              == "meeting-arranged") %} Log arranged meeting {% elif
-              (data['nextTask'] == "meeting-outcome") %} Log meeting outcome {%
-              elif (data['nextTask'] == "other") %}
-              {{ data['manualTaskName'] }}
+              {% if (data['nextTask'] == "dtc") %}
+                Inform of a decision to charge
+              {% elif (data['nextTask'] == "nfa") %}
+                Inform of a no further action decision
+              {% elif (data['nextTask'] == "stopped-charge") %}
+                Inform of a stopped charge
+              {% elif (data['nextTask'] == "altered-charge") %}
+                Inform of a substantially altered charge
+              {% elif (data['nextTask'] == "meeting-offer") %}
+                Log offered meeting
+              {% elif (data['nextTask'] == "meeting-arranged") %}
+                Log arranged meeting
+              {% elif (data['nextTask'] == "meeting-outcome") %}
+                Log meeting outcome
+              {% elif (data['nextTask'] == "other") %}
+                {{ data['manualTaskName'] }}
               {% else %}
-              {{ data['nextTask'] }}
+                {{ data['nextTask'] }}
               {% endif %}
             </span>
           </dd>
@@ -1343,7 +1347,8 @@ assigneeFormatted = assigneeName %} {% endif %}
         </div>
       </dl>
     </div>
-    {% endif %} {% endif %}
+    {% endif %}
+    {% endif %}
     <div class="govuk-!-margin-bottom-9">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
         <a
