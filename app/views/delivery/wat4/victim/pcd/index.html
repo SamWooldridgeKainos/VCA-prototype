@@ -4,7 +4,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
 
-        {% if data['nextTask'] == "No task at this time" %}
+        {% if data['nextTask'] == "no-task" %}
             <p class="govuk-body">
                 {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}.
             </p>
