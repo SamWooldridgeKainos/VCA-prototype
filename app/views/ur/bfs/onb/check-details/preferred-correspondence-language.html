@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred correspondence language" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/delivery/wat4/check-details/preferred-correspondence-language-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group-1">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred correspondence language?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-correspondence-language-english" name="preferredCorrespondenceLanguage" value="English" data-value="english" {{ checked('preferredCorrespondenceLanguage','English') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-correspondence-language-english">
+                English
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-correspondence-language-welsh" name="preferredCorrespondenceLanguage" value="Welsh" data-value="welsh" {{ checked('preferredCorrespondenceLanguage','Welsh') }}>
+              <label class="govuk-label govuk-radios__label" for="preferred-correspondence-language-welsh">
+                Welsh
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="preferred-correspondence-language-other" name="preferredCorrespondenceLanguage" value="Other" data-value="other" {{ checked('preferredCorrespondenceLanguage','Other') }} data-aria-controls="preferred-correspondence-language-other-text">
+              <label class="govuk-label govuk-radios__label" for="preferred-correspondence-language-other">
+                Other
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="preferred-correspondence-language-other-text">
+              <div class="govuk-form-group" id="error-form-group-2">
+                <label class="govuk-label" for="preferred-correspondence-language-other-text-input">
+                  Preferred correspondence language
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="preferred-correspondence-language-other-text-input" name="preferredCorrespondenceLanguageOtherText" type="text" value="{{ data['preferredCorrespondenceLanguageOtherText'] }}">
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/check-details/preferred-correspondence-language.js"></script>
+{% endblock %}

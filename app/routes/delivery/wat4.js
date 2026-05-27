@@ -41,6 +41,11 @@ module.exports = router => {
         response.redirect("/delivery/wat4/onb/check-details?successNotification=yes&onboardedStatus=Yes")
     })
 
+
+        router.post('/ur/bfs/onb/service-lead-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details?successNotification=yes&onboardedStatus=Yes")
+    })
     router.post('/delivery/wat4/check-details/case-type-answer', function(request, response) {
 
         response.redirect("/delivery/wat4/onb/check-details?successNotification=yes")
@@ -104,6 +109,7 @@ module.exports = router => {
 
         response.redirect("/delivery/wat4/victim?success=yes&successReason=service-updated#victim-details")
     })
+
 
     // Victim details - new change routes
 
