@@ -246,4 +246,53 @@
     }
   })();
 </script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-case-contacts-tab]');
+    var panels = document.querySelectorAll('.case-contacts-panel');
+
+    if (!links.length || !panels.length) {
+      return;
+    }
+
+    function activateCaseContactsTab(targetId) {
+      links.forEach(function (link) {
+        var li = link.closest('.x-govuk-secondary-navigation__list-item');
+        li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+        link.removeAttribute('aria-current');
+      });
+
+      var activeLink = document.querySelector('[data-case-contacts-tab="' + targetId + '"]');
+      if (activeLink) {
+        var activeLi = activeLink.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        activeLink.setAttribute('aria-current', 'page');
+      }
+
+      panels.forEach(function (panel) {
+        panel.hidden = (panel.id !== targetId);
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        activateCaseContactsTab(link.getAttribute('data-case-contacts-tab'));
+      });
+    });
+
+    var secondaryNavMap = {
+      'case-contacts': 'case-contacts-contacts',
+      'contacts': 'case-contacts-contacts',
+      'cms': 'case-contacts-cms',
+      'cms-contacts': 'case-contacts-cms'
+    };
+    var params = new URLSearchParams(window.location.search);
+    var secondaryNav = params.get('secondaryNav');
+    var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    if (targetSubTab) {
+      activateCaseContactsTab(targetSubTab);
+    }
+  })();
+</script>
 {% endblock %}

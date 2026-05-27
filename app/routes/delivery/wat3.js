@@ -901,4 +901,98 @@ module.exports = router => {
         })
     })
 
+    // -----------------------------------------------------------------------
+    // Case contacts — Family Liaison Officer
+    // -----------------------------------------------------------------------
+
+    router.post('/delivery/wat3/victim/case-contacts/family-liaison-officer-answer', function (req, res) {
+        req.session.data['familyLiaisonOfficerDeleted'] = 'no'
+        req.session.data['familyLiaisonOfficerName'] = req.body['familyLiaisonOfficerName'] || ''
+        req.session.data['familyLiaisonOfficerEmailAddress'] = req.body['familyLiaisonOfficerEmailAddress'] || ''
+        req.session.data['familyLiaisonOfficerPhoneNumber'] = req.body['familyLiaisonOfficerPhoneNumber'] || ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/delivery/wat3/victim/case-contacts/family-liaison-officer-delete', function (req, res) {
+        req.session.data['familyLiaisonOfficerDeleted'] = 'yes'
+        req.session.data['familyLiaisonOfficerName'] = ''
+        req.session.data['familyLiaisonOfficerForename'] = ''
+        req.session.data['familyLiaisonOfficerSurname'] = ''
+        req.session.data['familyLiaisonOfficerEmailAddress'] = ''
+        req.session.data['familyLiaisonOfficerPhoneNumber'] = ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    // -----------------------------------------------------------------------
+    // Case contacts — IDVA
+    // -----------------------------------------------------------------------
+
+    router.post('/delivery/wat3/victim/case-contacts/idva-answer', function (req, res) {
+        req.session.data['idvaName'] = req.body['idvaName'] || ''
+        req.session.data['idvaDeleted'] = 'no'
+        req.session.data['idvaAddressLine1'] = req.body['idvaAddressLine1'] || ''
+        req.session.data['idvaAddressLine2'] = req.body['idvaAddressLine2'] || ''
+        req.session.data['idvaAddressLine3'] = req.body['idvaAddressLine3'] || ''
+        req.session.data['idvaAddressLine4'] = req.body['idvaAddressLine4'] || ''
+        req.session.data['idvaAddressLine5'] = req.body['idvaAddressLine5'] || ''
+        req.session.data['idvaPostCode'] = req.body['idvaPostCode'] || ''
+        req.session.data['idvaCity'] = req.body['idvaCity'] || ''
+        req.session.data['idvaCounty'] = req.body['idvaCounty'] || ''
+        req.session.data['idvaEmailAddress'] = req.body['idvaEmailAddress'] || ''
+        req.session.data['idvaPhoneNumber'] = req.body['idvaPhoneNumber'] || ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/delivery/wat3/victim/case-contacts/idva-delete', function (req, res) {
+        req.session.data['idvaDeleted'] = 'yes'
+        req.session.data['idvaName'] = ''
+        req.session.data['idvaAddressLine1'] = ''
+        req.session.data['idvaAddressLine2'] = ''
+        req.session.data['idvaAddressLine3'] = ''
+        req.session.data['idvaAddressLine4'] = ''
+        req.session.data['idvaAddressLine5'] = ''
+        req.session.data['idvaPostCode'] = ''
+        req.session.data['idvaCity'] = ''
+        req.session.data['idvaCounty'] = ''
+        req.session.data['idvaEmailAddress'] = ''
+        req.session.data['idvaPhoneNumber'] = ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    // -----------------------------------------------------------------------
+    // Case contacts — ISVA
+    // -----------------------------------------------------------------------
+
+    router.post('/delivery/wat3/victim/case-contacts/isva-answer', function (req, res) {
+        req.session.data['isvaName'] = req.body['isvaName'] || ''
+        req.session.data['isvaDeleted'] = 'no'
+        req.session.data['isvaAddressLine1'] = req.body['isvaAddressLine1'] || ''
+        req.session.data['isvaAddressLine2'] = req.body['isvaAddressLine2'] || ''
+        req.session.data['isvaAddressLine3'] = req.body['isvaAddressLine3'] || ''
+        req.session.data['isvaAddressLine4'] = req.body['isvaAddressLine4'] || ''
+        req.session.data['isvaAddressLine5'] = req.body['isvaAddressLine5'] || ''
+        req.session.data['isvaPostCode'] = req.body['isvaPostCode'] || ''
+        req.session.data['isvaCity'] = req.body['isvaCity'] || ''
+        req.session.data['isvaCounty'] = req.body['isvaCounty'] || ''
+        req.session.data['isvaEmailAddress'] = req.body['isvaEmailAddress'] || ''
+        req.session.data['isvaPhoneNumber'] = req.body['isvaPhoneNumber'] || ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/delivery/wat3/victim/case-contacts/isva-delete', function (req, res) {
+        req.session.data['isvaDeleted'] = 'yes'
+        req.session.data['isvaName'] = ''
+        req.session.data['isvaAddressLine1'] = ''
+        req.session.data['isvaAddressLine2'] = ''
+        req.session.data['isvaAddressLine3'] = ''
+        req.session.data['isvaAddressLine4'] = ''
+        req.session.data['isvaAddressLine5'] = ''
+        req.session.data['isvaPostCode'] = ''
+        req.session.data['isvaCity'] = ''
+        req.session.data['isvaCounty'] = ''
+        req.session.data['isvaEmailAddress'] = ''
+        req.session.data['isvaPhoneNumber'] = ''
+        res.redirect('/delivery/wat3/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
 }
