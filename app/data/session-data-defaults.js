@@ -29,21 +29,6 @@ module.exports = {
   'victimDateOfBirth': '22/7/1990',
   'victimAge': '34',
 
-  'familyLiaisonOfficerSurname': 'Bidwell',
-  'familyLiaisonOfficerForename': 'Jane',
-  'familyLiaisonOfficerPhoneNumber': '(020) 12345678',
-  'familyLiaisonOfficerEmailAddress': 'jane.bidwell@family.liaison.co.uk',
-
-  'idvaSurname': 'Sakamoto',
-  'idvaForename': 'Hadji',
-  'idvaPhoneNumber': '(020) 12345678',
-  'idvaEmailAddress': 'hadji.sakamoto@idva.uk',
-
-  'isvaSurname': 'Svar',
-  'isvaForename': 'Izzy',
-  'isvaPhoneNumber': '(020) 12345678',
-  'isvaEmailAddress': 'izzy.svar@isva.uk',
-
   'counselSurname': 'Hamer',
   'counselForename': 'Olivia',
   'counselPhoneNumber': '(020) 12345678',
