@@ -237,6 +237,75 @@
 <script src="/public/javascripts/delivery/shared/victim-record.js"></script>
 <script>
   (function () {
+    // Dynamically update "Create task" button href with active tab and secondary nav state
+    var createTaskButton = document.querySelector('a[href^="/delivery/wat3/victim/new-task/task-selection"]');
+
+    function getActiveTab() {
+      var selectedTab = document.querySelector('.govuk-tabs__list-item--selected .govuk-tabs__tab');
+      if (selectedTab) {
+        return selectedTab.getAttribute('href').replace('#', '');
+      }
+      return 'overview';
+    }
+
+    function getActiveSecondaryNav() {
+      var commsNav = document.querySelector('#communications .x-govuk-secondary-navigation__list-item--current .x-govuk-secondary-navigation__link');
+      if (commsNav) {
+        return commsNav.getAttribute('data-comms-tab') || '';
+      }
+      return '';
+    }
+
+    function getActiveCaseContactsNav() {
+      var caseContactsNav = document.querySelector('#case-contacts .x-govuk-secondary-navigation__list-item--current .x-govuk-secondary-navigation__link');
+      if (caseContactsNav) {
+        return caseContactsNav.getAttribute('data-case-contacts-tab') || '';
+      }
+      return '';
+    }
+
+    function updateCreateTaskHref() {
+      if (!createTaskButton) return;
+      var activeTab = getActiveTab();
+      var secondaryNav = getActiveSecondaryNav();
+      var caseContactsNav = getActiveCaseContactsNav();
+      var href = '/delivery/wat3/victim/new-task/task-selection?activeTab=' + encodeURIComponent(activeTab);
+      if (activeTab === 'communications' && secondaryNav) {
+        href += '&activeSecondaryNav=' + encodeURIComponent(secondaryNav);
+      }
+      if (activeTab === 'case-contacts' && caseContactsNav) {
+        href += '&activeSecondaryNav=' + encodeURIComponent(caseContactsNav);
+      }
+      createTaskButton.setAttribute('href', href);
+    }
+
+    // Expose globally so secondary nav handlers can call it
+    window.updateCreateTaskHref = updateCreateTaskHref;
+
+    // Update on tab changes
+    var tabLinks = document.querySelectorAll('.govuk-tabs__tab');
+    tabLinks.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setTimeout(updateCreateTaskHref, 0);
+      });
+    });
+
+    // Activate the correct main tab based on activeTab query param
+    var params = new URLSearchParams(window.location.search);
+    var activeTab = params.get('activeTab');
+    if (activeTab && activeTab !== 'overview') {
+      var targetTabLink = document.querySelector('.govuk-tabs__tab[href="#' + activeTab + '"]');
+      if (targetTabLink) {
+        targetTabLink.click();
+      }
+    }
+
+    // Initial update
+    updateCreateTaskHref();
+  })();
+</script>
+<script>
+  (function () {
     var links = document.querySelectorAll('[data-comms-tab]');
     var panels = document.querySelectorAll('.comms-panel');
 
@@ -259,10 +328,13 @@
         panels.forEach(function (panel) {
           panel.hidden = (panel.id !== targetId);
         });
+
+        // Update Create task button href
+        if (window.updateCreateTaskHref) window.updateCreateTaskHref();
       });
     });
 
-    // Activate the appropriate sub-tab based on the secondaryNav query param
+    // Activate the appropriate sub-tab based on the secondaryNav or activeSecondaryNav query param
     var secondaryNavMap = {
       'other': 'comms-other',
       'ptm': 'comms-ptm',
@@ -271,7 +343,12 @@
     };
     var params = new URLSearchParams(window.location.search);
     var secondaryNav = params.get('secondaryNav');
+    var activeSecondaryNav = params.get('activeSecondaryNav');
     var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    // If no secondaryNav param, try activeSecondaryNav (for returning from task creation)
+    if (!targetSubTab && activeSecondaryNav && activeSecondaryNav.indexOf('comms-') === 0) {
+      targetSubTab = activeSecondaryNav;
+    }
     if (targetSubTab) {
       var targetLink = document.querySelector('[data-comms-tab="' + targetSubTab + '"]');
       if (targetLink) {
@@ -306,6 +383,9 @@
       panels.forEach(function (panel) {
         panel.hidden = (panel.id !== targetId);
       });
+
+      // Update Create task button href
+      if (window.updateCreateTaskHref) window.updateCreateTaskHref();
     }
 
     links.forEach(function (link) {
@@ -323,7 +403,12 @@
     };
     var params = new URLSearchParams(window.location.search);
     var secondaryNav = params.get('secondaryNav');
+    var activeSecondaryNav = params.get('activeSecondaryNav');
     var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    // If no secondaryNav param, try activeSecondaryNav (for returning from task creation)
+    if (!targetSubTab && activeSecondaryNav && activeSecondaryNav.indexOf('case-contacts-') === 0) {
+      targetSubTab = activeSecondaryNav;
+    }
     if (targetSubTab) {
       activateCaseContactsTab(targetSubTab);
     }

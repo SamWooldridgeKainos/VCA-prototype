@@ -33,9 +33,9 @@ function validateForm() {
   if (infoPackSentExists && !infoPackSent) {
     $('#error-form-group-2').addClass('govuk-form-group--error');
     $('#error-form-group-2 .govuk-radios').before(
-      '<p class="govuk-error-message" id="error-message-2"><span class="govuk-visually-hidden">Error:</span> Select yes if the information pack was sent to the victim</p>'
+      '<p class="govuk-error-message" id="error-message-2"><span class="govuk-visually-hidden">Error:</span> Select yes if you sent the information pack to the victim</p>'
     );
-    errorItems.push({ id: 'error-message-2', text: 'Select yes if the information pack was sent to the victim' });
+    errorItems.push({ id: 'error-message-2', text: 'Select yes if you sent the information pack to the victim' });
     hasErrors = true;
   }
 
