@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change religion" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/religion-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s religion?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-1" name="religion" type="radio" value="No religion" {{ checked('religion','No religion') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-1">No religion</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-2" name="religion" type="radio" value="Christian" {{ checked('religion','Christian') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-2">Christian</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-3" name="religion" type="radio" value="Buddhist" {{ checked('religion','Buddhist') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-3">Buddhist</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-4" name="religion" type="radio" value="Hindu" {{ checked('religion','Hindu') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-4">Hindu</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-5" name="religion" type="radio" value="Jewish" {{ checked('religion','Jewish') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-5">Jewish</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-6" name="religion" type="radio" value="Muslim" {{ checked('religion','Muslim') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-6">Muslim</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-7" name="religion" type="radio" value="Sikh" {{ checked('religion','Sikh') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-7">Sikh</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="religion-8" name="religion" type="radio" value="Preferred not to say" {{ checked('religion','Preferred not to say') }}>
+                            <label class="govuk-label govuk-radios__label" for="religion-8">Preferred not to say</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

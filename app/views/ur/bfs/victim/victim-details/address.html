@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change address" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/address-answer" method="post">
+
+            <h1 class="govuk-heading-l">Change address for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine1">
+                    Address line 1
+                </label>
+                <input class="govuk-input" id="victimAddressLine1" name="victimAddressLine1" type="text" value="{{ data['victimAddressLine1'] }}" autocomplete="address-line1">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine2">
+                    Address line 2
+                </label>
+                <input class="govuk-input" id="victimAddressLine2" name="victimAddressLine2" type="text" value="{{ data['victimAddressLine2'] }}" autocomplete="address-line2">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine3">
+                    Town or city
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimAddressLine3" name="victimAddressLine3" type="text" value="{{ data['victimAddressLine3'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimPostCode">
+                    Postcode
+                </label>
+                <input class="govuk-input govuk-input--width-10" id="victimPostCode" name="victimPostCode" type="text" value="{{ data['victimPostCode'] }}" autocomplete="postal-code">
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL Scheme decision{% endif %}.
+</p>
+
+<a href="/delivery/wat4/vcl/pre-draft/contacted-by" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    Log a communication<span class="govuk-visually-hidden"> to inform about the {{ data['vclType'] }}</span>
+</a>
+{% endblock %}

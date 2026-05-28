@@ -1,0 +1,234 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if (data['case-locked'] == "by-someone-else") %}
+      {% include "/delivery/wat4/case-locked/banner/by-someone-else.html" %}
+    {% elif (data['case-locked'] == "self-locked") %}
+      {% include "/delivery/wat4/case-locked/banner/self-locked.html" %}
+    {% else %}
+    {% endif %}
+
+
+    {% if (data['success'] == "yes") %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if (data['successReason'] == "email-address-updated") %}
+            You changed the email address for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimEmailAddress'] }}.
+          {% elif (data['successReason'] == "pmoc-updated") %}
+            You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+            Telephone call 1 logged.
+          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+            Telephone call 2 logged.
+          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+            Telephone call 3 logged.
+          {% elif (data['successReason'] == "draft-approved-to-send") %}
+            Letter sent to CMS and approved to send.
+          {% elif (data['successReason'] == "not-contacted-logged") %}
+            Reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }} logged.
+          {% elif (data['successReason'] == "risk-level-updated") %}
+            You changed the domestic abuse risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+          {% elif (data['successReason'] == "translator-needed-updated") %}
+            You changed the translator needed status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['translatorNeeded'] }}.
+          {% elif (data['successReason'] == "vps-status-updated") %}
+            You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
+          {% elif (data['successReason'] == "service-updated") %}
+            {% if data['serviceLead'] == 'Not aligned' %}
+              You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to Not aligned to a service.
+            {% else %}
+              You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['serviceLead'] }}.
+            {% endif %}
+          {% elif (data['successReason'] == "name-and-title-updated") %}
+            You changed the name and title for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "preferred-name-updated") %}
+            You changed the preferred name for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimPreferredName'] }}.
+          {% elif (data['successReason'] == "date-of-birth-updated") %}
+            You changed the date of birth for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "sex-and-gender-identity-updated") %}
+            You changed the sex and gender identity for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['sexAndGenderIdentity'] }}.
+          {% elif (data['successReason'] == "previous-convictions-updated") %}
+            You changed previous convictions for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['previousConvictions'] }}.
+          {% elif (data['successReason'] == "health-conditions-updated") %}
+            You changed health conditions or illness for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['healthConditions'] }}.
+          {% elif (data['successReason'] == "ethnic-group-updated") %}
+            You changed the ethnic group for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['ethnicGroup'] }}.
+          {% elif (data['successReason'] == "ethnic-background-updated") %}
+            You changed the ethnic background for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['ethnicBackground'] }}.
+          {% elif (data['successReason'] == "religion-updated") %}
+            You changed the religion for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['religion'] }}.
+          {% elif (data['successReason'] == "categories-updated") %}
+            You changed the categories for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "special-measures-updated") %}
+            You changed the special measures for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "wants-to-be-contacted-updated") %}
+            You changed wants to be contacted for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['wantsToBeContacted'] }}.
+          {% elif (data['successReason'] == "preferred-correspondence-language-updated") %}
+            You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredCorrespondenceLanguage'] }}.
+          {% elif (data['successReason'] == "preferred-contact-times-updated") %}
+            You changed the preferred contact times for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "telephone-numbers-updated") %}
+            You changed the telephone numbers for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "email-address-updated") %}
+            You changed the email address for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "address-updated") %}
+            You changed the address for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+          {% elif (data['successReason'] == "victim-rep-name-updated") %}
+            You changed the victim representative name.
+          {% elif (data['successReason'] == "victim-rep-phone-updated") %}
+            You changed the victim representative telephone number.
+          {% elif (data['successReason'] == "victim-rep-email-updated") %}
+            You changed the victim representative email address.
+          {% elif (data['successReason'] == "poa-name-updated") %}
+            You changed the power of attorney name.
+          {% elif (data['successReason'] == "poa-phone-updated") %}
+            You changed the power of attorney telephone number.
+          {% elif (data['successReason'] == "poa-email-updated") %}
+            You changed the power of attorney email address.
+          {% endif %}
+        </h3>
+        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+      </div>
+    </div>
+
+    {% else %}
+    {% endif %}
+
+    {% if (data['secondaryNav'] == "victim-details") %}
+      {% set activeTab = "victim-details" %}
+    {% elif (data['secondaryNav'] == "case-contacts") %}
+      {% set activeTab = "case-contacts" %}
+    {% elif (data['secondaryNav'] == "pcd") or (data['secondaryNav'] == "vcl") or (data['secondaryNav'] == "ptm") or (data['secondaryNav'] == "other") %}
+      {% set activeTab = "communications" %}
+    {% else %}
+      {% set activeTab = "overview" %}
+    {% endif %}
+
+    {% if (data['secondaryNav'] == "vcl") %}
+      {% set activeComms = "comms-vcl" %}
+    {% elif (data['secondaryNav'] == "ptm") %}
+      {% set activeComms = "comms-ptm" %}
+    {% elif (data['secondaryNav'] == "other") %}
+      {% set activeComms = "comms-other" %}
+    {% else %}
+      {% set activeComms = "comms-pcd" %}
+    {% endif %}
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Contents</h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item{% if activeTab == 'overview' %} govuk-tabs__list-item--selected{% endif %}">
+          <a class="govuk-tabs__tab" href="#overview">Case overview</a>
+        </li>
+        <li class="govuk-tabs__list-item{% if activeTab == 'victim-details' %} govuk-tabs__list-item--selected{% endif %}">
+          <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item{% if activeTab == 'case-contacts' %} govuk-tabs__list-item--selected{% endif %}">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item{% if activeTab == 'communications' %} govuk-tabs__list-item--selected{% endif %}">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel{% if activeTab != 'overview' %} govuk-tabs__panel--hidden{% endif %}" id="overview">
+        {% include "/delivery/wat4/victim/overview.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel{% if activeTab != 'victim-details' %} govuk-tabs__panel--hidden{% endif %}" id="victim-details">
+        {% include "/delivery/wat4/victim/victim-details/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel{% if activeTab != 'case-contacts' %} govuk-tabs__panel--hidden{% endif %}" id="case-contacts">
+        {% include "/delivery/wat4/victim/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel{% if activeTab != 'communications' %} govuk-tabs__panel--hidden{% endif %}" id="communications">
+        <nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-label="Communications">
+          <ul class="x-govuk-secondary-navigation__list">
+            <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-pcd' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
+              <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-pcd' %} aria-current="page"{% endif %} href="#comms-pcd" data-comms-tab="comms-pcd">Charging decision</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-vcl' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
+              <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-vcl' %} aria-current="page"{% endif %} href="#comms-vcl" data-comms-tab="comms-vcl">VCL Scheme</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-ptm' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
+              <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-ptm' %} aria-current="page"{% endif %} href="#comms-ptm" data-comms-tab="comms-ptm">Meetings</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-other' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
+              <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-other' %} aria-current="page"{% endif %} href="#comms-other" data-comms-tab="comms-other">Other communication</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div id="comms-pcd" class="comms-panel"{% if activeComms != 'comms-pcd' %} hidden{% endif %}>
+          {% include "/delivery/wat4/victim/pcd/index.html" %}
+        </div>
+
+        <div id="comms-vcl" class="comms-panel"{% if activeComms != 'comms-vcl' %} hidden{% endif %}>
+          {% include "/delivery/wat4/victim/vcl/index.html" %}
+        </div>
+
+        <div id="comms-ptm" class="comms-panel"{% if activeComms != 'comms-ptm' %} hidden{% endif %}>
+          {% include "/delivery/wat4/victim/pre-trial/pre-trial-meeting/index.html" %}
+        </div>
+
+        <div id="comms-other" class="comms-panel"{% if activeComms != 'comms-other' %} hidden{% endif %}>
+          {% include "/delivery/wat4/victim/other/index.html" %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/victim-record.js"></script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-comms-tab]');
+    var panels = document.querySelectorAll('.comms-panel');
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = link.getAttribute('data-comms-tab');
+
+        // Update nav items
+        links.forEach(function (l) {
+          var li = l.closest('.x-govuk-secondary-navigation__list-item');
+          li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+          l.removeAttribute('aria-current');
+        });
+        var activeLi = link.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        link.setAttribute('aria-current', 'page');
+
+        // Show/hide panels
+        panels.forEach(function (panel) {
+          panel.hidden = (panel.id !== targetId);
+        });
+      });
+    });
+  })();
+</script>
+{% endblock %}

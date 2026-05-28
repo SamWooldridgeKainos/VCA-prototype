@@ -1,0 +1,107 @@
+{% block content %}
+<h2 class="govuk-heading-l govuk-!-margin-top-6">Other communication</h2>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        {% if (data['otherCommunications'] | length) %}
+
+            <a href="/delivery/wat4/other/contacted-by" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+                Log a new communication
+            </a>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            <ul class="govuk-list">
+                {% for communication in data['otherCommunications'] | sort(true, false, 'sortDate') %}
+                    <li>
+                        <!-- <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">
+                                    Communication logged
+                                </h2>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class="govuk-grid-row">
+                                    <div class="govuk-grid-column-full">
+
+                                        {% if contactedBy == "call" %}
+                                            {% include "/delivery/wat4/victim/other/details/call.html" %}
+                                        {% elif contactedBy == "email" %}
+                                            {% include "/delivery/wat4/victim/other/details/email.html" %}
+                                        {% elif contactedBy == "letter" %}
+                                            {% include "/delivery/wat4/victim/other/details/letter.html" %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">
+                                    {% if communication.contactedBy == "call" %}
+                                        {{ communication.contactedBy | capitalize }} logged
+                                    {% elif communication.contactedBy == "email" %}
+                                        {{ communication.contactedBy | capitalize }} logged
+                                    {% elif communication.contactedBy == "post" %}
+                                        Letter logged
+                                    {% elif communication.contactedBy == "text" %}
+                                        Text message logged
+                                    {% elif communication.contactedBy == "in-person" %}
+                                        In person conversation logged
+                                    {% elif communication.contactedBy == "other" %}
+                                        {{ communication.otherContactMethod | capitalize }} logged
+                                    {% else %}
+                                        <p class="govuk-body">
+                                            Fail!
+                                        </p>
+                                    {% endif %}
+                                    
+                                </h2>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class="govuk-grid-row">
+                                    <div class="govuk-grid-column-full">
+
+                                        {% if communication.contactedBy == "call" %}
+                                            {% include "/delivery/wat4/victim/other/details/call.html" %}
+                                        {% elif communication.contactedBy == "email" %}
+                                            {% include "/delivery/wat4/victim/other/details/email.html" %}
+                                        {% elif communication.contactedBy == "post" %}
+                                            {% include "/delivery/wat4/victim/other/details/letter.html" %}
+                                        {% elif communication.contactedBy == "text" %}
+                                            {% include "/delivery/wat4/victim/other/details/text-message.html" %}
+                                        {% elif communication.contactedBy == "in-person" %}
+                                            {% include "/delivery/wat4/victim/other/details/in-person.html" %}
+                                        {% elif communication.contactedBy == "other" %}
+                                            {% include "/delivery/wat4/victim/other/details/other.html" %}
+                                        {% else %}
+                                            <p class="govuk-body">
+                                                Fail!
+                                            </p>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+                
+            </ul>
+        {% else %}
+            <p class="govuk-body">
+                You have not logged any other communication.
+            </p>
+
+            <a href="/delivery/wat4/other/contacted-by" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+                Log a communication
+            </a>
+        {% endif %}
+        
+
+    </div>
+</div>
+{% endblock %}

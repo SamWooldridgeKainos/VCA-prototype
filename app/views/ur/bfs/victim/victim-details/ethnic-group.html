@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change ethnic group" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/ethnic-group-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What is {{ data['victimForename'] }} {{ data['victimSurname'] }}'s ethnic group?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-1" name="ethnicGroup" type="radio" value="White" {{ checked('ethnicGroup','White') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-1">White</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-2" name="ethnicGroup" type="radio" value="Mixed or multiple ethnic groups" {{ checked('ethnicGroup','Mixed or multiple ethnic groups') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-2">Mixed or multiple ethnic groups</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-3" name="ethnicGroup" type="radio" value="Asian or Asian British" {{ checked('ethnicGroup','Asian or Asian British') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-3">Asian or Asian British</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-4" name="ethnicGroup" type="radio" value="Black, African, Caribbean or Black British" {{ checked('ethnicGroup','Black, African, Caribbean or Black British') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-4">Black, African, Caribbean or Black British</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-5" name="ethnicGroup" type="radio" value="Other ethnic group" {{ checked('ethnicGroup','Other ethnic group') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-5">Other ethnic group</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="ethnic-group-6" name="ethnicGroup" type="radio" value="Preferred not to say" {{ checked('ethnicGroup','Preferred not to say') }}>
+                            <label class="govuk-label govuk-radios__label" for="ethnic-group-6">Preferred not to say</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

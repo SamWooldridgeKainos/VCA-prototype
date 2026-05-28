@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change name and title" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/name-and-title-answer" method="post">
+
+            <h1 class="govuk-heading-l">Change name and title</h1>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimTitle">
+                    Title
+                </label>
+                <input class="govuk-input govuk-!-width-one-quarter" id="victimTitle" name="victimTitle" type="text" value="{{ data['victimTitle'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimForename">
+                    First name
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimForename" name="victimForename" type="text" value="{{ data['victimForename'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimSurname">
+                    Last name
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimSurname" name="victimSurname" type="text" value="{{ data['victimSurname'] }}">
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

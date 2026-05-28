@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change telephone numbers" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/telephone-numbers-answer" method="post">
+
+            <h1 class="govuk-heading-l">Change telephone numbers for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimMobileNumber">
+                    Mobile
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimMobileNumber" name="victimMobileNumber" type="tel" value="{{ data['victimMobileNumber'] or data['victimPhoneNumber'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimHomeNumber">
+                    Home
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimHomeNumber" name="victimHomeNumber" type="tel" value="{{ data['victimHomeNumber'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimWorkNumber">
+                    Work
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimWorkNumber" name="victimWorkNumber" type="tel" value="{{ data['victimWorkNumber'] }}">
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

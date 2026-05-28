@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change categories" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/categories-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What categories apply to {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                        </h1>
+                    </legend>
+                    <div id="categories-hint" class="govuk-hint">
+                        Select all that apply.
+                    </div>
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="categories-1" name="victimCategories" type="checkbox" value="Vulnerable">
+                            <label class="govuk-label govuk-checkboxes__label" for="categories-1">Vulnerable</label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="categories-2" name="victimCategories" type="checkbox" value="Intimidated">
+                            <label class="govuk-label govuk-checkboxes__label" for="categories-2">Intimidated</label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="categories-3" name="victimCategories" type="checkbox" value="Persistently targeted">
+                            <label class="govuk-label govuk-checkboxes__label" for="categories-3">Persistently targeted</label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="categories-4" name="victimCategories" type="checkbox" value="Bereaved">
+                            <label class="govuk-label govuk-checkboxes__label" for="categories-4">Bereaved</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

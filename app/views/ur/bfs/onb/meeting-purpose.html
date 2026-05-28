@@ -1,0 +1,97 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Task selection" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/delivery/wat4/onb/meeting-purpose-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <div class="govuk-form-group" id="error-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        What is the purpose of the meeting?
+                    </h1>
+                </legend>
+
+                <div class="govuk-radios" data-module="govuk-radios" id="radio-group">
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-pre-trial" name="meetingPurpose" value="pre-trial" {{ checked('meetingPurpose','pre-trial') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-pre-trial">
+                            CPS pre-trial meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-charging-decision" name="meetingPurpose" value="charging-decision" {{ checked('meetingPurpose','charging-decision') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-charging-decision">
+                            Inform victim about charging decision
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-stopped-altered" name="meetingPurpose" value="stopped-altered" {{ checked('meetingPurpose','stopped-altered') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-stopped-altered">
+                            Stopped or substantially altered charge (VCL Scheme)
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-vrr" name="meetingPurpose" value="vrr" {{ checked('meetingPurpose','vrr') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-vrr">
+                            Victims' Right to Review (VRR)
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-complaint" name="meetingPurpose" value="complaint" {{ checked('meetingPurpose','complaint') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-complaint">
+                            Victim complaint
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-other" name="meetingPurpose" value="other" data-aria-controls="conditional-meeting-purpose-other" {{ checked('meetingPurpose','other') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-other">
+                            Other
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-meeting-purpose-other">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="meeting-purpose-details">
+                                Provide details
+                            </label>
+                            <textarea class="govuk-textarea govuk-input--width-20" id="meeting-purpose-details" name="meetingPurposeDetails" rows="5">{{ data['meetingPurposeDetails'] }}</textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/onb/meeting-purpose.js"></script>
+{% endblock %}

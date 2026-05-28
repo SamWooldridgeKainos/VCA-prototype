@@ -1,0 +1,34 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Power of attorney telephone number" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/delivery/wat4/victim-details/poa-phone-answer" method="post">
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="poaPhone">
+                        What is the power of attorney's telephone number?
+                    </label>
+                </h1>
+                <input class="govuk-input govuk-!-width-two-thirds" id="poaPhone" name="poaPhone" type="tel" value="{{ data['poaPhone'] }}">
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
