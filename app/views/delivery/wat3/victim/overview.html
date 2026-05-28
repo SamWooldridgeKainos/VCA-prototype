@@ -113,12 +113,18 @@
                         <dt class="govuk-summary-list__key">
                             Charging type
                         </dt>
-                        <dd class="govuk-summary-list__value">
-                            {{ data['caseType'] or 'Green' }}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/charging-type">Change<span class="govuk-visually-hidden"> charging type</span></a>
-                        </dd>
+                        {% if data['caseType'] %}
+                            <dd class="govuk-summary-list__value">
+                                {{ data['caseType'] or 'Green' }}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/charging-type">Change<span class="govuk-visually-hidden"> charging type</span></a>
+                            </dd>
+                        {% else %}
+                            <dd class="govuk-summary-list__value">
+                                <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/charging-type">Select charging type</a>
+                            </dd>
+                        {% endif %}
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
