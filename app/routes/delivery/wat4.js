@@ -87,6 +87,10 @@ module.exports = router => {
         response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily-1-additional")
     })
 
+   router.post('/ur/bfs/check-details/flowithfamily3-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily-2-additional")
+    })
 
     
 

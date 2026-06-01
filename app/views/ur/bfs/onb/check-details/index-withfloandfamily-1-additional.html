@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs.html" %}
+{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 {% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
@@ -172,13 +172,17 @@
       Full name: Tony Stark<br/>
           Email: tony-stark@gmail.com<br/>
             Telephone number: +447712345448<br/>
-             Relationship to victim: Sister<br/>
+             Relationship to victim: Brother<br/>
                 <br/>
                 
-                        <a href="family-contact2" class="govuk-link govuk-link--no-visited-state">Add additional contacts</a>
+                        <a href="family-contact3" class="govuk-link govuk-link--no-visited-state">Add additional contacts</a>
                     </dd>
             
-              
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="family-contact2-completed">
+                        Change<span class="govuk-visually-hidden"> Additional contact</span>
+                    </a>
+                </dd>
           
   
             </div>
