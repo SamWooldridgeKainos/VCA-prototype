@@ -82,11 +82,7 @@
                     Service lead
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data['serviceLead'] == 'Not aligned' %}
-                        Not aligned
-                    {% else %}
-                        {{ data['serviceLead'] }}
-                    {% endif %}
+                  Bereaved Family Scheme
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/service-lead?successNotification&detailChange=service-lead">
@@ -98,20 +94,18 @@
                 <dt class="govuk-summary-list__key">
                     Charging type
                 </dt>
-                {% if data['caseType'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['caseType'] | capitalize }}
+            <dd class="govuk-summary-list__value">
+     Red
                     </dd>
+                  
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/check-details/case-type?successNotification&detailChange=case-type">
                             Change<span class="govuk-visually-hidden"> charging type</span>
                         </a>
                     </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
-                    </dd>
-                {% endif %}
+      
+                   
+          
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -119,22 +113,29 @@
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/ur/bfs/onb/check-details/flo" class="govuk-link govuk-link--no-visited-state">Enter Family Liaison Officer's details</a>
+   Full name: Jonathan Ross<br/>
+          Email: jonathan.ross@cps.gov.uk<br/>
+            Telephone number: +44 (0)7712345678<br/>
+
                     </dd>
             
-           
-               
+              
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="#">
+                        Change<span class="govuk-visually-hidden"> service lead</span>
+                    </a>
+                </dd>
   
             </div>
 
 
-                <div class="govuk-summary-list__row">
+                  <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Bereaved family representative - Primary contact
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat4/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
+                        <a href="family-contact" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
                     </dd>
             
               
@@ -149,17 +150,13 @@
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat4/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Add additional contacts  </a>
+                        <a href="family-contact2" class="govuk-link govuk-link--no-visited-state">Add additional contacts  </a>
                     </dd>
             
               
           
   
             </div>
-
-
-
-              
             <!--
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">

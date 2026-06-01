@@ -82,11 +82,7 @@
                     Service lead
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data['serviceLead'] == 'Not aligned' %}
-                        Not aligned
-                    {% else %}
-                        {{ data['serviceLead'] }}
-                    {% endif %}
+                  Bereaved Family Scheme
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/service-lead?successNotification&detailChange=service-lead">
@@ -98,20 +94,18 @@
                 <dt class="govuk-summary-list__key">
                     Charging type
                 </dt>
-                {% if data['caseType'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['caseType'] | capitalize }}
+            <dd class="govuk-summary-list__value">
+     Red
                     </dd>
+                  
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/check-details/case-type?successNotification&detailChange=case-type">
                             Change<span class="govuk-visually-hidden"> charging type</span>
                         </a>
                     </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
-                    </dd>
-                {% endif %}
+      
+                   
+          
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -119,48 +113,70 @@
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/ur/bfs/onb/check-details/flo" class="govuk-link govuk-link--no-visited-state">Enter Family Liaison Officer's details</a>
+   Full name: Jonathan Ross<br/>
+          Email: jonathan.ross@cps.gov.uk<br/>
+            Telephone number: +44 (0)7712345678<br/>
+
                     </dd>
             
-           
-               
+              
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="#">
+                        Change<span class="govuk-visually-hidden"> service lead</span>
+                    </a>
+                </dd>
   
             </div>
 
 
                 <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Bereaved family representative - Primary contact
+                   Bereaved family representative - Primary contact
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat4/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
+                           Full name: Sydney Pain<br/>
+          Email: sydney-pain@gmail.com<br/>
+            Telephone number: +447712345678<br/>
+             Relationship to victim: Sister<br/>
+           
+               Prefered method of contact: Telephone<br/>
+            Prefered Language: English<br/>
+          
+              
+
+
                     </dd>
             
-              
+                <dd class="govuk-summary-list__actions">
+                             <ul class="govuk-summary-list__actions-list">
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Elizabeth Kean from the list</span></a></li>
+        </ul>
+                </dd>
+
+         
           
   
             </div>
-
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Additional contacts  
+                  Additional contacts
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat4/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Add additional contacts  </a>
+                
+
+
+                        <a href="family-contact2" class="govuk-link govuk-link--no-visited-state">Add additional contacts</a>
                     </dd>
             
               
           
   
             </div>
-
-
-
-              
-            <!--
+           <!--
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred method of contact
@@ -182,6 +198,8 @@
                     </dd>
                 {% endif %}
             </div>
+
+           
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred correspondence language

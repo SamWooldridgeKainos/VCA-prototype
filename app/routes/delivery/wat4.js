@@ -51,6 +51,11 @@ module.exports = router => {
         response.redirect("/delivery/wat4/onb/check-details?successNotification=yes")
     })
 
+      router.post('/ur/bfs/check-details/case-type-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details?successNotification=yes")
+    })
+
     router.post('/delivery/wat4/check-details/risk-level-answer', function(request, response) {
 
         response.redirect("/delivery/wat4/onb/check-details?successNotification=yes")
@@ -65,6 +70,25 @@ module.exports = router => {
 
         response.redirect("/delivery/wat4/onb/check-details?successNotification=yes")
     })
+
+
+     router.post('/ur/bfs/check-details/flo-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details/index-withflo")
+    })
+
+        router.post('/ur/bfs/check-details/flowithfamily-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily")
+    })
+
+        router.post('/ur/bfs/check-details/flowithfamily2-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily-1-additional")
+    })
+
+
+    
 
     router.post('/delivery/wat4/check-details/preferred-contact-times-answer', function(request, response) {
 
@@ -122,6 +146,8 @@ module.exports = router => {
 
         response.redirect("/delivery/wat4/victim?success=yes&successReason=preferred-name-updated&secondaryNav=victim-details#victim-details")
     })
+
+    
 
     router.post('/delivery/wat4/victim-details/date-of-birth-answer', function(request, response) {
 
