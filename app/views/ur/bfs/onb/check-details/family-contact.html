@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -31,7 +31,14 @@
 
       <div class="govuk-form-group">
   <label class="govuk-label" for="full-name">
-    Full name
+    First name
+  </label>
+  <input class="govuk-input" id="full-name" name="fullName" type="text" spellcheck="false" autocomplete="name">
+</div>
+
+      <div class="govuk-form-group">
+  <label class="govuk-label" for="full-name">
+    Last name
   </label>
   <input class="govuk-input" id="full-name" name="fullName" type="text" spellcheck="false" autocomplete="name">
 </div>
@@ -45,10 +52,18 @@
 
 <div class="govuk-form-group">
   <label class="govuk-label" for="phone-number">
-   Telephone number
+   Home telephone number
   </label>
   <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
 </div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="phone-number">
+   Mobile telephone number
+  </label>
+  <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+</div>
+
 
 
 <div class="govuk-form-group">
@@ -70,16 +85,38 @@ Prefered language
             <fieldset class="govuk-fieldset">
             
                <label class="govuk-label" for="event-name">
+Is a translator needed?
+  </label>
+              <div class="govuk-radios" data-module="govuk-radios">
+              
+
+                 <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
+                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
+                  Yes
+                  </label>
+                </div>
+                 <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
+                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
+             No
+                  </label>
+                </div>
+                
+              </div>
+            </fieldset>
+          </div>
+
+
+
+ <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+            
+               <label class="govuk-label" for="event-name">
   Prefered method of contact
   </label>
               <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="interviewNeeds" name="interviewNeeds" type="radio" value="yes">
-                  <label class="govuk-label govuk-radios__label" for="interviewNeeds">
-                   Letter by post
-                  </label>
-                </div>
-               
+              
 
                  <div class="govuk-radios__item">
                   <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
@@ -87,18 +124,7 @@ Prefered language
                    Letter by email
                   </label>
                 </div>
-                 <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
-                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
-                  Letter by police
-                  </label>
-                </div>
-                  <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
-                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
-                  By FLO
-                  </label>
-                </div>
+            
                       <div class="govuk-radios__item">
                   <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
                   <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
