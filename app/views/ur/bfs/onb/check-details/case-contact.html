@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Charging type" %}
+
+{% block header %}
+{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/ur/bfs/check-details/case-type-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+             Who is the preferred case contact?
+            </h1>
+          </legend>
+
+  
+            
+   
+              <div class="govuk-radios" data-module="govuk-radios">
+            
+
+                 <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no"  checked>
+                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
+                  	Family Liaison Officer (FLO)
+                  </label>
+                </div>
+                
+              
+                      <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio"  value="telephone">
+                  <label class="govuk-label govuk-radios__label" for="interviewNeeds-2" >
+                 Bereaved family representative
+                  </label>
+                </div>
+              </div>
+            
+
+
+
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
