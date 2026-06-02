@@ -88,3 +88,24 @@
 .govuk-checkboxes__label::before {
   background-color: govuk-colour('white');
 }
+
+.app-summary-list--compact {
+  margin-bottom: 0;
+}
+
+.app-summary-list--compact .govuk-summary-list__key, .app-summary-list--compact .govuk-summary-list__value {
+  padding-bottom: 0;
+}
+
+@media (min-width: 40.0625em) {
+  .app-summary-list--compact .govuk-summary-list__key {
+    width: 30%;
+  }
+}
+
+// Summary list uses smaller font on victims pages
+.app-summary-list--small-text {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.25;
+}

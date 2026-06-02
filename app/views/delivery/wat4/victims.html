@@ -64,266 +64,147 @@
   <div class="govuk-grid-column-one-quarter">
     <div class="tasks-filters">
 
-      <h2 class="govuk-heading-m">Search</h2>
-
-      <form id="search-criteria-form">
-        <div class="govuk-form-group govuk-!-margin-bottom-0">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Search by
-            </legend>
-            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="search-by-vlo" name="searchBy" type="radio" value="vlo-only" data-label="Victim liaison officer">
-                <label class="govuk-label govuk-radios__label" for="search-by-vlo">Victims allocated to you</label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="search-by-case-ref" name="searchBy" type="radio" value="case-reference" data-label="Case reference">
-                <label class="govuk-label govuk-radios__label" for="search-by-case-ref">Case reference</label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="search-by-victim-name-dob" name="searchBy" type="radio" value="victim-name-dob" data-label="Victim name and date of birth">
-                <label class="govuk-label govuk-radios__label" for="search-by-victim-name-dob">Victim name</label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="search-by-service-area" name="searchBy" type="radio" value="service-area" data-label="Service and area">
-                <label class="govuk-label govuk-radios__label" for="search-by-service-area">Service, area and victim liaison officer</label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-      </form>
-
-      <div id="case-reference-section" class="moj-search govuk-!-padding-0" style="display: none;">
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-        <form action="#" method="post">
-          <div class="govuk-form-group">
-
-            <label class="govuk-label govuk-label--s" for="search-urn">
-              Case reference
-            </label>
-      
-            <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" value="">
-            
-            <button type="submit" class="govuk-button moj-search__button govuk-!-margin-top-4 govuk-!-margin-left-0" data-module="govuk-button">
-              Search
-            </button>
-                    
-          </div>
-      
-        </form>
-
-        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
-        </p>
+      <p class="govuk-body" id="selected-filters-heading">No filters selected</p>
+      <p class="govuk-body" id="clear-search-filters-wrapper" style="display: none;">
+        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-filters">Clear filters</a>
+      </p>
+      <div id="selected-filters-chips" class="govuk-!-margin-bottom-0">
       </div>
 
-      <form id="victim-name-dob-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
+      <button type="button" class="govuk-button govuk-!-margin-top-4 govuk-!-margin-bottom-0" data-module="govuk-button" id="apply-filters-button">
+        Apply filters
+      </button>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" role="group">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Victim name
-            </legend>
-            <div class="govuk-form-group" id="victim-family-name-form-group">
-              <label class="govuk-label" for="victim-family-name-search-input">Last name</label>
-              <p id="victim-family-name-error" class="govuk-error-message" style="display: none;">
-                <span class="govuk-visually-hidden">Error:</span> Enter a last name
-              </p>
-              <input type="text" class="govuk-input" id="victim-family-name-search-input" name="victim-family-name-search" autocomplete="off">
-            </div>
-            <div class="govuk-form-group">
-              <label class="govuk-label" for="victim-given-names-search-input">First name (optional)</label>
-              <input type="text" class="govuk-input" id="victim-given-names-search-input" name="victim-given-names-search" autocomplete="off">
-            </div>
-          </fieldset>
-        </div>
+      <form id="service-area-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0">
+
 
         <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Date of birth (optional)
-            </legend>
-            <!-- <div id="dob-search-hint" class="govuk-hint">
-              For example, 27 3 2007
-            </div> -->
-            <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
-              <div class="govuk-date-input__item" style="margin-right: 10px;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-day">Day</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-day" name="dob-search-day" type="text" inputmode="numeric">
-                </div>
-              </div>
-              <div class="govuk-date-input__item" style="margin-right: 10px;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-month">Month</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-month" name="dob-search-month" type="text" inputmode="numeric">
-                </div>
-              </div>
-              <div class="govuk-date-input__item" style="margin-right: 0;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-year">Year</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-search-year" name="dob-search-year" type="text" inputmode="numeric">
-                </div>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-
-        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-          Search
-        </button>
-
-        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-victim-name-dob-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-victim-name-dob-link">Clear search</a>
-        </p>
-      </form>
-
-      <form id="vlo-only-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
-
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-        <!-- <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
-            <legend id="vlo-only-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            <legend id="service-area-vlo-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Victim liaison officer
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <div id="vlo-only-autocomplete"></div>
+              <div id="service-area-vlo-autocomplete"></div>
             </div>
-            <ul id="vlo-only-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+            <ul id="service-area-vlo-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
             </ul>
-            <div id="vlo-only-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+            <div id="service-area-vlo-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-1" name="vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-1">THOMPSON, Sarah (you)</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-1" name="service-area-vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-1">THOMPSON, Sarah (you)</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-21" name="vlo" type="checkbox" value="unassigned" data-label="Unassigned">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-21">Unassigned</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-21" name="service-area-vlo" type="checkbox" value="unassigned" data-label="Unassigned">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-21">Unassigned</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-2" name="vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-2">KUMAR, Priya</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-2" name="service-area-vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-2">KUMAR, Priya</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-3" name="vlo" type="checkbox" value="bishop-james" data-label="BISHOP, James">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-3">BISHOP, James</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-3" name="service-area-vlo" type="checkbox" value="bishop-james" data-label="BISHOP, James">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-3">BISHOP, James</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-4" name="vlo" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-4">MORRISON, Claire</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-4" name="service-area-vlo" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-4">MORRISON, Claire</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-5" name="vlo" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-5">HAYES, Michael</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-5" name="service-area-vlo" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-5">HAYES, Michael</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-6" name="vlo" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-6">ANDERSON, David</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-6" name="service-area-vlo" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-6">ANDERSON, David</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-7" name="vlo" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-7">WRIGHT, Hannah</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-7" name="service-area-vlo" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-7">WRIGHT, Hannah</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-8" name="vlo" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-8">MARTINEZ, Carlos</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-8" name="service-area-vlo" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-8">MARTINEZ, Carlos</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-9" name="vlo" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-9">JOHNSON, Patricia</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-9" name="service-area-vlo" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-9">JOHNSON, Patricia</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-10" name="vlo" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-10">CHEN, Michael</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-10" name="service-area-vlo" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-10">CHEN, Michael</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-11" name="vlo" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-11">PATEL, Ravi</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-11" name="service-area-vlo" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-11">PATEL, Ravi</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-12" name="vlo" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-12">O'CONNELL, Siobhan</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-12" name="service-area-vlo" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-12">O'CONNELL, Siobhan</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-13" name="vlo" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-13">THOMPSON, Robert</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-13" name="service-area-vlo" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-13">THOMPSON, Robert</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-14" name="vlo" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-14">GARCÍA, Luis</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-14" name="service-area-vlo" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-14">GARCÍA, Luis</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-15" name="vlo" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-15">HENDERSON, Louise</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-15" name="service-area-vlo" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-15">HENDERSON, Louise</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-16" name="vlo" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-16">WILLIAMS, Anna</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-16" name="service-area-vlo" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-16">WILLIAMS, Anna</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-17" name="vlo" type="checkbox" value="stewart-james" data-label="STEWART, James">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-17">STEWART, James</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-17" name="service-area-vlo" type="checkbox" value="stewart-james" data-label="STEWART, James">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-17">STEWART, James</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-18" name="vlo" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-18">LEWIS, Elizabeth</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-18" name="service-area-vlo" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-18">LEWIS, Elizabeth</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-19" name="vlo" type="checkbox" value="walker-george" data-label="WALKER, George">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-19">WALKER, George</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-19" name="service-area-vlo" type="checkbox" value="walker-george" data-label="WALKER, George">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-19">WALKER, George</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-20" name="vlo" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
-                <label class="govuk-label govuk-checkboxes__label" for="vlo-only-20">CLARK, Victoria</label>
+                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-20" name="service-area-vlo" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
+                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-20">CLARK, Victoria</label>
               </div>
             </div>
           </fieldset>
-        </div> -->
-
-        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-          Search
-        </button>
-
-        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-vlo-only-filters-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-vlo-only-filters">Clear search</a>
-        </p>
-      </form>
-
-      <form id="service-area-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
-
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        </div>
 
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Service
+              Service lead
             </legend>
-            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
-                <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-1" name="service" type="checkbox" value="universal" data-label="Universal">
+                <label class="govuk-label govuk-checkboxes__label" for="service-1">Universal</label>
               </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
-                <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-2" name="service" type="checkbox" value="enhanced" data-label="Enhanced">
+                <label class="govuk-label govuk-checkboxes__label" for="service-2">Enhanced</label>
               </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
-                <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-3" name="service" type="checkbox" value="rasso" data-label="RASSO">
+                <label class="govuk-label govuk-checkboxes__label" for="service-3">RASSO</label>
               </div>
-              <div class="govuk-radios__divider">or</div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="none" data-label="Not aligned to a service">
-                <label class="govuk-label govuk-radios__label" for="service-4">Not aligned</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-4" name="service" type="checkbox" value="none" data-label="Not aligned">
+                <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
               </div>
-              <!-- <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="not-onboarded" data-label="Not onboarded">
-                <label class="govuk-label govuk-radios__label" for="service-4">Not onboarded</label>
-              </div> -->
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-5" name="service" type="checkbox" value="not-onboarded" data-label="Not onboarded">
+                <label class="govuk-label govuk-checkboxes__label" for="service-5">Not onboarded</label>
+              </div>
             </div>
           </fieldset>
         </div>
@@ -331,10 +212,9 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend id="area-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Area
+              CPS area
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <!-- <label class="govuk-label" for="area-autocomplete">Find area</label> -->
               <div id="area-autocomplete"></div>
             </div>
             <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
@@ -473,127 +353,80 @@
         </div>
 
         <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset">
-            <legend id="service-area-vlo-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Victim liaison officer
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Victim's date of birth
             </legend>
-            <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <div id="service-area-vlo-autocomplete"></div>
-            </div>
-            <ul id="service-area-vlo-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
-            </ul>
-            <div id="service-area-vlo-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-1" name="service-area-vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-1">THOMPSON, Sarah (you)</label>
+            <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
+              <div class="govuk-date-input__item" style="margin-right: 10px;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-day">Day</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-day" name="dob-search-day" type="text" inputmode="numeric">
+                </div>
               </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-21" name="service-area-vlo" type="checkbox" value="unassigned" data-label="Unassigned">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-21">Unassigned</label>
+              <div class="govuk-date-input__item" style="margin-right: 10px;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-month">Month</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-month" name="dob-search-month" type="text" inputmode="numeric">
+                </div>
               </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-2" name="service-area-vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-2">KUMAR, Priya</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-3" name="service-area-vlo" type="checkbox" value="bishop-james" data-label="BISHOP, James">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-3">BISHOP, James</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-4" name="service-area-vlo" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-4">MORRISON, Claire</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-5" name="service-area-vlo" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-5">HAYES, Michael</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-6" name="service-area-vlo" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-6">ANDERSON, David</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-7" name="service-area-vlo" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-7">WRIGHT, Hannah</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-8" name="service-area-vlo" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-8">MARTINEZ, Carlos</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-9" name="service-area-vlo" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-9">JOHNSON, Patricia</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-10" name="service-area-vlo" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-10">CHEN, Michael</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-11" name="service-area-vlo" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-11">PATEL, Ravi</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-12" name="service-area-vlo" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-12">O'CONNELL, Siobhan</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-13" name="service-area-vlo" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-13">THOMPSON, Robert</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-14" name="service-area-vlo" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-14">GARCÍA, Luis</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-15" name="service-area-vlo" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-15">HENDERSON, Louise</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-16" name="service-area-vlo" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-16">WILLIAMS, Anna</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-17" name="service-area-vlo" type="checkbox" value="stewart-james" data-label="STEWART, James">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-17">STEWART, James</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-18" name="service-area-vlo" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-18">LEWIS, Elizabeth</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-19" name="service-area-vlo" type="checkbox" value="walker-george" data-label="WALKER, George">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-19">WALKER, George</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-20" name="service-area-vlo" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
-                <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-20">CLARK, Victoria</label>
+              <div class="govuk-date-input__item" style="margin-right: 0;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-year">Year</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-search-year" name="dob-search-year" type="text" inputmode="numeric">
+                </div>
               </div>
             </div>
           </fieldset>
         </div>
 
-        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-          Search
-        </button>
+        <div class="govuk-form-group govuk-!-margin-top-4">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Witnesses
+            </legend>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input non-victim-checkbox" id="non-victim-1" name="non-victim" type="checkbox" value="show-non-victims" data-label="Show non-victims">
+                <label class="govuk-label govuk-checkboxes__label" for="non-victim-1">Show victims and witnesses</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
 
-        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-search-filters-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-filters">Clear search</a>
-        </p>
       </form>
+
     </div>
   </div>
 
-  <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-three-quarters">
 
-    <!-- <p class="govuk-!-font-size-16">
-      <span class="govuk-!-font-weight-bold govuk-!-margin-right-1">Sort by:</span>
-      <span class="">Hearing date</span>
-      <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
-      <a href="?taskSort=PACE">Decision date</a>
-    </p> -->
+    <div id="case-reference-section" class="moj-search govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
+      <form action="#" method="post">
+        <div class="govuk-form-group govuk-!-margin-bottom-0">
 
-    <p class="govuk-body-s" id="results-count"></p>
+          <label class="govuk-label govuk-label--s" for="search-urn">
+            Search by case reference or victim name
+          </label>
 
-    <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Victims first, Last name (A to Z)</p>
+          <div style="display: flex; gap: 10px; align-items: flex-start;">
+            <input type="text" class="govuk-input moj-search__input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="" value="">
+            <button type="submit" class="govuk-button moj-search__button govuk-!-margin-bottom-0" data-module="govuk-button">
+              Search
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
+        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
+      </p>
+    </div>
+
+    <p class="govuk-body" id="results-count"></p>
+
+    <p class="govuk-body" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Victims first, Last name (A to Z)</p>
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6" id="results-divider">
 
@@ -635,7 +468,7 @@
                 WRIGHT, Nathan
               </dd>
             </div>
-            <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row" style="display: none;">
               <dt class="govuk-summary-list__key">
                 Victim
               </dt>
@@ -645,7 +478,7 @@
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                Area
+                CPS area
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ data['area'] }}
@@ -727,7 +560,7 @@
                 {{ record.leadDefendant }}
               </dd>
             </div>
-            <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row"{% if record.victim == 'Yes' %} style="display: none;"{% endif %}>
               <dt class="govuk-summary-list__key">
                 Victim
               </dt>
@@ -738,7 +571,7 @@
             {% if record.area %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                Area
+                CPS area
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ record.area }}
@@ -822,42 +655,13 @@
     </nav>
 
   </div>
-
-  <!-- <div class="govuk-grid-column-one-quarter">
-        <div class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-m">Recently viewed victims</h2>
-            <ul class="govuk-list">
-                <li>
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">MEGSON, Verity</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="/delivery/wat4/victim" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
-                    <p class="govuk-body govuk-!-margin-top-1">{{ data['caseUrn'] }}</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">CHEN, Emily</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, James</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">MARTINEZ, Lucy</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
-                </li>
-            </ul>
-        </div>
-    </div> -->
-
 </div>
 
 {% endblock %}
 
 {% block pageScripts %}
 <script>
-  // Clear saved filter state so page always defaults to showing victims allocated to you (THOMPSON, Sarah)
+  // Clear saved filter state so page always shows all filters fresh
   try { localStorage.removeItem('vca-victims-filters'); } catch(e) {}
 </script>
 <script src="/public/javascripts/delivery/shared/filter-data.js"></script>
@@ -865,6 +669,349 @@
 <script src="/public/javascripts/delivery/shared/victims-pagination.js"></script>
 <script src="/public/javascripts/delivery/shared/victims.js"></script>
 <script src="/public/javascripts/delivery/shared/victims-autocomplete.js"></script>
+<script>
+  // Override shared JS: show all filter sections at all times (no radio toggling)
+  (function() {
+    var sections = ['case-reference-section', 'vlo-only-form', 'service-area-form'];
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = '';
+    });
+
+    // Default: select THOMPSON, Sarah (you) VLO checkbox
+    var defaultVlo = document.getElementById('service-area-vlo-1');
+    if (defaultVlo && !defaultVlo.checked) {
+      defaultVlo.checked = true;
+    }
+
+    // Mark search as submitted so filters apply without needing a radio selection
+    searchFormSubmitted = true;
+    // Prevent scroll during initial setup
+    initialSetupComplete = false;
+    // Re-apply filters now that searchFormSubmitted is set
+    if (window.applyVictimFilters) applyVictimFilters();
+    // Ensure all results show (override shared JS hiding when no filters) and hide non-victims
+    ensureResultsVisible();
+    // Render chips for the pre-selected VLO
+    if (window.renderServiceAreaVloChips) renderServiceAreaVloChips();
+    // Re-enable scroll for subsequent interactions
+    initialSetupComplete = true;
+
+    // Always show victims container and pagination (show all when no filters)
+    function ensureResultsVisible() {
+      var victimContainer = document.getElementById('victims-container');
+      var paginationNav = document.querySelector('nav.govuk-pagination');
+      if (victimContainer) victimContainer.style.display = '';
+      if (paginationNav) paginationNav.style.display = '';
+      // If no filters are active, show all records
+      var hasActiveFilters = document.querySelectorAll('.service-area-vlo-checkbox:checked').length > 0 ||
+                             document.querySelectorAll('.service-checkbox:checked').length > 0 ||
+                             document.querySelectorAll('.area-checkbox:checked').length > 0;
+      var dobDay = document.getElementById('dob-search-day');
+      var dobMonth = document.getElementById('dob-search-month');
+      var dobYear = document.getElementById('dob-search-year');
+      var hasDob = (dobDay && dobDay.value) || (dobMonth && dobMonth.value) || (dobYear && dobYear.value);
+      if (!hasActiveFilters && !hasDob) {
+        document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+          record.setAttribute('data-filtered', 'visible');
+          record.style.display = '';
+          var parentWrapper = record.parentElement;
+          if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+            parentWrapper.style.display = '';
+          }
+        });
+        if (window.recalculatePagination) recalculatePagination();
+      }
+      // Always hide non-victims unless "Show non-victims" is checked
+      applyServiceLeadFilter();
+      applyNonVictimFilter();
+    }
+    window.ensureResultsVisible = ensureResultsVisible;
+
+    // Apply non-victim filter: hide records where Victim = "No" unless checkbox is checked
+    function applyNonVictimFilter() {
+      var showNonVictims = document.querySelector('.non-victim-checkbox:checked');
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        var rows = record.querySelectorAll('.govuk-summary-list__row');
+        for (var i = 0; i < rows.length; i++) {
+          var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+          if (keyEl && keyEl.textContent.trim() === 'Victim') {
+            var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+            var victimValue = valueEl ? valueEl.textContent.trim() : '';
+            if (victimValue === 'No' && !showNonVictims) {
+              record.style.display = 'none';
+              record.setAttribute('data-filtered', 'hidden');
+              var parentWrapper = record.parentElement;
+              if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+                parentWrapper.style.display = 'none';
+              }
+            }
+            break;
+          }
+        }
+      });
+      if (window.recalculatePagination) recalculatePagination();
+    }
+    window.applyNonVictimFilter = applyNonVictimFilter;
+
+    // Apply Service lead filter using .service-checkbox checkboxes
+    function applyServiceLeadFilter() {
+      var selectedServices = Array.from(document.querySelectorAll('.service-checkbox:checked'))
+        .map(function(cb) { return cb.value; });
+      if (selectedServices.length === 0) return;
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        // Skip already-hidden records
+        if (record.getAttribute('data-filtered') === 'hidden') return;
+        var rows = record.querySelectorAll('.govuk-summary-list__row');
+        var serviceValue = '';
+        for (var i = 0; i < rows.length; i++) {
+          var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+          if (keyEl && keyEl.textContent.trim() === 'Service lead') {
+            var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+            serviceValue = valueEl ? valueEl.textContent.trim() : '';
+            break;
+          }
+        }
+        var matches = selectedServices.some(function(val) {
+          if (val === 'universal') return serviceValue === 'Universal';
+          if (val === 'enhanced') return serviceValue === 'Enhanced';
+          if (val === 'rasso') return serviceValue === 'RASSO';
+          if (val === 'none') return serviceValue === 'Not aligned';
+          if (val === 'not-onboarded') return serviceValue === 'Not onboarded';
+          return false;
+        });
+        if (!matches) {
+          record.style.display = 'none';
+          record.setAttribute('data-filtered', 'hidden');
+          var parentWrapper = record.parentElement;
+          if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+            parentWrapper.style.display = 'none';
+          }
+        }
+      });
+      if (window.recalculatePagination) recalculatePagination();
+    }
+    window.applyServiceLeadFilter = applyServiceLeadFilter;
+
+    // Single Search button triggers both forms' logic
+    var applyBtn = document.getElementById('apply-filters-button');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function() {
+        initialSetupComplete = false;
+        searchFormSubmitted = true;
+        if (window.applyVictimFilters) applyVictimFilters();
+        applyServiceLeadFilter();
+        if (window.applyVictimNameDobSearch) applyVictimNameDobSearch();
+        if (window.saveFiltersToStorage) saveFiltersToStorage();
+        ensureResultsVisible();
+        // Show clear link
+        var clearWrapper = document.getElementById('clear-search-filters-wrapper');
+        if (clearWrapper) clearWrapper.style.display = '';
+        // Update selected filters display
+        renderSelectedFilters();
+        initialSetupComplete = true;
+      });
+    }
+
+    // Store references to original chip renderers
+    var origRenderVloChips = window.renderServiceAreaVloChips;
+    var origRenderAreaChips = window.renderAreaChips;
+    var isRenderingSelectedFilters = false;
+
+    // Render selected filters chips
+    function renderSelectedFilters() {
+      if (isRenderingSelectedFilters) return;
+      isRenderingSelectedFilters = true;
+      var container = document.getElementById('selected-filters-chips');
+      var heading = document.getElementById('selected-filters-heading');
+      var clearWrapper = document.getElementById('clear-search-filters-wrapper');
+      if (!container) { isRenderingSelectedFilters = false; return; }
+
+      container.innerHTML = '';
+
+      // Collect chips by category
+      var vloChips = [];
+      document.querySelectorAll('.service-area-vlo-checkbox:checked').forEach(function(cb) {
+        vloChips.push({ label: cb.getAttribute('data-label'), input: cb });
+      });
+
+      var serviceChips = [];
+      document.querySelectorAll('.service-checkbox:checked').forEach(function(cb) {
+        serviceChips.push({ label: cb.getAttribute('data-label'), input: cb });
+      });
+
+      var areaChips = [];
+      document.querySelectorAll('.area-checkbox:checked').forEach(function(cb) {
+        areaChips.push({ label: cb.getAttribute('data-label'), input: cb });
+      });
+
+      var dobChips = [];
+      var dobDay = document.getElementById('dob-search-day');
+      var dobMonth = document.getElementById('dob-search-month');
+      var dobYear = document.getElementById('dob-search-year');
+      var dobParts = [];
+      if (dobDay && dobDay.value) dobParts.push(dobDay.value);
+      if (dobMonth && dobMonth.value) dobParts.push(dobMonth.value);
+      if (dobYear && dobYear.value) dobParts.push(dobYear.value);
+      if (dobParts.length > 0) {
+        dobChips.push({ label: dobParts.join('/'), input: null, type: 'dob' });
+      }
+
+      var totalChips = vloChips.length + serviceChips.length + areaChips.length + dobChips.length;
+
+      // Update heading
+      if (heading) {
+        if (totalChips > 0) {
+          if (heading.tagName !== 'H2') {
+            var h2 = document.createElement('h2');
+            h2.id = 'selected-filters-heading';
+            h2.className = 'govuk-heading-m govuk-!-margin-bottom-1';
+            h2.textContent = 'Selected filters';
+            heading.parentNode.replaceChild(h2, heading);
+          } else {
+            heading.textContent = 'Selected filters';
+          }
+          if (clearWrapper) clearWrapper.style.display = '';
+        } else {
+          if (heading.tagName !== 'P') {
+            var p = document.createElement('p');
+            p.id = 'selected-filters-heading';
+            p.className = 'govuk-body';
+            p.textContent = 'No filters selected';
+            heading.parentNode.replaceChild(p, heading);
+          } else {
+            heading.textContent = 'No filters selected';
+          }
+          if (clearWrapper) clearWrapper.style.display = 'none';
+        }
+      }
+
+      // Helper to create a sub-section with heading and chips
+      function createSubSection(title, chips) {
+        if (chips.length === 0) return;
+        var subHeading = document.createElement('h3');
+        subHeading.className = 'govuk-heading-s govuk-!-margin-bottom-1 govuk-!-margin-top-3';
+        subHeading.textContent = title;
+        container.appendChild(subHeading);
+
+        var ul = document.createElement('ul');
+        ul.className = 'app-filter-tags govuk-!-margin-bottom-0';
+        chips.forEach(function(chip) {
+          var li = document.createElement('li');
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'app-filter__tag';
+          btn.textContent = chip.label;
+          btn.addEventListener('click', function() {
+            if (chip.input) {
+              chip.input.checked = false;
+              var changeEvent = new Event('change', { bubbles: true });
+              chip.input.dispatchEvent(changeEvent);
+            }
+            if (chip.type === 'dob') {
+              if (dobDay) dobDay.value = '';
+              if (dobMonth) dobMonth.value = '';
+              if (dobYear) dobYear.value = '';
+            }
+            searchFormSubmitted = true;
+            if (window.applyVictimFilters) applyVictimFilters();
+            if (window.saveFiltersToStorage) saveFiltersToStorage();
+            ensureResultsVisible();
+            renderSelectedFilters();
+            if (origRenderVloChips) origRenderVloChips();
+            if (origRenderAreaChips) origRenderAreaChips();
+          });
+          li.appendChild(btn);
+          ul.appendChild(li);
+        });
+        container.appendChild(ul);
+      }
+
+      // Non-victims
+      var nonVictimChips = [];
+      document.querySelectorAll('.non-victim-checkbox:checked').forEach(function(cb) {
+        nonVictimChips.push({ label: cb.getAttribute('data-label'), input: cb });
+      });
+
+      createSubSection('Victim liaison officer', vloChips);
+      createSubSection('Service lead', serviceChips);
+      createSubSection('CPS area', areaChips);
+      createSubSection('Date of birth', dobChips);
+      createSubSection('Non-victims', nonVictimChips);
+      isRenderingSelectedFilters = false;
+    }
+    window.renderSelectedFilters = renderSelectedFilters;
+
+    // Update selected filters immediately when any filter changes
+    document.querySelectorAll('.service-area-vlo-checkbox, .service-checkbox, .area-checkbox, .non-victim-checkbox').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        renderSelectedFilters();
+      });
+    });
+    ['dob-search-day', 'dob-search-month', 'dob-search-year'].forEach(function(id) {
+      var input = document.getElementById(id);
+      if (input) {
+        input.addEventListener('input', function() {
+          renderSelectedFilters();
+        });
+      }
+    });
+
+    // Observe inline chip containers for changes (autocomplete uses local function refs, not window)
+    var vloChipsEl = document.getElementById('service-area-vlo-chips-container');
+    var areaChipsEl = document.getElementById('area-chips-container');
+    var chipObserver = new MutationObserver(function() {
+      renderSelectedFilters();
+    });
+    if (vloChipsEl) chipObserver.observe(vloChipsEl, { childList: true });
+    if (areaChipsEl) chipObserver.observe(areaChipsEl, { childList: true });
+
+    // Override Clear filters to clear all left-hand column filters
+    var clearBtn = document.getElementById('clear-search-filters');
+    if (clearBtn) {
+      // Remove existing listeners by cloning
+      var newClearBtn = clearBtn.cloneNode(true);
+      clearBtn.parentNode.replaceChild(newClearBtn, clearBtn);
+      newClearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        initialSetupComplete = false;
+        // Uncheck all VLO checkboxes
+        document.querySelectorAll('.service-area-vlo-checkbox').forEach(function(cb) { cb.checked = false; });
+        // Uncheck all Service checkboxes
+        document.querySelectorAll('.service-checkbox').forEach(function(cb) { cb.checked = false; });
+        // Uncheck all Area checkboxes
+        document.querySelectorAll('.area-checkbox').forEach(function(cb) { cb.checked = false; });
+        // Uncheck non-victim checkbox
+        document.querySelectorAll('.non-victim-checkbox').forEach(function(cb) { cb.checked = false; });
+        // Clear DOB fields
+        var dobDay = document.getElementById('dob-search-day');
+        var dobMonth = document.getElementById('dob-search-month');
+        var dobYear = document.getElementById('dob-search-year');
+        if (dobDay) dobDay.value = '';
+        if (dobMonth) dobMonth.value = '';
+        if (dobYear) dobYear.value = '';
+        // Clear autocomplete inputs
+        var vloInput = document.querySelector('#service-area-vlo-autocomplete-input');
+        if (vloInput) vloInput.value = '';
+        var areaInput = document.querySelector('#area-autocomplete-input');
+        if (areaInput) areaInput.value = '';
+        // Clear inline chips
+        if (vloChipsEl) vloChipsEl.innerHTML = '';
+        if (areaChipsEl) areaChipsEl.innerHTML = '';
+        // Re-apply filters and update UI
+        searchFormSubmitted = true;
+        if (window.applyVictimFilters) applyVictimFilters();
+        if (window.saveFiltersToStorage) saveFiltersToStorage();
+        ensureResultsVisible();
+        renderSelectedFilters();
+        initialSetupComplete = true;
+      });
+    }
+
+    // Initial render of selected filters
+    renderSelectedFilters();
+  })();
+</script>
 <script>
   // Show success banner if URL has success params, then remove them
   (function() {

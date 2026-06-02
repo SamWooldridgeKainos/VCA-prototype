@@ -67,7 +67,19 @@
 
   <div class="govuk-grid-column-one-quarter">
     <div class="tasks-filters">
-      <h2 class="govuk-heading-m">Search</h2>
+
+      <p class="govuk-body" id="selected-filters-heading">No filters selected</p>
+      <p class="govuk-body" id="clear-search-filters-wrapper" style="display: none;">
+        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-filters">Clear filters</a>
+      </p>
+      <div id="selected-filters-chips" class="govuk-!-margin-bottom-0">
+      </div>
+
+      <button type="button" class="govuk-button govuk-!-margin-top-4 govuk-!-margin-bottom-0" data-module="govuk-button" id="apply-filters-button">
+        Apply filters
+      </button>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
       <form id="filters-form">
         <div class="govuk-form-group">
@@ -169,30 +181,27 @@
           </fieldset>
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Service
+              Service lead
             </legend>
-            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
-                <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-1" name="service" type="checkbox" value="universal" data-label="Universal">
+                <label class="govuk-label govuk-checkboxes__label" for="service-1">Universal</label>
               </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
-                <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-2" name="service" type="checkbox" value="enhanced" data-label="Enhanced">
+                <label class="govuk-label govuk-checkboxes__label" for="service-2">Enhanced</label>
               </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
-                <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-3" name="service" type="checkbox" value="rasso" data-label="RASSO">
+                <label class="govuk-label govuk-checkboxes__label" for="service-3">RASSO</label>
               </div>
-              <div class="govuk-radios__divider">or</div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="none" data-label="Not aligned to a service">
-                <label class="govuk-label govuk-radios__label" for="service-4">Not aligned</label>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-4" name="service" type="checkbox" value="none" data-label="Not aligned">
+                <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
               </div>
             </div>
           </fieldset>
@@ -201,7 +210,7 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend id="area-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Area
+              CPS area
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
               <div id="area-autocomplete"></div>
@@ -385,13 +394,61 @@
           </fieldset>
         </div>
 
-        <button type="submit" class="govuk-button" data-module="govuk-button">
-          Search
-        </button>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Due date
+            </legend>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-1" name="due" type="checkbox" value="overdue" data-label="Overdue">
+                <label class="govuk-label govuk-checkboxes__label" for="due-1">Overdue</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-2" name="due" type="checkbox" value="due-today" data-label="Due today">
+                <label class="govuk-label govuk-checkboxes__label" for="due-2">Due today</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
 
-        <p class="govuk-body" id="clear-filters-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/tasks/clear-filters">Clear search</a>
-        </p>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Task type
+            </legend>
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-1" name="taskType" type="checkbox" value="dtc" data-label="Inform of a decision to charge">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-1">Inform of a decision to charge</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-2" name="taskType" type="checkbox" value="nfa" data-label="Inform of a no further action decision">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-2">Inform of a no further action decision</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-3" name="taskType" type="checkbox" value="meeting-offer" data-label="Log offered meeting">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-3">Log offered meeting</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-4" name="taskType" type="checkbox" value="offer-response" data-label="Log offer response">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-4">Log offer response</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-5" name="taskType" type="checkbox" value="meeting-arranged" data-label="Log arranged meeting">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-5">Log arranged meeting</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-6" name="taskType" type="checkbox" value="meeting-outcome" data-label="Log meeting outcome">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-6">Log meeting outcome</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input task-type-checkbox" id="task-type-7" name="taskType" type="checkbox" value="other" data-label="Other">
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-7">Other</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
 
       </form>
     </div>
@@ -487,7 +544,7 @@
               <a href="/delivery/wat4/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
             </dd>
           </div>
-          <div class="govuk-summary-list__row">
+          <div class="govuk-summary-list__row" style="display: none;">
             <dt class="govuk-summary-list__key">
               Service lead
             </dt>
@@ -503,9 +560,9 @@
               {% endif %}
             </dd>
           </div>
-          <div class="govuk-summary-list__row">
+          <div class="govuk-summary-list__row" style="display: none;">
             <dt class="govuk-summary-list__key">
-              Area
+              CPS area
             </dt>
             <dd class="govuk-summary-list__value">
               {{ data['area'] or 'London' }}
@@ -607,17 +664,17 @@
             <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
           </dd>
         </div>
-        <div class="govuk-summary-list__row">
+        <div class="govuk-summary-list__row" style="display: none;">
           <dt class="govuk-summary-list__key">
-            Service
+            Service lead
           </dt>
           <dd class="govuk-summary-list__value">
             {{ record.service }}
           </dd>
         </div>
-        <div class="govuk-summary-list__row">
+        <div class="govuk-summary-list__row" style="display: none;">
           <dt class="govuk-summary-list__key">
-            Area
+            CPS area
           </dt>
           <dd class="govuk-summary-list__value">
             {{ record.area }}

@@ -3,7 +3,7 @@ function toSortDate(dateString, hour, minutes) {
     if (!dateString || !dateString.includes('/')) return ''
     var parts = dateString.split('/')
     if (parts.length !== 3) return ''
-    var h = (hour || '00').toString().padStart(2, '0')
+    var h = (hour || '17').toString().padStart(2, '0')
     var m = (minutes || '00').toString().padStart(2, '0')
     return parts[2] + '-' + parts[1] + '-' + parts[0] + 'T' + h + ':' + m
 }
@@ -732,6 +732,7 @@ module.exports = router => {
             otherEmailDate: request.session.data['otherEmailDate'],
             otherEmailHour: request.session.data['otherEmailHour'],
             otherEmailMinutes: request.session.data['otherEmailMinutes'],
+            otherEmailType: request.session.data['otherEmailType'],
             otherIndividual: request.session.data['otherIndividual'],
             otherIndividualName: request.session.data['otherIndividualName'],
             otherIndividualRole: request.session.data['otherIndividualRole'],
@@ -754,6 +755,7 @@ module.exports = router => {
             otherLetterDate: request.session.data['otherLetterDate'],
             otherLetterHour: request.session.data['otherLetterHour'],
             otherLetterMinutes: request.session.data['otherLetterMinutes'],
+            otherLetterType: request.session.data['otherLetterType'],
             otherIndividual: request.session.data['otherIndividual'],
             otherIndividualName: request.session.data['otherIndividualName'],
             otherIndividualRole: request.session.data['otherIndividualRole'],
