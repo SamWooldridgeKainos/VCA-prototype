@@ -55,23 +55,6 @@
             </div>
         </div>
 
-        <!-- <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">
-                    Case information
-                </h2>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <p class="govuk-body govuk-!-margin-bottom-0">Area: {{ data['area'] }}</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Police force:</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Case status: Pending</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Charging type: {{ data['caseType'] or 'Green' }}</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Monitoring codes: Mental health, Domestic violence, Prohibited weapons, Human trafficking, Media interest</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Next hearing:</p>
-            </div>
-        </div> -->
-
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">
@@ -88,9 +71,6 @@
                         <dd class="govuk-summary-list__value">
                             {{ data['area'] }}
                         </dd>
-                        <!-- <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/victim/case-information/area">Change<span class="govuk-visually-hidden"> area</span></a>
-                        </dd> -->
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
@@ -99,7 +79,6 @@
                         <dd class="govuk-summary-list__value">
                             {{ data['policeForce'] or 'Metropolitan Police' }}
                         </dd>
-                        <dd class="govuk-summary-list__actions"></dd>
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
