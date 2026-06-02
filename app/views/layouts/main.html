@@ -109,9 +109,19 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
         <a class="govuk-footer__link" href="http://localhost:3000/manage-prototype">Manage prototype</a>
       </li> -->
       <li class="govuk-footer__inline-list-item">
-        <a class="govuk-footer__link" href="/manage-prototype/clear-data?searchUrn">Clear data</a>
+        <a class="govuk-footer__link" href="/manage-prototype/clear-data?searchUrn" id="clear-data-link">Clear data</a>
       </li>
     </ul>
   </div>
 </footer>
+<script>
+  (function() {
+    var clearLink = document.getElementById('clear-data-link');
+    if (clearLink) {
+      clearLink.addEventListener('click', function() {
+        try { localStorage.removeItem('vca-victims-filters'); } catch(e) {}
+      });
+    }
+  })();
+</script>
 {% endblock %}

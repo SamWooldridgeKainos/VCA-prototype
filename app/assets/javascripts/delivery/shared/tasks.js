@@ -20,6 +20,8 @@ var initialSetupComplete = false;
             taskAssigneeChecked: [],
             areaChecked: [],
             serviceChecked: [],
+            dueChecked: [],
+            taskTypeChecked: [],
             searchFormSubmitted: searchFormSubmitted,
             taskAssigneeInput: document.querySelector('#assignee-autocomplete-input') ? document.querySelector('#assignee-autocomplete-input').value : '',
             areaInput: document.querySelector('#area-autocomplete-input') ? document.querySelector('#area-autocomplete-input').value : ''
@@ -39,10 +41,24 @@ var initialSetupComplete = false;
             }
         });
         
-        // Collect checked Service radios
-        document.querySelectorAll('.service-radio').forEach(function(radio) {
-            if (radio.checked) {
-                state.serviceChecked.push(radio.id);
+        // Collect checked Service checkboxes
+        document.querySelectorAll('.service-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.serviceChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Due checkboxes
+        document.querySelectorAll('.due-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.dueChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Task Type checkboxes
+        document.querySelectorAll('.task-type-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.taskTypeChecked.push(cb.id);
             }
         });
         
@@ -81,12 +97,32 @@ var initialSetupComplete = false;
                 });
             }
             
-            // Restore Service radios
+            // Restore Service checkboxes
             if (state.serviceChecked) {
                 state.serviceChecked.forEach(function(id) {
-                    var radio = document.getElementById(id);
-                    if (radio) {
-                        radio.checked = true;
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+            
+            // Restore Due checkboxes
+            if (state.dueChecked) {
+                state.dueChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+            
+            // Restore Task Type checkboxes
+            if (state.taskTypeChecked) {
+                state.taskTypeChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
                     }
                 });
             }
@@ -111,7 +147,7 @@ var initialSetupComplete = false;
 (function () {
 var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-var serviceRadios = document.querySelectorAll('.service-radio');
+var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
 // Get inline selection containers
@@ -162,12 +198,18 @@ function createInlineChip(checkbox, container) {
 
 // Update visibility of clear filters link
 function updateClearFiltersVisibility() {
+    var dueCheckboxes = document.querySelectorAll('.due-checkbox');
+    var taskTypeCheckboxes = document.querySelectorAll('.task-type-checkbox');
     var hasCheckedFilters = Array.from(taskAssigneeCheckboxes).some(function (checkbox) {
         return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
         return checkbox.checked;
-    }) || Array.from(serviceRadios).some(function (radio) {
-        return radio.checked;
+    }) || Array.from(serviceCheckboxes).some(function (checkbox) {
+        return checkbox.checked;
+    }) || Array.from(dueCheckboxes).some(function (checkbox) {
+        return checkbox.checked;
+    }) || Array.from(taskTypeCheckboxes).some(function (checkbox) {
+        return checkbox.checked;
     });
     
     if (clearFiltersWrapper) {
@@ -179,7 +221,7 @@ function updateClearFiltersVisibility() {
 function applyTaskFilters() {
     var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-    var serviceRadios = document.querySelectorAll('.service-radio');
+    var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
     
     // Get all checked filter values
     var selectedAssignees = Array.from(taskAssigneeCheckboxes)
@@ -190,12 +232,22 @@ function applyTaskFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
-    var selectedServices = Array.from(serviceRadios)
-        .filter(function(radio) { return radio.checked; })
-        .map(function(radio) { return radio.getAttribute('data-label'); });
+    var selectedServices = Array.from(serviceCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+    
+    var dueCheckboxes = document.querySelectorAll('.due-checkbox');
+    var selectedDue = Array.from(dueCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+    
+    var taskTypeCheckboxes = document.querySelectorAll('.task-type-checkbox');
+    var selectedTaskTypes = Array.from(taskTypeCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
     
     // Determine if search criteria filters are active
-    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0;
+    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0;
     
     // Get all task records (summary lists within margin-bottom-9 containers)
     var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
@@ -233,11 +285,15 @@ function applyTaskFilters() {
         
         // Check Service filter (only apply if search form has been submitted)
         if (selectedServices.length > 0 && searchFormSubmitted) {
-            var recordService = getFieldValue('Service');
+            var recordService = getFieldValue('Service lead');
             var matchesService = selectedServices.some(function(service) {
-                // Special handling for "Not aligned to a service" filter
-                if (service === 'Not aligned to a service') {
+                // Special handling for "Not aligned" filter
+                if (service === 'Not aligned') {
                     return recordService.indexOf('Not aligned') !== -1;
+                }
+                // Special handling for "Not onboarded" filter
+                if (service === 'Not onboarded') {
+                    return recordService.indexOf('Not onboarded') !== -1;
                 }
                 return recordService.toLowerCase().indexOf(service.toLowerCase()) !== -1;
             });
@@ -246,12 +302,41 @@ function applyTaskFilters() {
         
         // Check Area filter (only apply if search form has been submitted)
         if (selectedAreas.length > 0 && searchFormSubmitted) {
-            var recordArea = getFieldValue('Area');
+            var recordArea = getFieldValue('CPS area');
             var recordText = record.textContent || '';
             var matchesArea = selectedAreas.some(function(area) {
                 return recordArea.indexOf(area) !== -1 || recordText.indexOf(area) !== -1;
             });
             shouldShow = shouldShow && matchesArea;
+        }
+        
+        // Check Due filter (only apply if search form has been submitted)
+        if (selectedDue.length > 0 && searchFormSubmitted) {
+            var dueDateValue = getFieldValue('Due date');
+            var matchesDue = selectedDue.some(function(due) {
+                if (due === 'Overdue') {
+                    return dueDateValue.indexOf('Overdue') !== -1;
+                }
+                if (due === 'Due today') {
+                    return dueDateValue.indexOf('Due today') !== -1;
+                }
+                return false;
+            });
+            shouldShow = shouldShow && matchesDue;
+        }
+        
+        // Check Task Type filter (only apply if search form has been submitted)
+        if (selectedTaskTypes.length > 0 && searchFormSubmitted) {
+            var recordTask = getFieldValue('Task');
+            var matchesTaskType = selectedTaskTypes.some(function(taskType) {
+                if (taskType === 'Other') {
+                    // Match anything not in the known task types
+                    var knownTypes = ['Inform of a decision to charge', 'Inform of a no further action decision', 'Log offered meeting', 'Log offer response', 'Log arranged meeting', 'Log meeting outcome'];
+                    return !knownTypes.some(function(known) { return recordTask.indexOf(known) !== -1; });
+                }
+                return recordTask.indexOf(taskType) !== -1;
+            });
+            shouldShow = shouldShow && matchesTaskType;
         }
         
         // If no search criteria submitted, show all tasks
@@ -355,7 +440,7 @@ if (clearFiltersLink) {
         // Clear all filters
         uncheckAndTriggerChange(taskAssigneeCheckboxes);
         uncheckAndTriggerChange(areaCheckboxes);
-        uncheckAndTriggerChange(serviceRadios);
+        uncheckAndTriggerChange(serviceCheckboxes);
         
         // Clear autocomplete inputs
         var assigneeInput = document.querySelector('#assignee-autocomplete-input');
@@ -374,6 +459,7 @@ if (clearFiltersLink) {
         updateClearFiltersVisibility();
         applyTaskFilters();
         window.saveFiltersToStorage();
+        if (window.renderSelectedFilters) window.renderSelectedFilters();
     });
 }
 
@@ -390,6 +476,13 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
 
 // Handle form submission
 (function() {
+    function applyFilters() {
+        searchFormSubmitted = true;
+        if (window.applyTaskFilters) window.applyTaskFilters();
+        window.saveFiltersToStorage();
+        if (window.renderSelectedFilters) window.renderSelectedFilters();
+    }
+
     function attachFormListener() {
         var filtersForm = document.getElementById('filters-form');
         if (filtersForm && !filtersForm.dataset.listenerAttached) {
@@ -397,12 +490,18 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
             filtersForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                searchFormSubmitted = true;
-                if (window.applyTaskFilters) window.applyTaskFilters();
-                window.saveFiltersToStorage();
+                applyFilters();
                 return false;
             }, true);
         }
+    }
+
+    // Apply filters button (outside form)
+    var applyBtn = document.getElementById('apply-filters-button');
+    if (applyBtn) {
+        applyBtn.addEventListener('click', function() {
+            applyFilters();
+        });
     }
     
     // Attach listener immediately and also on DOM ready
@@ -531,6 +630,171 @@ if (window.updateClearFiltersVisibility) {
 
 // Mark initial setup as complete
 initialSetupComplete = true;
+
+// ===== Selected Filters Display =====
+(function() {
+    var isRenderingSelectedFilters = false;
+
+    function renderSelectedFilters() {
+        if (isRenderingSelectedFilters) return;
+        isRenderingSelectedFilters = true;
+        var container = document.getElementById('selected-filters-chips');
+        var heading = document.getElementById('selected-filters-heading');
+        var clearWrapper = document.getElementById('clear-search-filters-wrapper');
+        if (!container) { isRenderingSelectedFilters = false; return; }
+
+        container.innerHTML = '';
+
+        // Collect chips by category
+        var assigneeChips = [];
+        document.querySelectorAll('.task-assignee-checkbox:checked').forEach(function(cb) {
+            assigneeChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var serviceChips = [];
+        document.querySelectorAll('.service-checkbox:checked').forEach(function(cb) {
+            serviceChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var areaChips = [];
+        document.querySelectorAll('.area-checkbox:checked').forEach(function(cb) {
+            areaChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var dueChips = [];
+        document.querySelectorAll('.due-checkbox:checked').forEach(function(cb) {
+            dueChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var taskTypeChips = [];
+        document.querySelectorAll('.task-type-checkbox:checked').forEach(function(cb) {
+            taskTypeChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var totalChips = assigneeChips.length + serviceChips.length + areaChips.length + dueChips.length + taskTypeChips.length;
+
+        // Update heading
+        if (heading) {
+            if (totalChips > 0) {
+                if (heading.tagName !== 'H2') {
+                    var h2 = document.createElement('h2');
+                    h2.id = 'selected-filters-heading';
+                    h2.className = 'govuk-heading-m govuk-!-margin-bottom-1';
+                    h2.textContent = 'Selected filters';
+                    heading.parentNode.replaceChild(h2, heading);
+                } else {
+                    heading.textContent = 'Selected filters';
+                }
+                if (clearWrapper) clearWrapper.style.display = '';
+            } else {
+                if (heading.tagName !== 'P') {
+                    var p = document.createElement('p');
+                    p.id = 'selected-filters-heading';
+                    p.className = 'govuk-body';
+                    p.textContent = 'No filters selected';
+                    heading.parentNode.replaceChild(p, heading);
+                } else {
+                    heading.textContent = 'No filters selected';
+                }
+                if (clearWrapper) clearWrapper.style.display = 'none';
+            }
+        }
+
+        // Helper to create a sub-section with heading and chips
+        function createSubSection(title, chips) {
+            if (chips.length === 0) return;
+            var subHeading = document.createElement('h3');
+            subHeading.className = 'govuk-heading-s govuk-!-margin-bottom-1 govuk-!-margin-top-3';
+            subHeading.textContent = title;
+            container.appendChild(subHeading);
+
+            var ul = document.createElement('ul');
+            ul.className = 'app-filter-tags govuk-!-margin-bottom-0';
+            chips.forEach(function(chip) {
+                var li = document.createElement('li');
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'app-filter__tag';
+                btn.textContent = chip.label;
+                btn.addEventListener('click', function() {
+                    if (chip.input) {
+                        chip.input.checked = false;
+                        var changeEvent = new Event('change', { bubbles: true });
+                        chip.input.dispatchEvent(changeEvent);
+                    }
+                    searchFormSubmitted = true;
+                    if (window.applyTaskFilters) window.applyTaskFilters();
+                    if (window.renderInlineChips) window.renderInlineChips();
+                    if (window.saveFiltersToStorage) window.saveFiltersToStorage();
+                    renderSelectedFilters();
+                });
+                li.appendChild(btn);
+                ul.appendChild(li);
+            });
+            container.appendChild(ul);
+        }
+
+        createSubSection('Task assignee', assigneeChips);
+        createSubSection('Service lead', serviceChips);
+        createSubSection('CPS area', areaChips);
+        createSubSection('Due', dueChips);
+        createSubSection('Task type', taskTypeChips);
+        isRenderingSelectedFilters = false;
+    }
+    window.renderSelectedFilters = renderSelectedFilters;
+
+    // Update selected filters when any filter changes
+    document.querySelectorAll('.task-assignee-checkbox, .area-checkbox, .service-checkbox, .due-checkbox, .task-type-checkbox').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+            renderSelectedFilters();
+        });
+    });
+
+    // Observe inline chip containers for changes (autocomplete uses local function refs)
+    var assigneeChipsEl = document.getElementById('task-assignee-chips-container');
+    var areaChipsEl = document.getElementById('area-chips-container');
+    var chipObserver = new MutationObserver(function() {
+        renderSelectedFilters();
+    });
+    if (assigneeChipsEl) chipObserver.observe(assigneeChipsEl, { childList: true });
+    if (areaChipsEl) chipObserver.observe(areaChipsEl, { childList: true });
+
+    // Clear filters button handler
+    var clearBtn = document.getElementById('clear-search-filters');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Uncheck all Task Assignee checkboxes
+            document.querySelectorAll('.task-assignee-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Area checkboxes
+            document.querySelectorAll('.area-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Service checkboxes
+            document.querySelectorAll('.service-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Due checkboxes
+            document.querySelectorAll('.due-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Task Type checkboxes
+            document.querySelectorAll('.task-type-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Clear autocomplete inputs
+            var assigneeInput = document.querySelector('#assignee-autocomplete-input');
+            if (assigneeInput) assigneeInput.value = '';
+            var areaInput = document.querySelector('#area-autocomplete-input');
+            if (areaInput) areaInput.value = '';
+            // Clear inline chips
+            if (assigneeChipsEl) assigneeChipsEl.innerHTML = '';
+            if (areaChipsEl) areaChipsEl.innerHTML = '';
+            // Re-apply filters and update UI
+            searchFormSubmitted = true;
+            if (window.applyTaskFilters) window.applyTaskFilters();
+            if (window.renderInlineChips) window.renderInlineChips();
+            if (window.saveFiltersToStorage) window.saveFiltersToStorage();
+            if (window.updateClearFiltersVisibility) window.updateClearFiltersVisibility();
+            renderSelectedFilters();
+        });
+    }
+
+    // Initial render of selected filters
+    renderSelectedFilters();
+})();
 
 // Show success banner if URL has success params, then remove them
 (function() {

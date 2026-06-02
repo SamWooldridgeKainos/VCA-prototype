@@ -444,7 +444,7 @@ function applyVictimFilters() {
         
         // In service-area mode, only show onboarded victims
         if (isServiceAreaMode && searchFormSubmitted) {
-            var recordServiceValue = getFieldValue('Service');
+            var recordServiceValue = getFieldValue('Service lead');
             if (recordServiceValue.indexOf('Not onboarded') !== -1) {
                 shouldShow = false;
             }
@@ -476,17 +476,17 @@ function applyVictimFilters() {
             var matchesService = selectedServices.some(function(service) {
                 // Special handling for "Not onboarded" service filter
                 if (service === 'Not onboarded') {
-                    var serviceValue = getFieldValue('Service');
+                    var serviceValue = getFieldValue('Service lead');
                     // Check if the Service field shows "Not onboarded"
                     return serviceValue.indexOf('Not onboarded') !== -1;
                 }
                 // Special handling for "Not aligned to a service" filter
                 if (service === 'Not aligned to a service') {
-                    var serviceValue = getFieldValue('Service');
+                    var serviceValue = getFieldValue('Service lead');
                     return serviceValue.indexOf('Not aligned') !== -1;
                 }
                 // For regular services, check if service text exists in the Service field
-                var serviceValue = getFieldValue('Service');
+                var serviceValue = getFieldValue('Service lead');
                 return serviceValue.indexOf(service) !== -1;
             });
             shouldShow = shouldShow && matchesService;
@@ -607,12 +607,9 @@ function hideServiceRowWhenOnboardedNo() {
 
 // Search functionality for victim or case reference
 (function() {
-    var searchForm = document.querySelector('.moj-search form');
     var searchInput = document.getElementById('search-urn');
-    var clearSearchWrapper = document.getElementById('clear-search-wrapper');
-    var clearSearchLink = document.getElementById('clear-search-link');
     
-    if (!searchForm || !searchInput) {
+    if (!searchInput) {
         return;
     }
     
@@ -653,11 +650,12 @@ function hideServiceRowWhenOnboardedNo() {
             var victimName = '';
             var caseReference = '';
             
-            // Extract victim name from the h2 heading
-            var headingEl = record.querySelector('h2');
+            // Extract victim name from the h2 heading (sibling in parent wrapper)
+            var parentWrapper = record.parentElement;
+            var headingEl = parentWrapper ? parentWrapper.querySelector('h2') : null;
             if (headingEl) {
                 var linkEl = headingEl.querySelector('a');
-                victimName = linkEl ? linkEl.textContent.trim() : '';
+                victimName = linkEl ? linkEl.textContent.trim() : headingEl.textContent.trim();
             }
             
             // Helper function to extract specific field value
@@ -688,17 +686,16 @@ function hideServiceRowWhenOnboardedNo() {
             var shouldShow = matchesSearch;
             record.setAttribute('data-filtered', shouldShow ? 'visible' : 'hidden');
             record.style.display = shouldShow ? '' : 'none';
+            
+            // Also show/hide the parent wrapper div so heading + summary list appear together
+            if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+                parentWrapper.style.display = shouldShow ? '' : 'none';
+            }
+            
             if (shouldShow) {
                 visibleCount++;
             }
         });
-        
-        // Update clear search link visibility
-        if (searchTerm !== '') {
-            clearSearchWrapper.style.display = '';
-        } else {
-            clearSearchWrapper.style.display = 'none';
-        }
         
         // Update or show "no results" message
         var noResultsMessage = document.getElementById('no-results-message');
@@ -722,40 +719,6 @@ function hideServiceRowWhenOnboardedNo() {
         if (window.recalculatePagination) {
             window.recalculatePagination();
         }
-        
-        // Recalculate pagination to limit results to 5 per page
-        if (window.recalculatePagination) {
-            window.recalculatePagination();
-        }
-    }
-    
-    // Handle search input change to show/hide clear link in real-time
-    searchInput.addEventListener('input', function() {
-        var searchTerm = searchInput.value.trim();
-        if (searchTerm !== '') {
-            clearSearchWrapper.style.display = '';
-        } else {
-            clearSearchWrapper.style.display = 'none';
-        }
-    });
-    
-    // Handle search form submission
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        applySearch();
-        window.saveFiltersToStorage();
-    });
-    
-    // Handle clear search link
-    if (clearSearchLink) {
-        clearSearchLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            searchInput.value = '';
-            clearSearchWrapper.style.display = 'none';
-            applySearch();
-            window.saveFiltersToStorage();
-            searchInput.focus();
-        });
     }
     
     // Expose applySearch globally for use by restore logic
@@ -771,6 +734,12 @@ if (!filtersRestored) {
     var vloOnlyRadio = document.getElementById('search-by-vlo');
     if (vloOnlyRadio) {
         vloOnlyRadio.checked = true;
+    }
+    
+    // Check the THOMPSON, Sarah (you) checkbox so chip renders and clear link shows
+    var thompsonCheckbox = document.getElementById('vlo-only-1');
+    if (thompsonCheckbox) {
+        thompsonCheckbox.checked = true;
     }
     
     // Set searchFormSubmitted to true so THOMPSON, Sarah filter is applied automatically
@@ -974,40 +943,55 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
     
     // Search criteria form submission
     function attachServiceAreaFormListener() {
-        var serviceAreaForm = document.getElementById('service-area-form');
-        if (serviceAreaForm && !serviceAreaForm.dataset.listenerAttached) {
-            serviceAreaForm.dataset.listenerAttached = 'true';
-            serviceAreaForm.addEventListener('submit', function(e) {
-                console.log('Service/Area form submitted');
+        var searchCriteriaForm = document.getElementById('search-criteria-form');
+        if (searchCriteriaForm && !searchCriteriaForm.dataset.listenerAttached) {
+            searchCriteriaForm.dataset.listenerAttached = 'true';
+            searchCriteriaForm.addEventListener('submit', function(e) {
+                console.log('Search criteria form submitted');
                 e.preventDefault();
                 e.stopPropagation();
                 searchFormSubmitted = true;
-                applyVictimFilters();
+                
+                // Determine which search mode is active
+                var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+                var selectedSearchBy = '';
+                searchByRadios.forEach(function(radio) {
+                    if (radio.checked) selectedSearchBy = radio.value;
+                });
+                
+                // For case-reference mode, apply case reference search
+                if (selectedSearchBy === 'case-reference' && window.applySearch) {
+                    window.applySearch();
+                } else if (selectedSearchBy === 'victim-name-dob' && window.applyVictimNameDobSearch) {
+                    var familyNameInput = document.getElementById('victim-family-name-search-input');
+                    var familyNameValue = familyNameInput ? familyNameInput.value.trim() : '';
+                    if (familyNameValue === '') {
+                        if (typeof showFamilyNameError === 'function') showFamilyNameError('Enter a last name');
+                        return false;
+                    }
+                    if (familyNameValue.length < 2) {
+                        if (typeof showFamilyNameError === 'function') showFamilyNameError('Last name must be 2 characters or more');
+                        return false;
+                    }
+                    if (typeof clearFamilyNameError === 'function') clearFamilyNameError();
+                    window.applyVictimNameDobSearch();
+                } else {
+                    applyVictimFilters();
+                }
+                
                 window.saveFiltersToStorage();
+                // Update clear link visibility after form submission
+                if (window.updateClearSearchVisibility) {
+                    window.updateClearSearchVisibility();
+                }
                 return false;
             }, true);
         }
     }
     
-    // VLO-only form submission
+    // VLO-only form submission (kept for backward compatibility but now handled by main form)
     function attachVloOnlyFormListener() {
-        var vloOnlyForm = document.getElementById('vlo-only-form');
-        if (vloOnlyForm && !vloOnlyForm.dataset.listenerAttached) {
-            vloOnlyForm.dataset.listenerAttached = 'true';
-            vloOnlyForm.addEventListener('submit', function(e) {
-                console.log('VLO-only form submitted');
-                e.preventDefault();
-                e.stopPropagation();
-                searchFormSubmitted = true;
-                applyVictimFilters();
-                window.saveFiltersToStorage();
-                // Update clear link visibility after form submission
-                if (window.updateClearVloOnlyFiltersVisibility) {
-                    window.updateClearVloOnlyFiltersVisibility();
-                }
-                return false;
-            }, true);
-        }
+        // No-op: vlo-only-form is now a div, submission handled by search-criteria-form
     }
     
     // Victim name and DOB search function
@@ -1355,118 +1339,43 @@ if (clearSearchCriteriaLink) {
     });
 }
 
-// Add click handler to Clear search button (clears service, area, and VLO selections)
-var clearSearchFiltersButton = document.getElementById('clear-search-filters');
-if (clearSearchFiltersButton) {
-    clearSearchFiltersButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        // Helper function to uncheck and trigger change event
-        function uncheckAndTriggerChange(items) {
-            items.forEach(function (item) {
-                item.checked = false;
-                // Trigger change event to ensure listeners fire
-                var changeEvent = new Event('change', { bubbles: true });
-                item.dispatchEvent(changeEvent);
-            });
-        }
-        
-        // Clear search criteria (Service, Area, and VLO)
-        uncheckAndTriggerChange(serviceRadios);
-        uncheckAndTriggerChange(areaCheckboxes);
-        uncheckAndTriggerChange(vloCheckboxes);
-        
-        // Clear and hide the area checkboxes container
-        var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
-        if (areaCheckboxesContainer) {
-            areaCheckboxesContainer.style.display = 'none';
-        }
-        
-        // Clear and hide the VLO checkboxes container
-        var vloCheckboxesContainer = document.getElementById('vlo-checkboxes-container');
-        if (vloCheckboxesContainer) {
-            vloCheckboxesContainer.style.display = 'none';
-        }
-        
-        // Clear autocomplete inputs
-        var areaInput = document.querySelector('#area-autocomplete-input');
-        if (areaInput) areaInput.value = '';
-        var vloInput = document.querySelector('#vlo-autocomplete-input');
-        if (vloInput) vloInput.value = '';
-        
-        // Clear area and VLO chips
-        var areaChipsContainer = document.getElementById('area-chips-container');
-        if (areaChipsContainer) areaChipsContainer.innerHTML = '';
-        var vloChipsContainer = document.getElementById('vlo-chips-container');
-        if (vloChipsContainer) vloChipsContainer.innerHTML = '';
-        
-        // Reset search form submitted flag
-        searchFormSubmitted = false;
-        
-        // Hide the clear search wrapper
-        var clearSearchFiltersWrapper = document.getElementById('clear-search-filters-wrapper');
-        if (clearSearchFiltersWrapper) clearSearchFiltersWrapper.style.display = 'none';
-        
-        // Update UI and apply filters
-        applyVictimFilters();
-        window.saveFiltersToStorage();
-    });
-}
-
 // Function to update clear search filters link visibility
 function updateClearSearchFiltersVisibility() {
-    var clearSearchFiltersWrapper = document.getElementById('clear-search-filters-wrapper');
-    if (!clearSearchFiltersWrapper) return;
+    var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+    if (!clearSearchWrapper) return;
     
     var hasServiceSelected = Array.from(serviceRadios).some(function(r) { return r.checked; });
     var hasAreaSelected = Array.from(areaCheckboxes).some(function(cb) { return cb.checked; });
-    var hasVloSelected = Array.from(vloCheckboxes).some(function(cb) { return cb.checked; });
+    var hasVloSelected = Array.from(document.querySelectorAll('.vlo-checkbox')).some(function(cb) { return cb.checked; });
+    var hasServiceAreaVloSelected = Array.from(document.querySelectorAll('.service-area-vlo-checkbox')).some(function(cb) { return cb.checked; });
+    var searchInput = document.getElementById('search-urn');
+    var hasCaseRef = searchInput && searchInput.value.trim() !== '';
     
-    if (hasServiceSelected || hasAreaSelected || hasVloSelected) {
-        clearSearchFiltersWrapper.style.display = '';
+    if (hasServiceSelected || hasAreaSelected || hasVloSelected || hasServiceAreaVloSelected || hasCaseRef) {
+        clearSearchWrapper.style.display = '';
     } else {
-        clearSearchFiltersWrapper.style.display = 'none';
+        clearSearchWrapper.style.display = 'none';
     }
 }
 
 // Make it available globally
 window.updateClearSearchFiltersVisibility = updateClearSearchFiltersVisibility;
+window.updateClearSearchVisibility = updateClearSearchFiltersVisibility;
+window.updateClearVloOnlyFiltersVisibility = updateClearSearchFiltersVisibility;
 
 // Update visibility on page load
 updateClearSearchFiltersVisibility();
 
-// Function to update clear VLO-only search link visibility
-function updateClearVloOnlyFiltersVisibility() {
-    var clearVloOnlyFiltersWrapper = document.getElementById('clear-vlo-only-filters-wrapper');
-    if (!clearVloOnlyFiltersWrapper) return;
-    
-    var vloOnlyCheckboxes = document.querySelectorAll('.vlo-checkbox');
-    var hasVloSelected = Array.from(vloOnlyCheckboxes).some(function(cb) { return cb.checked; });
-    
-    if (hasVloSelected) {
-        clearVloOnlyFiltersWrapper.style.display = '';
-    } else {
-        clearVloOnlyFiltersWrapper.style.display = 'none';
-    }
-}
-
-// Make it available globally
-window.updateClearVloOnlyFiltersVisibility = updateClearVloOnlyFiltersVisibility;
-
-// Update visibility on page load
-updateClearVloOnlyFiltersVisibility();
-
-// Add click handler to Clear VLO-only search link
-var clearVloOnlyFiltersLink = document.getElementById('clear-vlo-only-filters');
-if (clearVloOnlyFiltersLink) {
-    clearVloOnlyFiltersLink.addEventListener('click', function (e) {
+// Add click handler to Clear search link
+var clearSearchLink = document.getElementById('clear-search-link');
+if (clearSearchLink) {
+    clearSearchLink.addEventListener('click', function (e) {
         e.preventDefault();
         
         // Helper function to uncheck and trigger change event
         function uncheckAndTriggerChange(items) {
             items.forEach(function (item) {
                 item.checked = false;
-                // Trigger change event to ensure listeners fire
                 var changeEvent = new Event('change', { bubbles: true });
                 item.dispatchEvent(changeEvent);
             });
@@ -1480,15 +1389,45 @@ if (clearVloOnlyFiltersLink) {
         var vloOnlyChipsContainer = document.getElementById('vlo-only-chips-container');
         if (vloOnlyChipsContainer) vloOnlyChipsContainer.innerHTML = '';
         
-        // Clear autocomplete input
+        // Clear VLO-only autocomplete input
         var vloOnlyInput = document.querySelector('#vlo-only-autocomplete-input');
         if (vloOnlyInput) vloOnlyInput.value = '';
+        
+        // Clear service-area-vlo checkboxes
+        var serviceAreaVloCheckboxes = document.querySelectorAll('.service-area-vlo-checkbox');
+        uncheckAndTriggerChange(serviceAreaVloCheckboxes);
+        
+        // Clear service-area-vlo chips
+        var serviceAreaVloChipsContainer = document.getElementById('service-area-vlo-chips-container');
+        if (serviceAreaVloChipsContainer) serviceAreaVloChipsContainer.innerHTML = '';
+        
+        // Clear service-area-vlo autocomplete input
+        var serviceAreaVloInput = document.querySelector('#service-area-vlo-autocomplete-input');
+        if (serviceAreaVloInput) serviceAreaVloInput.value = '';
+        
+        // Clear search criteria (Service, Area)
+        uncheckAndTriggerChange(serviceRadios);
+        uncheckAndTriggerChange(areaCheckboxes);
+        
+        // Clear and hide the area checkboxes container
+        var areaCheckboxesContainer = document.getElementById('area-checkboxes-container');
+        if (areaCheckboxesContainer) areaCheckboxesContainer.style.display = 'none';
+        
+        // Clear area autocomplete and chips
+        var areaInput = document.querySelector('#area-autocomplete-input');
+        if (areaInput) areaInput.value = '';
+        var areaChipsContainer = document.getElementById('area-chips-container');
+        if (areaChipsContainer) areaChipsContainer.innerHTML = '';
+        
+        // Clear case reference input
+        var searchInput = document.getElementById('search-urn');
+        if (searchInput) searchInput.value = '';
         
         // Reset search form submitted flag
         searchFormSubmitted = false;
         
         // Hide the clear search wrapper
-        updateClearVloOnlyFiltersVisibility();
+        updateClearSearchFiltersVisibility();
         
         // Update UI and apply filters
         applyVictimFilters();
