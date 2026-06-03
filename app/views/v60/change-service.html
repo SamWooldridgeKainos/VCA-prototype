@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change service" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v60/change-service-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Which is the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="service-lead-1" name="serviceLead" type="radio" value="Universal" {{ "checked" if (data['serviceLead'] or data['service'] or 'Universal') == 'Universal' }}>
+                            <label class="govuk-label govuk-radios__label" for="service-lead-1">
+                                Universal
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="service-lead-2" name="serviceLead" type="radio" value="Enhanced" {{ "checked" if (data['serviceLead'] or data['service']) == 'Enhanced' }}>
+                            <label class="govuk-label govuk-radios__label" for="service-lead-2">
+                                Enhanced
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="service-lead-3" name="serviceLead" type="radio" value="RASSO" {{ "checked" if (data['serviceLead'] or data['service']) == 'RASSO' }}>
+                            <label class="govuk-label govuk-radios__label" for="service-lead-3">
+                                RASSO
+                            </label>
+                        </div>
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="service-lead-4" name="serviceLead" type="radio" value="Not aligned" {{ "checked" if (data['serviceLead'] or data['service']) == 'Not aligned' }}>
+                            <label class="govuk-label govuk-radios__label" for="service-lead-4">
+                                Not aligned to a service
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

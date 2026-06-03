@@ -3,11 +3,11 @@
 {% set pageName="Victim" %}
 
 {% block header %}
-{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% include "/v60/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs.html" %}
+{% include "/v60/partials/identity-bar/victim-page-bfs.html" %}
 {% endblock %}
 
 {% block content %}
@@ -15,9 +15,9 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-      {% include "/delivery/wat4/case-locked/banner/by-someone-else.html" %}
+      {% include "/v60/case-locked/banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-      {% include "/delivery/wat4/case-locked/banner/self-locked.html" %}
+      {% include "/v60/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
 
@@ -150,15 +150,15 @@
       </ul>
 
       <div class="govuk-tabs__panel{% if activeTab != 'overview' %} govuk-tabs__panel--hidden{% endif %}" id="overview">
-        {% include "/delivery/wat4/victim/overview.html" %}
+        {% include "/v60/victim/overview.html" %}
       </div>
 
       <div class="govuk-tabs__panel{% if activeTab != 'victim-details' %} govuk-tabs__panel--hidden{% endif %}" id="victim-details">
-        {% include "/delivery/wat4/victim/victim-details/index.html" %}
+        {% include "/v60/victim/victim-details/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel{% if activeTab != 'case-contacts' %} govuk-tabs__panel--hidden{% endif %}" id="case-contacts">
-        {% include "/delivery/wat4/victim/case-contacts.html" %}
+        {% include "/v60/victim/case-contacts.html" %}
       </div>
 
       <div class="govuk-tabs__panel{% if activeTab != 'communications' %} govuk-tabs__panel--hidden{% endif %}" id="communications">
@@ -180,19 +180,19 @@
         </nav>
 
         <div id="comms-pcd" class="comms-panel"{% if activeComms != 'comms-pcd' %} hidden{% endif %}>
-          {% include "/delivery/wat4/victim/pcd/index.html" %}
+          {% include "/v60/victim/pcd/index.html" %}
         </div>
 
         <div id="comms-vcl" class="comms-panel"{% if activeComms != 'comms-vcl' %} hidden{% endif %}>
-          {% include "/delivery/wat4/victim/vcl/index.html" %}
+          {% include "/v60/victim/vcl/index.html" %}
         </div>
 
         <div id="comms-ptm" class="comms-panel"{% if activeComms != 'comms-ptm' %} hidden{% endif %}>
-          {% include "/delivery/wat4/victim/pre-trial/pre-trial-meeting/index.html" %}
+          {% include "/v60/victim/pre-trial/pre-trial-meeting/index.html" %}
         </div>
 
         <div id="comms-other" class="comms-panel"{% if activeComms != 'comms-other' %} hidden{% endif %}>
-          {% include "/delivery/wat4/victim/other/index.html" %}
+          {% include "/v60/victim/other/index.html" %}
         </div>
       </div>
     </div>

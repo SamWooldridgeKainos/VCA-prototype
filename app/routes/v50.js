@@ -1,0 +1,1016 @@
+// Convert DD/MM/YYYY + optional HH:MM to YYYY-MM-DDTHH:MM for sorting
+function toSortDate(dateString, hour, minutes) {
+    if (!dateString || !dateString.includes('/')) return ''
+    var parts = dateString.split('/')
+    if (parts.length !== 3) return ''
+    var h = (hour || '17').toString().padStart(2, '0')
+    var m = (minutes || '00').toString().padStart(2, '0')
+    return parts[2] + '-' + parts[1] + '-' + parts[0] + 'T' + h + ':' + m
+}
+
+module.exports = router => {
+
+    // Clear success flags when navigating between pages (GET requests).
+    // Success banners are triggered via redirects with ?success=yes (or
+    // ?successNotification=yes). The prototype kit copies session.data into
+    // res.locals.data BEFORE this handler runs, so we must update both for
+    // the template to see the cleared values.
+    router.get('/v50/*', function(request, response, next) {
+        if (request.query.success === undefined) {
+            request.session.data.success = 'no'
+            request.session.data.successReason = ''
+            response.locals.data.success = 'no'
+            response.locals.data.successReason = ''
+        }
+        if (request.query.successNotification === undefined) {
+            request.session.data.successNotification = 'no'
+            response.locals.data.successNotification = 'no'
+        }
+        next()
+    })
+
+    //onb
+
+    router.post('/v50/sign-in-answer', function(request, response) {
+
+        response.redirect("/v50/tasks")
+    })
+
+    router.post('/v50/onb/service-lead-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes&onboardedStatus=Yes")
+    })
+
+    router.post('/v50/check-details/case-type-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/risk-level-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/pmoc-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/preferred-name-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/preferred-contact-times-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/preferred-correspondence-language-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/translator-needed-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/check-details/vps-status-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-details?successNotification=yes")
+    })
+
+    router.post('/v50/onb/check-details-answer', function(request, response) {
+
+        response.redirect("/v50/onb/next-task?successNotification=false")
+    })
+
+    router.post('/v50/onb/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "other") {
+            response.redirect("/v50/onb/manual-task")
+        } else if (nextTask == "no-task") {
+            response.redirect("/v50/onb/check-task?manualTask=no")
+        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
+            response.redirect("/v50/onb/meeting-purpose")
+        } else {
+            response.redirect("/v50/onb/next-task-due-date")
+        }
+    })
+
+    router.post('/v50/onb/meeting-purpose-answer', function(request, response) {
+
+        response.redirect("/v50/onb/next-task-due-date")
+    })
+
+    router.post('/v50/onb/next-task-due-date-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-task?manualTask=no")
+    })
+
+    router.post('/v50/onb/manual-task-answer', function(request, response) {
+
+        response.redirect("/v50/onb/check-task?manualTask=yes")
+    })
+
+    router.post('/v50/onb/check-task-answer', function(request, response) {
+
+        response.redirect("/v50/onb/onboarded")
+    })
+
+    router.post('/v50/onb/vlo-answer', function(request, response) {
+
+        // Store vlo in session
+        request.session.data['vlo'] = request.body.vlo || ''
+
+        response.redirect("/v50/victims?success=yes&successReason=vlo-updated")
+    })
+
+    router.post('/v50/onb/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/v50/onb/tasks?success=yes&successReason=assignee-updated")
+    })
+
+    router.get('/v50/victim/new-task/task-selection', function(request, response) {
+        var fromCheck = request.query.fromCheck === 'yes'
+        delete request.session.data['fromCheck']
+
+        // Store active tab and secondary nav so we can return to the same state
+        if (!fromCheck) {
+            if (request.query.activeTab) {
+                request.session.data['victimPageActiveTab'] = request.query.activeTab
+            }
+            if (request.query.activeSecondaryNav) {
+                request.session.data['victimPageActiveSecondaryNav'] = request.query.activeSecondaryNav
+            }
+        }
+
+        // Clear previous task data when starting a new task (not returning from check page)
+        if (!fromCheck) {
+            delete request.session.data['nextTask']
+            delete request.session.data['meetingPurpose']
+            delete request.session.data['meetingPurposeDetails']
+            delete request.session.data['taskDueDate']
+            delete request.session.data['manualTaskName']
+            delete request.session.data['taskNote']
+        }
+
+        response.render('v5.0/victim/new-task/task-selection', {
+            fromCheck: fromCheck
+        })
+    })
+
+    router.post('/v50/victim/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "dtc") {
+            response.redirect("/v50/victim/new-task/task-due-date?pcdType=dtc")
+        } else if (nextTask == "nfa") {
+            response.redirect("/v50/victim/new-task/task-due-date?pcdType=nfa")
+        } else if (nextTask == "stopped-charge") {
+            response.redirect("/v50/victim/new-task/task-due-date?vclType=stopped-charge")
+        } else if (nextTask == "altered-charge") {
+            response.redirect("/v50/victim/new-task/task-due-date?vclType=altered-charge")
+        } else if (nextTask == "other") {
+            response.redirect("/v50/victim/new-task/manual-task")
+        } else if (nextTask == "no-task") {
+            response.redirect("/v50/victim/new-task/check-task")
+        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
+            response.redirect("/v50/victim/new-task/meeting-purpose")
+        } else {
+            response.redirect("/v50/victim/new-task/task-due-date")
+        }
+    })
+
+    router.post('/v50/victim/new-task/meeting-purpose-answer', function(request, response) {
+
+        response.redirect("/v50/victim/new-task/task-due-date")
+    })
+
+    router.get('/v50/victim/new-task/task-due-date', function(request, response) {
+        var fromCheck = request.query.fromCheck === 'yes'
+        var fromTaskAlreadyExists = request.query.fromTaskAlreadyExists === 'yes'
+        delete request.session.data['fromCheck']
+        response.render('v5.0/victim/new-task/task-due-date', {
+            fromCheck: fromCheck,
+            fromTaskAlreadyExists: fromTaskAlreadyExists
+        })
+    })
+
+    router.post('/v50/victim/new-task/task-already-exists-answer', function(request, response) {
+
+        // Restore the pre-existing task due date so the Tasks page shows the original value
+        request.session.data['taskDueDate'] = request.session.data['existingTaskDueDate'] || ''
+
+        response.redirect("/v50/tasks")
+    })
+
+    router.post('/v50/victim/new-task/task-due-date-answer', function(request, response) {
+
+        if (request.body.fromTaskAlreadyExists === 'yes') {
+            request.session.data['existingTaskDueDate'] = request.session.data['taskDueDate'] || ''
+            return response.redirect("/v50/tasks?success=yes&successReason=due-date-updated")
+        }
+
+        response.redirect("/v50/victim/new-task/check-task")
+    })
+
+    router.post('/v50/victim/new-task/manual-task-answer', function(request, response) {
+
+        response.redirect("/v50/victim/new-task/check-task?manualTask=yes")
+    })
+
+    router.post('/v50/victim/new-task/check-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask'] || ''
+        var meetingPurpose = request.session.data['meetingPurpose'] || ''
+        var existingTask = request.session.data['existingTask'] || ''
+        var existingMeetingPurpose = request.session.data['existingMeetingPurpose'] || ''
+
+        var meetingTasks = ['meeting-offer', 'meeting-arranged', 'meeting-outcome']
+        var isMeetingTask = meetingTasks.indexOf(nextTask) !== -1
+        var existingIsMeetingTask = meetingTasks.indexOf(existingTask) !== -1
+
+        // Block duplicate non-meeting tasks, or meeting tasks with the same purpose (regardless of meeting type)
+        var duplicateNonMeeting = existingTask && nextTask === existingTask && !isMeetingTask && nextTask !== 'other' && nextTask !== 'no-task'
+        var duplicateMeeting = existingIsMeetingTask && isMeetingTask && meetingPurpose && meetingPurpose === existingMeetingPurpose
+
+        if (duplicateNonMeeting || duplicateMeeting) {
+            return response.redirect("/v50/victim/new-task/task-already-exists")
+        }
+
+        // Update existing task tracking when a task is confirmed
+        request.session.data['existingTask'] = nextTask
+        request.session.data['existingMeetingPurpose'] = meetingPurpose
+        request.session.data['existingTaskDueDate'] = request.session.data['taskDueDate'] || ''
+        request.session.data['existingManualTaskName'] = request.session.data['manualTaskName'] || ''
+        request.session.data['existingTaskNote'] = request.session.data['taskNote'] || ''
+
+        response.redirect("/v50/victim/new-task/task-created")
+    })
+
+    router.post('/v50/victim/new-task/task-created-answer', function(request, response) {
+        var activeTab = request.session.data['victimPageActiveTab'] || ''
+        var activeSecondaryNav = request.session.data['victimPageActiveSecondaryNav'] || ''
+        var returnUrl = "/v50/victim"
+        var queryParts = []
+        if (activeTab) queryParts.push('activeTab=' + encodeURIComponent(activeTab))
+        if (activeSecondaryNav) queryParts.push('activeSecondaryNav=' + encodeURIComponent(activeSecondaryNav))
+        if (queryParts.length) returnUrl += '?' + queryParts.join('&')
+        response.redirect(returnUrl)
+    })
+
+    router.post('/v50/task-assignee-answer', function(request, response) {
+
+        // Store task assignee in session
+        request.session.data['task-assignee'] = request.body['task-assignee'] || ''
+
+        response.redirect("/v50/tasks?success=yes&successReason=assignee-updated")
+    })
+
+    router.post('/v50/change-task-due-date-answer', function(request, response) {
+        var previousDueDate = request.body['previousTaskDueDate'] || ''
+        var newDueDate = request.body['taskDueDate'] || ''
+
+
+        if (newDueDate === previousDueDate) {
+            response.redirect("/v50/tasks")
+        } else {
+            response.redirect("/v50/tasks?success=yes&successReason=due-date-updated")
+        }
+    })
+
+    router.post('/v50/change-service-answer', function(request, response) {
+
+        request.session.data['serviceLead'] = request.body['serviceLead'] || ''
+
+        response.redirect("/v50/victims?success=yes&successReason=service-updated")
+    })
+
+    router.post('/v50/update-manual-task-answer', function(request, response) {
+
+        // Store task action in session
+        request.session.data['taskAction'] = request.body['taskAction'] || ''
+
+        if (request.body['taskAction'] === 'complete') {
+            response.redirect("/v50/tasks?success=yes&successReason=manual-task-completed")
+        } else {
+            response.redirect("/v50/tasks")
+        }
+    })
+
+    //pcd
+
+    router.post('/v50/pcd/sign-in-answer', function(request, response) {
+
+        response.redirect("/v50/pcd/overview")
+    })
+
+    router.get('/v50/pcd/pre-draft/check-details-answer', function(request, response) {
+
+        response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started")
+    })
+
+    router.post('/v50/pcd/draft/pcd-type-answer', function(request, response) {
+
+        var pcdType = request.session.data['pcdType']
+        if (pcdType == "dtc"){
+            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=dtc&nextTask=dtc&existingTask=dtc")
+        } else if (pcdType == "nfa") {
+            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=nfa&nextTask=nfa&existingTask=nfa")
+        } else {
+            response.redirect("#")
+        }
+    })
+
+    router.post('/v50/pcd/pre-draft/contacted-by-answer', function(request, response) {
+
+        var contactedBy = request.session.data['contactedBy']
+
+        if (contactedBy == "call") {
+            response.redirect("/v50/pcd/call/phone-call-1")
+        } else if (contactedBy == "email") {
+            response.redirect("/v50/pcd/send/email-details")
+        } else if (contactedBy == "post") {
+            response.redirect("/v50/pcd/send/letter-details")
+        } else if (contactedBy == "not-contacted") {
+            response.redirect("/v50/pcd/pre-draft/not-contacted-reason")
+        } else {
+            response.redirect("/v50/pcd/pre-draft/contact-details?contactMethod=other")
+        }
+    })
+
+    router.post('/v50/pcd/pre-draft/not-contacted-reason-answer', function(request, response) {
+
+        response.redirect("/v50/victim?secondaryNav=pcd&pcdStatus=not-contacted-logged&success=yes&successReason=not-contacted-logged#communications")
+    })
+
+    router.post('/v50/pcd/draft/cd-modal/request-review-answer', function(request, response) {
+
+        response.redirect("/v50/pcd/draft/under-review?pcdStatus=draft-under-review")
+    })
+
+    router.post('/v50/pcd/call/phone-call-1-answer', function(request, response) {
+
+        var pcdVictimInformed1 = request.session.data['pcdVictimInformed1']
+
+        if (pcdVictimInformed1 == "Yes"){
+            response.redirect("/v50/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=1&success=yes&successReason=informed-after-call-1")
+        } else {
+            response.redirect("/v50/pcd/call/was-text-message-sent?pcdStatus=before-text-logged&pcdCallAttempt=1&success=yes&successReason=not-informed-after-call-1")
+        }
+    })
+
+    router.post('/v50/pcd/call/was-text-message-sent-answer', function(request, response) {
+
+        var pcdWasTextMessageSent = request.session.data['pcdWasTextMessageSent']
+
+        if (pcdWasTextMessageSent == "Yes"){
+            response.redirect("/v50/pcd/call/text-message-details")
+        } else {
+            response.redirect("/v50/victim?pmoc=mobile&pcdStatus=after-call-attempt-1&secondaryNav=pcd#communications")
+        }
+    })
+
+    router.post('/v50/pcd/call/text-message-details-answer', function(request, response) {
+
+        response.redirect("/v50/victim?pcdStatus=after-call-attempt-1&secondaryNav=pcd#communications")
+    })
+
+    router.post('/v50/pcd/call/next-attempt-moc-answer', function(request, response) {
+
+        var pcdAttemptToContactAgain = request.session.data['pcdAttemptToContactAgain']
+        var pcdCallAttempt = request.session.data['pcdCallAttempt']
+
+        if (pcdAttemptToContactAgain == "call") {
+            if (pcdCallAttempt == "1") {
+                response.redirect("/v50/pcd/call/phone-call-2")
+            } else {
+                response.redirect("/v50/pcd/call/phone-call-3")
+            }
+
+        } else if (pcdAttemptToContactAgain == "email") {
+            if (pcdCallAttempt == "1") {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+            } else if (pcdCallAttempt == "2") {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+            } else {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=email&secondaryNav=pcd")
+            }
+            
+        } else {
+            response.redirect("/v50/pcd/send/letter-details?pcdStatus=draft-ready-to-send&pcdAttemptToContactAgain=post&secondaryNav=pcd")
+        }
+    })
+
+    router.post('/v50/pcd/call/phone-call-2-answer', function(request, response) {
+
+        var pcdVictimInformed2 = request.session.data['pcdVictimInformed2']
+        if (pcdVictimInformed2 == "Yes"){
+            response.redirect("/v50/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=2&success=yes&successReason=informed-after-call-2")
+        } else {
+            response.redirect("/v50/victim?pcdStatus=after-call-attempt-2&pcdCallAttempt=2&success=yes&successReason=not-informed-after-call-2&secondaryNav=pcd")
+        }
+    })
+
+    router.post('/v50/pcd/call/follow-up-moc-answer', function(request, response) {
+
+        var pcdFumoc = request.session.data['pcdFumoc']
+        var pcdCallAttempt = request.session.data['pcdCallAttempt']
+
+        if (pcdFumoc == "Email"){
+            if (pcdCallAttempt == "1") {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=informed-after-call-1&pcdFumoc=Email&secondaryNav=pcd")
+            } else if (pcdCallAttempt == "2") {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=informed-after-call-2&pcdFumoc=Email&secondaryNav=pcd")
+            } else {
+                response.redirect("/v50/pcd/send/email-details?pcdStatus=informed-after-call-3&pcdFumoc=Email&secondaryNav=pcd")
+            }
+
+        } else if (pcdFumoc == "Post") {
+            if (pcdCallAttempt == "1") {
+                response.redirect("/v50/pcd/send/letter-details?pcdStatus=informed-after-call-1&pcdFumoc=Post&secondaryNav=pcd")
+            } else if (pcdCallAttempt == "2") {
+                response.redirect("/v50/pcd/send/letter-details?pcdStatus=informed-after-call-2&pcdFumoc=Post&secondaryNav=pcd")
+            } else {
+                response.redirect("/v50/pcd/send/letter-details?pcdStatus=informed-after-call-3&pcdFumoc=Post&secondaryNav=pcd")
+            }
+
+        } else {
+            if (pcdCallAttempt == "1") {
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-1&pcdFumoc=None&secondaryNav=pcd")
+            } else if (pcdCallAttempt == "2") {
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-2&pcdFumoc=None&secondaryNav=pcd")
+            } else {
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-3&pcdFumoc=None&secondaryNav=pcd")
+            }
+        }
+    })
+
+    router.post('/v50/pcd/call/phone-call-3-answer', function(request, response) {
+
+        var pcdVictimInformed3 = request.session.data['pcdVictimInformed3']
+
+        if (pcdVictimInformed3 == "Yes"){
+            response.redirect("/v50/pcd/call/follow-up-moc?pcdStatus=select-fumoc&pcdCallAttempt=3&success=yes&successReason=informed-after-call-3")
+        } else {
+            response.redirect("/v50/victim?pcdStatus=after-call-attempt-3&pcdCallAttempt=3&success=yes&successReason=not-informed-after-call-3&secondaryNav=pcd")
+        }
+    })
+
+    router.post('/v50/pcd/send/email-details-answer', function(request, response) {
+
+        response.redirect("/v50/pcd/send/email-logged")
+    })
+
+    router.post('/v50/pcd/send/letter-details-answer', function(request, response) {
+
+        response.redirect("/v50/pcd/send/letter-logged")
+    })
+
+    router.post('/v50/pcd/preferred-method-of-contact-answer', function(request, response) {
+
+        response.redirect("/v50/victim?success=yes&successReason=pmoc-updated#victim-details")
+    })
+
+    //case information
+
+    router.post('/v50/victim/case-information/charging-type-answer', function(request, response) {
+
+        response.redirect("/v50/victim?success=yes&successReason=charging-type-updated#overview")
+    })
+
+    router.post('/v50/victim/case-information/area-answer', function(request, response) {
+
+        response.redirect("/v50/victim?success=yes&successReason=area-updated#overview")
+    })
+
+    //vcl
+
+    router.post('/v50/vcl/pre-draft/contacted-by-answer', function(request, response) {
+
+        var contactedBy = request.session.data['contactedBy']
+
+        if (contactedBy == "call") {
+            response.redirect("/v50/vcl/call/phone-call-1")
+        } else if (contactedBy == "email") {
+            response.redirect("/v50/vcl/send/email-details")
+        } else if (contactedBy == "post") {
+            response.redirect("/v50/vcl/send/letter-details")
+        } else {
+            response.redirect("/v50/vcl/pre-draft/contact-details?contactMethod=other")
+        }
+    })
+
+    router.get('/v50/vcl/pre-draft/check-details-answer', function(request, response) {
+
+        var vclType = request.session.data['vclType']
+
+        if (vclType == "stopped-charge") {
+            response.redirect("/v50/vcl/draft/stopped-charge")
+        } else {
+            response.redirect("/v50/vcl/draft/substantially-altered-charge")
+        }
+    })
+
+    router.post('/v50/vcl/draft/stopped-charge-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/draft/compose-letter?vclStatus=draft-in-progress")
+    })
+
+    router.post('/v50/vcl/draft/altered-charge-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/draft/compose-letter?vclStatus=draft-in-progress")
+    })
+
+    router.post('/v50/vcl/draft/cd-modal/request-review-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/draft/under-review?vclStatus=draft-under-review")
+    })
+
+    router.post('/v50/vcl/call/phone-call-1-answer', function(request, response) {
+
+        var vclVictimInformed1 = request.session.data['vclVictimInformed1']
+
+        if (vclVictimInformed1 == "Yes"){
+            response.redirect("/v50/vcl/call/follow-up-moc?vclStatus=select-fumoc&vclCallAttempt=1&success=yes&successReason=informed-after-call-1")
+        } else {
+            response.redirect("/v50/vcl/call/was-text-message-sent?vclStatus=before-text-logged&vclCallAttempt=1&success=yes&successReason=not-informed-after-call-1")
+        }
+    })
+
+    router.post('/v50/vcl/call/was-text-message-sent-answer', function(request, response) {
+
+        var vclWasTextMessageSent = request.session.data['vclWasTextMessageSent']
+
+        if (vclWasTextMessageSent == "Yes"){
+            response.redirect("/v50/vcl/call/text-message-details")
+        } else {
+            response.redirect("/v50/victim?pmoc=mobile&vclStatus=after-call-attempt-1&secondaryNav=vcl#communications")
+        }
+    })
+
+    router.post('/v50/vcl/call/text-message-details-answer', function(request, response) {
+
+        response.redirect("/v50/victim?vclStatus=after-call-attempt-1&secondaryNav=vcl#communications")
+    })
+
+    router.post('/v50/vcl/call/next-attempt-moc-answer', function(request, response) {
+
+        var vclAttemptToContactAgain = request.session.data['vclAttemptToContactAgain']
+        var vclCallAttempt = request.session.data['vclCallAttempt']
+
+        if (vclAttemptToContactAgain == "call") {
+            if (vclCallAttempt == "1") {
+                response.redirect("/v50/vcl/call/phone-call-2")
+            } else {
+                response.redirect("/v50/vcl/call/phone-call-3")
+            }
+
+        } else if (vclAttemptToContactAgain == "email") {
+            if (vclCallAttempt == "1") {
+                response.redirect("/v50/victim?vclStatus=draft-ready-to-send&vclAttemptToContactAgain=email&secondaryNav=vcl")
+            } else if (vclCallAttempt == "2") {
+                response.redirect("/v50/victim?vclStatus=draft-ready-to-send&vclAttemptToContactAgain=email&secondaryNav=vcl")
+            } else {
+                response.redirect("/v50/victim?vclStatus=draft-ready-to-send&vclAttemptToContactAgain=email&secondaryNav=vcl")
+            }
+            
+        } else {
+            response.redirect("/v50/victim?vclStatus=draft-ready-to-send&vclAttemptToContactAgain=post&secondaryNav=vcl")
+        }
+    })
+
+    router.post('/v50/vcl/call/phone-call-2-answer', function(request, response) {
+
+        var vclVictimInformed2 = request.session.data['vclVictimInformed2']
+
+        if (vclVictimInformed2 == "Yes"){
+            response.redirect("/v50/vcl/call/follow-up-moc?vclStatus=select-fumoc&vclCallAttempt=2&success=yes&successReason=informed-after-call-2")
+        } else {
+            response.redirect("/v50/victim?vclStatus=after-call-attempt-2&vclCallAttempt=2&success=yes&successReason=not-informed-after-call-2&secondaryNav=vcl")
+        }
+    })
+
+    router.post('/v50/vcl/call/follow-up-moc-answer', function(request, response) {
+
+        var vclFumoc = request.session.data['vclFumoc']
+        var vclCallAttempt = request.session.data['vclCallAttempt']
+
+        if (vclFumoc == "Email"){
+            if (vclCallAttempt == "1") {
+                response.redirect("/v50/vcl/send/email-details?vclStatus=informed-after-call-1&vclFumoc=Email&secondaryNav=vcl")
+            } else if (vclCallAttempt == "2") {
+                response.redirect("/v50/vcl/send/email-details?vclStatus=informed-after-call-2&vclFumoc=Email&secondaryNav=vcl")
+            } else {
+                response.redirect("/v50/vcl/send/email-details?vclStatus=informed-after-call-3&vclFumoc=Email&secondaryNav=vcl")
+            }
+
+        } else if (vclFumoc == "Post") {
+            if (vclCallAttempt == "1") {
+                response.redirect("/v50/vcl/send/letter-details?vclStatus=informed-after-call-1&vclFumoc=Post&secondaryNav=vcl")
+            } else if (vclCallAttempt == "2") {
+                response.redirect("/v50/vcl/send/letter-details?vclStatus=informed-after-call-2&vclFumoc=Post&secondaryNav=vcl")
+            } else {
+                response.redirect("/v50/vcl/send/letter-details?vclStatus=informed-after-call-3&vclFumoc=Post&secondaryNav=vcl")
+            }
+
+        } else {
+            if (vclCallAttempt == "1") {
+                response.redirect("/v50/victim?vclStatus=informed-after-call-1&vclFumoc=None&secondaryNav=vcl")
+            } else if (vclCallAttempt == "2") {
+                response.redirect("/v50/victim?vclStatus=informed-after-call-2&vclFumoc=None&secondaryNav=vcl")
+            } else {
+                response.redirect("/v50/victim?vclStatus=informed-after-call-3&vclFumoc=None&secondaryNav=vcl")
+            }
+        }
+    })
+
+    router.post('/v50/vcl/call/phone-call-3-answer', function(request, response) {
+
+        var vclVictimInformed3 = request.session.data['vclVictimInformed3']
+
+        if (vclVictimInformed3 == "Yes"){
+            response.redirect("/v50/vcl/call/follow-up-moc?vclCallAttempt=3&success=yes&successReason=informed-after-call-3")
+        } else {
+            response.redirect("/v50/victim?vclStatus=after-call-attempt-3&vclCallAttempt=3&success=yes&successReason=not-informed-after-call-3&secondaryNav=vcl")
+        }
+    })
+
+    router.post('/v50/vcl/send/check-email-details-answer', function(request, response) {
+
+        var sendEmailNow = request.session.data['sendEmailNow']
+
+        if (sendEmailNow == "Yes"){
+            response.redirect("/v50/vcl/send/delivered")
+        } else {
+            response.redirect("/v50/victim?vclStatus=approved-to-send&pmoc=mobile&vclFumoc=email&secondaryNav=vcl")
+        }
+    })
+
+    router.post('/v50/vcl/send/check-letter-details-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/send/letter-added-to-print-queue")
+    })
+
+    router.post('/v50/vcl/send/email-details-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/send/email-logged")
+    })
+
+    router.post('/v50/vcl/send/letter-details-answer', function(request, response) {
+
+        response.redirect("/v50/vcl/send/letter-logged")
+    })
+
+    router.post('/v50/vcl/preferred-method-of-contact-answer', function(request, response) {
+
+        response.redirect("/v50/victim?success=yes&successReason=pmoc-updated#victim-details")
+    })
+
+    // Other
+
+    router.post('/v50/other/contacted-by-answer', function(request, response) {
+
+        var contactedBy = request.session.data['contactedBy']
+
+        if (contactedBy == "call") {
+            response.redirect("/v50/other/telephone-call")
+        } else if (contactedBy == "email") {
+            response.redirect("/v50/other/email-details")
+        } else if (contactedBy == "post") {
+            response.redirect("/v50/other/letter-details")
+        } else if (contactedBy == "text") {
+            response.redirect("/v50/other/text-message")
+        } else if (contactedBy == "in-person") {
+            response.redirect("/v50/other/in-person")
+        } else if (contactedBy == "other") {
+            response.redirect("/v50/other/other")
+        } else {
+            response.redirect("/v50/other/contact-details?contactMethod=other")
+        }
+    })
+
+    router.post('/v50/other/telephone-call-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'call',
+            sortDate: toSortDate(request.session.data['otherCallDate'], request.session.data['otherCallHour'], request.session.data['otherCallMinutes']),
+            otherCallDate: request.session.data['otherCallDate'],
+            otherCallHour: request.session.data['otherCallHour'],
+            otherCallMinutes: request.session.data['otherCallMinutes'],
+            otherCallType: request.session.data['otherCallType'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/call-logged")
+    })
+
+    router.post('/v50/other/email-details-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'email',
+            sortDate: toSortDate(request.session.data['otherEmailDate'], request.session.data['otherEmailHour'], request.session.data['otherEmailMinutes']),
+            otherEmailDate: request.session.data['otherEmailDate'],
+            otherEmailHour: request.session.data['otherEmailHour'],
+            otherEmailMinutes: request.session.data['otherEmailMinutes'],
+            otherEmailType: request.session.data['otherEmailType'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/email-logged")
+    })
+
+    router.post('/v50/other/letter-details-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'post',
+            sortDate: toSortDate(request.session.data['otherLetterDate'], request.session.data['otherLetterHour'], request.session.data['otherLetterMinutes']),
+            otherLetterDate: request.session.data['otherLetterDate'],
+            otherLetterHour: request.session.data['otherLetterHour'],
+            otherLetterMinutes: request.session.data['otherLetterMinutes'],
+            otherLetterType: request.session.data['otherLetterType'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/letter-logged")
+    })
+    
+    router.post('/v50/other/text-message-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'text',
+            sortDate: toSortDate(request.session.data['otherTextMessageDate'], request.session.data['otherTextMessageHour'], request.session.data['otherTextMessageMinutes']),
+            otherTextMessageDate: request.session.data['otherTextMessageDate'],
+            otherTextMessageHour: request.session.data['otherTextMessageHour'],
+            otherTextMessageMinutes: request.session.data['otherTextMessageMinutes'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/text-message-logged")
+    })
+
+    router.post('/v50/other/in-person-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'in-person',
+            sortDate: toSortDate(request.session.data['otherInPersonDate'], request.session.data['otherInPersonHour'], request.session.data['otherInPersonMinutes']),
+            otherInPersonDate: request.session.data['otherInPersonDate'],
+            otherInPersonHour: request.session.data['otherInPersonHour'],
+            otherInPersonMinutes: request.session.data['otherInPersonMinutes'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/in-person-logged")
+    })
+
+    router.post('/v50/other/other-details-answer', function(request, response) {
+
+        if (!Array.isArray(request.session.data['otherCommunications'])) {
+            request.session.data['otherCommunications'] = []
+        }
+        request.session.data['otherCommunications'].push({
+            contactedBy: 'other',
+            otherContactMethod: request.session.data['otherContactMethod'],
+            sortDate: toSortDate(request.session.data['otherCommsDate'], request.session.data['otherCommsHour'], request.session.data['otherCommsMinutes']),
+            otherCommsDate: request.session.data['otherCommsDate'],
+            otherCommsHour: request.session.data['otherCommsHour'],
+            otherCommsMinutes: request.session.data['otherCommsMinutes'],
+            otherIndividual: request.session.data['otherIndividual'],
+            otherIndividualName: request.session.data['otherIndividualName'],
+            otherIndividualRole: request.session.data['otherIndividualRole'],
+            purposeOfCommunication: request.session.data['purposeOfCommunication'],
+            victimForename: request.session.data['victimForename'],
+            victimSurname: request.session.data['victimSurname']
+        })
+
+        response.redirect("/v50/other/other-logged")
+    })
+
+
+    // meetings
+
+    router.post('/v50/wft-meetings/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "ptm") {
+            response.redirect("/v50/onb/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/v50/onb/check-task?manualTask=no")
+        } else {
+            response.redirect("/v50/wft-meetings/new-task/purposet")
+        }
+    })
+
+   
+    router.post('/v50/wft-meetings/new-task/purposet-answer', function(request, response) {
+
+        var purposet = request.session.data['purposet']
+        if (purposet == "yes"){
+            response.redirect("/v50/wft-meetings/new-task/task-due-date")
+        } else {
+            response.redirect("/v50/wft-meetings/new-task/task-due-date")
+        }
+    })
+
+  router.post('/v50/wft-meetings/new-task/task-due-date-answer', function(request, response) {
+
+        response.redirect("/v50/wft-meetings/new-task/check-task")
+    })
+
+
+
+    // Victim details — change handlers
+    var victimDetailsAnswers = [
+        'full-name',
+        'preferred-name',
+        'date-of-birth',
+        'category',
+        'gender',
+        'ethnicity',
+        'disability',
+        'religion',
+        'previous-convictions',
+        'address',
+        'telephone-number',
+        'email-address',
+        'correspondence-language',
+        'wants-contact',
+        'pmoc',
+        'pmoc-police',
+        'contact-times',
+        'victim-representative',
+        'power-of-attorney',
+        'risk-level',
+        'service',
+        'translator-needed',
+        'vps-status',
+        'reasonable-adjustments'
+    ]
+
+    victimDetailsAnswers.forEach(function(slug) {
+        router.post('/v50/victim/victim-details/' + slug + '-answer', function(request, response) {
+            if (slug === 'date-of-birth') {
+                var d = (request.body.victimDobDay || '').toString().padStart(2, '0')
+                var m = (request.body.victimDobMonth || '').toString().padStart(2, '0')
+                var y = (request.body.victimDobYear || '').toString()
+                if (d && m && y) {
+                    request.session.data['victimDateOfBirth'] = d + '/' + m + '/' + y
+                    var dob = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10))
+                    if (!isNaN(dob.getTime())) {
+                        var today = new Date()
+                        var age = today.getFullYear() - dob.getFullYear()
+                        var beforeBirthday = (today.getMonth() < dob.getMonth()) ||
+                            (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())
+                        if (beforeBirthday) age--
+                        request.session.data['victimAge'] = age
+                    }
+                }
+            }
+            response.redirect('/v50/victim?secondaryNav=victim-details&success=yes&successReason=' + slug + '-updated#victim-details')
+        })
+    })
+
+    // -----------------------------------------------------------------------
+    // Case contacts — Family Liaison Officer
+    // -----------------------------------------------------------------------
+
+    router.post('/v50/victim/case-contacts/family-liaison-officer-answer', function (req, res) {
+        req.session.data['familyLiaisonOfficerDeleted'] = 'no'
+        req.session.data['familyLiaisonOfficerName'] = req.body['familyLiaisonOfficerName'] || ''
+        req.session.data['familyLiaisonOfficerEmailAddress'] = req.body['familyLiaisonOfficerEmailAddress'] || ''
+        req.session.data['familyLiaisonOfficerPhoneNumber'] = req.body['familyLiaisonOfficerPhoneNumber'] || ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/v50/victim/case-contacts/family-liaison-officer-delete', function (req, res) {
+        req.session.data['familyLiaisonOfficerDeleted'] = 'yes'
+        req.session.data['familyLiaisonOfficerName'] = ''
+        req.session.data['familyLiaisonOfficerForename'] = ''
+        req.session.data['familyLiaisonOfficerSurname'] = ''
+        req.session.data['familyLiaisonOfficerEmailAddress'] = ''
+        req.session.data['familyLiaisonOfficerPhoneNumber'] = ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    // -----------------------------------------------------------------------
+    // Case contacts — IDVA
+    // -----------------------------------------------------------------------
+
+    router.post('/v50/victim/case-contacts/idva-answer', function (req, res) {
+        req.session.data['idvaName'] = req.body['idvaName'] || ''
+        req.session.data['idvaDeleted'] = 'no'
+        req.session.data['idvaAddressLine1'] = req.body['idvaAddressLine1'] || ''
+        req.session.data['idvaAddressLine2'] = req.body['idvaAddressLine2'] || ''
+        req.session.data['idvaAddressLine3'] = req.body['idvaAddressLine3'] || ''
+        req.session.data['idvaAddressLine4'] = req.body['idvaAddressLine4'] || ''
+        req.session.data['idvaAddressLine5'] = req.body['idvaAddressLine5'] || ''
+        req.session.data['idvaPostCode'] = req.body['idvaPostCode'] || ''
+        req.session.data['idvaCity'] = req.body['idvaCity'] || ''
+        req.session.data['idvaCounty'] = req.body['idvaCounty'] || ''
+        req.session.data['idvaEmailAddress'] = req.body['idvaEmailAddress'] || ''
+        req.session.data['idvaPhoneNumber'] = req.body['idvaPhoneNumber'] || ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/v50/victim/case-contacts/idva-delete', function (req, res) {
+        req.session.data['idvaDeleted'] = 'yes'
+        req.session.data['idvaName'] = ''
+        req.session.data['idvaAddressLine1'] = ''
+        req.session.data['idvaAddressLine2'] = ''
+        req.session.data['idvaAddressLine3'] = ''
+        req.session.data['idvaAddressLine4'] = ''
+        req.session.data['idvaAddressLine5'] = ''
+        req.session.data['idvaPostCode'] = ''
+        req.session.data['idvaCity'] = ''
+        req.session.data['idvaCounty'] = ''
+        req.session.data['idvaEmailAddress'] = ''
+        req.session.data['idvaPhoneNumber'] = ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    // -----------------------------------------------------------------------
+    // Case contacts — ISVA
+    // -----------------------------------------------------------------------
+
+    router.post('/v50/victim/case-contacts/isva-answer', function (req, res) {
+        req.session.data['isvaName'] = req.body['isvaName'] || ''
+        req.session.data['isvaDeleted'] = 'no'
+        req.session.data['isvaAddressLine1'] = req.body['isvaAddressLine1'] || ''
+        req.session.data['isvaAddressLine2'] = req.body['isvaAddressLine2'] || ''
+        req.session.data['isvaAddressLine3'] = req.body['isvaAddressLine3'] || ''
+        req.session.data['isvaAddressLine4'] = req.body['isvaAddressLine4'] || ''
+        req.session.data['isvaAddressLine5'] = req.body['isvaAddressLine5'] || ''
+        req.session.data['isvaPostCode'] = req.body['isvaPostCode'] || ''
+        req.session.data['isvaCity'] = req.body['isvaCity'] || ''
+        req.session.data['isvaCounty'] = req.body['isvaCounty'] || ''
+        req.session.data['isvaEmailAddress'] = req.body['isvaEmailAddress'] || ''
+        req.session.data['isvaPhoneNumber'] = req.body['isvaPhoneNumber'] || ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+    router.post('/v50/victim/case-contacts/isva-delete', function (req, res) {
+        req.session.data['isvaDeleted'] = 'yes'
+        req.session.data['isvaName'] = ''
+        req.session.data['isvaAddressLine1'] = ''
+        req.session.data['isvaAddressLine2'] = ''
+        req.session.data['isvaAddressLine3'] = ''
+        req.session.data['isvaAddressLine4'] = ''
+        req.session.data['isvaAddressLine5'] = ''
+        req.session.data['isvaPostCode'] = ''
+        req.session.data['isvaCity'] = ''
+        req.session.data['isvaCounty'] = ''
+        req.session.data['isvaEmailAddress'] = ''
+        req.session.data['isvaPhoneNumber'] = ''
+        res.redirect('/v50/victim?secondaryNav=case-contacts#case-contacts')
+    })
+
+}

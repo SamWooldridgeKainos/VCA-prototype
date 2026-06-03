@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Victim onboarded" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <!-- <h1 class="govuk-panel__title">
+        {% if data['nextTask'] == "No task at this time" %}Onboarding complete{% else %}Task created{% endif %}
+      </h1> -->
+      <h1 class="govuk-panel__title">
+        Victim onboarded
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      {% if data['nextTask'] == "dtc" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to inform of a decision to charge due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "nfa" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to inform of a no further action decision due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "stopped-charge" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to inform of a stopped charge due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "altered-charge" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to inform of a substantially altered charge due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "meeting-offer" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to log offered meeting due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "meeting-arranged" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to log arranged meeting due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "meeting-outcome" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task to log meeting outcome due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "other" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} and created a task of '{{ data['manualTaskName'] }}' due {{ data['taskDueDate'] | formatDate }}.
+      {% elif data['nextTask'] == "no-task" %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} but no task was created.
+      {% else %}
+        You also confirmed known details for {{ data['victimForename'] }} {{ data['victimSurname'] }} but encountered an unexpected task type of '{{ data['nextTask'] }}'.
+      {% endif %}
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    
+    <p class="govuk-body">
+      {{ data['victimForename'] }} {{ data['victimSurname'] }} can now be assigned to a victim liaison officer.
+    </p>
+
+    <a href="/v50/victims" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

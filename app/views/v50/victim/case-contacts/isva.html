@@ -1,0 +1,93 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Independent Sexual Violence Advisor (ISVA)" %}
+{% set isExisting = data['isvaName'] %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v50/victim/case-contacts/isva-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <h1 class="govuk-heading-l">
+                {% if isExisting %}Change{% else %}Add an{% endif %} Independent Sexual Violence Advisor (ISVA)
+            </h1>
+
+            <div class="govuk-form-group" id="error-form-group-name">
+                <label class="govuk-label" for="isva-name">Name</label>
+                <input type="text" class="govuk-input" id="isva-name" name="isvaName" autocomplete="name" value="{{ data['isvaName'] }}">
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-line1">
+                <label class="govuk-label" for="isva-address-line-1">Address line 1</label>
+                <input type="text" class="govuk-input" id="isva-address-line-1" name="isvaAddressLine1" autocomplete="address-line1" value="{{ data['isvaAddressLine1'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-address-line-2">Address line 2 (optional)</label>
+                <input type="text" class="govuk-input" id="isva-address-line-2" name="isvaAddressLine2" autocomplete="address-line2" value="{{ data['isvaAddressLine2'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-address-line-3">Address line 3 (optional)</label>
+                <input type="text" class="govuk-input" id="isva-address-line-3" name="isvaAddressLine3" autocomplete="address-level2" value="{{ data['isvaAddressLine3'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-address-line-4">Address line 4 (optional)</label>
+                <input type="text" class="govuk-input" id="isva-address-line-4" name="isvaAddressLine4" value="{{ data['isvaAddressLine4'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-address-line-5">Address line 5 (optional)</label>
+                <input type="text" class="govuk-input" id="isva-address-line-5" name="isvaAddressLine5" value="{{ data['isvaAddressLine5'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-postcode">Postcode</label>
+                <input type="text" class="govuk-input govuk-input--width-10" id="isva-postcode" name="isvaPostCode" autocomplete="postal-code" value="{{ data['isvaPostCode'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-city">City</label>
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="isva-city" name="isvaCity" autocomplete="address-level2" value="{{ data['isvaCity'] }}">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="isva-county">County</label>
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="isva-county" name="isvaCounty" value="{{ data['isvaCounty'] }}">
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-email">
+                <label class="govuk-label" for="isva-email">Email address</label>
+                <input type="text" class="govuk-input" id="isva-email" name="isvaEmailAddress" autocomplete="email" value="{{ data['isvaEmailAddress'] }}">
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-telephone">
+                <label class="govuk-label" for="isva-telephone">Telephone number</label>
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="isva-telephone" name="isvaPhoneNumber" autocomplete="tel" value="{{ data['isvaPhoneNumber'] }}">
+            </div>
+
+            <div class="govuk-button-group">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+                <a href="/v50/victim?secondaryNav=case-contacts#case-contacts" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">Cancel</a>
+                {% if isExisting %}
+                <button type="submit" class="govuk-button govuk-button--warning" formaction="/v50/victim/case-contacts/isva-delete" formmethod="post">Delete</button>
+                {% endif %}
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/v50/case-contacts/isva.js"></script>
+{% endblock %}

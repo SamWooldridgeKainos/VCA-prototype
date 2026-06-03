@@ -11,7 +11,7 @@
   </div>
 
   <div class="moj-page-header-actions__actions">
-    <a href="/delivery/nfa/letter-dashboard" class="govuk-link">Letter dashboard</a>
+    <a href="/v21/letter-dashboard" class="govuk-link">Letter dashboard</a>
   </div>
 </div>
 {% endblock %}
@@ -95,15 +95,15 @@
       </ul>
 
       <div class="govuk-tabs__panel" id="summary">
-        {% include "/delivery/nfa/victim-record/summary.html" %}
+        {% include "/v21/victim-record/summary.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
-        {% include "/delivery/nfa/victim-record/victim-details.html" %}
+        {% include "/v21/victim-record/victim-details.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
-        {% include "/delivery/nfa/victim-record/case-contacts.html" %}
+        {% include "/v21/victim-record/case-contacts.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
@@ -134,7 +134,7 @@ Only share case information with Sarah Phillips if they can correctly answer the
 
         {% elif (data['subTab'] == "vcl") %}
         <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="/ur/vcl/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
+            <a class="moj-sub-navigation__link" href="/v30/victim-record?subTab=charging-decision#communications">Pre-charge decision</a>
         </li>
 
         <li class="moj-sub-navigation__item">

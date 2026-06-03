@@ -12,25 +12,28 @@
 
 ## Architecture & Key Concepts
 
-### Multi-Service Routing Pattern
-Routes are organized by **service type** and **workflow journey**:
+### Version-Based Routing Pattern
+Routes are organized by **version**:
 ```
 app/routes/
-  ├── ur/ (Universal Referral) + delivery/
-  │   ├── pcd/ (Pre-Conviction Documents)
-  │   ├── vcl/ (Victim Communication Letter)
-  │   ├── wat/ (Witness and Victim Advocate)
-  │   │   ├── onb/ (Onboarding)
-  │   │   ├── pcd/
-  │   │   └── vcl/
-  │   └── nfa/ (No Further Action)
-  └── wat2/ (Enhanced WAT service - NEW FOCUS)
+  ├── v10.js (DtC - UR round 1)
+  ├── v11.js (DtC - UR round 2)
+  ├── v12.js (DtC - Delivery)
+  ├── v20.js (NFA - UR)
+  ├── v21.js (NFA - Delivery)
+  ├── v30.js (VCL - UR)
+  ├── v31.js (VCL - Delivery)
+  ├── v40/ (WAT - UR: onb, pcd, vcl)
+  ├── v41/ (WAT - Delivery: onb, pcd, vcl)
+  ├── v42.js (WAT2 - Delivery)
+  ├── v50.js (WAT3 - Delivery)
+  └── v60.js (WAT4 - Delivery)
 ```
-Each route file (e.g., `delivery/wat2.js`) exports a router function accepting the main router instance.
+Each route file (e.g., `v42.js`) exports a router function accepting the main router instance.
 
 ### View Organization
 - **Layouts**: Base templates in `app/views/layouts/main.html`
-- **Service paths**: `app/views/delivery/wat2/` mirrors route paths for clarity
+- **Service paths**: `app/views/v42/` mirrors route paths for clarity
 - **Partials**: Reusable components in `partials/` subdirs (headers, footers, forms)
 - **Nunjucks templating**: Uses `{% extends %}`, `{% include %}`, `{% set %}`
 
@@ -50,8 +53,8 @@ The **victims.html** page demonstrates sophisticated client-side filtering:
 - **Pagination**: 5 results per page with dynamic recalculation based on filtered results
 
 **Key files**:
-- [app/assets/javascripts/delivery/wat2/victims.js](app/assets/javascripts/delivery/wat2/victims.js) - Filter logic (~850 lines)
-- [app/views/delivery/wat2/victims.html](app/views/delivery/wat2/victims.html) - Markup structure
+- [app/assets/javascripts/v42/victims.js](app/assets/javascripts/v42/victims.js) - Filter logic (~850 lines)
+- [app/views/v42/victims.html](app/views/v42/victims.html) - Markup structure
 - [app/assets/sass/patterns/_pagination.scss](app/assets/sass/patterns/_pagination.scss) - Pagination styling
 
 ### Form Data Extraction from Summary Lists
@@ -105,7 +108,7 @@ Tests use GOV.UK markup conventions - ensure `.govuk-template` and accessibility
 ## Development Workflow
 
 ### Adding a New Victims Filter
-1. **HTML**: Add checkbox in `app/views/delivery/wat2/victims.html` with class `{filter-type}-checkbox` and `data-label`
+1. **HTML**: Add checkbox in `app/views/v42/victims.html` with class `{filter-type}-checkbox` and `data-label`
 2. **JavaScript**: 
    - Add to appropriate group in `victims.js` (e.g., `victimCategoryCheckboxes`)
    - Update `applyVictimFilters()` to check the new filter
@@ -113,7 +116,7 @@ Tests use GOV.UK markup conventions - ensure `.govuk-template` and accessibility
 3. **Test**: Use `npm test` to verify page renders correctly
 
 ### Modifying Routes
-- Post routes redirect with success params: `/delivery/wat2/victims?success=yes&successReason=owner-updated`
+- Post routes redirect with success params: `/v42/victims?success=yes&successReason=owner-updated`
 - Always include a redirect target - the prototype kit watches for missing handlers
 - Session data persists across redirects - use strategically
 
@@ -131,7 +134,7 @@ Tests use GOV.UK markup conventions - ensure `.govuk-template` and accessibility
 
 ## Key Files Reference
 - **Routes entry**: [app/routes.js](app/routes.js) - Requires all service routes
-- **WAT2 logic**: [app/routes/delivery/wat2.js](app/routes/delivery/wat2.js) (387 lines - main business logic)
-- **Filter patterns**: [app/assets/javascripts/delivery/wat2/victims.js](app/assets/javascripts/delivery/wat2/victims.js) - Gold standard for complex filtering
+- **WAT2 logic**: [app/routes/v42.js](app/routes/v42.js) (387 lines - main business logic)
+- **Filter patterns**: [app/assets/javascripts/v42/victims.js](app/assets/javascripts/v42/victims.js) - Gold standard for complex filtering
 - **Config**: [app/config.json](app/config.json) - Service name, plugin settings
 - **Main layout**: [app/views/layouts/main.html](app/views/layouts/main.html) - Base template

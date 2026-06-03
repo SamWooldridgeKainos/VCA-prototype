@@ -1,0 +1,243 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Telephone call 1" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v60/pcd/call/phone-call-1-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <h1 class="govuk-heading-l">Telephone call 1</h1>
+
+            <!-- <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+                </strong>
+            </div> -->
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="phone-call-date-1">
+                    Date of call
+                </label>
+
+                <div class="govuk-hint" id="phone-call-date-hint-1">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="phone-call-date-picker" data-module="moj-date-picker" data-excluded-days="">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="phone-call-date-1"
+                        name="pcdCallDate1"
+                        autocomplete="off"
+                        aria-describedby="phone-call-date-hint-1"
+                        value="{{ data['pcdCallDate1'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-1">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of call
+                    </legend>
+
+                    <div id="call-time-hint-1" class="govuk-hint">
+                        Enter a time in 24-hour format. For example, 14:30
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time-1">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hour-1">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-1" name="pcdCallHour1" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+                        
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes-1">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-1" name="pcdCallMinutes1" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <!-- Did you call the victim? -->
+                        What was the call direction?
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="call-type-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-outbound" name="pcdCallType1" type="radio" value="Yes" {{ checked('pcdCallType1','Yes') }} aria-describedby="outbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-outbound">
+                                <!-- Yes, I called the victim -->
+                                Outbound
+                            </label>
+                            <div id="outbound-hint" class="govuk-hint govuk-radios__hint">
+                                I called the victim
+                            </div>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-inbound" name="pcdCallType1" type="radio" value="No" {{ checked('pcdCallType1','No') }} aria-describedby="inbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-inbound">
+                                <!-- No, the victim called the CPS -->
+                                Inbound
+                            </label>
+                            <div id="inbound-hint" class="govuk-hint govuk-radios__hint">
+                                The victim called the CPS
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-4">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Were you able to inform the victim of the decision?
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="victim-informed-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-yes" name="pcdVictimInformed1" type="radio" value="Yes" {{ checked('pcdVictimInformed1','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
+                                Yes
+                            </label>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-no" name="pcdVictimInformed1" type="radio" value="No" {{ checked('pcdVictimInformed1','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-5">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Which support did you signpost the victim to?
+                    </legend>
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="support-signposted-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-idva" name="pcdSupportSignposted1" type="checkbox" value="Independent domestic violence adviser (IDVA)">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-idva">
+                                Independent domestic violence adviser (IDVA)
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-local" name="pcdSupportSignposted1" type="checkbox" value="Local support">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-local">
+                                Local support
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-witness" name="pcdSupportSignposted1" type="checkbox" value="Witness care">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-witness">
+                                Witness care
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-officer" name="pcdSupportSignposted1" type="checkbox" value="Officer in the case">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-officer">
+                                Officer in the case
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-other" name="pcdSupportSignposted1" type="checkbox" value="Other" data-aria-controls="conditional-support-signposted-other">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-other">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-support-signposted-other">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="support-signposted-other-detail">
+                                    Details
+                                </label>
+                                <input class="govuk-input" id="support-signposted-other-detail" name="pcdSupportSignpostedOtherDetail1" type="text">
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="support-signposted-none" name="pcdSupportSignposted1" type="checkbox" value="None" data-behaviour="exclusive">
+                            <label class="govuk-label govuk-checkboxes__label" for="support-signposted-none">
+                                None
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-6">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Did you discuss the survey interview with the victim?
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="survey-interview-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="survey-interview-yes" name="pcdSurveyInterviewDiscussed1" type="radio" value="Yes" {{ checked('pcdSurveyInterviewDiscussed1','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="survey-interview-yes">
+                                Yes
+                            </label>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="survey-interview-no" name="pcdSurveyInterviewDiscussed1" type="radio" value="No" {{ checked('pcdSurveyInterviewDiscussed1','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="survey-interview-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="call-notes-1">
+                    Notes (optional)
+                </label>
+
+                <textarea class="govuk-textarea" id="call-notes-1" name="pcdCallNotes1" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/pcd/call/phone-call-1.js"></script>
+{% endblock %}
