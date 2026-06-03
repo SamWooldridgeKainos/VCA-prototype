@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 {% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
@@ -49,13 +49,13 @@
                         {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/next-task">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/next-task">
                             Change<span class="govuk-visually-hidden"> next task</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/delivery/wat4/onb/next-task" class="govuk-link govuk-link--no-visited-state">Select next task</a>
+                        <a href="/ur/bfs/onb/next-task" class="govuk-link govuk-link--no-visited-state">Select next task</a>
                     </dd>
                 {% endif %}
             </div>
@@ -69,20 +69,32 @@
                         <dd class="govuk-summary-list__value">
                             {% if data['meetingPurpose'] == "pre-trial" %}
                                 CPS pre-trial meeting
-                            {% elif data['meetingPurpose'] == "charging-decision" %}
-                                Inform victim about charging decision
+                            {% elif data['meetingPurpose'] == "pre-charge" %}
+                                Pre-charge meeting
+                            {% elif data['meetingPurpose'] == "charging-decision-family" %}
+                                Inform Bereaved family about charging decision
+                           {% elif data['meetingPurpose'] == "conviction" %}
+                               Conviction meeting
+                            {% elif data['meetingPurpose'] == "sentencing" %}
+                               Sentencing meeting
+                            {% elif data['meetingPurpose'] == "acquittal" %}
+                               Acquittal meeting
                             {% elif data['meetingPurpose'] == "stopped-altered" %}
                                 Stopped or substantially altered charge (VCL Scheme)
                             {% elif data['meetingPurpose'] == "vrr" %}
                                 Victims' Right to Review (VRR)
+                            {% elif data['meetingPurpose'] == "joint" %}
+                               Joint CPS and Police meeting
+                            {% elif data['meetingPurpose'] == "lesser-offence" %}
+                              Lesser offence meeting
                             {% elif data['meetingPurpose'] == "complaint" %}
-                                Victim complaint
+                                Bereaved family complaint
                             {% else %}
                                 {{ data['meetingPurposeDetails'] }}
                             {% endif %}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/meeting-purpose">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/new-task/meeting-purpose">
                                 Change<span class="govuk-visually-hidden"> meeting purpose</span>
                             </a>
                         </dd>
@@ -156,13 +168,13 @@
                                 {{ data['taskDueDate'] | formatDate }}
                             </dd>
                             <dd class="govuk-summary-list__actions">
-                                <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat4/onb/next-task-due-date">
+                                <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/next-task/next-task-due-date">
                                     Change<span class="govuk-visually-hidden"> next task due date</span>
                                 </a>
                             </dd>
                         {% else %}
                             <dd class="govuk-summary-list__value">
-                                <a href="/delivery/wat4/onb/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Select next task due date</a>
+                                <a href="/ur/bfs/onb/new-task/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Select next task due date</a>
                             </dd>
                         {% endif %}
                     </div>
@@ -176,7 +188,7 @@
             <p class="govuk-body">
                 After you confirm the details, you can create tasks for {{ data['victimForename'] }} {{ data['victimSurname'] }} from their profile page.
             </p>
-            <form action="/delivery/wat4/onb/check-task-answer" method="post" novalidate>
+            <form action="/ur/bfs/onb/new-task/check-task-answer" method="post" novalidate>
                 <input type="hidden" name="answers-checked" value="true">
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     Confirm details
@@ -185,9 +197,9 @@
         {% else %}
             
             <p class="govuk-body">
-                After you confirm the details, a task for {{ data['victimForename'] }} {{ data['victimSurname'] }} will be created.
+                After you confirm the details, a task for the bereaved family will be created.
             </p>
-            <form action="/delivery/wat4/onb/check-task-answer" method="post" novalidate>
+            <form action="/ur/bfs/onb/new-task/check-task-answer" method="post" novalidate>
                 <input type="hidden" name="answers-checked" value="true">
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     Confirm and create
