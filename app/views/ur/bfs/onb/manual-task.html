@@ -2,11 +2,11 @@
 {% set pageName="Create a task" %}
 
 {% block header %}
-{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% include "/v60/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/delivery/wat4/partials/identity-bar/index.html" %}
+{% include "/v60/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -16,7 +16,7 @@
 
         <h1 class="govuk-heading-l" id="h1-content">Create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
 
-        <form action="/delivery/wat4/onb/manual-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+        <form action="/v60/onb/manual-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
             
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="manual-task-name">

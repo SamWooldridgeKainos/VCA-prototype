@@ -1,0 +1,38 @@
+{% block content %}
+{% include "/v50/partials/header/cps-header.html" %}
+
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/overview">
+              Overview
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/tasks">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/victims">
+              Victims
+            </a>
+          </li>
+          <!-- <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/letter-dashboard">
+              Letter dashboard
+            </a>
+          </li> -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Letter logged" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Letter logged
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+    </p>
+
+    <!-- <p class="govuk-body">
+      The information pack and Crest survey were also sent.
+    </p> -->
+
+    <!-- <h2 class="govuk-heading-m">Further information</h2> -->
+
+    <!-- <p class="govuk-body">
+      You can view the logged letter on the 'Charging decision' tab of the victim's page, within the Victim Case Application.
+    </p> -->
+
+    <!-- <p class="govuk-body">
+      The letter was automatically saved to CMS.
+    </p> -->
+
+    <a href="/v60/victim?otherStatus=letter-logged&success=no&secondaryNav=other" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+{% set pageName="How did you contact the victim?" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/v50/other/contacted-by-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group-1">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How did you communicate with {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" data-module="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-telephone" name="contactedBy" value="call">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-telephone">
+                Telephone call
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-email" name="contactedBy" value="email">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-post" name="contactedBy" value="post">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-post">
+                Post
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-text" name="contactedBy" value="text">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-text">
+                Text message
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-in-person" name="contactedBy" value="in-person">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-in-person">
+                In person
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-other" name="contactedBy" value="other" data-aria-controls="conditional-other-method">
+              <label class="govuk-label govuk-radios__label" for="contacted-by-other">
+                Other
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-other-method">
+              <div class="govuk-form-group" id="error-form-group-2">
+                <label class="govuk-label" for="other-contact-method">
+                  Contact method
+                </label>
+                <input class="govuk-input govuk-input--width-20" id="other-contact-method" name="otherContactMethod" type="text" value="{{ data['otherContactMethod'] }}">
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/other/contacted-by.js"></script>
+{% endblock %}

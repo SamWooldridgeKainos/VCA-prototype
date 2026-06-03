@@ -2,11 +2,15 @@
 {% set pageName="Next task" %}
 
 {% block header %}
-{% include "/delivery/wat4/partials/header/none-selected.html" %}
+{% include "/v60/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
+<<<<<<< Updated upstream
 {% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
+=======
+{% include "/v60/partials/identity-bar/index.html" %}
+>>>>>>> Stashed changes
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -14,7 +18,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+<<<<<<< Updated upstream
     <form action="/ur/bfs/onb/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+=======
+    <form action="/v60/onb/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+>>>>>>> Stashed changes
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
