@@ -1,0 +1,172 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Log an email" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v50/other/email-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <h1 class="govuk-heading-l">Log an email</h1>
+
+            <!-- <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
+                </strong>
+            </div> -->
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="other-email-date">
+                    Date of email
+                </label>
+
+                <div class="govuk-hint" id="other-email-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="other-email-date-picker" data-module="moj-date-picker" data-excluded-days="">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="other-email-date"
+                        name="otherEmailDate"
+                        autocomplete="off"
+                        aria-describedby="other-email-date-hint" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="other-email-time-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of email
+                    </legend>
+
+                    <div id="other-email-time-hint" class="govuk-hint">
+                        Enter a time in 24-hour format. For example, 14:30
+                    </div>
+
+                    <div class="govuk-date-input" id="other-email-time">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="other-email-hour">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="other-email-hour" name="otherEmailHour" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+                        
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="other-email-minutes">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="other-email-minutes" name="otherEmailMinutes" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Direction of email
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="other-email-type-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-email-type-outbound" name="otherEmailType" type="radio" value="Yes" aria-describedby="other-email-outbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="other-email-type-outbound">
+                                Outbound
+                            </label>
+                            <div id="other-email-outbound-hint" class="govuk-hint govuk-radios__hint">
+                                I sent an email to them
+                            </div>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-email-type-inbound" name="otherEmailType" type="radio" value="No" aria-describedby="other-email-inbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="other-email-type-inbound">
+                                Inbound
+                            </label>
+                            <div id="other-email-inbound-hint" class="govuk-hint govuk-radios__hint">
+                                They sent an email to victim services
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-4">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Person contacted
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios" id="other-individual-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-individual-victim" name="otherIndividual" type="radio" value="Victim">
+                            <label class="govuk-label govuk-radios__label" for="other-individual-victim">
+                                Victim
+                            </label>
+                            <div id="other-individual-victim-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-individual-other" name="otherIndividual" type="radio" value="Other" data-aria-controls="conditional-other-individual">
+                            <label class="govuk-label govuk-radios__label" for="other-individual-other">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-other-individual">
+                            <div class="govuk-form-group" id="error-form-group-6">
+                                <label class="govuk-label" for="other-individual-name">
+                                    Name
+                                </label>
+                                <input class="govuk-input" id="other-individual-name" name="otherIndividualName" type="text">
+                            </div>
+
+                            <div class="govuk-form-group" id="error-form-group-7">
+                                <label class="govuk-label" for="other-individual-role">
+                                    Role
+                                </label>
+                                <input class="govuk-input" id="other-individual-role" name="otherIndividualRole" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-5">
+                <label class="govuk-label govuk-label--m" for="purpose-of-communication">
+                    Purpose of email
+                </label>
+                <textarea class="govuk-textarea" id="purpose-of-communication" name="purposeOfCommunication" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/delivery/shared/other/email.js"></script>
+{% endblock %}

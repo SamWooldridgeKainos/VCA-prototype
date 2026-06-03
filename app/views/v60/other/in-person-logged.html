@@ -1,0 +1,40 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "In-person meeting logged" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        In-person conversation logged
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The in-person conversation was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+    </p>
+
+    <!-- <h2 class="govuk-heading-m">Further information</h2>
+
+    <p class="govuk-body">
+      The in-person meeting was automatically saved to CMS.
+    </p> -->
+
+    <a href="/v60/victim?otherStatus=in-person-logged&success=no&secondaryNav=other" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+
+  </div>
+</div>
+{% endblock %}

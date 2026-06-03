@@ -2,7 +2,7 @@
 {% set pageName="Tasks" %}
 
 {% block header %}
-{% include "/delivery/wat3/partials/header/tasks-selected-bfs.html" %}
+{% include "/v50/partials/header/tasks-selected-bfs.html" %}
 {% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
@@ -429,7 +429,7 @@
         </button>
 
         <p class="govuk-body" id="clear-filters-wrapper" style="display: none;">
-          <a class="govuk-link govuk-link--no-visited-state" href="/delivery/wat3/onb/tasks/clear-filters">Clear search</a>
+          <a class="govuk-link govuk-link--no-visited-state" href="/v50/onb/tasks/clear-filters">Clear search</a>
         </p>
 
       </form>
@@ -863,7 +863,7 @@
       <div class="govuk-!-margin-bottom-9">
         <dl class="govuk-summary-list">
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            <a href="/delivery/wat3/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
+            <a href="/v50/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
           </h2>
           <!-- <p class="govuk-body govuk-!-margin-bottom-0">{{ data['caseUrn'] }}</p> -->
           
@@ -883,7 +883,7 @@
               {{ data['nextTaskDueDate'] | formatDate or data['taskDueDate'] | formatDate }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a href="/delivery/wat3/change-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+              <a href="/v50/change-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
             </dd>
           </div>
           <!-- <div class="govuk-summary-list__row">
@@ -913,7 +913,7 @@
               {{ data['taskAssignee'] or data['vlo'] }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a href="/delivery/wat3/task-assignee" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+              <a href="/v50/task-assignee" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -922,22 +922,22 @@
             </dt>
             <dd class="govuk-summary-list__value">
               {% if (data['pcdStatus'] == "check-details") %}
-                <a href="/delivery/wat3/pcd/pre-draft/check-details" class="govuk-link govuk-link--no-visited-state">Check details</a>
+                <a href="/v50/pcd/pre-draft/check-details" class="govuk-link govuk-link--no-visited-state">Check details</a>
               {% elif (data['pcdStatus'] == "log-not-started") %}
-                <a href="/delivery/wat3/pcd/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log an attempt</a>
+                <a href="/v50/pcd/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log an attempt</a>
               {% elif (data['pcdStatus'] == "before-text-logged") %}
-                <a href="/delivery/wat3/pcd/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
+                <a href="/v50/pcd/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
               {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
-                <a href="/delivery/wat3/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
+                <a href="/v50/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
               {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
-                <a href="/delivery/wat3/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
+                <a href="/v50/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another attempt</a>
               {% elif (data['pcdStatus'] == "select-fumoc") %}
-                <a href="/delivery/wat3/pcd/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
+                <a href="/v50/pcd/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
               {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
                 {% if (data['pcdFumoc'] == "email") %}
-                  <a href="/delivery/wat3/pcd/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
+                  <a href="/v50/pcd/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
                 {% elif (data['pcdFumoc'] == "post") %}
-                  <a href="/delivery/wat3/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
+                  <a href="/v50/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
                 {% endif %}
               {% endif %}
             </dd>

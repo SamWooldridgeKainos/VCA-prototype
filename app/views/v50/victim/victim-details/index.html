@@ -1,0 +1,442 @@
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h3 class="govuk-heading-m">Victim or witness details</h3>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Name and title
+                </dt>
+                {% if data['victimSurname'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimSurname'] | upper }}, {{ data['victimTitle'] }} {{ data['victimForename'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/full-name">Change<span class="govuk-visually-hidden"> name and title</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/full-name" class="govuk-link govuk-link--no-visited-state">Enter name and title</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred name
+                </dt>
+                {% if data['victimPreferredName'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimPreferredName'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/preferred-name">Change<span class="govuk-visually-hidden"> preferred name</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/preferred-name" class="govuk-link govuk-link--no-visited-state">Enter a preferred name</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Date of birth
+                </dt>
+                {% if data['victimDateOfBirth'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimDateOfBirth'] }} ({{ data['victimAge'] }} years old)
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/date-of-birth">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/date-of-birth" class="govuk-link govuk-link--no-visited-state">Enter a date of birth</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Categories
+                </dt>
+                {% if data['victimCategory'] is string %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimCategory'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/category">Change<span class="govuk-visually-hidden"> category</span></a>
+                    </dd>
+                {% elif data['victimCategory'] %}
+                    <dd class="govuk-summary-list__value">
+                        {% for cat in data['victimCategory'] %}{{ cat }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/category">Change<span class="govuk-visually-hidden"> category</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/category" class="govuk-link govuk-link--no-visited-state">Select categories</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                {% if data['victimGender'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimGender'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/gender">Change<span class="govuk-visually-hidden"> gender</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/gender" class="govuk-link govuk-link--no-visited-state">Select a gender</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Ethnicity
+                </dt>
+                {% if data['victimEthnicity'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimEthnicity'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/ethnicity">Change<span class="govuk-visually-hidden"> ethnicity</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/ethnicity" class="govuk-link govuk-link--no-visited-state">Select an ethnicity</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Disability
+                </dt>
+                {% if data['victimDisability'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimDisability'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/disability">Change<span class="govuk-visually-hidden"> disability or access needs</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/disability" class="govuk-link govuk-link--no-visited-state">Select a disability status</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Religion or belief
+                </dt>
+                {% if data['victimReligion'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimReligion'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/religion">Change<span class="govuk-visually-hidden"> religion or belief</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/religion" class="govuk-link govuk-link--no-visited-state">Select a religion or belief</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <!-- <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Previous convictions
+                </dt>
+                {% if data['victimPreviousConvictions'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimPreviousConvictions'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/previous-convictions">Change<span class="govuk-visually-hidden"> previous convictions</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/previous-convictions" class="govuk-link govuk-link--no-visited-state">Select previous convictions status</a>
+                    </dd>
+                {% endif %}
+            </div> -->
+        </dl>
+
+        <h3 class="govuk-heading-m">Victim service details</h3>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Service lead
+                </dt>
+                {% if data['serviceLead'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['serviceLead'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/service">Change<span class="govuk-visually-hidden"> service lead</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/service" class="govuk-link govuk-link--no-visited-state">Select service lead</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Domestic abuse risk level
+                </dt>
+                {% if data['riskLevel'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['riskLevel'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/risk-level">Change<span class="govuk-visually-hidden"> domestic abuse risk level</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/risk-level" class="govuk-link govuk-link--no-visited-state">Select domestic abuse risk level</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Translator needed
+                </dt>
+                {% if data['translatorNeeded'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['translatorNeeded'] }}
+                        {% if data['translatorNeeded'] == 'Yes' and data['translatorNeededDetails'] %}
+                            <br>{{ data['translatorNeededDetails'] }}
+                        {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/translator-needed">Change<span class="govuk-visually-hidden"> translator needed</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/translator-needed" class="govuk-link govuk-link--no-visited-state">Select if translator is needed</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Victim Personal Statement status
+                </dt>
+                {% if data['vpsStatus'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['vpsStatus'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/vps-status">Change<span class="govuk-visually-hidden"> Victim Personal Statement status</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/vps-status" class="govuk-link govuk-link--no-visited-state">Select Victim Personal Statement status</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Reasonable adjustments
+                </dt>
+                {% if data['reasonableAdjustments'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['reasonableAdjustments'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/reasonable-adjustments">Change<span class="govuk-visually-hidden"> reasonable adjustments</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/reasonable-adjustments" class="govuk-link govuk-link--no-visited-state">Enter reasonable adjustments</a>
+                    </dd>
+                {% endif %}
+            </div>
+        </dl>
+
+        <h3 class="govuk-heading-m">Contact details</h3>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address
+                </dt>
+                {% if data['victimAddressLine1'] or data['victimAddressLine2'] or data['victimPostCode'] %}
+                    <dd class="govuk-summary-list__value">
+                        {% for line in [data['victimAddressLine1'], data['victimAddressLine2'], data['victimAddressLine3'], data['victimAddressLine4'], data['victimAddressLine5'], data['victimPostCode']] %}{% if line %}{{ line }}<br>{% endif %}{% endfor %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/address">Change<span class="govuk-visually-hidden"> address</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/address" class="govuk-link govuk-link--no-visited-state">Enter an address</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Telephone number
+                </dt>
+                {% if data['victimHomePhone'] or data['victimPhoneNumber'] or data['victimWorkPhone'] %}
+                    <dd class="govuk-summary-list__value">
+                        Home: {{ data['victimHomePhone'] }}<br>
+                        Mobile: {{ data['victimPhoneNumber'] }}<br>
+                        Work: {{ data['victimWorkPhone'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/telephone-number">Change<span class="govuk-visually-hidden"> telephone number</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/telephone-number" class="govuk-link govuk-link--no-visited-state">Enter a telephone number</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Email address
+                </dt>
+                {% if data['victimEmailAddress'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimEmailAddress'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/email-address">Change<span class="govuk-visually-hidden"> email address</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/email-address" class="govuk-link govuk-link--no-visited-state">Enter an email address</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred correspondence language
+                </dt>
+                {% if data['victimCorrespondenceLanguage'] == 'Other' and data['victimCorrespondenceLanguageOther'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimCorrespondenceLanguageOther'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/correspondence-language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+                    </dd>
+                {% elif data['victimCorrespondenceLanguage'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimCorrespondenceLanguage'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/correspondence-language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/correspondence-language" class="govuk-link govuk-link--no-visited-state">Select a preferred correspondence language</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do they want to be contacted?
+                </dt>
+                {% if data['victimWantsContact'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['victimWantsContact'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/wants-contact">Change<span class="govuk-visually-hidden"> if they want to be contacted</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/wants-contact" class="govuk-link govuk-link--no-visited-state">Select if they want to be contacted</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred method of contact for CPS
+                </dt>
+                {% if (data['pmoc'] == "Not provided") %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/pmoc" class="govuk-link govuk-link--no-visited-state">Enter preferred method of contact</a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['pmoc'] | capitalize }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/pmoc">Change<span class="govuk-visually-hidden"> preferred method of contact for CPS</span></a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred method of contact for police
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['pmocPolice'] or 'Not provided' }}
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Preferred contact times
+                </dt>
+                {% if data['preferredContactTimes'] and data['preferredContactTimes'] != "Not provided" %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['preferredContactTimes'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/contact-times">Change<span class="govuk-visually-hidden"> preferred contact times</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/contact-times" class="govuk-link govuk-link--no-visited-state">Enter preferred contact times</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Victim representative details
+                </dt>
+                {% if data['victimRepresentativeName'] or data['victimRepresentativePhone'] or data['victimRepresentativeEmail'] %}
+                    <dd class="govuk-summary-list__value">
+                        {% if data['victimRepresentativeName'] %}{{ data['victimRepresentativeName'] }}<br>{% endif %}
+                        {% if data['victimRepresentativePhone'] %}{{ data['victimRepresentativePhone'] }}<br>{% endif %}
+                        {% if data['victimRepresentativeEmail'] %}{{ data['victimRepresentativeEmail'] }}{% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/victim-representative">Change<span class="govuk-visually-hidden"> victim representative details</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/victim-representative" class="govuk-link govuk-link--no-visited-state">Enter victim representative details</a>
+                    </dd>
+                {% endif %}
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Power of attorney details
+                </dt>
+                {% if data['powerOfAttorneyDetails'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['powerOfAttorneyDetails'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/power-of-attorney">Change<span class="govuk-visually-hidden"> power of attorney details</span></a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/victim/victim-details/power-of-attorney" class="govuk-link govuk-link--no-visited-state">Enter power of attorney details</a>
+                    </dd>
+                {% endif %}
+            </div>
+        </dl>
+
+    </div>
+</div>
+{% endblock %}

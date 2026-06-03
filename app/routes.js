@@ -15,28 +15,27 @@ router.use(function (req, res, next) {
   next()
 })
 
-require('./routes/ur/pcd/dtc1')(router)
-require('./routes/ur/pcd/dtc2')(router)
-require('./routes/delivery/pcd/dtc')(router)
+require('./routes/v10')(router)
+require('./routes/v11')(router)
+require('./routes/v12')(router)
 
-require('./routes/ur/pcd/nfa')(router)
-require('./routes/delivery/pcd/nfa')(router)
+require('./routes/v20')(router)
+require('./routes/v21')(router)
 
-require('./routes/ur/vcl')(router)
-require('./routes/delivery/vcl')(router)
+require('./routes/v30')(router)
+require('./routes/v31')(router)
 
-require('./routes/ur/wat/pcd')(router)
-require('./routes/ur/wat/vcl')(router)
-require('./routes/ur/wat/onb')(router)
+require('./routes/v40/pcd')(router)
+require('./routes/v40/vcl')(router)
+require('./routes/v40/onb')(router)
 
-require('./routes/delivery/wat/pcd')(router)
-require('./routes/delivery/wat/vcl')(router)
-require('./routes/delivery/wat/onb')(router)
+require('./routes/v41/pcd')(router)
+require('./routes/v41/vcl')(router)
+require('./routes/v41/onb')(router)
 
-require('./routes/delivery/wat2')(router)
-require('./routes/delivery/wat3')(router)
-require('./routes/delivery/wat4')(router)
-
+require('./routes/v42')(router)
+require('./routes/v50')(router)
+require('./routes/v60')(router)
 
 // meetings
 // @Michael can your routes for meetings be moved to a separate file as per the above? I can show you how to do this if needed, or I can make the changes myself.

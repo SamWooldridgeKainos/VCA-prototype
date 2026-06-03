@@ -5,7 +5,7 @@ A GOV.UK Design System compliant Pagination component has been successfully adde
 
 ## Implementation Details
 
-### 1. **HTML Structure** (`app/views/delivery/wat2/victims.html`)
+### 1. **HTML Structure** (`app/views/v42/victims.html`)
 - Added semantic `<nav>` element with `aria-label="Results pagination"`
 - Implemented Previous/Next navigation buttons with SVG arrows
 - Created numbered page links (1, 2, 3) representing the three victim pages
@@ -30,7 +30,7 @@ Key CSS classes implemented:
 - `.govuk-pagination__icon` - Navigation arrow icons
 - `.govuk-pagination__link-title` - Responsive text labels
 
-### 3. **JavaScript Functionality** (`app/views/delivery/wat2/victims.html`)
+### 3. **JavaScript Functionality** (`app/views/v42/victims.html`)
 Implemented pagination logic that:
 - **Shows 5 results per page**: Each `.victims-page` div displays a single page worth of victims
 - **Page Navigation**: Click on page numbers or Previous/Next buttons to navigate
@@ -57,7 +57,7 @@ The victims are organized into three pages with 5 results each:
 ## Files Modified/Created
 1. **Created**: `app/assets/sass/patterns/_pagination.scss`
 2. **Modified**: `app/assets/sass/application.scss` (added pagination import)
-3. **Modified**: `app/views/delivery/wat2/victims.html` (added pagination HTML and JavaScript)
+3. **Modified**: `app/views/v42/victims.html` (added pagination HTML and JavaScript)
 
 ## Compliance
 ✅ GOV.UK Design System guidelines
