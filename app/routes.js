@@ -37,6 +37,8 @@ require('./routes/v42')(router)
 require('./routes/v50')(router)
 require('./routes/v60')(router)
 
+require('./routes/delivery/wat4')(router)
+
 // meetings
 // @Michael can your routes for meetings be moved to a separate file as per the above? I can show you how to do this if needed, or I can make the changes myself.
 
