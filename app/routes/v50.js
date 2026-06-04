@@ -141,16 +141,6 @@ module.exports = router => {
         var fromCheck = request.query.fromCheck === 'yes'
         delete request.session.data['fromCheck']
 
-        // Store active tab and secondary nav so we can return to the same state
-        if (!fromCheck) {
-            if (request.query.activeTab) {
-                request.session.data['victimPageActiveTab'] = request.query.activeTab
-            }
-            if (request.query.activeSecondaryNav) {
-                request.session.data['victimPageActiveSecondaryNav'] = request.query.activeSecondaryNav
-            }
-        }
-
         // Clear previous task data when starting a new task (not returning from check page)
         if (!fromCheck) {
             delete request.session.data['nextTask']
@@ -161,7 +151,7 @@ module.exports = router => {
             delete request.session.data['taskNote']
         }
 
-        response.render('v5.0/victim/new-task/task-selection', {
+        response.render('v50/victim/new-task/task-selection', {
             fromCheck: fromCheck
         })
     })
@@ -198,7 +188,7 @@ module.exports = router => {
         var fromCheck = request.query.fromCheck === 'yes'
         var fromTaskAlreadyExists = request.query.fromTaskAlreadyExists === 'yes'
         delete request.session.data['fromCheck']
-        response.render('v5.0/victim/new-task/task-due-date', {
+        response.render('v50/victim/new-task/task-due-date', {
             fromCheck: fromCheck,
             fromTaskAlreadyExists: fromTaskAlreadyExists
         })
@@ -257,14 +247,7 @@ module.exports = router => {
     })
 
     router.post('/v50/victim/new-task/task-created-answer', function(request, response) {
-        var activeTab = request.session.data['victimPageActiveTab'] || ''
-        var activeSecondaryNav = request.session.data['victimPageActiveSecondaryNav'] || ''
-        var returnUrl = "/v50/victim"
-        var queryParts = []
-        if (activeTab) queryParts.push('activeTab=' + encodeURIComponent(activeTab))
-        if (activeSecondaryNav) queryParts.push('activeSecondaryNav=' + encodeURIComponent(activeSecondaryNav))
-        if (queryParts.length) returnUrl += '?' + queryParts.join('&')
-        response.redirect(returnUrl)
+        response.redirect("/v50/victim")
     })
 
     router.post('/v50/task-assignee-answer', function(request, response) {

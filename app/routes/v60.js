@@ -324,7 +324,7 @@ module.exports = router => {
     router.get('/v60/victim/new-task/task-selection', function(request, response) {
         var fromCheck = request.query.fromCheck === 'yes'
         delete request.session.data['fromCheck']
-        response.render('v6.0/victim/new-task/task-selection', {
+        response.render('v60/victim/new-task/task-selection', {
             fromCheck: fromCheck
         })
     })
@@ -360,7 +360,7 @@ module.exports = router => {
     router.get('/v60/victim/new-task/task-due-date', function(request, response) {
         var fromCheck = request.query.fromCheck === 'yes'
         delete request.session.data['fromCheck']
-        response.render('v6.0/victim/new-task/task-due-date', {
+        response.render('v60/victim/new-task/task-due-date', {
             fromCheck: fromCheck
         })
     })

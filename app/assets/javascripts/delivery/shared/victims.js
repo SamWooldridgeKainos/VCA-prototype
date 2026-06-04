@@ -412,12 +412,24 @@ function applyVictimFilters() {
     var victimContainer = document.getElementById('victims-container');
     var paginationNav = document.querySelector('nav.govuk-pagination');
     var filtersSection = document.getElementById('filters-section');
+    var resultsCount = document.getElementById('results-count');
+    var sortedByText = document.getElementById('sorted-by-text');
+    var resultsDivider = document.getElementById('results-divider');
     
     if (victimContainer) {
         victimContainer.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
     }
     if (paginationNav) {
         paginationNav.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
+    }
+    if (resultsCount) {
+        resultsCount.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
+    }
+    if (sortedByText) {
+        sortedByText.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
+    }
+    if (resultsDivider) {
+        resultsDivider.style.display = (shouldShowResults || searchTerm !== '') ? '' : 'none';
     }
     // Don't show filters section yet - it will be shown after we calculate visibleCount
     
@@ -511,6 +523,11 @@ function applyVictimFilters() {
             shouldShow = shouldShow && matchesCategory;
         }
         
+        
+        // If no results should be shown (no active filters/search), mark all as hidden
+        if (!shouldShowResults && searchTerm === '') {
+            shouldShow = false;
+        }
         
         // Mark record as filtered or not using data attribute (pagination uses this)
         record.setAttribute('data-filtered', shouldShow ? 'visible' : 'hidden');
@@ -621,6 +638,9 @@ function hideServiceRowWhenOnboardedNo() {
         // Get the victims container and pagination
         var victimContainer = document.getElementById('victims-container');
         var paginationNav = document.querySelector('nav.govuk-pagination');
+        var resultsCount = document.getElementById('results-count');
+        var sortedByText = document.getElementById('sorted-by-text');
+        var resultsDivider = document.getElementById('results-divider');
         
         // Show victims container when search is applied, hide when search is cleared
         if (victimContainer) {
@@ -638,6 +658,17 @@ function hideServiceRowWhenOnboardedNo() {
             } else {
                 paginationNav.style.display = 'none';
             }
+        }
+
+        // Hide results count, sorted by, and divider when search is cleared
+        if (resultsCount) {
+            resultsCount.style.display = searchTerm !== '' ? '' : 'none';
+        }
+        if (sortedByText) {
+            sortedByText.style.display = searchTerm !== '' ? '' : 'none';
+        }
+        if (resultsDivider) {
+            resultsDivider.style.display = searchTerm !== '' ? '' : 'none';
         }
         
         // First, reset all records to visible (clear previous search results)
@@ -725,28 +756,28 @@ function hideServiceRowWhenOnboardedNo() {
     window.applySearch = applySearch;
 })();
 
-// Restore filter settings from localStorage if available
-var filtersRestored = window.restoreFiltersFromStorage();
+// For v50 and v42, clear saved filters and show no results by default.
+// Other versions restore from localStorage and apply default filters.
+var currentPath = window.location.pathname;
+var isNoDefaultVersion = currentPath.indexOf('/v50/') !== -1 || currentPath.indexOf('/v42/') !== -1;
 
-// Apply default filters on initial session (when no localStorage data exists)
-if (!filtersRestored) {
-    // Set default: "Victims allocated to you" selected
-    var vloOnlyRadio = document.getElementById('search-by-vlo');
-    if (vloOnlyRadio) {
-        vloOnlyRadio.checked = true;
+if (isNoDefaultVersion) {
+    try { localStorage.removeItem('vca-victims-filters'); } catch (e) {}
+    searchFormSubmitted = false;
+} else {
+    var filtersRestored = window.restoreFiltersFromStorage();
+    if (!filtersRestored) {
+        var vloOnlyRadio = document.getElementById('search-by-vlo');
+        if (vloOnlyRadio) {
+            vloOnlyRadio.checked = true;
+        }
+        var thompsonCheckbox = document.getElementById('vlo-only-1');
+        if (thompsonCheckbox) {
+            thompsonCheckbox.checked = true;
+        }
+        searchFormSubmitted = true;
+        window.saveFiltersToStorage();
     }
-    
-    // Check the THOMPSON, Sarah (you) checkbox so chip renders and clear link shows
-    var thompsonCheckbox = document.getElementById('vlo-only-1');
-    if (thompsonCheckbox) {
-        thompsonCheckbox.checked = true;
-    }
-    
-    // Set searchFormSubmitted to true so THOMPSON, Sarah filter is applied automatically
-    searchFormSubmitted = true;
-    
-    // Save the initial state to localStorage
-    window.saveFiltersToStorage();
 }
 
 // Apply filters on page load if any are selected
@@ -1023,12 +1054,24 @@ if (Array.from(victimCheckboxes).some(function (cb) { return cb.checked; })) {
         
         var victimContainer = document.getElementById('victims-container');
         var paginationNav = document.querySelector('nav.govuk-pagination');
+        var resultsCount = document.getElementById('results-count');
+        var sortedByText = document.getElementById('sorted-by-text');
+        var resultsDivider = document.getElementById('results-divider');
         
         if (victimContainer) {
             victimContainer.style.display = hasSearch ? '' : 'none';
         }
         if (paginationNav) {
             paginationNav.style.display = hasSearch ? '' : 'none';
+        }
+        if (resultsCount) {
+            resultsCount.style.display = hasSearch ? '' : 'none';
+        }
+        if (sortedByText) {
+            sortedByText.style.display = hasSearch ? '' : 'none';
+        }
+        if (resultsDivider) {
+            resultsDivider.style.display = hasSearch ? '' : 'none';
         }
         
         var victimRecords = document.querySelectorAll('.govuk-summary-list');

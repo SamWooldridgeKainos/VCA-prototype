@@ -166,9 +166,11 @@
     function init() {
         PaginationCore.setupPaginationListeners(showPage);
 
-        // Only show pagination if there are multiple pages
+        // Only show pagination if there are multiple pages AND results are visible
         var pageItems = document.querySelectorAll('.govuk-pagination__item');
-        if (pageItems.length > 1) {
+        var victimContainer = document.getElementById('victims-container');
+        var containerVisible = victimContainer && victimContainer.style.display !== 'none';
+        if (pageItems.length > 1 && containerVisible) {
             var paginationNav = document.querySelector('.govuk-pagination');
             if (paginationNav) {
                 paginationNav.style.display = '';
