@@ -6,11 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
-{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
-=======
-{% include "/v60/partials/identity-bar/index.html" %}
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
+{% include "/v60/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 {% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
@@ -53,21 +49,13 @@
                         {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
                         <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/next-task">
-=======
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/next-task">
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                             Change<span class="govuk-visually-hidden"> next task</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
                         <a href="/ur/bfs/onb/next-task" class="govuk-link govuk-link--no-visited-state">Select next task</a>
-=======
-                        <a href="/v60/onb/next-task" class="govuk-link govuk-link--no-visited-state">Select next task</a>
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                     </dd>
                 {% endif %}
             </div>
@@ -106,11 +94,7 @@
                             {% endif %}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
                             <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/new-task/meeting-purpose">
-=======
-                            <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/meeting-purpose">
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                                 Change<span class="govuk-visually-hidden"> meeting purpose</span>
                             </a>
                         </dd>
@@ -184,21 +168,13 @@
                                 {{ data['taskDueDate'] | formatDate }}
                             </dd>
                             <dd class="govuk-summary-list__actions">
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
                                 <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/next-task/next-task-due-date">
-=======
-                                <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/next-task-due-date">
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                                     Change<span class="govuk-visually-hidden"> next task due date</span>
                                 </a>
                             </dd>
                         {% else %}
                             <dd class="govuk-summary-list__value">
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
                                 <a href="/ur/bfs/onb/new-task/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Select next task due date</a>
-=======
-                                <a href="/v60/onb/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Select next task due date</a>
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                             </dd>
                         {% endif %}
                     </div>
@@ -212,11 +188,7 @@
             <p class="govuk-body">
                 After you confirm the details, you can create tasks for {{ data['victimForename'] }} {{ data['victimSurname'] }} from their profile page.
             </p>
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
             <form action="/ur/bfs/onb/new-task/check-task-answer" method="post" novalidate>
-=======
-            <form action="/v60/onb/check-task-answer" method="post" novalidate>
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                 <input type="hidden" name="answers-checked" value="true">
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     Confirm details
@@ -227,11 +199,7 @@
             <p class="govuk-body">
                 After you confirm the details, a task for the bereaved family will be created.
             </p>
-<<<<<<< Updated upstream:app/views/ur/bfs/onb/new-task/check-task.html
             <form action="/ur/bfs/onb/new-task/check-task-answer" method="post" novalidate>
-=======
-            <form action="/v60/onb/check-task-answer" method="post" novalidate>
->>>>>>> Stashed changes:app/views/ur/bfs/onb/check-task.html
                 <input type="hidden" name="answers-checked" value="true">
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     Confirm and create

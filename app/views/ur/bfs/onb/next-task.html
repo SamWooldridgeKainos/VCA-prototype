@@ -6,11 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-<<<<<<< Updated upstream
-{% include "/delivery/wat4/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
-=======
-{% include "/v60/partials/identity-bar/index.html" %}
->>>>>>> Stashed changes
+{% include "/v60/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -18,11 +14,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-<<<<<<< Updated upstream
     <form action="/ur/bfs/onb/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
-=======
-    <form action="/v60/onb/next-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
->>>>>>> Stashed changes
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
@@ -32,7 +24,9 @@
                         What is the next task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family?
                     </h1>
                 </legend>
-<p> Tasks will be created for the primary family contact or FLO linked to this case.</p>
+
+                <p>Tasks will be created for the primary family contact or FLO linked to this case.</p>
+
                 <div class="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
