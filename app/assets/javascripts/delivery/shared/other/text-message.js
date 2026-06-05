@@ -44,43 +44,7 @@ function validateForm() {
         errors.push('<li><a href="#error-message-1">Enter the date of text message</a></li>');
     }
 
-    if ((otherTextMessageHour == '' || otherTextMessageHour == null) && (otherTextMessageMinutes == '' || otherTextMessageMinutes == null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
 
-        // Error input field styling
-        $('#other-text-message-hour').addClass('govuk-input--error');
-        $('#other-text-message-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-text-message-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the time of text message</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the time of text message</a></li>');
-
-    } else if ((otherTextMessageHour == '' || otherTextMessageHour == null) && (otherTextMessageMinutes != '' && otherTextMessageMinutes != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-text-message-hour').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-text-message-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the hour for the time of text message</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the hour for the time of text message</a></li>');
-
-    } else if ((otherTextMessageMinutes == '' || otherTextMessageMinutes == null) && (otherTextMessageHour != '' && otherTextMessageHour != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-text-message-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-text-message-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the minutes for the time of text message</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the minutes for the time of text message</a></li>');
-    }
 
     if (!otherTextMessageType.is(':checked')) {
         // Error form group styling

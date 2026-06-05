@@ -5,7 +5,7 @@
             Date of text message
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ communication.otherTextMessageDate | formatDate }} at {{ communication.otherTextMessageHour }}:{{ communication.otherTextMessageMinutes }}
+            {{ communication.otherTextMessageDate | formatDate }}{% if communication.otherTextMessageHour and communication.otherTextMessageMinutes %} at {{ communication.otherTextMessageHour }}:{{ communication.otherTextMessageMinutes }}{% endif %}
         </dd>
     </div>
     <div class="govuk-summary-list__row">

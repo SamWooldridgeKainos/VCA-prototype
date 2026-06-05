@@ -12,6 +12,27 @@
 
 {% block content %}
 <div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div id="success-banner" class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="display: none;">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if data['pcdType'] == "dtc" %}
+            Task created to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} of a decision to charge.
+          {% elif data['pcdType'] == "nfa" %}
+            Task created to inform {{ data['victimForename'] }} {{ data['victimSurname'] }} of a no further action decision.
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
     <form action="/v50/pcd/pre-draft/contacted-by-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
@@ -73,4 +94,12 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/delivery/shared/pcd/pre-draft/contacted-by.js"></script>
+<script>
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'yes' && params.get('successReason') === 'task-created') {
+      document.getElementById('success-banner').style.display = '';
+    }
+  })();
+</script>
 {% endblock %}

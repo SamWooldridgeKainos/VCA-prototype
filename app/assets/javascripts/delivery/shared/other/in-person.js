@@ -41,43 +41,7 @@ function validateForm() {
         errors.push('<li><a href="#error-message-1">Enter the date of conversation</a></li>');
     }
 
-    if ((otherInPersonHour == '' || otherInPersonHour == null) && (otherInPersonMinutes == '' || otherInPersonMinutes == null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
 
-        // Error input field styling
-        $('#other-in-person-hour').addClass('govuk-input--error');
-        $('#other-in-person-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-in-person-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the time of conversation</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the time of conversation</a></li>');
-
-    } else if ((otherInPersonHour == '' || otherInPersonHour == null) && (otherInPersonMinutes != '' && otherInPersonMinutes != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-in-person-hour').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-in-person-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the hour for the time of conversation</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the hour for the time of conversation</a></li>');
-
-    } else if ((otherInPersonMinutes == '' || otherInPersonMinutes == null) && (otherInPersonHour != '' && otherInPersonHour != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-in-person-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-in-person-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the minutes for the time of conversation</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the minutes for the time of conversation</a></li>');
-    }
 
     if (!otherIndividual.is(':checked')) {
         // Error form group styling

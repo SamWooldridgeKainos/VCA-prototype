@@ -3,8 +3,9 @@ function toSortDate(dateString, hour, minutes) {
     if (!dateString || !dateString.includes('/')) return ''
     var parts = dateString.split('/')
     if (parts.length !== 3) return ''
-    var h = (hour || '17').toString().padStart(2, '0')
-    var m = (minutes || '00').toString().padStart(2, '0')
+    var now = new Date()
+    var h = (hour || now.getHours().toString()).toString().padStart(2, '0')
+    var m = (minutes || now.getMinutes().toString()).toString().padStart(2, '0')
     return parts[2] + '-' + parts[1] + '-' + parts[0] + 'T' + h + ':' + m
 }
 
@@ -305,9 +306,9 @@ module.exports = router => {
 
         var pcdType = request.session.data['pcdType']
         if (pcdType == "dtc"){
-            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=dtc&nextTask=dtc&existingTask=dtc")
+            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=dtc&nextTask=dtc&existingTask=dtc&success=yes&successReason=task-created")
         } else if (pcdType == "nfa") {
-            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=nfa&nextTask=nfa&existingTask=nfa")
+            response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=nfa&nextTask=nfa&existingTask=nfa&success=yes&successReason=task-created")
         } else {
             response.redirect("#")
         }
@@ -761,6 +762,7 @@ module.exports = router => {
             otherTextMessageDate: request.session.data['otherTextMessageDate'],
             otherTextMessageHour: request.session.data['otherTextMessageHour'],
             otherTextMessageMinutes: request.session.data['otherTextMessageMinutes'],
+            otherTextMessageType: request.session.data['otherTextMessageType'],
             otherIndividual: request.session.data['otherIndividual'],
             otherIndividualName: request.session.data['otherIndividualName'],
             otherIndividualRole: request.session.data['otherIndividualRole'],
@@ -806,6 +808,7 @@ module.exports = router => {
             otherCommsDate: request.session.data['otherCommsDate'],
             otherCommsHour: request.session.data['otherCommsHour'],
             otherCommsMinutes: request.session.data['otherCommsMinutes'],
+            otherCommsType: request.session.data['otherCommsType'],
             otherIndividual: request.session.data['otherIndividual'],
             otherIndividualName: request.session.data['otherIndividualName'],
             otherIndividualRole: request.session.data['otherIndividualRole'],

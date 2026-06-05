@@ -27,7 +27,8 @@ module.exports = {
   'victimPostCode': 'NP14 6LF',
   'victimRepresentativeContactDetails': 'Not provided',
   'victimDateOfBirth': '22/7/1990',
-  'victimAge': '34',
+  'victimAge': '36',
+  'preferredCorrespondenceLanguage': 'English',
 
   'counselSurname': 'Hamer',
   'counselForename': 'Olivia',

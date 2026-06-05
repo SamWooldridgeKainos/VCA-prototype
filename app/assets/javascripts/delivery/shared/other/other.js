@@ -44,43 +44,7 @@ function validateForm() {
         errors.push('<li><a href="#error-message-1">Enter the date of communication</a></li>');
     }
 
-    if ((otherCommsHour == '' || otherCommsHour == null) && (otherCommsMinutes == '' || otherCommsMinutes == null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
 
-        // Error input field styling
-        $('#other-comms-hour').addClass('govuk-input--error');
-        $('#other-comms-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-comms-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the time of communication</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the time of communication</a></li>');
-
-    } else if ((otherCommsHour == '' || otherCommsHour == null) && (otherCommsMinutes != '' && otherCommsMinutes != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-comms-hour').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-comms-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the hour for the time of communication</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the hour for the time of communication</a></li>');
-
-    } else if ((otherCommsMinutes == '' || otherCommsMinutes == null) && (otherCommsHour != '' && otherCommsHour != null)) {
-        // Error form group styling
-        $('#error-form-group-2').addClass('govuk-form-group--error');
-
-        // Error input field styling
-        $('#other-comms-minutes').addClass('govuk-input--error');
-
-        // Error message
-        $('#other-comms-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the minutes for the time of communication</p>');
-
-        errors.push('<li><a href="#error-message-2">Enter the minutes for the time of communication</a></li>');
-    }
 
     if (!otherCommsType.is(':checked')) {
         // Error form group styling

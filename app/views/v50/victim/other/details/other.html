@@ -5,7 +5,7 @@
             Date of communication
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ communication.otherCommsDate | formatDate }} at {{ communication.otherCommsHour }}:{{ communication.otherCommsMinutes }}
+            {{ communication.otherCommsDate | formatDate }}{% if communication.otherCommsHour and communication.otherCommsMinutes %} at {{ communication.otherCommsHour }}:{{ communication.otherCommsMinutes }}{% endif %}
         </dd>
     </div>
     <div class="govuk-summary-list__row">

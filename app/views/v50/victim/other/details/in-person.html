@@ -5,7 +5,7 @@
             Date of conversation
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ communication.otherInPersonDate | formatDate }} at {{ communication.otherInPersonHour }}:{{ communication.otherInPersonMinutes }}
+            {{ communication.otherInPersonDate | formatDate }}{% if communication.otherInPersonHour and communication.otherInPersonMinutes %} at {{ communication.otherInPersonHour }}:{{ communication.otherInPersonMinutes }}{% endif %}
         </dd>
     </div>
     <div class="govuk-summary-list__row">

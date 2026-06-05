@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Account" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">Account</h1>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">First name</dt>
+                <dd class="govuk-summary-list__value">{{ data['first-name'] or 'Sarah' }}</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> first name</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Last name</dt>
+                <dd class="govuk-summary-list__value">{{ data['last-name'] or 'Thompson' }}</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> last name</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Role</dt>
+                <dd class="govuk-summary-list__value">{{ data['role'] or 'Victim liaison officer' }}</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> role</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Email address</dt>
+                <dd class="govuk-summary-list__value">{{ data['email-address'] or 'sarah.thompson@cps.gov.uk' }}</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> email address</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Unit</dt>
+                <dd class="govuk-summary-list__value">CPS London South<br>CPS London North</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> unit</span></a>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+{% endblock %}
