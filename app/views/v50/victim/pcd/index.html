@@ -1,5 +1,4 @@
 {% block content %}
-<!-- <h2 class="govuk-heading-l govuk-!-margin-top-6">Charging decision</h2> -->
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
@@ -30,7 +29,6 @@
 
                             {% else %}
 
-                                <!-- Pre-draft -->
                                 {% if (data['pcdStatus'] == "check-details") %}
                                     {% include "/v50/victim/pcd/pre-draft/check-details.html" %}
 
@@ -40,7 +38,6 @@
                                 {% elif (data['pcdStatus'] == "not-contacted-logged") %}
                                     {% include "/v50/victim/pcd/pre-draft/not-contacted-logged.html" %}
 
-                                <!-- Record -->
                                 {% elif (data['pcdStatus'] == "before-text-logged") %}
                                     {% include "/v50/victim/pcd/call/before-text-logged.html" %}
 
@@ -65,7 +62,6 @@
                                 {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
                                     {% include "/v50/victim/pcd/call/after-call-attempt-3.html" %}
 
-                                <!-- Send follow-up email -->
                                 {% elif (data['pcdStatus'] == "fu-email-after-call-1") %}
                                     {% include "/v50/victim/pcd/send/fu-email/after-call-1.html" %}
 
@@ -90,7 +86,6 @@
                                 {% elif (data['pcdStatus'] == "fu-email-sending") %}
                                     {% include "/v50/victim/pcd/send/fu-email/sending.html" %}
 
-                                <!-- Send follow-up letter -->
                                 {% elif (data['pcdStatus'] == "fu-letter-dispatched") %}
                                     {% include "/v50/victim/pcd/send/fu-letter/dispatched.html" %}
 
@@ -103,10 +98,9 @@
                                 {% elif (data['pcdStatus'] == "fu-letter-after-call-3") %}
                                     {% include "/v50/victim/pcd/send/fu-letter/after-call-3.html" %}
 
-                                <!-- not currently possible --> {% elif (data['pcdStatus'] == "fu-letter-after-fu-email-undelivered") %}
+                                {% elif (data['pcdStatus'] == "fu-letter-after-fu-email-undelivered") %}
                                     {% include "/v50/victim/pcd/send/fu-letter/after-fu-email-undelivered.html" %}
 
-                                <!-- Send email-->
                                 {% elif (data['pcdStatus'] == "email-delivered") %}
                                     {% include "/v50/victim/pcd/send/email/delivered.html" %}
 
@@ -131,7 +125,6 @@
                                 {% elif (data['pcdStatus'] == "email-sending") %}
                                     {% include "/v50/victim/pcd/send/email/sending.html" %}
 
-                                <!-- Send letter-->
                                 {% elif (data['pcdStatus'] == "letter-dispatched") %}
                                     {% include "/v50/victim/pcd/send/letter/dispatched.html" %}
 
@@ -152,12 +145,6 @@
                                 {% endif %}
 
                             {% endif %}
-                            
-                            <!-- {% if (data['pcdSent'] == "yes") or (data['pcdSent'] == "na") %}
-                                <a href="/v50/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-                                    Draft another letter<span class="govuk-visually-hidden"> to inform about the stopped or substantially altered charge</span>
-                                </a>
-                            {% endif %} -->
 
                         </div>
                     </div>

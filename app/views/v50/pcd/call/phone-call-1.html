@@ -18,14 +18,6 @@
 
             <h1 class="govuk-heading-l">Telephone call 1</h1>
 
-            <!-- <div class="govuk-warning-text">
-                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong class="govuk-warning-text__text">
-                    <span class="govuk-visually-hidden">Warning</span>
-                    Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
-                </strong>
-            </div> -->
-
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="phone-call-date-1">
                     Date of call
@@ -86,7 +78,6 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        <!-- Did you call the victim? -->
                         What was the call direction?
                     </legend>
 
@@ -94,7 +85,6 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="call-type-outbound" name="pcdCallType1" type="radio" value="Yes" {{ checked('pcdCallType1','Yes') }} aria-describedby="outbound-hint">
                             <label class="govuk-label govuk-radios__label" for="call-type-outbound">
-                                <!-- Yes, I called the victim -->
                                 Outbound
                             </label>
                             <div id="outbound-hint" class="govuk-hint govuk-radios__hint">
@@ -105,7 +95,6 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="call-type-inbound" name="pcdCallType1" type="radio" value="No" {{ checked('pcdCallType1','No') }} aria-describedby="inbound-hint">
                             <label class="govuk-label govuk-radios__label" for="call-type-inbound">
-                                <!-- No, the victim called the CPS -->
                                 Inbound
                             </label>
                             <div id="inbound-hint" class="govuk-hint govuk-radios__hint">
