@@ -101,7 +101,6 @@
               Victim liaison officer
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <!-- <label class="govuk-label" for="vlo-only-autocomplete">Find Victim liaison officer</label> -->
               <div id="vlo-only-autocomplete"></div>
             </div>
             <ul id="vlo-only-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
@@ -111,10 +110,10 @@
                 <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-1" name="vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
                 <label class="govuk-label govuk-checkboxes__label" for="vlo-only-1">THOMPSON, Sarah (you)</label>
               </div>
-              <!-- <div class="govuk-checkboxes__item">
+              <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-21" name="vlo" type="checkbox" value="unassigned" data-label="Unassigned">
                 <label class="govuk-label govuk-checkboxes__label" for="vlo-only-21">Unassigned</label>
-              </div> -->
+              </div>
               <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-2" name="vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
                 <label class="govuk-label govuk-checkboxes__label" for="vlo-only-2">KUMAR, Priya</label>
@@ -226,11 +225,6 @@
                 <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
                 <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
               </div>
-              <!-- <div class="govuk-radios__divider">or</div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="not-onboarded" data-label="Not onboarded">
-                <label class="govuk-label govuk-radios__label" for="service-4">Not onboarded</label>
-              </div> -->
             </div>
           </fieldset>
         </div>
@@ -241,7 +235,6 @@
               Area
             </legend>
             <div class="govuk-form-group govuk-!-margin-bottom-2">
-              <!-- <label class="govuk-label" for="area-autocomplete">Find area</label> -->
               <div id="area-autocomplete"></div>
             </div>
             <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
@@ -490,13 +483,6 @@
   </div>
 
   <div class="govuk-grid-column-one-half">
-
-    <!-- <p class="govuk-!-font-size-16">
-      <span class="govuk-!-font-weight-bold govuk-!-margin-right-1">Sort by:</span>
-      <span class="">Hearing date</span>
-      <span class="govuk-!-margin-left-1 govuk-!-margin-right-1">|</span>
-      <a href="?taskSort=PACE">Decision date</a>
-    </p> -->
 
     <p class="govuk-body-s" id="results-count"></p>
 
@@ -2041,35 +2027,6 @@
     </nav>
 
   </div>
-
-  <!-- <div class="govuk-grid-column-one-quarter">
-        <div class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-m">Recently viewed victims</h2>
-            <ul class="govuk-list">
-                <li>
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">MEGSON, Verity</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626789</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="/v50/victim" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
-                    <p class="govuk-body govuk-!-margin-top-1">{{ data['caseUrn'] }}</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">CHEN, Emily</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626791</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">WILSON, James</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626792</p>
-                </li>
-                <li class="govuk-!-margin-top-3">
-                    <a href="#" class="govuk-link govuk-link--no-visited-state">MARTINEZ, Lucy</a>
-                    <p class="govuk-body govuk-!-margin-top-1">54KR1626793</p>
-                </li>
-            </ul>
-        </div>
-    </div> -->
-
 </div>
 
 {% endblock %}
