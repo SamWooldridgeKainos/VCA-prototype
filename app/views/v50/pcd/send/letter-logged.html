@@ -25,20 +25,6 @@
       The {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %} letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
     </p>
 
-    <!-- <p class="govuk-body">
-      The information pack and Crest survey were also sent.
-    </p> -->
-
-    <!-- <h2 class="govuk-heading-m">Further information</h2> -->
-
-    <!-- <p class="govuk-body">
-      You can view the logged letter on the 'Charging decision' tab of the victim's page, within the Victim Case Application.
-    </p> -->
-
-    <!-- <p class="govuk-body">
-      The letter was automatically saved to CMS.
-    </p> -->
-
     {% if (data['contactedBy'] == "call") %}
 
       {% if (data['pcdCallAttempt'] == "1") %}

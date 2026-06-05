@@ -41,19 +41,9 @@ module.exports = router => {
         response.redirect("/v60/onb/check-details?successNotification=yes&onboardedStatus=Yes")
     })
 
-
-        router.post('/ur/bfs/onb/service-lead-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details?successNotification=yes&onboardedStatus=Yes")
-    })
     router.post('/v60/check-details/case-type-answer', function(request, response) {
 
         response.redirect("/v60/onb/check-details?successNotification=yes")
-    })
-
-      router.post('/ur/bfs/check-details/case-type-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details?successNotification=yes")
     })
 
     router.post('/v60/check-details/risk-level-answer', function(request, response) {
@@ -70,29 +60,6 @@ module.exports = router => {
 
         response.redirect("/v60/onb/check-details?successNotification=yes")
     })
-
-
-     router.post('/ur/bfs/check-details/flo-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details/index-withflo")
-    })
-
-        router.post('/ur/bfs/check-details/flowithfamily-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily")
-    })
-
-        router.post('/ur/bfs/check-details/flowithfamily2-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily-1-additional")
-    })
-
-   router.post('/ur/bfs/check-details/flowithfamily3-answer', function(request, response) {
-
-        response.redirect("/ur/bfs/onb/check-details/index-withfloandfamily-2-additional")
-    })
-
-    
 
     router.post('/v60/check-details/preferred-contact-times-answer', function(request, response) {
 
@@ -922,38 +889,5 @@ module.exports = router => {
 
         response.redirect("/v60/other/other-logged")
     })
-
-
-    // meetings
-
-    router.post('/v60/wft-meetings/new-task/next-task-answer', function(request, response) {
-
-        var nextTask = request.session.data['nextTask']
-
-        if (nextTask == "ptm") {
-            response.redirect("/v60/onb/manual-task")
-        } else if (nextTask == "No task at this time") {
-            response.redirect("/v60/onb/check-task?manualTask=no")
-        } else {
-            response.redirect("/v60/wft-meetings/new-task/purposet")
-        }
-    })
-
-   
-    router.post('/v60/wft-meetings/new-task/purposet-answer', function(request, response) {
-
-        var purposet = request.session.data['purposet']
-        if (purposet == "yes"){
-            response.redirect("/v60/wft-meetings/new-task/task-due-date")
-        } else {
-            response.redirect("/v60/wft-meetings/new-task/task-due-date")
-        }
-    })
-
-  router.post('/v60/wft-meetings/new-task/task-due-date-answer', function(request, response) {
-
-        response.redirect("/v60/wft-meetings/new-task/check-task")
-    })
-
 
 }
