@@ -127,7 +127,7 @@
                 {% elif (data['successReason'] == "telephone-number-updated") %}
                   You changed the telephone number for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
                 {% elif (data['successReason'] == "correspondence-language-updated") %}
-                  You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['victimCorrespondenceLanguage'] == 'Other' %}{{ data['victimCorrespondenceLanguageOther'] }}{% else %}{{ data['victimCorrespondenceLanguage'] }}{% endif %}.
+                  You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['preferredCorrespondenceLanguage'] == 'Other' %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}.
                 {% elif (data['successReason'] == "wants-contact-updated") %}
                   You changed the contact preference for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimWantsContact'] }}.
                 {% elif (data['successReason'] == "pmoc-police-updated") %}

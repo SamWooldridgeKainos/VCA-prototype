@@ -5,8 +5,8 @@ function validateForm() {
   $('#other-language').removeClass('govuk-input--error');
   $('#error-message-radio, #error-message-language, #error-summary').remove();
 
-  var radioChecked = $('[name=victimCorrespondenceLanguage]').is(':checked');
-  var selectedValue = $('[name=victimCorrespondenceLanguage]:checked').val();
+  var radioChecked = $('[name=preferredCorrespondenceLanguage]').is(':checked');
+  var selectedValue = $('[name=preferredCorrespondenceLanguage]:checked').val();
   var otherLanguage = $('#other-language').val().trim();
 
   if (radioChecked && (selectedValue !== 'Other' || otherLanguage !== '')) return true;

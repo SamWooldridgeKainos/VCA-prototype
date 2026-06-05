@@ -3,8 +3,9 @@ function toSortDate(dateString, hour, minutes) {
     if (!dateString || !dateString.includes('/')) return ''
     var parts = dateString.split('/')
     if (parts.length !== 3) return ''
-    var h = (hour || '00').toString().padStart(2, '0')
-    var m = (minutes || '00').toString().padStart(2, '0')
+    var now = new Date()
+    var h = (hour || now.getHours().toString()).toString().padStart(2, '0')
+    var m = (minutes || now.getMinutes().toString()).toString().padStart(2, '0')
     return parts[2] + '-' + parts[1] + '-' + parts[0] + 'T' + h + ':' + m
 }
 

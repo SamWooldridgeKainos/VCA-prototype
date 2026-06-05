@@ -148,23 +148,6 @@
                     </dd>
                 {% endif %}
             </div>
-            <!-- <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Previous convictions
-                </dt>
-                {% if data['victimPreviousConvictions'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['victimPreviousConvictions'] }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/previous-convictions">Change<span class="govuk-visually-hidden"> previous convictions</span></a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v50/victim/victim-details/previous-convictions" class="govuk-link govuk-link--no-visited-state">Select previous convictions status</a>
-                    </dd>
-                {% endif %}
-            </div> -->
         </dl>
 
         <h3 class="govuk-heading-m">Victim service details</h3>
@@ -320,16 +303,16 @@
                 <dt class="govuk-summary-list__key">
                     Preferred correspondence language
                 </dt>
-                {% if data['victimCorrespondenceLanguage'] == 'Other' and data['victimCorrespondenceLanguageOther'] %}
+                {% if data['preferredCorrespondenceLanguage'] == 'Other' and data['preferredCorrespondenceLanguage'] %}
                     <dd class="govuk-summary-list__value">
-                        {{ data['victimCorrespondenceLanguageOther'] }}
+                        {{ data['preferredCorrespondenceLanguageOtherText'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/correspondence-language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
                     </dd>
-                {% elif data['victimCorrespondenceLanguage'] %}
+                {% elif data['preferredCorrespondenceLanguage'] %}
                     <dd class="govuk-summary-list__value">
-                        {{ data['victimCorrespondenceLanguage'] }}
+                        {{ data['preferredCorrespondenceLanguage'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/correspondence-language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
