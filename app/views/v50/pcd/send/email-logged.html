@@ -29,40 +29,40 @@
 
       {% if (data['pcdCallAttempt'] == "1") %}
         {% if (data['pcdVictimInformed1'] == "Yes") %}
-        <a href="/v50/victim?pcdStatus=fu-email-after-call-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=fu-email-after-call-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% else %}
-        <a href="/v50/victim?pcdStatus=email-after-call-attempt-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=email-after-call-attempt-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% endif %}
 
       {% elif (data['pcdCallAttempt'] == "2") %}
         {% if (data['pcdVictimInformed2'] == "Yes") %}
-        <a href="/v50/victim?pcdStatus=fu-email-after-call-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=fu-email-after-call-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% else %}
-        <a href="/v50/victim?pcdStatus=email-after-call-attempt-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=email-after-call-attempt-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% endif %}
 
       {% elif (data['pcdCallAttempt'] == "3") %}
         {% if (data['pcdVictimInformed3'] == "Yes") %}
-        <a href="/v50/victim?pcdStatus=fu-email-after-call-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=fu-email-after-call-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% else %}
-        <a href="/v50/victim?pcdStatus=email-after-call-attempt-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v50/victim?pcdStatus=email-after-call-attempt-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
           Continue
         </a>
         {% endif %}
       {% endif %}
 
     {% else %}
-    <a href="/v50/victim?pcdStatus=email-delivered&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=email-delivered&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}

@@ -37,11 +37,11 @@
     {% if (data['callAttempt'] == "1") %}
     
     {% if (data['attemptToContactAgain'] == "Call") %}
-    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['attemptToContactAgain'] == "Email") %}
-    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered&success=no#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
@@ -49,39 +49,39 @@
     {% elif (data['callAttempt'] == "2") %}
 
     {% if (data['attemptToContactAgain'] == "Call") %}
-    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['attemptToContactAgain'] == "Email") %}
-    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered&success=no#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
     {% elif (data['callAttempt'] == "3") %}
-    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-3&notifyStatus=delivered&success=no#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=fu-email-after-call-attempt-3&notifyStatus=delivered&success=no#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% endif %}
     {% elif (data['pmoc'] == "email") %}
 
-    <a href="/v21/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     <!-- {% if (data['callAttempt'] == "") %}
-    <a href="/v21/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-delivered&notifyStatus=delivered#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "1") %}
-    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-1&notifyStatus=delivered#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "2") %}
-    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v21/victim-record?nfaStatus=email-after-call-attempt-2&notifyStatus=delivered#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 

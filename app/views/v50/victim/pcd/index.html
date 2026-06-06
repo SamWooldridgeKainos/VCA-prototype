@@ -155,7 +155,7 @@
                 {{ data['victimForename'] }} {{ data['victimSurname'] }} has not yet been informed by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}.
             </p>
 
-            <a href="/v50/pcd/draft/pcd-type" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+            <a href="/v50/pcd/draft/pcd-type" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
                 Log a communication<span class="govuk-visually-hidden"> to inform about the {{ data['pcdType'] }}</span>
             </a>
         {% endif %}

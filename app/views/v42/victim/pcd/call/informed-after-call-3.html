@@ -21,7 +21,7 @@
     You must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
 
-<a href="/v42/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v42/pcd/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
 </a>
 
@@ -51,7 +51,7 @@
     You must review the letter before sending to CMS. You can add details discussed on the call if needed.
 </p>
 
-<a href="/v42/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v42/pcd/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review and send to CMS<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
 </a>
 {% endif %}

@@ -48,17 +48,17 @@
 </p>
 
 {% if (data['pmoc'] == "email") %}
-<a href="/v30/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v30/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 
 {% elif (data['pmoc'] == "post") %}
-<a href="/v30/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v30/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 
 {% else %}
-<a href="/v30/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v30/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before sending<span class="govuk-visually-hidden"> to inform of the {% if (data['decisionType'] == "dtc") %}decision to charge{% elif (data['decisionType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 {% endif %}

@@ -38,19 +38,19 @@
               Cancel
             </button>
             {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "email") %}
-            <a href="/v40/pcd/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v40/pcd/send/check-email-details?success=no" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['pcdStatus'] == "after-call-attempt-3") or (data['pcdStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "post") %}
-            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=pcd&secondaryNav=communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=pcd&secondaryNav=communications" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['fumoc'] == "none") %}
-            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&pcdSent=na&subTab=pcd&secondaryNav=communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&pcdSent=na&subTab=pcd&secondaryNav=communications" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% else %}
-            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=pcd&secondaryNav=communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v40/pcd/victim-record?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&subTab=pcd&secondaryNav=communications" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% endif %}

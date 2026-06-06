@@ -24,7 +24,7 @@
   You must inform {{ data['victimForename'] }} {{ data['victimSurname'] }} by post because you were unable to by phone.
 </p>
 
-<!-- <a href="/v41/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<!-- <a href="/v41/vcl/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review letter before printing<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a> -->
 
@@ -32,7 +32,7 @@
     First, you must review the letter before sending to the victim. You can add details discussed on the call if needed.
 </p>
 
-<a href="/v41/vcl/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v41/vcl/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% endblock %}
