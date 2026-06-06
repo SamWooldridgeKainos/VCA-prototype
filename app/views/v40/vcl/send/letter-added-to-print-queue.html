@@ -35,22 +35,22 @@
     {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
 
     {% if (data['callAttempt'] == "1") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-1#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-1#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "2") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-2#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-2#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "3") %}
       {% if (data['victimInformed3'] == "Yes") %}
-      <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-3#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      <a href="/v40/vcl/victim-record?nfaStatus=fu-letter-after-call-3#communications" class="govuk-button" data-module="govuk-button">
         Continue
       </a>
       {% else %}
-      <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-3#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-3#communications" class="govuk-button" data-module="govuk-button">
         Continue
       </a>
       {% endif %}
@@ -59,22 +59,22 @@
     {% elif (data['pmoc'] == "email") %}
 
     {% if (data['callAttempt'] == "") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=letter-dispatched#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=letter-dispatched#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "1") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-1#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-1#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "2") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-2#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-2#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['callAttempt'] == "3") %}
-    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-3#communications" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v40/vcl/victim-record?nfaStatus=letter-after-call-attempt-3#communications" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 

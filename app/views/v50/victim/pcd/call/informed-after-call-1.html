@@ -4,13 +4,13 @@
 <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-0">
 
 {% if (data['pcdFumoc'] == "Email") %}
-    <a href="/v50/pcd/send/email-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    <a href="/v50/pcd/send/email-details" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
         Log an email<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
     </a>
 
 {% elif (data['pcdFumoc'] == "Post") %}
 
-    <a href="/v50/pcd/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+    <a href="/v50/pcd/send/letter-details" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
         Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
     </a>
 {% else %}

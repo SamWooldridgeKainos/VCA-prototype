@@ -40,11 +40,11 @@
     {% if (data['vclCallAttempt'] == "1") %}
     
     {% if (data['vclFumoc'] == "email") %}
-    <a href="/v42/victim?vclStatus=fu-email-after-call-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=fu-email-after-call-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['vclAttemptToContactAgain'] == "email") %}
-    <a href="/v42/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
@@ -52,39 +52,39 @@
     {% elif (data['vclCallAttempt'] == "2") %}
 
     {% if (data['vclFumoc'] == "email") %}
-    <a href="/v42/victim?vclStatus=fu-email-after-call-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=fu-email-after-call-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['vclAttemptToContactAgain'] == "email") %}
-    <a href="/v42/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
     {% elif (data['vclCallAttempt'] == "3") %}
-    <a href="/v42/victim?vclStatus=fu-email-after-call-3&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=fu-email-after-call-3&notifyStatus=delivered&vclSent=yes&success=no&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% endif %}
     {% elif (data['pmoc'] == "email") %}
 
-    <a href="/v42/victim?vclStatus=email-delivered&notifyStatus=delivered&vclSent=yes&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-delivered&notifyStatus=delivered&vclSent=yes&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     <!-- {% if (data['vclCallAttempt'] == "") %}
-    <a href="/v42/victim?vclStatus=email-delivered&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-delivered&notifyStatus=delivered&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['vclCallAttempt'] == "1") %}
-    <a href="/v42/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-after-call-attempt-1&notifyStatus=delivered&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% elif (data['vclCallAttempt'] == "2") %}
-    <a href="/v42/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=vcl" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v42/victim?vclStatus=email-after-call-attempt-2&notifyStatus=delivered&secondaryNav=vcl" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 

@@ -506,16 +506,16 @@
         {% endif %}
 
         {% if (data['preferredMethodOfContact'] == "Phone") %}
-          <a href="/v12/telephone-call-details" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="/v12/telephone-call-details" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Record call<span class="govuk-visually-hidden"> to inform of a charging decision</span>
           </a>
         {% elif (data['preferredMethodOfContact'] == "Email") %}
           {% if (data['dtcEmailStatus'] == "Not sent") %}
-            <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Create charging decision email
             </a>
           {% elif (data['dtcEmailStatus'] == "Saved") %}
-          <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Continue charging decision email
           </a>
           {% elif (data['dtcEmailStatus'] == "Delivered") %}
@@ -594,7 +594,7 @@
               </strong>
             </div>
             <div class="govuk-button-group">
-              <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+              <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                 Try to send <span class="govuk-visually-hidden">charging decision </span>email again
               </a>
               <a class="govuk-link" href="#">Send a <span class="govuk-visually-hidden">charging decision </span>letter instead</a>
@@ -660,10 +660,10 @@
           {% endif %}
         {% elif (data['preferredMethodOfContact'] == "Post") %}
           {% if (data['dtcPostStatus'] == "Not dispatched") %}
-            <!-- <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <!-- <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Create charging decision letter
             </a> -->
-            <a href="/v12/letter-details" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/v12/letter-details" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Record letter<span class="govuk-visually-hidden"> to inform of a charging decision</span>
             </a>
           {% elif (data['dtcPostStatus'] == "Dispatched") %}
@@ -743,15 +743,15 @@
         </p>
 
         {% if (data['preferredMethodOfContact'] == "Phone") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Record call<span class="govuk-visually-hidden"> to offer a meeting</span>
           </a>
         {% elif (data['preferredMethodOfContact'] == "Email") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Create meeting offer email
           </a>
         {% elif (data['preferredMethodOfContact'] == "Post") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Create meeting offer letter
           </a>
         {% else %}
@@ -788,16 +788,16 @@
             </div>
             <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
               {% if (data['preferredMethodOfContact'] == "Phone") %}
-          <a href="/v12/telephone-call-details" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="/v12/telephone-call-details" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Record call<span class="govuk-visually-hidden"> to inform of a charging decision</span>
           </a>
         {% elif (data['preferredMethodOfContact'] == "Email") %}
           {% if (data['dtcEmailStatus'] == "Not sent") %}
-            <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Create charging decision email
             </a>
           {% elif (data['dtcEmailStatus'] == "Saved") %}
-          <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Continue charging decision email
           </a>
           {% elif (data['dtcEmailStatus'] == "Delivered") %}
@@ -876,7 +876,7 @@
               </strong>
             </div>
             <div class="govuk-button-group">
-              <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+              <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                 Try to send <span class="govuk-visually-hidden">charging decision </span>email again
               </a>
               <a class="govuk-link" href="#">Send a <span class="govuk-visually-hidden">charging decision </span>letter instead</a>
@@ -942,10 +942,10 @@
           {% endif %}
         {% elif (data['preferredMethodOfContact'] == "Post") %}
           {% if (data['dtcPostStatus'] == "Not dispatched") %}
-            <!-- <a href="/v12/comms-drafter" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <!-- <a href="/v12/comms-drafter" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Create charging decision letter
             </a> -->
-            <a href="/v12/letter-details" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/v12/letter-details" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Record letter<span class="govuk-visually-hidden"> to inform of a charging decision</span>
             </a>
           {% elif (data['dtcPostStatus'] == "Dispatched") %}
@@ -1032,15 +1032,15 @@
             </div>
             <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
               {% if (data['preferredMethodOfContact'] == "Phone") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Record call<span class="govuk-visually-hidden"> to offer a meeting</span>
           </a>
         {% elif (data['preferredMethodOfContact'] == "Email") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Create meeting offer email
           </a>
         {% elif (data['preferredMethodOfContact'] == "Post") %}
-          <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Create meeting offer letter
           </a>
         {% else %}

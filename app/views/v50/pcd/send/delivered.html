@@ -36,11 +36,11 @@
     {% if (data['pcdCallAttempt'] == "1") %}
     
     {% if (data['pcdFumoc'] == "email") %}
-    <a href="/v50/victim?pcdStatus=fu-email-after-call-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=fu-email-after-call-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['pcdAttemptToContactAgain'] == "email") %}
-    <a href="/v50/victim?pcdStatus=email-after-call-attempt-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=email-after-call-attempt-1&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
@@ -48,24 +48,24 @@
     {% elif (data['pcdCallAttempt'] == "2") %}
 
     {% if (data['pcdFumoc'] == "email") %}
-    <a href="/v50/victim?pcdStatus=fu-email-after-call-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=fu-email-after-call-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% elif (data['pcdAttemptToContactAgain'] == "email") %}
-    <a href="/v50/victim?pcdStatus=email-after-call-attempt-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=email-after-call-attempt-2&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}
 
     {% elif (data['pcdCallAttempt'] == "3") %}
-    <a href="/v50/victim?pcdStatus=fu-email-after-call-3&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=fu-email-after-call-3&notifyStatus=delivered&pcdSent=yes&success=no&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
 
     {% endif %}
     {% elif (data['pmoc'] == "email") %}
 
-    <a href="/v50/victim?pcdStatus=email-delivered&notifyStatus=delivered&pcdSent=yes&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+    <a href="/v50/victim?pcdStatus=email-delivered&notifyStatus=delivered&pcdSent=yes&secondaryNav=pcd" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     {% endif %}

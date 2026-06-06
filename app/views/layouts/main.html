@@ -8,7 +8,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% block stylesheets %}
   {{ super() }}
   <link href="/public/icons/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-  <link href="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/stylesheets/accessible-autocomplete.css" rel="stylesheet" type="text/css" />
   <style>
     .autocomplete__wrapper {
       position: relative;
@@ -78,7 +78,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% block scripts %}
   {{ super() }}
-  <script src="https://cdn.jsdelivr.net/npm/accessible-autocomplete@2.0.4/dist/accessible-autocomplete.min.js" type="text/javascript"></script>
+  <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
 {% endblock %}
 
 {% block header %}
