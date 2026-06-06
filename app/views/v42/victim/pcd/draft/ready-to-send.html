@@ -52,7 +52,7 @@
 </p>
 
 {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
-<a href="/v42/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v42/pcd/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
 </a>
 
@@ -77,7 +77,7 @@
 </p>
 
   {% if (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") or (data['pmoc'] == "email") or (data['pmoc'] == "post") %}
-  <a href="/v42/pcd/draft/compose-letter" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+  <a href="/v42/pcd/draft/compose-letter" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
       Review and send<span class="govuk-visually-hidden"> letter to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}pre-charge decision{% endif %}</span>
   </a>
 

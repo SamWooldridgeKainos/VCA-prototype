@@ -12,11 +12,11 @@
 </p> -->
 
 {% if (data['secondCallHour']) == "" %}
-<a href="/v40/vcl/call/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v40/vcl/call/next-attempt-moc" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
   Log a text message<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% else %}
-<a href="/v40/vcl/call/next-attempt-moc" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v40/vcl/call/next-attempt-moc" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
   Log another call<span class="govuk-visually-hidden"> to inform about the {% if (data['vclType'] == "stopped-charge") %}stopped charge{% elif (data['vclType'] == "altered-charge") %}substantially altered charge{% else %}VCL decision{% endif %}</span>
 </a>
 {% endif %}

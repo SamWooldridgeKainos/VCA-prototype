@@ -24,7 +24,7 @@
   You must inform {{ data['victimForename'] }} {{ data['victimSurname'] }} by post because you were unable to by phone.
 </p>
 
-<a href="/v50/pcd/send/letter-details" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/v50/pcd/send/letter-details" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
     Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
 </a>
 {% endblock %}

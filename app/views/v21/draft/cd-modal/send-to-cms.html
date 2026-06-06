@@ -23,11 +23,11 @@
           Cancel
         </button>
         {% if (data['pmoc'] == "email") or (data['fumoc'] == "email") or (data['attemptToContactAgain'] == "Email") %}
-        <a href="/v21/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+        <a href="/v21/send/check-email-details?success=no" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
           Confirm
         </a>
         {% elif (data['pmoc'] == "post") or (data['fumoc'] == "post") or (data['fumoc'] == "none") or (data['nfaStatus'] == "after-call-attempt-3") or (data['nfaStatus'] == "draft-ready-to-send") or (data['attemptToContactAgain'] == "Post") %}
-        <a href="/v21/victim-record?nfaStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send#communications" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+        <a href="/v21/victim-record?nfaStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send#communications" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
           Confirm
         </a>
         {% endif %}

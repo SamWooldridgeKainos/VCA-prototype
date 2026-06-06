@@ -17,11 +17,11 @@
       </p>
 
       {% if (data['preferredMethodOfContact'] == "Email") %}
-        <a href="/v12/check-details--email" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v12/check-details--email" class="govuk-button" data-module="govuk-button">
           Save email (return to VCA)
         </a>
       {% elif (data['preferredMethodOfContact'] == "Post") %}
-        <a href="/v12/check-details" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href="/v12/check-details" class="govuk-button" data-module="govuk-button">
           Save letter (return to VCA)
         </a>
       {% endif %}

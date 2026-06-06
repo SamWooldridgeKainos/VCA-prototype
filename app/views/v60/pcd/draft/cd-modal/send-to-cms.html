@@ -38,19 +38,19 @@
               Cancel
             </button>
             {% if (data['pmoc'] == "email") or (data['pcdFumoc'] == "email") or (data['pcdAttemptToContactAgain'] == "email") %}
-            <a href="/v60/pcd/send/check-email-details?success=no" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v60/pcd/send/check-email-details?success=no" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['pmoc'] == "post") or (data['pcdFumoc'] == "post") or (data['pcdStatus'] == "after-call-attempt-3") or (data['pcdStatus'] == "draft-ready-to-send") or (data['pcdAttemptToContactAgain'] == "post") %}
-            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&secondaryNav=pcd" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% elif (data['pcdFumoc'] == "none") %}
-            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&pcdSent=na&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&pcdSent=na&secondaryNav=pcd" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% else %}
-            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&secondaryNav=pcd" role="button" draggable="false" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
+            <a href="/v60/victim?pcdStatus=draft-approved-to-send&success=yes&successReason=draft-approved-to-send&secondaryNav=pcd" class="govuk-button" id="send-to-cms-modal-confirm" data-module="govuk-button">
               Confirm
             </a>
             {% endif %}
