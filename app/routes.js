@@ -8,10 +8,14 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 const victimRecords = require('./data/victim-records')
 const taskRecords = require('./data/task-records')
+const taskAssignees = require('./data/task-assignees')
+const cpsAreas = require('./data/cps-areas')
 
 router.use(function (req, res, next) {
   res.locals.victimRecords = victimRecords
   res.locals.taskRecords = taskRecords
+  res.locals.taskAssignees = taskAssignees
+  res.locals.cpsAreas = cpsAreas
   next()
 })
 
