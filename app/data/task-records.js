@@ -2,31 +2,31 @@ module.exports = [
   {
     surname: 'DOE',
     forename: 'Jane',
-    task: 'Inform of decision to charge',
+    task: 'Inform of a decision to charge',
     dueDate: 'Thursday, 13 November 2025',
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
     area: 'London',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Check and send'
+    nextAction: 'Select letter dispatch method'
   },
   {
     surname: 'SMITH',
     forename: 'John',
-    task: 'Inform of no further action decision',
+    task: 'Inform of a no further action decision',
     dueDate: 'Friday, 14 November 2025',
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Enhanced',
     area: 'Manchester',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Call again at 14:00'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'SMITH',
     forename: 'Jackie',
-    task: 'Arrange CPS pre-trial meeting',
+    task: 'Log offered meeting',
     purpose: 'CPS pre-trial meeting',
     dueDate: 'Friday, 14 November 2025',
     dueDateTag: 'Due today',
@@ -34,44 +34,55 @@ module.exports = [
     service: 'RASSO',
     area: 'West Midlands',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'View letter and make call'
+    nextAction: 'Log offer'
   },
   {
     surname: 'JOHNSON',
     forename: 'Alice',
-    task: 'Inform of substantially altered charge (VCL)',
+    task: 'Inform of a no further action decision',
     dueDate: 'Monday, 17 November 2025',
     service: 'Universal',
     area: 'Kent',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Amend draft'
+    nextAction: 'Log a communication'
+  },
+  {
+    surname: 'PHILLIPS',
+    forename: 'Sarah',
+    task: 'Log offered meeting',
+    purpose: 'CPS pre-trial meeting',
+    dueDate: 'Wednesday, 19 November 2025',
+    service: 'Universal',
+    area: 'London',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Log offer'
   },
   {
     surname: 'JONES',
     forename: 'Oliver A',
-    task: 'Inform of no further action decision',
+    task: 'Inform of a no further action decision',
     dueDate: 'Thursday, 13 November 2025',
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
     area: 'Avon and Somerset',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Finish and send'
+    nextAction: 'Log email'
   },
   {
     surname: 'PATEL',
     forename: 'Aisha',
-    task: 'Inform of no further action decision',
+    task: 'Inform of a no further action decision',
     dueDate: 'Thursday, 20 November 2025',
     service: 'RASSO',
     area: 'Greater Manchester',
     taskAssignee: 'KUMAR, Priya',
-    nextAction: 'Draft letter'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'BROWN',
     forename: 'Michael',
-    task: 'Arrange a CPS pre-trial meeting',
+    task: 'Log arranged meeting',
     purpose: 'CPS pre-trial meeting',
     dueDate: 'Sunday, 16 November 2025',
     dueDateTag: 'Due today',
@@ -79,34 +90,34 @@ module.exports = [
     service: 'Enhanced',
     area: 'Hertfordshire',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Contact court liaison'
+    nextAction: 'Confirm arranged meeting'
   },
   {
     surname: 'WILLIAMS',
     forename: 'Rebecca',
-    task: 'Inform of a stopped charge',
+    task: 'Inform of a decision to charge',
     dueDate: 'Monday, 10 November 2025',
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
     area: 'Lancashire',
     taskAssignee: 'Unassigned',
-    nextAction: 'Check and send'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'TAYLOR',
     forename: 'Emma',
-    task: 'Inform of decision to charge',
+    task: 'Inform of a decision to charge',
     dueDate: 'Saturday, 22 November 2025',
     service: 'RASSO',
     area: 'Merseyside',
     taskAssignee: 'BISHOP, James',
-    nextAction: 'Review draft'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'DAVIES',
     forename: 'Thomas',
-    task: 'Arrange CPS pre-trial meeting',
+    task: 'Log arranged meeting',
     purpose: 'CPS pre-trial meeting',
     dueDate: 'Friday, 14 November 2025',
     dueDateTag: 'Due today',
@@ -114,32 +125,24 @@ module.exports = [
     service: 'Enhanced',
     area: 'South Wales',
     taskAssignee: 'MORRISON, Claire',
-    nextAction: 'Schedule meeting'
-  },
-  {
-    surname: 'WIGGINS',
-    forename: 'Barry',
-    task: 'Inform of stopped charge (VCL)',
-    dueDate: 'Wednesday, 19 November 2025',
-    service: 'Enhanced',
-    area: 'Essex',
-    taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Amend draft'
+    nextAction: 'Confirm arranged meeting'
   },
   {
     surname: 'WILSON',
     forename: 'Charlotte',
-    task: 'Inform of a substantially altered charge',
+    task: 'Log meeting outcome',
+    purpose: 'CPS pre-trial meeting',
     dueDate: 'Tuesday, 18 November 2025',
     service: 'Universal',
     area: 'Norfolk',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'View letter and make call'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'EVANS',
     forename: 'Sophie',
-    task: 'Inform of substantially altered charge (VCL)',
+    task: 'Log meeting outcome',
+    purpose: 'CPS pre-trial meeting',
     dueDate: 'Saturday, 15 November 2025',
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
@@ -156,7 +159,7 @@ module.exports = [
     service: 'Enhanced',
     area: 'West Yorkshire',
     taskAssignee: 'ANDERSON, David',
-    nextAction: 'Draft letter'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'CLARK',
@@ -168,28 +171,28 @@ module.exports = [
     service: 'Universal',
     area: 'Gloucestershire',
     taskAssignee: 'WRIGHT, Hannah',
-    nextAction: 'Call again at 15:30'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'LEWIS',
     forename: 'James',
-    task: 'Inform of stopped charge (VCL)',
+    task: 'Inform of a decision to charge',
     dueDate: 'Friday, 21 November 2025',
     service: 'Enhanced',
     area: 'Hampshire',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Check eligibility'
+    nextAction: 'Log a communication'
   },
   {
     surname: 'WALKER',
     forename: 'Amelia',
-    task: 'Inform of decision to charge',
+    task: 'Inform of a decision to charge',
     dueDate: 'Friday, 14 November 2025',
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
     area: 'Bedfordshire',
     taskAssignee: 'MARTINEZ, Carlos',
-    nextAction: 'Check details'
+    nextAction: 'Log a communication'
   }
 ]
