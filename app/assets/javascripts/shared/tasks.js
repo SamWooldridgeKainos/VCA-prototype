@@ -22,6 +22,7 @@ var initialSetupComplete = false;
             serviceChecked: [],
             dueChecked: [],
             taskTypeChecked: [],
+            meetingPurposeChecked: [],
             searchFormSubmitted: searchFormSubmitted,
             taskAssigneeInput: document.querySelector('#assignee-autocomplete-input') ? document.querySelector('#assignee-autocomplete-input').value : '',
             areaInput: document.querySelector('#area-autocomplete-input') ? document.querySelector('#area-autocomplete-input').value : ''
@@ -41,8 +42,8 @@ var initialSetupComplete = false;
             }
         });
         
-        // Collect checked Service checkboxes
-        document.querySelectorAll('.service-checkbox').forEach(function(cb) {
+        // Collect checked Service radios
+        document.querySelectorAll('.service-radio').forEach(function(cb) {
             if (cb.checked) {
                 state.serviceChecked.push(cb.id);
             }
@@ -59,6 +60,13 @@ var initialSetupComplete = false;
         document.querySelectorAll('.task-type-checkbox').forEach(function(cb) {
             if (cb.checked) {
                 state.taskTypeChecked.push(cb.id);
+            }
+        });
+        
+        // Collect checked Meeting Purpose checkboxes
+        document.querySelectorAll('.meeting-purpose-checkbox').forEach(function(cb) {
+            if (cb.checked) {
+                state.meetingPurposeChecked.push(cb.id);
             }
         });
         
@@ -127,6 +135,16 @@ var initialSetupComplete = false;
                 });
             }
             
+            // Restore Meeting Purpose checkboxes
+            if (state.meetingPurposeChecked) {
+                state.meetingPurposeChecked.forEach(function(id) {
+                    var checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+            
             // Restore search form submitted state
             searchFormSubmitted = state.searchFormSubmitted || false;
             
@@ -147,7 +165,7 @@ var initialSetupComplete = false;
 (function () {
 var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
 var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+var serviceCheckboxes = document.querySelectorAll('.service-radio');
 var clearFiltersWrapper = document.getElementById('clear-filters-wrapper');
 
 // Get inline selection containers
@@ -200,6 +218,7 @@ function createInlineChip(checkbox, container) {
 function updateClearFiltersVisibility() {
     var dueCheckboxes = document.querySelectorAll('.due-checkbox');
     var taskTypeCheckboxes = document.querySelectorAll('.task-type-checkbox');
+    var meetingPurposeCheckboxes = document.querySelectorAll('.meeting-purpose-checkbox');
     var hasCheckedFilters = Array.from(taskAssigneeCheckboxes).some(function (checkbox) {
         return checkbox.checked;
     }) || Array.from(areaCheckboxes).some(function (checkbox) {
@@ -209,6 +228,8 @@ function updateClearFiltersVisibility() {
     }) || Array.from(dueCheckboxes).some(function (checkbox) {
         return checkbox.checked;
     }) || Array.from(taskTypeCheckboxes).some(function (checkbox) {
+        return checkbox.checked;
+    }) || Array.from(meetingPurposeCheckboxes).some(function (checkbox) {
         return checkbox.checked;
     });
     
@@ -221,7 +242,7 @@ function updateClearFiltersVisibility() {
 function applyTaskFilters() {
     var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
-    var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+    var serviceCheckboxes = document.querySelectorAll('.service-radio');
     
     // Get all checked filter values
     var selectedAssignees = Array.from(taskAssigneeCheckboxes)
@@ -246,8 +267,13 @@ function applyTaskFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
+    var meetingPurposeCheckboxes = document.querySelectorAll('.meeting-purpose-checkbox');
+    var selectedMeetingPurposes = Array.from(meetingPurposeCheckboxes)
+        .filter(function(cb) { return cb.checked; })
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+    
     // Determine if search criteria filters are active
-    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0;
+    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0;
     
     // Get all task records (summary lists within margin-bottom-9 containers)
     var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
@@ -288,7 +314,7 @@ function applyTaskFilters() {
             var recordService = getFieldValue('Service lead');
             var matchesService = selectedServices.some(function(service) {
                 // Special handling for "Not aligned" filter
-                if (service === 'Not aligned') {
+                if (service === 'Not aligned' || service === 'Not aligned to a service') {
                     return recordService.indexOf('Not aligned') !== -1;
                 }
                 // Special handling for "Not onboarded" filter
@@ -331,12 +357,24 @@ function applyTaskFilters() {
             var matchesTaskType = selectedTaskTypes.some(function(taskType) {
                 if (taskType === 'Other') {
                     // Match anything not in the known task types
-                    var knownTypes = ['Inform of a decision to charge', 'Inform of a no further action decision', 'Log offered meeting', 'Log offer response', 'Log arranged meeting', 'Log meeting outcome'];
+                    var knownTypes = ['Inform of a decision to charge', 'Inform of a no further action decision', 'Inform of a stopped charge', 'Inform of a substantially altered charge', 'Arrange CPS pre-trial meeting', 'Arrange a CPS pre-trial meeting', 'Log offered meeting', 'Log arranged meeting', 'Log offer response', 'Log meeting outcome'];
                     return !knownTypes.some(function(known) { return recordTask.indexOf(known) !== -1; });
+                }
+                if (taskType === 'Arrange CPS pre-trial meeting') {
+                    return recordTask.indexOf('Arrange') !== -1 && recordTask.indexOf('pre-trial meeting') !== -1;
                 }
                 return recordTask.indexOf(taskType) !== -1;
             });
             shouldShow = shouldShow && matchesTaskType;
+        }
+        
+        // Check Meeting Purpose filter (only apply if search form has been submitted)
+        if (selectedMeetingPurposes.length > 0 && searchFormSubmitted) {
+            var recordPurpose = getFieldValue('Purpose');
+            var matchesMeetingPurpose = selectedMeetingPurposes.some(function(purpose) {
+                return recordPurpose.indexOf(purpose) !== -1;
+            });
+            shouldShow = shouldShow && matchesMeetingPurpose;
         }
         
         // If no search criteria submitted, show all tasks
@@ -441,6 +479,14 @@ if (clearFiltersLink) {
         uncheckAndTriggerChange(taskAssigneeCheckboxes);
         uncheckAndTriggerChange(areaCheckboxes);
         uncheckAndTriggerChange(serviceCheckboxes);
+        
+        // Clear due, task type, and meeting purpose checkboxes
+        var dueCheckboxes = document.querySelectorAll('.due-checkbox');
+        var taskTypeCheckboxes = document.querySelectorAll('.task-type-checkbox');
+        var meetingPurposeCheckboxes = document.querySelectorAll('.meeting-purpose-checkbox');
+        uncheckAndTriggerChange(dueCheckboxes);
+        uncheckAndTriggerChange(taskTypeCheckboxes);
+        uncheckAndTriggerChange(meetingPurposeCheckboxes);
         
         // Clear autocomplete inputs
         var assigneeInput = document.querySelector('#assignee-autocomplete-input');
@@ -652,7 +698,7 @@ initialSetupComplete = true;
         });
 
         var serviceChips = [];
-        document.querySelectorAll('.service-checkbox:checked').forEach(function(cb) {
+        document.querySelectorAll('.service-radio:checked').forEach(function(cb) {
             serviceChips.push({ label: cb.getAttribute('data-label'), input: cb });
         });
 
@@ -671,7 +717,12 @@ initialSetupComplete = true;
             taskTypeChips.push({ label: cb.getAttribute('data-label'), input: cb });
         });
 
-        var totalChips = assigneeChips.length + serviceChips.length + areaChips.length + dueChips.length + taskTypeChips.length;
+        var meetingPurposeChips = [];
+        document.querySelectorAll('.meeting-purpose-checkbox:checked').forEach(function(cb) {
+            meetingPurposeChips.push({ label: cb.getAttribute('data-label'), input: cb });
+        });
+
+        var totalChips = assigneeChips.length + serviceChips.length + areaChips.length + dueChips.length + taskTypeChips.length + meetingPurposeChips.length;
 
         // Update heading
         if (heading) {
@@ -739,12 +790,13 @@ initialSetupComplete = true;
         createSubSection('CPS area', areaChips);
         createSubSection('Due', dueChips);
         createSubSection('Task type', taskTypeChips);
+        createSubSection('Meeting purpose', meetingPurposeChips);
         isRenderingSelectedFilters = false;
     }
     window.renderSelectedFilters = renderSelectedFilters;
 
     // Update selected filters when any filter changes
-    document.querySelectorAll('.task-assignee-checkbox, .area-checkbox, .service-checkbox, .due-checkbox, .task-type-checkbox').forEach(function(cb) {
+    document.querySelectorAll('.task-assignee-checkbox, .area-checkbox, .service-radio, .due-checkbox, .task-type-checkbox, .meeting-purpose-checkbox').forEach(function(cb) {
         cb.addEventListener('change', function() {
             renderSelectedFilters();
         });
@@ -768,12 +820,14 @@ initialSetupComplete = true;
             document.querySelectorAll('.task-assignee-checkbox').forEach(function(cb) { cb.checked = false; });
             // Uncheck all Area checkboxes
             document.querySelectorAll('.area-checkbox').forEach(function(cb) { cb.checked = false; });
-            // Uncheck all Service checkboxes
-            document.querySelectorAll('.service-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Service radios
+            document.querySelectorAll('.service-radio').forEach(function(cb) { cb.checked = false; });
             // Uncheck all Due checkboxes
             document.querySelectorAll('.due-checkbox').forEach(function(cb) { cb.checked = false; });
             // Uncheck all Task Type checkboxes
             document.querySelectorAll('.task-type-checkbox').forEach(function(cb) { cb.checked = false; });
+            // Uncheck all Meeting Purpose checkboxes
+            document.querySelectorAll('.meeting-purpose-checkbox').forEach(function(cb) { cb.checked = false; });
             // Clear autocomplete inputs
             var assigneeInput = document.querySelector('#assignee-autocomplete-input');
             if (assigneeInput) assigneeInput.value = '';
