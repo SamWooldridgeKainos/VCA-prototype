@@ -890,4 +890,16 @@ module.exports = router => {
         response.redirect("/v60/other/other-logged")
     })
 
+    // Account change pages
+
+    router.post('/v60/account/change-role-answer', function(request, response) {
+
+        response.redirect("/v60/account")
+    })
+
+    router.post('/v60/account/change-unit-answer', function(request, response) {
+
+        response.redirect("/v60/account")
+    })
+
 }

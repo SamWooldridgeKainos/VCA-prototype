@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Change role" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="/v60/account" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v60/account/change-role-answer" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            What is your role?
+                        </h1>
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="role-1" name="role" type="radio" value="Victim liaison officer" {{ "checked" if (data['role'] or 'Victim liaison officer') == 'Victim liaison officer' }}>
+                            <label class="govuk-label govuk-radios__label" for="role-1">
+                                Victim liaison officer
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Victim liaison manager" {{ "checked" if data['role'] == 'Victim liaison manager' }}>
+                            <label class="govuk-label govuk-radios__label" for="role-2">
+                                Victim liaison manager
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

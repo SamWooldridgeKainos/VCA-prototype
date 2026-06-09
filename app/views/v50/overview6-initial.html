@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Overview" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/v60/partials/header/overview-selected.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Overview</h1>
+
+        <div class="app-overview-cards govuk-!-margin-bottom-9">
+            <a href="#" class="app-overview-card app-overview-card--grey" aria-label="Example card">
+                <span class="app-overview-card__count">#</span>
+                <span class="app-overview-card__status">example</span>
+            </a>
+            <a href="#" class="app-overview-card app-overview-card--grey" aria-label="Example card">
+                <span class="app-overview-card__count">#</span>
+                <span class="app-overview-card__status">example</span>
+            </a>
+        </div>
+
+        <p class="govuk-body">Add your role and unit to set up the Overview.</p>
+
+        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+
+    </div>
+</div>
+{% endblock %}
