@@ -66,3 +66,17 @@ addFilter('ageFromDob', dobString => {
   }
   return age
 })
+
+addFilter('nextWorkingDay', () => {
+  const today = new Date()
+  const next = new Date(today)
+  next.setDate(next.getDate() + 1)
+  // Skip weekends: Saturday (6) -> Monday, Sunday (0) -> Monday
+  while (next.getDay() === 0 || next.getDay() === 6) {
+    next.setDate(next.getDate() + 1)
+  }
+  const dd = String(next.getDate()).padStart(2, '0')
+  const mm = String(next.getMonth() + 1).padStart(2, '0')
+  const yyyy = next.getFullYear()
+  return `${dd}/${mm}/${yyyy}`
+})
