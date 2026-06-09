@@ -133,18 +133,18 @@
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-   Full name: ROSS, Jonathan<br/>
+  <!-- Full name: ROSS, Jonathan<br/>
           Email: jonathan.ross@cps.gov.uk<br/>
-            Telephone number: 07712345678<br/>
-
+            Telephone number: 07712345678<br/>-->
+  <a href="check-details/flo" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
                     </dd>
             
               
-                  <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="check-details/flo-completed">
+                 <!-- <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="check-details/flo">
                         Change<span class="govuk-visually-hidden"> service lead</span>
                     </a>
-                </dd>
+                </dd>-->
   
             </div>
 
@@ -336,14 +336,12 @@
             Now confirm their details
         </h2>
         <p class="govuk-body">
-            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
         </p>
-        <form action="/v60/onb/check-details-answer" method="post" novalidate>
-            <input type="hidden" name="answers-checked" value="true">
-            <button type="submit" class="govuk-button" data-module="govuk-button">
-                Confirm details
-            </button>
-        </form>
+         </p>
+        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
     </div>
 </div>
 {% endblock %}

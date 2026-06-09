@@ -127,6 +127,23 @@
                 </dd>
   
             </div>
+   <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Preferred case contact  
+                </dt>
+            
+                    <dd class="govuk-summary-list__value">
+                       Family Liaison Officer (FLO)
+                    </dd>
+            
+                 <dd class="govuk-summary-list__actions">
+                             <ul class="govuk-summary-list__actions-list">
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="case-contact"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+        </ul>
+                </dd>
+          
+  
+            </div>
 
 
                   <div class="govuk-summary-list__row">
@@ -289,14 +306,11 @@
             Now confirm their details
         </h2>
         <p class="govuk-body">
-            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
         </p>
-        <form action="/v60/onb/check-details-answer" method="post" novalidate>
-            <input type="hidden" name="answers-checked" value="true">
-            <button type="submit" class="govuk-button" data-module="govuk-button">
-                Confirm details
-            </button>
-        </form>
+        <a href=../next-task.html role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
     </div>
 </div>
 {% endblock %}
