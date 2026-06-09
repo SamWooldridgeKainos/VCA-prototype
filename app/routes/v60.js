@@ -319,6 +319,30 @@ module.exports = router => {
         }
     })
 
+
+    router.post('/ur/bfs/onb/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "dtc") {
+            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?pcdType=dtc")
+        } else if (nextTask == "nfa") {
+            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?pcdType=nfa")
+        } else if (nextTask == "stopped-charge") {
+            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?vclType=stopped-charge")
+        } else if (nextTask == "altered-charge") {
+            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?vclType=altered-charge")
+        } else if (nextTask == "other") {
+            response.redirect("/ur/bfs/onb/new-task/manual-task")
+        } else if (nextTask == "no-task") {
+            response.redirect("/ur/bfs/onb/new-task/check-task")
+        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
+            response.redirect("/ur/bfs/onb/new-task/meeting-purpose")
+        } else {
+            response.redirect("/ur/bfs/onb/new-task/task-due-date")
+        }
+    })
+
     router.post('/v60/victim/new-task/meeting-purpose-answer', function(request, response) {
 
         response.redirect("/v60/victim/new-task/task-due-date")
@@ -340,6 +364,12 @@ module.exports = router => {
     router.post('/v60/victim/new-task/manual-task-answer', function(request, response) {
 
         response.redirect("/v60/victim/new-task/check-task?manualTask=yes")
+    })
+
+
+       router.post('/ur/bfs/onb/new-task/manual-task-answer', function(request, response) {
+
+        response.redirect("/ur/bfs/onb/new-task/check-task?manualTask=yes")
     })
 
     router.post('/v60/victim/new-task/check-task-answer', function(request, response) {
