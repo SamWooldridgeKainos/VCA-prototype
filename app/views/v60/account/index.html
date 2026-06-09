@@ -31,7 +31,7 @@
                 <dt class="govuk-summary-list__key">Role</dt>
                 <dd class="govuk-summary-list__value">{{ data['role'] or 'Victim liaison officer' }}</dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> role</span></a>
+                    <a class="govuk-link" href="/v60/account/change-role">Change<span class="govuk-visually-hidden"> role</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -43,9 +43,9 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">Unit</dt>
-                <dd class="govuk-summary-list__value">CPS London South<br>CPS London North</dd>
+                <dd class="govuk-summary-list__value">{% if data['unit'] %}{{ data['unit'] | join('<br>') | safe }}{% else %}CPS London South<br>CPS London North{% endif %}</dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> unit</span></a>
+                    <a class="govuk-link" href="/v60/account/change-unit">Change<span class="govuk-visually-hidden"> unit</span></a>
                 </dd>
             </div>
         </dl>

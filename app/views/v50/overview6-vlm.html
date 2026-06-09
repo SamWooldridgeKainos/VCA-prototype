@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Overview" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/v60/partials/header/overview-selected.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Overview</h1>
+
+        <h2 class="govuk-heading-m">Assigned to my units</h2>
+
+        <div class="app-overview-cards govuk-!-margin-bottom-9">
+            <a href="/v60/tasks" class="app-overview-card app-overview-card--red" aria-label="View overdue directions">
+                <span class="app-overview-card__count">10</span>
+                <span class="app-overview-card__status">overdue tasks</span>
+            </a>
+            <a href="/v60/tasks" class="app-overview-card app-overview-card--orange" aria-label="View directions due today">
+                <span class="app-overview-card__count">27</span>
+                <span class="app-overview-card__status">tasks due today</span>
+            </a>
+            <a href="/v60/tasks" class="app-overview-card app-overview-card--yellow" aria-label="View unassigned tasks">
+                <span class="app-overview-card__count">5</span>
+                <span class="app-overview-card__status">unassigned tasks</span>
+            </a>
+        </div>
+
+        <h2 class="govuk-heading-m">Unit breakdown</h2>
+
+        <table class="govuk-table govuk-table--small-text-until-tablet">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Unit</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Overdue tasks</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Tasks due today</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">Unassigned tasks</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">CPS London South</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">6</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">15</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">3</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">CPS London North</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">4</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">12</a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link" href="/v60/tasks">2</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
