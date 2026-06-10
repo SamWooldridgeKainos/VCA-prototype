@@ -161,7 +161,7 @@ module.exports = [
     service: 'RASSO',
     area: 'Devon and Cornwall',
     taskAssignee: 'HAYES, Michael',
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
   },
   {
     surname: 'ROBERTS',
@@ -272,7 +272,7 @@ module.exports = [
     service: 'RASSO',
     area: 'Sussex',
     taskAssignee: "O'CONNELL, Siobhan",
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
   },
   {
     surname: 'CAMPBELL',
@@ -428,7 +428,7 @@ module.exports = [
     service: 'Enhanced',
     area: 'Stafford',
     taskAssignee: 'STEWART, James',
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
   },
   {
     surname: 'GRIFFITHS',
@@ -574,7 +574,7 @@ module.exports = [
     service: 'Universal',
     area: 'Bedfordshire',
     taskAssignee: 'MARTINEZ, Carlos',
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
   },
   {
     surname: 'HENDERSON',
@@ -730,7 +730,7 @@ module.exports = [
     service: 'Universal',
     area: 'London',
     taskAssignee: 'THOMPSON, Sarah (you)',
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
   },
   {
     surname: 'CHANDLER',
@@ -886,6 +886,253 @@ module.exports = [
     service: 'Enhanced',
     area: 'Nottinghamshire',
     taskAssignee: 'GARCÍA, Luis',
-    nextAction: 'Continue draft'
+    nextAction: 'Log outcome'
+  },
+  {
+    surname: 'BRADY',
+    forename: 'Sienna',
+    task: 'Log offer response',
+    purpose: 'CPS pre-trial meeting',
+    dueDate: formatDate(2),
+    service: 'Universal',
+    area: 'London',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'WHITFIELD',
+    forename: 'Aaron',
+    task: 'Log offer response',
+    purpose: 'Inform victim about charging decision',
+    dueDate: formatDate(5),
+    service: 'RASSO',
+    area: 'Greater Manchester',
+    taskAssignee: 'KUMAR, Priya',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'MAGUIRE',
+    forename: 'Tara',
+    task: 'Log offer response',
+    purpose: 'Stopped or substantially altered charge (VCL Scheme)',
+    dueDate: formatDate(-2),
+    dueDateTag: 'Overdue',
+    dueDateTagColor: 'red',
+    service: 'Enhanced',
+    area: 'South Wales',
+    taskAssignee: 'MORRISON, Claire',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'SINCLAIR',
+    forename: 'Hamish',
+    task: 'Log offer response',
+    purpose: "Victims' Right to Review (VRR)",
+    dueDate: formatDate(7),
+    service: 'Universal',
+    area: 'Lancashire',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'QUINN',
+    forename: 'Molly',
+    task: 'Log offer response',
+    purpose: 'Victim complaint',
+    dueDate: formatDate(0),
+    dueDateTag: 'Due today',
+    dueDateTagColor: 'pink',
+    service: 'RASSO',
+    area: 'Merseyside',
+    taskAssignee: 'BISHOP, James',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'THORNTON',
+    forename: 'Callum',
+    task: 'Log offer response',
+    purpose: 'Other',
+    dueDate: formatDate(10),
+    service: 'Enhanced',
+    area: 'West Yorkshire',
+    taskAssignee: 'ANDERSON, David',
+    nextAction: 'Log response'
+  },
+  {
+    surname: 'CALDWELL',
+    forename: 'Rosie',
+    task: 'Log offered meeting',
+    purpose: 'Inform victim about charging decision',
+    dueDate: formatDate(6),
+    service: 'Universal',
+    area: 'London',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Log offer'
+  },
+  {
+    surname: 'NORRIS',
+    forename: 'Jake',
+    task: 'Log offered meeting',
+    purpose: 'Stopped or substantially altered charge (VCL Scheme)',
+    dueDate: formatDate(0),
+    dueDateTag: 'Due today',
+    dueDateTagColor: 'pink',
+    service: 'RASSO',
+    area: 'Devon and Cornwall',
+    taskAssignee: 'HAYES, Michael',
+    nextAction: 'Log offer'
+  },
+  {
+    surname: 'HARGREAVES',
+    forename: 'Ellie',
+    task: 'Log offered meeting',
+    purpose: "Victims' Right to Review (VRR)",
+    dueDate: formatDate(14),
+    service: 'Enhanced',
+    area: 'Lincolnshire',
+    taskAssignee: 'CHEN, Michael',
+    nextAction: 'Log offer'
+  },
+  {
+    surname: 'INGRAM',
+    forename: 'Dominic',
+    task: 'Log offered meeting',
+    purpose: 'Victim complaint',
+    dueDate: formatDate(-3),
+    dueDateTag: 'Overdue',
+    dueDateTagColor: 'red',
+    service: 'Universal',
+    area: 'Humberside',
+    taskAssignee: 'PATEL, Ravi',
+    nextAction: 'Log offer'
+  },
+  {
+    surname: 'DELANEY',
+    forename: 'Orla',
+    task: 'Log offered meeting',
+    purpose: 'Other',
+    dueDate: formatDate(18),
+    service: 'Universal',
+    area: 'North Yorkshire',
+    taskAssignee: 'JOHNSON, Patricia',
+    nextAction: 'Log offer'
+  },
+  {
+    surname: 'SUTTON',
+    forename: 'Miles',
+    task: 'Log arranged meeting',
+    purpose: 'Inform victim about charging decision',
+    dueDate: formatDate(8),
+    service: 'Universal',
+    area: 'London',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Confirm arranged meeting'
+  },
+  {
+    surname: 'ELLIOT',
+    forename: 'Maisie',
+    task: 'Log arranged meeting',
+    purpose: 'Stopped or substantially altered charge (VCL Scheme)',
+    dueDate: formatDate(-5),
+    dueDateTag: 'Overdue',
+    dueDateTagColor: 'red',
+    service: 'Enhanced',
+    area: 'Nottinghamshire',
+    taskAssignee: 'GARCÍA, Luis',
+    nextAction: 'Confirm arranged meeting'
+  },
+  {
+    surname: 'HOUGHTON',
+    forename: 'Declan',
+    task: 'Log arranged meeting',
+    purpose: "Victims' Right to Review (VRR)",
+    dueDate: formatDate(11),
+    service: 'RASSO',
+    area: 'Sussex',
+    taskAssignee: "O'CONNELL, Siobhan",
+    nextAction: 'Confirm arranged meeting'
+  },
+  {
+    surname: 'BUCKLEY',
+    forename: 'Saoirse',
+    task: 'Log arranged meeting',
+    purpose: 'Victim complaint',
+    dueDate: formatDate(0),
+    dueDateTag: 'Due today',
+    dueDateTagColor: 'pink',
+    service: 'Universal',
+    area: 'Cambridgeshire',
+    taskAssignee: 'HENDERSON, Louise',
+    nextAction: 'Confirm arranged meeting'
+  },
+  {
+    surname: 'MARSDEN',
+    forename: 'Theo',
+    task: 'Log arranged meeting',
+    purpose: 'Other',
+    dueDate: formatDate(16),
+    service: 'Enhanced',
+    area: 'Stafford',
+    taskAssignee: 'STEWART, James',
+    nextAction: 'Confirm arranged meeting'
+  },
+  {
+    surname: 'KIRBY',
+    forename: 'Pippa',
+    task: 'Log meeting outcome',
+    purpose: 'Inform victim about charging decision',
+    dueDate: formatDate(4),
+    service: 'Universal',
+    area: 'London',
+    taskAssignee: 'THOMPSON, Sarah (you)',
+    nextAction: 'Log outcome'
+  },
+  {
+    surname: 'WHITMORE',
+    forename: 'Ethan',
+    task: 'Log meeting outcome',
+    purpose: 'Stopped or substantially altered charge (VCL Scheme)',
+    dueDate: formatDate(0),
+    dueDateTag: 'Due today',
+    dueDateTagColor: 'pink',
+    service: 'RASSO',
+    area: 'Suffolk',
+    taskAssignee: 'LEWIS, Elizabeth',
+    nextAction: 'Log outcome'
+  },
+  {
+    surname: 'ROONEY',
+    forename: 'Caoimhe',
+    task: 'Log meeting outcome',
+    purpose: "Victims' Right to Review (VRR)",
+    dueDate: formatDate(-4),
+    dueDateTag: 'Overdue',
+    dueDateTagColor: 'red',
+    service: 'Universal',
+    area: 'Cheshire',
+    taskAssignee: 'WILLIAMS, Anna',
+    nextAction: 'Log outcome'
+  },
+  {
+    surname: 'LANGLEY',
+    forename: 'Imogen',
+    task: 'Log meeting outcome',
+    purpose: 'Victim complaint',
+    dueDate: formatDate(13),
+    service: 'Enhanced',
+    area: 'Warwickshire',
+    taskAssignee: 'CLARK, Victoria',
+    nextAction: 'Log outcome'
+  },
+  {
+    surname: 'FINCH',
+    forename: 'Oscar',
+    task: 'Log meeting outcome',
+    purpose: 'Other',
+    dueDate: formatDate(19),
+    service: 'Universal',
+    area: 'Thames Valley',
+    taskAssignee: 'WALKER, George',
+    nextAction: 'Log outcome'
   }
 ]
