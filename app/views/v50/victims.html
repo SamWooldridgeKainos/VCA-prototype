@@ -91,19 +91,7 @@
               </label>
               <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" value="">
             </div>
-            <div class="govuk-form-group govuk-!-margin-top-4">
-              <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                  Witnesses
-                </legend>
-                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-                  <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input non-victim-checkbox" id="non-victim-1" name="non-victim" type="checkbox" value="show-non-victims" data-label="Show non-victims">
-                    <label class="govuk-label govuk-checkboxes__label" for="non-victim-1">Show victims and witnesses</label>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
+
         </div>
 
         <div id="vlo-only-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
@@ -121,90 +109,12 @@
               <ul id="vlo-only-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
               </ul>
               <div id="vlo-only-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for vlo in vloOfficers %}
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-1" name="vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-1">THOMPSON, Sarah (you)</label>
+                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-{{ loop.index }}" name="vlo" type="checkbox" value="{{ vlo.id }}" data-label="{{ vlo.label }}"{% if vlo.checked %} checked{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-{{ loop.index }}">{{ vlo.label }}</label>
                 </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-21" name="vlo" type="checkbox" value="unassigned" data-label="Unassigned">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-21">Unassigned</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-2" name="vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-2">KUMAR, Priya</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-3" name="vlo" type="checkbox" value="bishop-james" data-label="BISHOP, James">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-3">BISHOP, James</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-4" name="vlo" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-4">MORRISON, Claire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-5" name="vlo" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-5">HAYES, Michael</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-6" name="vlo" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-6">ANDERSON, David</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-7" name="vlo" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-7">WRIGHT, Hannah</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-8" name="vlo" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-8">MARTINEZ, Carlos</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-9" name="vlo" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-9">JOHNSON, Patricia</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-10" name="vlo" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-10">CHEN, Michael</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-11" name="vlo" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-11">PATEL, Ravi</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-12" name="vlo" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-12">O'CONNELL, Siobhan</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-13" name="vlo" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-13">THOMPSON, Robert</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-14" name="vlo" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-14">GARCÍA, Luis</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-15" name="vlo" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-15">HENDERSON, Louise</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-16" name="vlo" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-16">WILLIAMS, Anna</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-17" name="vlo" type="checkbox" value="stewart-james" data-label="STEWART, James">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-17">STEWART, James</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-18" name="vlo" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-18">LEWIS, Elizabeth</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-19" name="vlo" type="checkbox" value="walker-george" data-label="WALKER, George">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-19">WALKER, George</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-20" name="vlo" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-20">CLARK, Victoria</label>
-                </div>
+                {% endfor %}
               </div>
             </fieldset>
           </div>
@@ -252,134 +162,12 @@
               <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
               </ul>
               <div id="area-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for area in cpsAreas %}
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-1" name="area" type="checkbox" value="avon-somerset" data-label="Avon and Somerset">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-1">Avon and Somerset</label>
+                  <input class="govuk-checkboxes__input area-checkbox" id="area-{{ loop.index }}" name="area" type="checkbox" value="{{ area.id }}" data-label="{{ area.label }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="area-{{ loop.index }}">{{ area.label }}</label>
                 </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-2" name="area" type="checkbox" value="bedfordshire" data-label="Bedfordshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-2">Bedfordshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-3" name="area" type="checkbox" value="cambridgeshire" data-label="Cambridgeshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-3">Cambridgeshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-4" name="area" type="checkbox" value="cheshire" data-label="Cheshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-4">Cheshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-5" name="area" type="checkbox" value="cleveland" data-label="Cleveland">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-5">Cleveland</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-6" name="area" type="checkbox" value="cumbria" data-label="Cumbria">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-6">Cumbria</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-7" name="area" type="checkbox" value="devon-cornwall" data-label="Devon and Cornwall">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-7">Devon and Cornwall</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-8" name="area" type="checkbox" value="durham" data-label="Durham">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-8">Durham</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-9" name="area" type="checkbox" value="dyfed-powys" data-label="Dyfed Powys">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-9">Dyfed Powys</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-10" name="area" type="checkbox" value="essex" data-label="Essex">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-10">Essex</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-11" name="area" type="checkbox" value="gloucestershire" data-label="Gloucestershire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-11">Gloucestershire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-12" name="area" type="checkbox" value="greater-manchester" data-label="Greater Manchester">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-12">Greater Manchester</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-13" name="area" type="checkbox" value="gwent" data-label="Gwent">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-13">Gwent</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-14" name="area" type="checkbox" value="hampshire-iow" data-label="Hampshire and Isle of Wight">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-14">Hampshire and Isle of Wight</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-15" name="area" type="checkbox" value="hertfordshire" data-label="Hertfordshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-15">Hertfordshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-16" name="area" type="checkbox" value="hmcpsi" data-label="HMCPSI">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-16">HMCPSI</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-17" name="area" type="checkbox" value="humberside" data-label="Humberside">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-17">Humberside</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-18" name="area" type="checkbox" value="kent" data-label="Kent">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-18">Kent</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-19" name="area" type="checkbox" value="lancashire" data-label="Lancashire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-19">Lancashire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-20" name="area" type="checkbox" value="leatherhead" data-label="Leatherhead">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-20">Leatherhead</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-21" name="area" type="checkbox" value="leicestershire" data-label="Leicestershire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-21">Leicestershire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-22" name="area" type="checkbox" value="lincolnshire" data-label="Lincolnshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-22">Lincolnshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-23" name="area" type="checkbox" value="london" data-label="London">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-23">London</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-24" name="area" type="checkbox" value="merseyside" data-label="Merseyside">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-24">Merseyside</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-25" name="area" type="checkbox" value="norfolk" data-label="Norfolk">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-25">Norfolk</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-26" name="area" type="checkbox" value="north-wales" data-label="North Wales">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-26">North Wales</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-27" name="area" type="checkbox" value="north-yorkshire" data-label="North Yorkshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-27">North Yorkshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-28" name="area" type="checkbox" value="northamptonshire" data-label="Northamptonshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-28">Northamptonshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-29" name="area" type="checkbox" value="northumbria" data-label="Northumbria">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-29">Northumbria</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-30" name="area" type="checkbox" value="nottinghamshire" data-label="Nottinghamshire">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-30">Nottinghamshire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-31" name="area" type="checkbox" value="rmu-area" data-label="Records Management Unit area">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-31">Records Management Unit area</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input area-checkbox" id="area-32" name="area" type="checkbox" value="south-wales" data-label="South Wales">
-                  <label class="govuk-label govuk-checkboxes__label" for="area-32">South Wales</label>
-                </div>
+                {% endfor %}
               </div>
             </fieldset>
           </div>
@@ -395,90 +183,12 @@
               <ul id="service-area-vlo-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
               </ul>
               <div id="service-area-vlo-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for vlo in vloOfficers %}
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-1" name="service-area-vlo" type="checkbox" value="thompson-sarah" data-label="THOMPSON, Sarah (you)">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-1">THOMPSON, Sarah (you)</label>
+                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-{{ loop.index }}" name="service-area-vlo" type="checkbox" value="{{ vlo.id }}" data-label="{{ vlo.label }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-{{ loop.index }}">{{ vlo.label }}</label>
                 </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-21" name="service-area-vlo" type="checkbox" value="unassigned" data-label="Unassigned">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-21">Unassigned</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-2" name="service-area-vlo" type="checkbox" value="kumar-priya" data-label="KUMAR, Priya">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-2">KUMAR, Priya</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-3" name="service-area-vlo" type="checkbox" value="bishop-james" data-label="BISHOP, James">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-3">BISHOP, James</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-4" name="service-area-vlo" type="checkbox" value="morrison-claire" data-label="MORRISON, Claire">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-4">MORRISON, Claire</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-5" name="service-area-vlo" type="checkbox" value="hayes-michael" data-label="HAYES, Michael">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-5">HAYES, Michael</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-6" name="service-area-vlo" type="checkbox" value="anderson-david" data-label="ANDERSON, David">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-6">ANDERSON, David</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-7" name="service-area-vlo" type="checkbox" value="wright-hannah" data-label="WRIGHT, Hannah">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-7">WRIGHT, Hannah</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-8" name="service-area-vlo" type="checkbox" value="martinez-carlos" data-label="MARTINEZ, Carlos">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-8">MARTINEZ, Carlos</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-9" name="service-area-vlo" type="checkbox" value="johnson-patricia" data-label="JOHNSON, Patricia">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-9">JOHNSON, Patricia</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-10" name="service-area-vlo" type="checkbox" value="chen-michael" data-label="CHEN, Michael">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-10">CHEN, Michael</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-11" name="service-area-vlo" type="checkbox" value="patel-ravi" data-label="PATEL, Ravi">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-11">PATEL, Ravi</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-12" name="service-area-vlo" type="checkbox" value="oconnell-siobhan" data-label="O'CONNELL, Siobhan">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-12">O'CONNELL, Siobhan</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-13" name="service-area-vlo" type="checkbox" value="thompson-robert" data-label="THOMPSON, Robert">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-13">THOMPSON, Robert</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-14" name="service-area-vlo" type="checkbox" value="garcía-luis" data-label="GARCÍA, Luis">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-14">GARCÍA, Luis</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-15" name="service-area-vlo" type="checkbox" value="henderson-louise" data-label="HENDERSON, Louise">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-15">HENDERSON, Louise</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-16" name="service-area-vlo" type="checkbox" value="williams-anna" data-label="WILLIAMS, Anna">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-16">WILLIAMS, Anna</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-17" name="service-area-vlo" type="checkbox" value="stewart-james" data-label="STEWART, James">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-17">STEWART, James</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-18" name="service-area-vlo" type="checkbox" value="lewis-elizabeth" data-label="LEWIS, Elizabeth">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-18">LEWIS, Elizabeth</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-19" name="service-area-vlo" type="checkbox" value="walker-george" data-label="WALKER, George">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-19">WALKER, George</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-20" name="service-area-vlo" type="checkbox" value="clark-victoria" data-label="CLARK, Victoria">
-                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-20">CLARK, Victoria</label>
-                </div>
+                {% endfor %}
               </div>
             </fieldset>
           </div>
@@ -533,14 +243,7 @@
                 WRIGHT, Nathan
               </dd>
             </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                Victim
-              </dt>
-              <dd class="govuk-summary-list__value">
-                Yes
-              </dd>
-            </div>
+
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
                 CPS area
@@ -617,14 +320,7 @@
                 {{ record.leadDefendant }}
               </dd>
             </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                Victim
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {{ record.victim }}
-              </dd>
-            </div>
+
             {% if record.area %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
@@ -747,47 +443,6 @@
     }
   })();
 
-  // Apply non-victim filter: hide records where Victim = "No" unless checkbox is checked
-  function applyNonVictimFilter() {
-    var showNonVictims = document.querySelector('.non-victim-checkbox:checked');
-    document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
-      var rows = record.querySelectorAll('.govuk-summary-list__row');
-      for (var i = 0; i < rows.length; i++) {
-        var keyEl = rows[i].querySelector('.govuk-summary-list__key');
-        if (keyEl && keyEl.textContent.trim() === 'Victim') {
-          var valueEl = rows[i].querySelector('.govuk-summary-list__value');
-          var victimValue = valueEl ? valueEl.textContent.trim() : '';
-          if (victimValue === 'No' && !showNonVictims) {
-            record.style.display = 'none';
-            record.setAttribute('data-filtered', 'hidden');
-            var parentWrapper = record.parentElement;
-            if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
-              parentWrapper.style.display = 'none';
-            }
-          }
-          break;
-        }
-      }
-    });
-    if (window.recalculatePagination) recalculatePagination();
-  }
-  window.applyNonVictimFilter = applyNonVictimFilter;
 
-  // Listen for non-victim checkbox changes
-  document.querySelectorAll('.non-victim-checkbox').forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      if (window.applySearch) applySearch();
-      applyNonVictimFilter();
-    });
-  });
-
-  // Hook into applySearch to also apply non-victim filter after search
-  var origApplySearch = window.applySearch;
-  if (origApplySearch) {
-    window.applySearch = function() {
-      origApplySearch();
-      applyNonVictimFilter();
-    };
-  }
 </script>
 {% endblock %}
