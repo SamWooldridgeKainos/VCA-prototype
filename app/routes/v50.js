@@ -429,11 +429,11 @@ module.exports = router => {
 
         } else {
             if (pcdCallAttempt == "1") {
-                response.redirect("/v50/victim?pcdStatus=informed-after-call-1&pcdFumoc=None&secondaryNav=pcd")
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-1&pcdFumoc=None&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications")
             } else if (pcdCallAttempt == "2") {
-                response.redirect("/v50/victim?pcdStatus=informed-after-call-2&pcdFumoc=None&secondaryNav=pcd")
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-2&pcdFumoc=None&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications")
             } else {
-                response.redirect("/v50/victim?pcdStatus=informed-after-call-3&pcdFumoc=None&secondaryNav=pcd")
+                response.redirect("/v50/victim?pcdStatus=informed-after-call-3&pcdFumoc=None&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications")
             }
         }
     })
