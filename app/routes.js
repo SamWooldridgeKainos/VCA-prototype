@@ -21,18 +21,18 @@ router.use(function (req, res, next) {
   next()
 })
 
-require('./routes/v10')(router)
-require('./routes/v11')(router)
-require('./routes/v12')(router)
+// require('./routes/v10')(router)
+// require('./routes/v11')(router)
+// require('./routes/v12')(router)
 
-require('./routes/v20')(router)
-require('./routes/v21')(router)
+// require('./routes/v20')(router)
+// require('./routes/v21')(router)
 
-require('./routes/v30')(router)
-require('./routes/v31')(router)
+// require('./routes/v30')(router)
+// require('./routes/v31')(router)
 
-require('./routes/v40')(router)
-require('./routes/v41')(router)
+// require('./routes/v40')(router)
+// require('./routes/v41')(router)
 require('./routes/v42')(router)
 
 require('./routes/v50')(router)

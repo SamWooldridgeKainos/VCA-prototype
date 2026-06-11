@@ -21,9 +21,9 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-    {% include "/v30/case-locked/banner/by-someone-else.html" %}
+    {% include "/ur/partials/case-locked/banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-    {% include "/v30/case-locked/banner/self-locked.html" %}
+    {% include "/ur/partials/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
 
@@ -142,15 +142,15 @@
       </ul>
 
       <div class="govuk-tabs__panel" id="summary">
-        {% include "/v30/victim-record/summary.html" %}
+        {% include "/ur/partials/victim-record/summary-v30.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
-        {% include "/v30/victim-record/victim-details.html" %}
+        {% include "/ur/partials/victim-record/victim-details-v30.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
-        {% include "/v30/victim-record/case-contacts.html" %}
+        {% include "/ur/partials/victim-record/case-contacts-v30.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
@@ -158,15 +158,15 @@
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pcd">
-        {% include "/v30/victim-record/pcd/index.html" %}
+        {% include "/ur/partials/victim-record/pcd/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pre-trial">
-        {% include "/v30/victim-record/pre-trial/index.html" %}
+        {% include "/ur/partials/victim-record/pre-trial/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="vcl">
-        {% include "/v30/victim-record/vcl/index.html" %}
+        {% include "/ur/partials/victim-record/vcl/index.html" %}
       </div>
     </div>
 
@@ -175,5 +175,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/v30/victim-record.js"></script>
+<script src="/public/javascripts/shared/record/victim-record-v30.js"></script>
 {% endblock %}
