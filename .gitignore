@@ -138,6 +138,37 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Old prototype versions (dependencies copied to shared/ and ur/partials/)
+app/routes/v10.js
+app/routes/v11.js
+app/routes/v12.js
+app/routes/v20.js
+app/routes/v21.js
+app/routes/v30.js
+app/routes/v31.js
+app/routes/v40.js
+app/routes/v41.js
+
+app/views/v10/
+app/views/v11/
+app/views/v12/
+app/views/v20/
+app/views/v21/
+app/views/v30/
+app/views/v31/
+app/views/v40/
+app/views/v41/
+
+app/assets/javascripts/v10/
+app/assets/javascripts/v11/
+app/assets/javascripts/v12/
+app/assets/javascripts/v20/
+app/assets/javascripts/v21/
+app/assets/javascripts/v30/
+app/assets/javascripts/v31/
+app/assets/javascripts/v40/
+app/assets/javascripts/v41/
+
 # Playwright
 /test-results/
 /playwright-report/
