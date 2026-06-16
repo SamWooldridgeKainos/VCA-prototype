@@ -24,6 +24,7 @@ var initialSetupComplete = false;
             taskTypeChecked: [],
             meetingPurposeChecked: [],
             searchFormSubmitted: searchFormSubmitted,
+            searchUrn: document.getElementById('search-urn') ? document.getElementById('search-urn').value : '',
             taskAssigneeInput: document.querySelector('#assignee-autocomplete-input') ? document.querySelector('#assignee-autocomplete-input').value : '',
             areaInput: document.querySelector('#area-autocomplete-input') ? document.querySelector('#area-autocomplete-input').value : ''
         };
@@ -147,6 +148,14 @@ var initialSetupComplete = false;
             
             // Restore search form submitted state
             searchFormSubmitted = state.searchFormSubmitted || false;
+            
+            // Restore search URN input
+            if (state.searchUrn) {
+                var searchInput = document.getElementById('search-urn');
+                if (searchInput) searchInput.value = state.searchUrn;
+                var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+                if (clearSearchWrapper) clearSearchWrapper.style.display = '';
+            }
             
             // Return true because we had saved state to restore from
             return true;
@@ -272,8 +281,12 @@ function applyTaskFilters() {
         .filter(function(cb) { return cb.checked; })
         .map(function(cb) { return cb.getAttribute('data-label'); });
     
+    // Get search term
+    var searchInput = document.getElementById('search-urn');
+    var searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    
     // Determine if search criteria filters are active
-    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0;
+    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0 || searchTerm !== '';
     
     // Get all task records (summary lists within margin-bottom-9 containers)
     var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
@@ -296,6 +309,20 @@ function applyTaskFilters() {
                 }
             }
             return '';
+        }
+        
+        // Check search term against victim name and case reference
+        if (searchTerm !== '' && searchFormSubmitted) {
+            var victimName = '';
+            var headingEl = container.querySelector('h2');
+            if (headingEl) {
+                var linkEl = headingEl.querySelector('a');
+                victimName = linkEl ? linkEl.textContent.trim() : headingEl.textContent.trim();
+            }
+            var caseReference = getFieldValue('Case reference');
+            var matchesSearch = victimName.toLowerCase().indexOf(searchTerm) !== -1 ||
+                               caseReference.toLowerCase().indexOf(searchTerm) !== -1;
+            shouldShow = shouldShow && matchesSearch;
         }
         
         // Check Task Assignee filter (only apply if search form has been submitted)
@@ -440,7 +467,7 @@ function updateResultsCount(visibleCount) {
     
     // Update results count text
     if (resultsCountTop) {
-        var RESULTS_PER_PAGE = 5;
+        var RESULTS_PER_PAGE = 10;
         var startResult = 1;
         var endResult = Math.min(RESULTS_PER_PAGE, countToShow);
         var resultsText = 'Showing results ' + startResult + ' to ' + endResult + ' of ' + countToShow + ' total results';
@@ -493,6 +520,12 @@ if (clearFiltersLink) {
         if (assigneeInput) assigneeInput.value = '';
         var areaInput = document.querySelector('#area-autocomplete-input');
         if (areaInput) areaInput.value = '';
+        
+        // Clear search input
+        var searchUrnInput = document.getElementById('search-urn');
+        if (searchUrnInput) searchUrnInput.value = '';
+        var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+        if (clearSearchWrapper) clearSearchWrapper.style.display = 'none';
         
         // Clear chips
         if (taskAssigneeChipsContainer) taskAssigneeChipsContainer.innerHTML = '';
@@ -554,6 +587,44 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
     attachFormListener();
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', attachFormListener);
+    }
+})();
+
+// Handle case reference / victim name search form
+(function() {
+    var searchInput = document.getElementById('search-urn');
+    if (!searchInput) return;
+
+    var caseRefSection = document.getElementById('case-reference-section');
+    var caseRefForm = caseRefSection ? caseRefSection.querySelector('form') : null;
+    if (caseRefForm) {
+        caseRefForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            searchFormSubmitted = true;
+            if (window.applyTaskFilters) window.applyTaskFilters();
+            // Show/hide clear search link
+            var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+            if (clearSearchWrapper) {
+                clearSearchWrapper.style.display = searchInput.value.trim() !== '' ? '' : 'none';
+            }
+            if (window.saveFiltersToStorage) window.saveFiltersToStorage();
+            if (window.renderSelectedFilters) window.renderSelectedFilters();
+        });
+    }
+
+    // Clear search link handler
+    var clearSearchLink = document.getElementById('clear-search-link');
+    if (clearSearchLink) {
+        clearSearchLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            searchInput.value = '';
+            var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+            if (clearSearchWrapper) clearSearchWrapper.style.display = 'none';
+            searchFormSubmitted = true;
+            if (window.applyTaskFilters) window.applyTaskFilters();
+            if (window.saveFiltersToStorage) window.saveFiltersToStorage();
+            if (window.renderSelectedFilters) window.renderSelectedFilters();
+        });
     }
 })();
 
@@ -833,6 +904,11 @@ initialSetupComplete = true;
             if (assigneeInput) assigneeInput.value = '';
             var areaInput = document.querySelector('#area-autocomplete-input');
             if (areaInput) areaInput.value = '';
+            // Clear search input
+            var searchInput = document.getElementById('search-urn');
+            if (searchInput) searchInput.value = '';
+            var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+            if (clearSearchWrapper) clearSearchWrapper.style.display = 'none';
             // Clear inline chips
             if (assigneeChipsEl) assigneeChipsEl.innerHTML = '';
             if (areaChipsEl) areaChipsEl.innerHTML = '';

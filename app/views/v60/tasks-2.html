@@ -83,6 +83,13 @@
 
       <form id="filters-form">
         <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="search-urn">
+            Case reference or victim name
+          </label>
+          <input type="text" class="govuk-input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="" value="">
+        </div>
+
+        <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend id="task-assignee-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Task assignee
@@ -490,266 +497,129 @@
 
   <div class="govuk-grid-column-three-quarters">
 
-    <div id="case-reference-section" class="moj-search govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
-      <form action="#" method="post">
-        <div class="govuk-form-group govuk-!-margin-bottom-0">
-
-          <label class="govuk-label govuk-label--s" for="search-urn">
-            Search by case reference or victim name
-          </label>
-
-          <div style="display: flex; gap: 10px; align-items: flex-start;">
-            <input type="text" class="govuk-input moj-search__input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="" value="">
-            <button type="submit" class="govuk-button moj-search__button govuk-!-margin-bottom-0" data-module="govuk-button">
-              Search
-            </button>
-          </div>
-
-        </div>
-      </form>
-
-      <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
-        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
-      </p>
-    </div>
-
     <p class="govuk-body-s" id="results-count"></p>
 
     <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Due date</p>
 
     <hr id="results-divider" class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6">
 
-    {% for record in taskRecords %}
-    {% if loop.index == 5 %}
-    {# Insert session-data record (PHILLIPS) between JOHNSON and JONES, maintaining original order #}
-    {% if (data['pcdSent'] == "yes") or (data['pcdFumoc'] == "None") %}
-
-    {% else %}
-      <div class="govuk-!-margin-bottom-9" id="manual-task-container">
-        <dl class="govuk-summary-list">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Victim</th>
+          <th scope="col" class="govuk-table__header">Task</th>
+          <th scope="col" class="govuk-table__header">Due date</th>
+          <th scope="col" class="govuk-table__header">Task assignee</th>
+          <th scope="col" class="govuk-table__header">Next action</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for record in taskRecords | sort(attribute='daysOffset') %}
+        {% if record.surname == 'PHILLIPS' and record.forename == 'Sarah' %}
+        {% if not ((data['pcdSent'] == "yes") or (data['pcdFumoc'] == "None")) %}
+        <tr class="govuk-table__row" id="manual-task-container" data-service="{% if data['onboardedStatus'] == 'Yes' %}{% if data['serviceLead'] == 'Not aligned' %}Not aligned{% else %}{{ data['serviceLead'] or data['service'] or 'Universal' }}{% endif %}{% else %}Not onboarded{% endif %}" data-area="{{ data['area'] or 'London' }}" data-victim-name="{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}" data-task-assignee="{{ data['taskAssignee'] or data['vlo'] or 'Unassigned' }}" data-due-tag="" data-task-type="{{ data['nextTask'] }}" data-purpose="{{ data['meetingPurpose'] or '' }}" data-case-reference="42MZ1139323/1">
+          <td class="govuk-table__cell">
             <a href="/v60/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
-          </h2>
-          
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Task
-            </dt>
-            <dd class="govuk-summary-list__value">
-              <span class="govuk-!-font-weight-bold">
-                {% if (data['nextTask'] == "dtc") %}
-                  Inform of a decision to charge
-                {% elif (data['nextTask'] == "nfa") %}
-                  Inform of a no further action decision
-                {% elif (data['nextTask'] == "stopped-charge") %}
-                  Inform of a stopped charge
-                {% elif (data['nextTask'] == "altered-charge") %}
-                  Inform of a substantially altered charge
-                {% elif (data['nextTask'] == "meeting-offer") %}
-                  Log offered meeting
-                {% elif (data['nextTask'] == "meeting-arranged") %}
-                  Log arranged meeting
-                {% elif (data['nextTask'] == "meeting-outcome") %}
-                  Log meeting outcome
-                {% elif (data['nextTask'] == "other") %}
-                  {{ data['manualTaskName'] }}
-                {% else %}
-                  {{ data['nextTask'] }}
-                {% endif %}
-              </span>
-            </dd>
-          </div>
-          {% if (data['nextTask'] == "meeting-offer") or (data['nextTask'] == "meeting-arranged") or (data['nextTask'] == "meeting-outcome") %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Purpose
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {% if data['meetingPurpose'] == "pre-trial" %}
-                CPS pre-trial meeting
-              {% elif data['meetingPurpose'] == "charging-decision" %}
-                Inform victim about charging decision
-              {% elif data['meetingPurpose'] == "stopped-altered" %}
-                Stopped or substantially altered charge (VCL Scheme)
-              {% elif data['meetingPurpose'] == "vrr" %}
-                Victims' Right to Review (VRR)
-              {% elif data['meetingPurpose'] == "complaint" %}
-                Complaint about victim care
-              {% else %}
-                {{ data['meetingPurposeDetails'] }}
-              {% endif %}
-            </dd>
-          </div>
-          {% endif %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Due date
-            </dt>
-            <dd class="govuk-summary-list__value due-date-value">
-              {{ data['taskDueDate'] | formatDate }}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a href="/v60/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row" style="display: none;">
-            <dt class="govuk-summary-list__key">
-              Service lead
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {% if data['onboardedStatus'] == 'Yes' %}
-                {% if data['serviceLead'] == 'Not aligned' %}
-                  Not aligned
-                {% else %}
-                  {{ data['serviceLead'] or data['service'] or 'Universal' }}
-                {% endif %}
-              {% else %}
-                Not onboarded
-              {% endif %}
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row" style="display: none;">
-            <dt class="govuk-summary-list__key">
-              CPS area
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ data['area'] or 'London' }}
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Task assignee
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ data['taskAssignee'] or data['vlo'] or 'Unassigned' }}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a href="/v60/task-assignee" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Next action
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") %}
-                {% if (data['pcdStatus'] == "log-not-started") %}
-                  <a href="/v60/pcd/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log a communication</a>
-                {% elif (data['pcdStatus'] == "before-text-logged") %}
-                  <a href="/v60/pcd/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
-                {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
-                  <a href="/v60/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
-                {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
-                  <a href="/v60/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
-                {% elif (data['pcdStatus'] == "select-fumoc") %}
-                  <a href="/v60/pcd/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
-                {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
-                  {% if (data['pcdFumoc'] == "email") %}
-                    <a href="/v60/pcd/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
-                  {% elif (data['pcdFumoc'] == "post") %}
-                    <a href="/v60/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
-                  {% endif %}
-                {% endif %}
-
-              {% elif (data['nextTask'] == "stopped-charge") or (data['nextTask'] == "altered-charge") %}
-                {% if (data['vclStatus'] == "log-not-started") %}
-                  <a href="/v60/vcl/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log a communication</a>
-                {% elif (data['vclStatus'] == "before-text-logged") %}
-                  <a href="/v60/vcl/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
-                {% elif (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") %}
-                  <a href="/v60/vcl/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
-                {% elif (data['vclStatus'] == "after-call-attempt-3") %}
-                  <a href="/v60/vcl/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
-                {% elif (data['vclStatus'] == "select-fumoc") %}
-                  <a href="/v60/vcl/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
-                {% elif (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") %}
-                  {% if (data['vclFumoc'] == "email") %}
-                    <a href="/v60/vcl/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
-                  {% elif (data['vclFumoc'] == "post") %}
-                    <a href="/v60/vcl/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
-                  {% endif %}
-                {% endif %}
+          </td>
+          <td class="govuk-table__cell">
+              {% if (data['nextTask'] == "dtc") %}
+                Inform of a decision to charge
+              {% elif (data['nextTask'] == "nfa") %}
+                Inform of a no further action decision
+              {% elif (data['nextTask'] == "stopped-charge") %}
+                Inform of a stopped charge
+              {% elif (data['nextTask'] == "altered-charge") %}
+                Inform of a substantially altered charge
+              {% elif (data['nextTask'] == "meeting-offer") %}
+                Log offered meeting
+              {% elif (data['nextTask'] == "meeting-arranged") %}
+                Log arranged meeting
+              {% elif (data['nextTask'] == "meeting-outcome") %}
+                Log meeting outcome
               {% elif (data['nextTask'] == "other") %}
-                <a href="/v60/update-manual-task" class="govuk-link govuk-link--no-visited-state">Update task</a>
+                {{ data['manualTaskName'] }}
+              {% else %}
+                {{ data['nextTask'] }}
               {% endif %}
-            </dd>
-          </div>
-        </dl>
-      </div>
-    {% endif %}
-    {% endif %}
-    <div class="govuk-!-margin-bottom-9">
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-        <a href="{{ '#' if loop.index != 1 else '/v60/victim?success=no' }}" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
-      </h2>
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Task
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <span class="govuk-!-font-weight-bold">{{ record.task }}</span>
-          </dd>
-        </div>
-        {% if record.purpose %}
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Purpose
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ record.purpose }}
-          </dd>
-        </div>
+            {% if (data['nextTask'] == "meeting-offer") or (data['nextTask'] == "meeting-arranged") or (data['nextTask'] == "meeting-outcome") %}
+            ({% if data['meetingPurpose'] == "pre-trial" %}CPS pre-trial meeting{% elif data['meetingPurpose'] == "charging-decision" %}Inform victim about charging decision{% elif data['meetingPurpose'] == "stopped-altered" %}Stopped or substantially altered charge (VCL Scheme){% elif data['meetingPurpose'] == "vrr" %}Victims' Right to Review (VRR){% elif data['meetingPurpose'] == "complaint" %}Complaint about victim care{% else %}{{ data['meetingPurposeDetails'] }}{% endif %})
+            {% endif %}
+          </td>
+          <td class="govuk-table__cell due-date-value">
+            {{ data['taskDueDate'] | formatDate }}<br>
+            <a href="/v60/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </td>
+          <td class="govuk-table__cell">
+            {{ data['taskAssignee'] or data['vlo'] or 'Unassigned' }}<br>
+            <a href="/v60/task-assignee" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </td>
+          <td class="govuk-table__cell">
+            {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") %}
+              {% if (data['pcdStatus'] == "log-not-started") %}
+                <a href="/v60/pcd/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log a communication</a>
+              {% elif (data['pcdStatus'] == "before-text-logged") %}
+                <a href="/v60/pcd/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
+              {% elif (data['pcdStatus'] == "after-call-attempt-1") or (data['pcdStatus'] == "after-call-attempt-2") %}
+                <a href="/v60/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
+              {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
+                <a href="/v60/pcd/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
+              {% elif (data['pcdStatus'] == "select-fumoc") %}
+                <a href="/v60/pcd/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
+              {% elif (data['pcdStatus'] == "informed-after-call-1") or (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus'] == "informed-after-call-3") %}
+                {% if (data['pcdFumoc'] == "email") %}
+                  <a href="/v60/pcd/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
+                {% elif (data['pcdFumoc'] == "post") %}
+                  <a href="/v60/pcd/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
+                {% endif %}
+              {% endif %}
+            {% elif (data['nextTask'] == "stopped-charge") or (data['nextTask'] == "altered-charge") %}
+              {% if (data['vclStatus'] == "log-not-started") %}
+                <a href="/v60/vcl/pre-draft/contacted-by" class="govuk-link govuk-link--no-visited-state">Log a communication</a>
+              {% elif (data['vclStatus'] == "before-text-logged") %}
+                <a href="/v60/vcl/call/was-text-message-sent" class="govuk-link govuk-link--no-visited-state">Log text message details</a>
+              {% elif (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") %}
+                <a href="/v60/vcl/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
+              {% elif (data['vclStatus'] == "after-call-attempt-3") %}
+                <a href="/v60/vcl/call/next-attempt-moc" class="govuk-link govuk-link--no-visited-state">Log another communication</a>
+              {% elif (data['vclStatus'] == "select-fumoc") %}
+                <a href="/v60/vcl/call/follow-up-moc" class="govuk-link govuk-link--no-visited-state">Select letter dispatch method</a>
+              {% elif (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") %}
+                {% if (data['vclFumoc'] == "email") %}
+                  <a href="/v60/vcl/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
+                {% elif (data['vclFumoc'] == "post") %}
+                  <a href="/v60/vcl/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
+                {% endif %}
+              {% endif %}
+            {% elif (data['nextTask'] == "other") %}
+              <a href="/v60/update-manual-task" class="govuk-link govuk-link--no-visited-state">Update task</a>
+            {% endif %}
+          </td>
+        </tr>
         {% endif %}
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Due date
-          </dt>
-          <dd class="govuk-summary-list__value due-date-value">
-            {% if record.dueDateTag %}<span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag">{{ record.dueDateTag }}</span><br class="due-date-break"> {% endif %}{{ record.dueDate }}
-          </dd>
-          <dd class="govuk-summary-list__actions">
+        {% else %}
+        <tr class="govuk-table__row" data-service="{{ record.service }}" data-area="{{ record.area }}" data-victim-name="{{ record.surname }}, {{ record.forename }}" data-task-assignee="{{ record.taskAssignee }}" data-due-tag="{{ record.dueDateTag or '' }}" data-task-type="{{ record.task }}" data-purpose="{{ record.purpose or '' }}" data-case-reference="{{ record.caseReference }}">
+          <td class="govuk-table__cell">
+            <a href="{{ '#' if loop.index != 1 else '/v60/victim?success=no' }}" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
+          </td>
+          <td class="govuk-table__cell">
+            {{ record.task }}{% if record.purpose %} ({{ record.purpose }}){% endif %}
+          </td>
+          <td class="govuk-table__cell due-date-value">
+            {% if record.dueDateTag %}<span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag govuk-!-margin-bottom-1">{{ record.dueDateTag }}</span><br class="due-date-break"> {% endif %}{{ record.dueDate }}<br>
             <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row" style="display: none;">
-          <dt class="govuk-summary-list__key">
-            Service lead
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ record.service }}
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row" style="display: none;">
-          <dt class="govuk-summary-list__key">
-            CPS area
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ record.area }}
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Task assignee
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{ record.taskAssignee }}
-          </dd>
-          <dd class="govuk-summary-list__actions">
+          </td>
+          <td class="govuk-table__cell">
+            {{ record.taskAssignee }}<br>
             <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Next action
-          </dt>
-          <dd class="govuk-summary-list__value">
+          </td>
+          <td class="govuk-table__cell">
             <a href="#" class="govuk-link govuk-link--no-visited-state">{{ record.nextAction }}</a>
-          </dd>
-        </div>
-      </dl>
-    </div>
-    {% endfor %}
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
 
     <nav class="govuk-pagination" aria-label="Pagination">
       <div class="govuk-pagination__prev" style="display: none;">
@@ -797,7 +667,6 @@
 <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
 <script src="/public/javascripts/shared/filter-data.js"></script>
 <script src="/public/javascripts/shared/pagination.js"></script>
-<script src="/public/javascripts/shared/tasks-pagination.js"></script>
-<script src="/public/javascripts/shared/tasks.js"></script>
+<script src="/public/javascripts/shared/tasks-table.js"></script>
 <script src="/public/javascripts/shared/tasks-autocomplete.js"></script>
 {% endblock %}
