@@ -12,6 +12,10 @@
   }
 }
 
+.govuk-table .due-date-break {
+  display: block;
+}
+
 .due-date-tag {
   @media (max-width: 640px) {
     margin-bottom: govuk-spacing(1);
@@ -20,7 +24,7 @@
 
 .tasks-filters {
   background-color: govuk-colour("light-grey");
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;
   margin-bottom: 2rem;
 
   @media (min-width: 641px) {

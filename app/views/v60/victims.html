@@ -380,20 +380,6 @@
           </fieldset>
         </div>
 
-        <div class="govuk-form-group govuk-!-margin-top-4">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Witnesses
-            </legend>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input non-victim-checkbox" id="non-victim-1" name="non-victim" type="checkbox" value="show-non-victims" data-label="Show non-victims">
-                <label class="govuk-label govuk-checkboxes__label" for="non-victim-1">Show victims and witnesses</label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-
       </form>
 
     </div>
@@ -426,7 +412,7 @@
 
     <p class="govuk-body" id="results-count"></p>
 
-    <p class="govuk-body" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Victims first, Last name (A to Z)</p>
+    <p class="govuk-body" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Last name (A to Z)</p>
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6" id="results-divider">
 
@@ -466,14 +452,6 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 WRIGHT, Nathan
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row" style="display: none;">
-              <dt class="govuk-summary-list__key">
-                Victim
-              </dt>
-              <dd class="govuk-summary-list__value">
-                Yes
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -558,14 +536,6 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ record.leadDefendant }}
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row"{% if record.victim == 'Yes' %} style="display: none;"{% endif %}>
-              <dt class="govuk-summary-list__key">
-                Victim
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {{ record.victim }}
               </dd>
             </div>
             {% if record.area %}
@@ -724,6 +694,7 @@
       }
       // Always hide non-victims unless "Show non-victims" is checked
       applyServiceLeadFilter();
+      applyCpsAreaFilter();
       applyNonVictimFilter();
     }
     window.ensureResultsVisible = ensureResultsVisible;
@@ -793,6 +764,40 @@
     }
     window.applyServiceLeadFilter = applyServiceLeadFilter;
 
+    // Apply CPS area filter using .area-checkbox checkboxes
+    function applyCpsAreaFilter() {
+      var selectedAreas = Array.from(document.querySelectorAll('.area-checkbox:checked'))
+        .map(function(cb) { return cb.getAttribute('data-label'); });
+      if (selectedAreas.length === 0) return;
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        // Skip already-hidden records
+        if (record.getAttribute('data-filtered') === 'hidden') return;
+        var rows = record.querySelectorAll('.govuk-summary-list__row');
+        var areaValue = '';
+        for (var i = 0; i < rows.length; i++) {
+          var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+          if (keyEl && keyEl.textContent.trim() === 'CPS area') {
+            var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+            areaValue = valueEl ? valueEl.textContent.trim() : '';
+            break;
+          }
+        }
+        var matches = selectedAreas.some(function(area) {
+          return areaValue === area;
+        });
+        if (!matches) {
+          record.style.display = 'none';
+          record.setAttribute('data-filtered', 'hidden');
+          var parentWrapper = record.parentElement;
+          if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+            parentWrapper.style.display = 'none';
+          }
+        }
+      });
+      if (window.recalculatePagination) recalculatePagination();
+    }
+    window.applyCpsAreaFilter = applyCpsAreaFilter;
+
     // Single Search button triggers both forms' logic
     var applyBtn = document.getElementById('apply-filters-button');
     if (applyBtn) {
@@ -801,6 +806,7 @@
         searchFormSubmitted = true;
         if (window.applyVictimFilters) applyVictimFilters();
         applyServiceLeadFilter();
+        applyCpsAreaFilter();
         if (window.applyVictimNameDobSearch) applyVictimNameDobSearch();
         if (window.saveFiltersToStorage) saveFiltersToStorage();
         ensureResultsVisible();
@@ -1005,6 +1011,28 @@
         ensureResultsVisible();
         renderSelectedFilters();
         initialSetupComplete = true;
+      });
+    }
+
+    // Override the shared clear-search-link handler to only clear the search input
+    // (shared JS also clears sidebar filters which is wrong for v60)
+    var clearSearchLink = document.getElementById('clear-search-link');
+    if (clearSearchLink) {
+      var newClearSearchLink = clearSearchLink.cloneNode(true);
+      clearSearchLink.parentNode.replaceChild(newClearSearchLink, clearSearchLink);
+      newClearSearchLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Clear the search input
+        var searchInput = document.getElementById('search-urn');
+        if (searchInput) searchInput.value = '';
+        // Hide the clear search wrapper
+        var clearWrapper = document.getElementById('clear-search-wrapper');
+        if (clearWrapper) clearWrapper.style.display = 'none';
+        // Re-apply filters and show results
+        searchFormSubmitted = true;
+        if (window.applyVictimFilters) applyVictimFilters();
+        ensureResultsVisible();
+        if (window.saveFiltersToStorage) saveFiltersToStorage();
       });
     }
 

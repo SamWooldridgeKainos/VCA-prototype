@@ -754,6 +754,32 @@ function hideServiceRowWhenOnboardedNo() {
     
     // Expose applySearch globally for use by restore logic
     window.applySearch = applySearch;
+
+    // Intercept the case reference search form submission to prevent page reload
+    var caseRefSection = document.getElementById('case-reference-section');
+    var caseRefForm = caseRefSection ? caseRefSection.querySelector('form') : null;
+    if (caseRefForm) {
+        caseRefForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            searchFormSubmitted = true;
+            applySearch();
+            // Apply additional filters (non-victim, service lead) if available
+            if (window.applyNonVictimFilter) {
+                window.applyNonVictimFilter();
+            }
+            if (window.applyServiceLeadFilter) {
+                window.applyServiceLeadFilter();
+            }
+            // Show/hide clear search link based on whether there's a search term
+            var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+            if (clearSearchWrapper) {
+                clearSearchWrapper.style.display = searchInput.value.trim() !== '' ? '' : 'none';
+            }
+            if (window.saveFiltersToStorage) {
+                window.saveFiltersToStorage();
+            }
+        });
+    }
 })();
 
 // For v50 and v42, clear saved filters and show no results by default.
