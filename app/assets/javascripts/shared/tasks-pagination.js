@@ -2,7 +2,7 @@
 // Depends on: pagination.js (PaginationCore)
 // Depends on globals: searchFormSubmitted
 (function() {
-    var RESULTS_PER_PAGE = 5;
+    var RESULTS_PER_PAGE = 10;
 
     function recalculatePagination() {
         var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
