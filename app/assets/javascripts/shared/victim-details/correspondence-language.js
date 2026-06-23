@@ -13,7 +13,7 @@ function validateForm() {
 
   var listHtml = '';
   if (!radioChecked) listHtml += '<li><a href="#error-message-radio">Select a preferred correspondence language</a></li>';
-  if (radioChecked && selectedValue === 'Other' && otherLanguage === '') listHtml += '<li><a href="#error-message-language">Enter a language</a></li>';
+  if (radioChecked && selectedValue === 'Other' && otherLanguage === '') listHtml += '<li><a href="#error-message-language">Enter their preferred correspondence language</a></li>';
 
   $('#myForm').before(
     '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list">' + listHtml + '</ul></div></div>'
@@ -27,7 +27,7 @@ function validateForm() {
 
   if (radioChecked && selectedValue === 'Other' && otherLanguage === '') {
     $('#error-form-group-language').addClass('govuk-form-group--error');
-    $('#other-language').before('<p class="govuk-error-message" id="error-message-language"><span class="govuk-visually-hidden">Error:</span> Enter a language</p>');
+    $('#other-language').before('<p class="govuk-error-message" id="error-message-language"><span class="govuk-visually-hidden">Error:</span> Enter their preferred correspondence language</p>');
     $('#other-language').addClass('govuk-input--error');
   }
 
