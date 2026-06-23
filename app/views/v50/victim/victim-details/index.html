@@ -303,9 +303,9 @@
                 <dt class="govuk-summary-list__key">
                     Preferred correspondence language
                 </dt>
-                {% if data['preferredCorrespondenceLanguage'] == 'Other' and data['preferredCorrespondenceLanguage'] %}
+                {% if data['preferredCorrespondenceLanguage'] == 'Other' and data['preferredCorrespondenceLanguageOther'] %}
                     <dd class="govuk-summary-list__value">
-                        {{ data['preferredCorrespondenceLanguageOtherText'] }}
+                        {{ data['preferredCorrespondenceLanguageOther'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/correspondence-language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
