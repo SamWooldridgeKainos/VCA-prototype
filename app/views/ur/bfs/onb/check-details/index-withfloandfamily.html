@@ -49,7 +49,7 @@
                     </h3>
                     {% elif data['detailChange'] == "preferred-correspondence-language" %}
                     <h3 class="govuk-notification-banner__heading">
-                        You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOtherText'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}.
+                        You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}.
                     </h3>
                     {% elif data['detailChange'] == "translator-needed" %}
                     <h3 class="govuk-notification-banner__heading">
@@ -222,7 +222,7 @@
                 </dt>
                 {% if data['preferredCorrespondenceLanguage'] == "English" or data['preferredCorrespondenceLanguage'] == "Welsh" or data['preferredCorrespondenceLanguage'] == "Other" %}
                     <dd class="govuk-summary-list__value">
-                        {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOtherText'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}
+                        {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language">

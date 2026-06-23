@@ -18,9 +18,9 @@ function validateForm() {
             return true;
         }
 
-        var preferredCorrespondenceLanguageOtherText = document.forms["myForm"]["preferred-correspondence-language-other-text-input"].value;
+        var preferredCorrespondenceLanguageOther = document.forms["myForm"]["preferred-correspondence-language-other-text-input"].value;
   
-        if (preferredCorrespondenceLanguageOtherText == "" || preferredCorrespondenceLanguageOtherText == null) {
+        if (preferredCorrespondenceLanguageOther == "" || preferredCorrespondenceLanguageOther == null) {
             
             // Error form group styling
             $('#error-form-group-2').addClass('govuk-form-group--error');
