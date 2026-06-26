@@ -116,18 +116,18 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Disability
+                    Disability or access needs
                 </dt>
                 {% if data['victimDisability'] %}
                     <dd class="govuk-summary-list__value">
                         {{ data['victimDisability'] }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/disability">Change<span class="govuk-visually-hidden"> disability or access needs</span></a>
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/disability">Change<span class="govuk-visually-hidden"> disability or access needs status</span></a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/v50/victim/victim-details/disability" class="govuk-link govuk-link--no-visited-state">Select a disability status</a>
+                        <a href="/v50/victim/victim-details/disability" class="govuk-link govuk-link--no-visited-state">Select a disability or access needs status</a>
                     </dd>
                 {% endif %}
             </div>

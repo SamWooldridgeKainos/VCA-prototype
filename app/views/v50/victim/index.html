@@ -115,7 +115,7 @@
                 {% elif (data['successReason'] == "ethnicity-updated") %}
                   You changed the ethnicity for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimEthnicity'] }}.
                 {% elif (data['successReason'] == "disability-updated") %}
-                  You changed the disability for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimDisability'] }}.
+                  You changed the disability or access needs status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimDisability'] }}.
                 {% elif (data['successReason'] == "religion-updated") %}
                   You changed the religion or belief for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimReligion'] }}.
                 {% elif (data['successReason'] == "previous-convictions-updated") %}
