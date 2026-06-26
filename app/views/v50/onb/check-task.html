@@ -169,6 +169,25 @@
                     </div>
                 {% endif %}
             {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Victim liaison officer
+                </dt>
+                {% if data['vlo'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['vlo'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/onb/check-task-vlo">
+                            Change<span class="govuk-visually-hidden"> victim liaison officer</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/onb/check-task-vlo" class="govuk-link govuk-link--no-visited-state">Select victim liaison officer</a>
+                    </dd>
+                {% endif %}
+            </div>
         </dl>
         <h2 class="govuk-heading-m">
             Now confirm the details

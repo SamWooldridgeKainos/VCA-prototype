@@ -94,7 +94,7 @@ module.exports = router => {
         if (nextTask == "other") {
             response.redirect("/v50/onb/manual-task")
         } else if (nextTask == "no-task") {
-            response.redirect("/v50/onb/check-task?manualTask=no")
+            response.redirect("/v50/onb/check-task-vlo?manualTask=no")
         } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
             response.redirect("/v50/onb/meeting-purpose")
         } else {
@@ -109,12 +109,19 @@ module.exports = router => {
 
     router.post('/v50/onb/next-task-due-date-answer', function(request, response) {
 
-        response.redirect("/v50/onb/check-task?manualTask=no")
+        response.redirect("/v50/onb/check-task-vlo?manualTask=no")
     })
 
     router.post('/v50/onb/manual-task-answer', function(request, response) {
 
-        response.redirect("/v50/onb/check-task?manualTask=yes")
+        response.redirect("/v50/onb/check-task-vlo?manualTask=yes")
+    })
+
+    router.post('/v50/onb/check-task-vlo-answer', function(request, response) {
+
+        request.session.data['vlo'] = request.body.vlo || ''
+
+        response.redirect("/v50/onb/check-task")
     })
 
     router.post('/v50/onb/check-task-answer', function(request, response) {
@@ -457,6 +464,53 @@ module.exports = router => {
     router.post('/v50/pcd/send/letter-details-answer', function(request, response) {
 
         response.redirect("/v50/pcd/send/letter-logged")
+    })
+
+    router.post('/v50/pcd/follow-up/log-follow-up-answer', function(request, response) {
+
+        var pcdFollowUpType = request.session.data['pcdFollowUpType']
+
+        if (pcdFollowUpType == "email") {
+            response.redirect("/v50/pcd/follow-up/email-details")
+        } else {
+            response.redirect("/v50/pcd/follow-up/letter-details")
+        }
+    })
+
+    router.post('/v50/pcd/follow-up/email-details-answer', function(request, response) {
+
+        var data = request.session.data
+        var followUps = data['pcdFollowUps'] || []
+
+        followUps.push({
+            type: 'email',
+            date: data['followUpEmailDispatchDate'] || '',
+            notes: data['followUpEmailDispatchNotes'] || ''
+        })
+
+        data['pcdFollowUps'] = followUps
+        data['followUpEmailDispatchDate'] = ''
+        data['followUpEmailDispatchNotes'] = ''
+
+        response.redirect("/v50/pcd/follow-up/email-logged")
+    })
+
+    router.post('/v50/pcd/follow-up/letter-details-answer', function(request, response) {
+
+        var data = request.session.data
+        var followUps = data['pcdFollowUps'] || []
+
+        followUps.push({
+            type: 'post',
+            date: data['followUpLetterDispatchDate'] || '',
+            notes: data['followUpLetterDispatchNotes'] || ''
+        })
+
+        data['pcdFollowUps'] = followUps
+        data['followUpLetterDispatchDate'] = ''
+        data['followUpLetterDispatchNotes'] = ''
+
+        response.redirect("/v50/pcd/follow-up/letter-logged")
     })
 
     router.post('/v50/pcd/preferred-method-of-contact-answer', function(request, response) {
