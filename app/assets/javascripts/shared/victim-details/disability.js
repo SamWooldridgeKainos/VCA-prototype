@@ -7,7 +7,7 @@ function validateForm() {
 
   if (radioChecked) return true;
 
-  var listHtml = '<li><a href="#error-message-radio">Select yes if the victim has a disability</a></li>';
+  var listHtml = '<li><a href="#error-message-radio">Select yes if the victim has a disability or access needs</a></li>';
 
   $('#myForm').before(
     '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list">' + listHtml + '</ul></div></div>'
@@ -15,7 +15,7 @@ function validateForm() {
   $('#error-summary').focus();
 
   $('#error-form-group').addClass('govuk-form-group--error');
-  $('#radio-group').before('<p class="govuk-error-message" id="error-message-radio"><span class="govuk-visually-hidden">Error:</span> Select yes if the victim has a disability</p>');
+  $('#radio-group').before('<p class="govuk-error-message" id="error-message-radio"><span class="govuk-visually-hidden">Error:</span> Select yes if the victim has a disability or access needs</p>');
 
   return false;
 }
