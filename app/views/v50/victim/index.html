@@ -200,15 +200,15 @@
               <div class="govuk-notification-banner__content">
                 <h3 class="govuk-notification-banner__heading">
                   {% if (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
-                    Telephone call 1 logged
+                    Telephone call 1 logged.
                   {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
-                    Telephone call 2 logged
+                    Telephone call 2 logged.
                   {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
-                    Telephone call 3 logged
+                    Telephone call 3 logged.
                   {% elif (data['successReason'] == "draft-approved-to-send") %}
-                    Letter sent to CMS and approved to send
+                    Letter sent to CMS and approved to send.
                   {% elif (data['successReason'] == "not-contacted-logged") %}
-                    Reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }} logged
+                    Reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }} logged.
                   {% endif %}
                 </h3>
               </div>

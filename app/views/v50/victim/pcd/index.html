@@ -144,6 +144,40 @@
                                     <p class="govuk-body">There was a problem retrieving information. Try again later.</p>
                                 {% endif %}
 
+                                {% if (data['pcdSent'] == "yes") %}
+
+                                {% if data['pcdFollowUps'] and data['pcdFollowUps'] | length > 0 %}
+                                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-4">
+                                <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Follow-ups</h3>
+                                {% for followUp in data['pcdFollowUps'] %}
+                                <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            {% if followUp.type == "email" %}Follow-up email sent{% else %}Follow-up letter sent{% endif %}
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ followUp.date | formatDate }}
+                                        </dd>
+                                    </div>
+                                    {% if followUp.notes %}
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            Notes
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ followUp.notes }}
+                                        </dd>
+                                    </div>
+                                    {% endif %}
+                                </dl>
+                                {% endfor %}
+                                {% endif %}
+
+                                <a href="/v50/pcd/follow-up/log-follow-up" class="govuk-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-2" data-module="govuk-button">
+                                    Log a follow-up
+                                </a>
+                                {% endif %}
+
                             {% endif %}
 
                         </div>
