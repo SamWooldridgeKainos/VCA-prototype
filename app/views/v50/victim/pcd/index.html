@@ -178,6 +178,20 @@
                                 </a>
                                 {% endif %}
 
+                                {% if data['notContactedReason'] and data['pcdStatus'] != "not-contacted-logged" %}
+                                <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-top-4">
+                                <dl class="govuk-summary-list govuk-!-margin-bottom-2">
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            Reason for not contacting
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ data['notContactedReason'] }}
+                                        </dd>
+                                    </div>
+                                </dl>
+                                {% endif %}
+
                             {% endif %}
 
                         </div>
