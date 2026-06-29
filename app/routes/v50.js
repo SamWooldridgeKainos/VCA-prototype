@@ -321,6 +321,23 @@ module.exports = router => {
         }
     })
 
+    router.get('/v50/pcd/pre-draft/start-communication', function(request, response) {
+        var fieldsToReset = [
+            'contactedBy',
+            'pcdVictimInformed1', 'pcdVictimInformed2', 'pcdVictimInformed3',
+            'pcdCallDate1', 'pcdCallDate2', 'pcdCallDate3',
+            'pcdCallType1', 'pcdCallType2', 'pcdCallType3',
+            'pcdFumoc', 'pcdNoFumocDetails',
+            'pcdAttemptToContactAgain',
+            'pcdWasTextMessageSent',
+            'emailDispatchDate', 'letterDispatchDate'
+        ]
+        fieldsToReset.forEach(function(field) {
+            delete request.session.data[field]
+        })
+        response.redirect('/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started')
+    })
+
     router.post('/v50/pcd/pre-draft/contacted-by-answer', function(request, response) {
 
         var contactedBy = request.session.data['contactedBy']
