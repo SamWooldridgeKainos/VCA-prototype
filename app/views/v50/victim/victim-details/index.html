@@ -121,6 +121,9 @@
                 {% if data['victimDisability'] %}
                     <dd class="govuk-summary-list__value">
                         {{ data['victimDisability'] }}
+                        {% if data['victimDisabilityDetails'] and data['victimDisability'] != 'No' %}
+                        <br>{{ data['victimDisabilityDetails'] }}
+                        {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v50/victim/victim-details/disability">Change<span class="govuk-visually-hidden"> disability or access needs status</span></a>

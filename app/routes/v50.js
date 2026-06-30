@@ -94,7 +94,7 @@ module.exports = router => {
         if (nextTask == "other") {
             response.redirect("/v50/onb/manual-task")
         } else if (nextTask == "no-task") {
-            response.redirect("/v50/onb/check-task-vlo?manualTask=no")
+            response.redirect("/v50/onb/check-task?manualTask=no")
         } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
             response.redirect("/v50/onb/meeting-purpose")
         } else {
@@ -109,19 +109,32 @@ module.exports = router => {
 
     router.post('/v50/onb/next-task-due-date-answer', function(request, response) {
 
-        response.redirect("/v50/onb/check-task-vlo?manualTask=no")
+        response.redirect("/v50/onb/check-task?manualTask=no")
     })
 
     router.post('/v50/onb/manual-task-answer', function(request, response) {
 
-        response.redirect("/v50/onb/check-task-vlo?manualTask=yes")
+        response.redirect("/v50/onb/check-task?manualTask=yes")
+    })
+
+    router.get('/v50/onb/check-task-vlo', function(request, response, next) {
+        request.session.data.vloReturnTo = request.query.returnTo || ''
+        next()
     })
 
     router.post('/v50/onb/check-task-vlo-answer', function(request, response) {
 
         request.session.data['vlo'] = request.body.vlo || ''
 
-        response.redirect("/v50/onb/check-task")
+        if (request.session.data.vloReturnTo === 'check-task') {
+            delete request.session.data.vloReturnTo
+            response.redirect("/v50/onb/check-task")
+        } else if (request.session.data.vloReturnTo === 'check-details') {
+            delete request.session.data.vloReturnTo
+            response.redirect("/v50/onb/check-details?successNotification=yes&detailChange=vlo")
+        } else {
+            response.redirect("/v50/onb/check-details?successNotification=yes&detailChange=vlo")
+        }
     })
 
     router.post('/v50/onb/check-task-answer', function(request, response) {
