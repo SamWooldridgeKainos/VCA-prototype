@@ -21,12 +21,40 @@
             <h1 class="govuk-fieldset__heading">Does Sarah Phillips have a disability or access needs?</h1>
           </legend>
           <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
-            {% for opt in ['Yes','No','Unknown'] %}
+
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="disability-{{ loop.index }}" name="victimDisability" value="{{ opt }}" {{ checked('victimDisability', opt) }}>
-              <label class="govuk-label govuk-radios__label" for="disability-{{ loop.index }}">{{ opt }}</label>
+              <input type="radio" class="govuk-radios__input" id="disability-1" name="victimDisability" value="Yes" data-aria-controls="conditional-disability-yes" {{ checked('victimDisability', 'Yes') }}>
+              <label class="govuk-label govuk-radios__label" for="disability-1">Yes</label>
             </div>
-            {% endfor %}
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-disability-yes">
+              <div class="govuk-form-group" id="details-yes-form-group">
+                <label class="govuk-label" for="disability-details-yes">
+                  Details
+                </label>
+                <textarea class="govuk-textarea" id="disability-details-yes" name="victimDisabilityDetails" rows="3">{{ data['victimDisabilityDetails'] if data['victimDisability'] == 'Yes' else '' }}</textarea>
+              </div>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="disability-2" name="victimDisability" value="No" {{ checked('victimDisability', 'No') }}>
+              <label class="govuk-label govuk-radios__label" for="disability-2">No</label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="disability-3" name="victimDisability" value="Unknown" data-aria-controls="conditional-disability-unknown" {{ checked('victimDisability', 'Unknown') }}>
+              <label class="govuk-label govuk-radios__label" for="disability-3">Unknown</label>
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-disability-unknown">
+              <div class="govuk-form-group" id="details-unknown-form-group">
+                <label class="govuk-label" for="disability-details-unknown">
+                  Details
+                </label>
+                <textarea class="govuk-textarea" id="disability-details-unknown" name="victimDisabilityDetails" rows="3">{{ data['victimDisabilityDetails'] if data['victimDisability'] == 'Unknown' else '' }}</textarea>
+              </div>
+            </div>
+
           </div>
         </fieldset>
       </div>
@@ -40,4 +68,8 @@
 
 {% block pageScripts %}
 <script src="/public/javascripts/shared/victim-details/disability.js"></script>
+<script>
+  // No clearing — textareas are independent before save.
+  // On submit, only the active textarea's name is kept (handled in disability.js).
+</script>
 {% endblock %}
