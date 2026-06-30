@@ -67,6 +67,10 @@
                     <h3 class="govuk-notification-banner__heading">
                         You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
                     </h3>
+                    {% elif data['detailChange'] == "vlo" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the victim liaison officer for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vlo'] }}.
+                    </h3>
                     {% endif %}
                 </div>
             </div>
@@ -75,6 +79,10 @@
         <h1 class="govuk-heading-l">
             Check the details for {{ data['victimForename'] }} {{ data['victimSurname'] }}
         </h1>
+
+        <h2 class="govuk-heading-m">
+            Service details
+        </h2>
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
@@ -90,6 +98,31 @@
                     </a>
                 </dd>
             </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Victim liaison officer
+                </dt>
+                {% if data['vlo'] %}
+                    <dd class="govuk-summary-list__value">
+                        {{ data['vlo'] }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v50/onb/check-task-vlo?returnTo=check-details">
+                            Change<span class="govuk-visually-hidden"> victim liaison officer</span>
+                        </a>
+                    </dd>
+                {% else %}
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v50/onb/check-task-vlo?returnTo=check-details" class="govuk-link govuk-link--no-visited-state">Select victim liaison officer</a>
+                    </dd>
+                {% endif %}
+            </div>
+        </dl>
+        <h2 class="govuk-heading-m">
+            Case and victim details
+        </h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Charging type

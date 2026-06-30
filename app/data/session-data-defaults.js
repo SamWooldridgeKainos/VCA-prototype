@@ -10,6 +10,8 @@ module.exports = {
 
   'detailChange': 'no',
 
+  'vlo': 'Unassigned',
+
   'nfaStatus': 'draft-not-started',
 
   'existingTask': '',
