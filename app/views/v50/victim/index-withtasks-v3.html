@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v50/partials/identity-bar/victim-page.html" %}
+{% include "/v50/partials/identity-bar/victim-page-nocreate-task.html" %}
 {% endblock %}
 
 {% block content %}
@@ -235,7 +235,14 @@
 
       </div>
              <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="tasks">
-        <h2 class="govuk-heading-l govuk-!-margin-top-2">Tasks (10)</h2>
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Tasks (10)
+
+             <div class="app-identity-bar__menu govuk-!-margin-top-2" style="margin-left:30px;">
+        <a href="/v50/victim/new-task/task-selection" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-module="govuk-button" data-govuk-button-init="">
+          Create task
+        </a>
+      </div>
+        </h2>
 
         {% include "/v50/victim/tasks-v3.html" %}
       </div>
