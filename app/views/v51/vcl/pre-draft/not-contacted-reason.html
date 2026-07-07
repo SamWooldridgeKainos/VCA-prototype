@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Reason for not contacting the victim" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/v51/vcl/pre-draft/not-contacted-reason-answer" method="post" id="myForm" name="myForm">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="not-contacted-reason">
+            What is the reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+          </label>
+        </h1>
+        <textarea class="govuk-textarea" id="not-contacted-reason" name="vdNotContactedReason" rows="5">{{ data['vdNotContactedReason'] }}</textarea>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+{% set pageName="How did you contact the victim?" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/v51/vcl/pre-draft/contacted-by-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <fieldset class="govuk-fieldset">
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How did you contact {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" id="radio-group">
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-telephone" name="vdContactedBy" value="call" {{ checked('vdContactedBy','call') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-telephone">
+                Telephone call
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-email" name="vdContactedBy" value="email" {{ checked('vdContactedBy','email') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-email">
+                Email
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-post" name="vdContactedBy" value="post" {{ checked('vdContactedBy','post') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-post">
+                Post
+              </label>
+            </div>
+
+            <div class="govuk-radios__divider">or</div>
+
+            <div class="govuk-radios__item">
+              <input type="radio" class="govuk-radios__input" id="contacted-by-not-contacted" name="vdContactedBy" value="not-contacted" {{ checked('vdContactedBy','not-contacted') }}>
+              <label class="govuk-label govuk-radios__label" for="contacted-by-not-contacted">
+                Victim is not to be contacted
+              </label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

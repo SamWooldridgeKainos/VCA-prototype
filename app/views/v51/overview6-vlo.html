@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Overview" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/v60/partials/header/overview-selected.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Overview</h1>
+
+        <h2 class="govuk-heading-m">Assigned to me</h2>
+
+        <div class="app-overview-cards govuk-!-margin-bottom-9">
+            <a href="/v60/tasks" class="app-overview-card app-overview-card--red" aria-label="View overdue directions">
+                <span class="app-overview-card__count">1</span>
+                <span class="app-overview-card__status">overdue tasks</span>
+            </a>
+            <a href="/v60/tasks" class="app-overview-card app-overview-card--orange" aria-label="View directions due today">
+                <span class="app-overview-card__count">2</span>
+                <span class="app-overview-card__status">tasks due today</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

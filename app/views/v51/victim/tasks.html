@@ -1,0 +1,740 @@
+{% block content %}
+{% set hasFlo = (data['familyLiaisonOfficerDeleted'] != 'yes') and (data['familyLiaisonOfficerName']) and (data['familyLiaisonOfficerEmailAddress'] or data['familyLiaisonOfficerPhoneNumber']) %}
+{% set hasIdva = (data['idvaDeleted'] != 'yes') and (data['idvaName']) and (data['idvaEmailAddress'] or data['idvaPhoneNumber']) %}
+{% set hasIsva = (data['isvaDeleted'] != 'yes') and (data['isvaName']) and (data['isvaEmailAddress'] or data['isvaPhoneNumber']) %}
+
+<nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-label="Tasks">
+    <ul class="x-govuk-secondary-navigation__list">
+        <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+            <a class="x-govuk-secondary-navigation__link" aria-current="page" href="#open-tasks" data-case-contacts-tab="open-tasks">Open tasks (3)</a>
+        </li>
+        <li class="x-govuk-secondary-navigation__list-item">
+            <a class="x-govuk-secondary-navigation__link" href="#closed-tasks" data-case-contacts-tab="closed-tasks">Completed tasks (7)</a>
+        </li>
+    </ul>
+</nav>
+
+<div id="open-tasks" class="case-contacts-panel">
+    <div class="govuk-grid-row">
+     <div class="govuk-grid-column-three-quarters">
+
+       
+
+          <!-- <h3 class="govuk-heading-m">3 open tasks</h3>=-->
+
+
+    <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Due date</p>
+
+    <hr id="results-divider" class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6">
+
+    <div class="govuk-!-margin-bottom-9">
+     
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a decision to charge</span>
+          </dd>
+        </div>
+       <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Purpose
+          </dt>
+          <dd class="govuk-summary-list__value">
+          CPS pre-trial meeting
+          </dd>
+        </div>-->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">
+           Friday, 13 November 2026
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div> 
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+           	Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            London
+          </dd>
+        </div>-->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+      <a href="log-offer-task" class="govuk-link govuk-link--no-visited-state">	Select letter dispatch method</a>          </dd>
+        </div>
+      </dl>
+    </div> 
+  
+
+
+    <div class="govuk-!-margin-bottom-9">
+     
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log offered meeting</span>
+          </dd>
+        </div>
+    <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Purpose
+          </dt>
+          <dd class="govuk-summary-list__value">
+          CPS pre-trial meeting
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+        Wednesday, 18 November 2026
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div> 
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+          	Universal
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            London
+          </dd>
+        </div>-->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+      <a href="log-offer-task" class="govuk-link govuk-link--no-visited-state">	Log offer</a>          </dd>
+        </div>
+      </dl>
+    </div> 
+  
+
+
+    <div class="govuk-!-margin-bottom-9">
+     
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Follow up with victim</span>
+          </dd>
+        </div>
+       <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Purpose
+          </dt>
+          <dd class="govuk-summary-list__value">
+          CPS pre-trial meeting
+          </dd>
+        </div>-->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Due date
+          </dt>
+          <dd class="govuk-summary-list__value">
+         Friday, 20 November 2026
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Victim Liaison Officer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service
+          </dt>
+          <dd class="govuk-summary-list__value">
+           Bereaved Family Scheme
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Area
+          </dt>
+          <dd class="govuk-summary-list__value">
+            London
+          </dd>
+        </div>-->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task assignee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            THOMPSON, Sarah (you)
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> task assignee</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action
+          </dt>
+          <dd class="govuk-summary-list__value">
+      <a href="log-offer-task" class="govuk-link govuk-link--no-visited-state">Log outcome</a>          </dd>
+        </div>
+      </dl>
+    </div> 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<!--
+ <nav class="govuk-pagination" aria-label="Pagination">
+      <div class="govuk-pagination__prev" style="display: none">
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="#"
+          rel="prev"
+          id="pagination-prev"
+        >
+          <svg
+            class="govuk-pagination__icon govuk-pagination__icon--prev"
+            xmlns="http://www.w3.org/2000/svg"
+            height="13"
+            width="15"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 15 13"
+          >
+            <path
+              d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"
+            ></path>
+          </svg>
+          <span class="govuk-pagination__link-title">
+            Previous<span class="govuk-visually-hidden"> page</span>
+          </span>
+        </a>
+      </div>
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--current">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 1"
+            aria-current="page"
+            data-page="1"
+          >
+            1
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 2"
+            data-page="2"
+          >
+            2
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 3"
+            data-page="3"
+          >
+            3
+          </a>
+        </li>
+      </ul>
+      <div class="govuk-pagination__next">
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="#"
+          rel="next"
+          id="pagination-next"
+          data-page="2"
+        >
+          <span class="govuk-pagination__link-title">
+            Next<span class="govuk-visually-hidden"> page</span>
+          </span>
+          <svg
+            class="govuk-pagination__icon govuk-pagination__icon--next"
+            xmlns="http://www.w3.org/2000/svg"
+            height="13"
+            width="15"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 15 13"
+          >
+            <path
+              d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </nav>-->
+  </div>
+</div>
+</div>
+
+
+
+<div id="closed-tasks" class="case-contacts-panel" hidden>
+    <div class="govuk-grid-row">
+       <div class="govuk-grid-column-three-quarters">
+
+   <p class="govuk-body-s" id="sorted-by-text"><span class="govuk-!-font-weight-bold">Sorted by:</span> Completed date</p>
+
+    <hr id="results-divider" class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6">
+
+    <div class="govuk-!-margin-bottom-9">
+     
+      <!-- <p class="govuk-body govuk-!-margin-bottom-0">54KR1626525</p> -->
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log meeting outcome</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+        Tuesday, 10 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+        CPS pre-trial meeting outcome recorded
+          </dd>
+          
+        </div>
+  
+      </dl>
+    </div> 
+  
+
+     <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log arranged meeting</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+   Monday, 9 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+         CPS pre-trial meeting arranged
+          </dd>
+          
+        </div>
+  
+      </dl>
+  
+  
+
+
+     <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log offered meeting</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+   Friday, 6 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+      Offer accepted
+          </dd>
+          
+        </div>
+  
+      </dl>
+   
+
+
+
+     <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Log offered meeting</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+Tuesday, 3 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+      CPS pre-trial meeting offered
+          </dd>
+          
+        </div>
+  
+      </dl>
+ 
+  
+
+
+
+
+     <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Inform of a decision to charge</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+ Monday, 2 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Actions completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+       
+         Email sent<br/>
+                Follow up letter sent - completed by ARMSTRONG, Neil
+          </dd>
+          
+        </div>
+  
+      </dl>
+  
+
+
+        <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Another task</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+Friday, 30 October 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+        Accessibility requirements recorded
+          </dd>
+          
+        </div>
+  
+      </dl>
+ 
+
+         <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Task
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">Another task</span>
+          </dd>
+        </div>
+      
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed on
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+            <!--<span class="govuk-tag govuk-tag--pink due-date-tag">Due today</span><br class="due-date-break">-->
+ Monday, 2 November 2026
+          </dd>
+        
+        </div>
+
+         <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+          Completed by
+          </dt>
+          
+
+          <dd class="govuk-summary-list__value due-date-value">
+          THOMPSON, Sarah (you)
+          </dd>
+        
+        </div>
+  
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Action completed
+          </dt>
+          <dd class="govuk-summary-list__value">
+        Interpreter requested
+          </dd>
+          
+        </div>
+  
+      </dl>
+ 
+  
+
+
+    
+  
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,359 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v51/partials/identity-bar/victim-page-nocreate-task.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if (data['case-locked'] == "by-someone-else") %}
+      {% include "/v51/case-locked/banner/by-someone-else.html" %}
+    {% elif (data['case-locked'] == "self-locked") %}
+      {% include "/v51/case-locked/banner/self-locked.html" %}
+    {% else %}
+    {% endif %}
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Contents</h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#overview">Summary</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+
+         <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#tasks">Tasks</a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="overview">
+        {% if (data['success'] == "yes") and (data['successReason'] == "charging-type-updated" or data['successReason'] == "area-updated") %}
+          <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+              <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+              </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+              <h3 class="govuk-notification-banner__heading">
+                {% if (data['successReason'] == "charging-type-updated") %}
+                  You changed the charging type to {{ data['caseType'] }}.
+                {% elif (data['successReason'] == "area-updated") %}
+                  You changed the CPS area to {{ data['area'] }}.
+                {% endif %}
+              </h3>
+            </div>
+          </div>
+        {% endif %}
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Summary</h2>
+
+        {% include "/v51/victim/overview-withtasks.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel" id="victim-details">
+        {% if (data['success'] == "yes") and (
+          data['successReason'] == "email-address-updated" or
+          data['successReason'] == "pmoc-updated" or
+          data['successReason'] == "full-name-updated" or
+          data['successReason'] == "preferred-name-updated" or
+          data['successReason'] == "date-of-birth-updated" or
+          data['successReason'] == "category-updated" or
+          data['successReason'] == "gender-updated" or
+          data['successReason'] == "ethnicity-updated" or
+          data['successReason'] == "disability-updated" or
+          data['successReason'] == "religion-updated" or
+          data['successReason'] == "previous-convictions-updated" or
+          data['successReason'] == "address-updated" or
+          data['successReason'] == "telephone-number-updated" or
+          data['successReason'] == "correspondence-language-updated" or
+          data['successReason'] == "wants-contact-updated" or
+          data['successReason'] == "pmoc-police-updated" or
+          data['successReason'] == "contact-times-updated" or
+          data['successReason'] == "victim-representative-updated" or
+          data['successReason'] == "power-of-attorney-updated" or
+          data['successReason'] == "risk-level-updated" or
+          data['successReason'] == "service-updated" or
+          data['successReason'] == "translator-needed-updated" or
+          data['successReason'] == "vps-status-updated" or
+          data['successReason'] == "reasonable-adjustments-updated"
+        ) %}
+          <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+              <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+              </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+              <h3 class="govuk-notification-banner__heading">
+                {% if (data['successReason'] == "email-address-updated") %}
+                  You changed the email address for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimEmailAddress'] }}.
+                {% elif (data['successReason'] == "pmoc-updated") %}
+                  You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                {% elif (data['successReason'] == "full-name-updated") %}
+                  You changed the victim's name and title to {{ data['victimTitle'] }} {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "preferred-name-updated") %}
+                  You changed the preferred name for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimPreferredName'] }}.
+                {% elif (data['successReason'] == "date-of-birth-updated") %}
+                  You changed the date of birth for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimDateOfBirth'] }}.
+                {% elif (data['successReason'] == "category-updated") %}
+                  You changed the categories for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "gender-updated") %}
+                  You changed the gender for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimGender'] }}.
+                {% elif (data['successReason'] == "ethnicity-updated") %}
+                  You changed the ethnicity for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimEthnicity'] }}.
+                {% elif (data['successReason'] == "disability-updated") %}
+                  You changed the disability or access needs status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimDisability'] }}.
+                {% elif (data['successReason'] == "religion-updated") %}
+                  You changed the religion or belief for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimReligion'] }}.
+                {% elif (data['successReason'] == "previous-convictions-updated") %}
+                  You changed the previous convictions for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimPreviousConvictions'] }}.
+                {% elif (data['successReason'] == "address-updated") %}
+                  You changed the address for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "telephone-number-updated") %}
+                  You changed the telephone number for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "correspondence-language-updated") %}
+                  You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['preferredCorrespondenceLanguage'] == 'Other' %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}.
+                {% elif (data['successReason'] == "wants-contact-updated") %}
+                  You changed the contact preference for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimWantsContact'] }}.
+                {% elif (data['successReason'] == "pmoc-police-updated") %}
+                  You changed the preferred method of contact for police for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmocPolice'] }}.
+                {% elif (data['successReason'] == "contact-times-updated") %}
+                  You changed the preferred contact times for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "victim-representative-updated") %}
+                  You changed the victim representative details for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "power-of-attorney-updated") %}
+                  You changed the power of attorney details for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% elif (data['successReason'] == "risk-level-updated") %}
+                  You changed the domestic abuse risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+                {% elif (data['successReason'] == "service-updated") %}
+                  You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['serviceLead'] == "Not aligned" %}Not aligned to a service{% else %}the {{ data['serviceLead'] }} service{% endif %}.
+                {% elif (data['successReason'] == "translator-needed-updated") %}
+                  You changed the translator needed status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['translatorNeeded'] }}.
+                {% elif (data['successReason'] == "vps-status-updated") %}
+                  You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
+                {% elif (data['successReason'] == "reasonable-adjustments-updated") %}
+                  You changed the reasonable adjustments for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+                {% endif %}
+              </h3>
+            </div>
+          </div>
+        {% endif %}
+
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Victim details</h2>
+
+        {% include "/v51/victim/victim-details/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel" id="case-contacts">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Case contacts</h2>
+
+        {% include "/v51/victim/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel" id="communications">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Communications</h2>
+
+        <nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-label="Communications">
+          <ul class="x-govuk-secondary-navigation__list">
+            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="#comms-pcd" data-comms-tab="comms-pcd">Charging decision</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="#comms-ptm" data-comms-tab="comms-ptm">Meetings</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="#comms-other" data-comms-tab="comms-other">Other communication</a>
+            </li>
+          </ul>
+        </nav>
+
+
+        
+        <div id="comms-pcd" class="comms-panel">
+          {% if (data['success'] == "yes") and (
+            data['successReason'] == "not-informed-after-call-1" or
+            data['successReason'] == "informed-after-call-1" or
+            data['successReason'] == "not-informed-after-call-2" or
+            data['successReason'] == "informed-after-call-2" or
+            data['successReason'] == "not-informed-after-call-3" or
+            data['successReason'] == "informed-after-call-3" or
+            data['successReason'] == "draft-approved-to-send" or
+            data['successReason'] == "not-contacted-logged"
+          ) %}
+            <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+              <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Success
+                </h2>
+              </div>
+              <div class="govuk-notification-banner__content">
+                <h3 class="govuk-notification-banner__heading">
+                  {% if (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+                    Telephone call 1 logged.
+                  {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+                    Telephone call 2 logged.
+                  {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+                    Telephone call 3 logged.
+                  {% elif (data['successReason'] == "draft-approved-to-send") %}
+                    Letter sent to CMS and approved to send.
+                  {% elif (data['successReason'] == "not-contacted-logged") %}
+                    Reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }} logged.
+                  {% endif %}
+                </h3>
+              </div>
+            </div>
+          {% endif %}
+          {% include "/v51/victim/pcd/index.html" %}
+        </div>
+
+        <div id="comms-ptm" class="comms-panel" hidden>
+          {% include "/v51/victim/pre-trial/pre-trial-meeting/index.html" %}
+        </div>
+
+        <div id="comms-other" class="comms-panel" hidden>
+          {% include "/v51/victim/other/index.html" %}
+        </div>
+
+
+
+      </div>
+             <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="tasks">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Tasks (10)
+
+             <div class="app-identity-bar__menu govuk-!-margin-top-2" style="margin-left:30px;">
+        <a href="/v51/victim/new-task/task-selection" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-module="govuk-button" data-govuk-button-init="">
+          Create task
+        </a>
+      </div>
+        </h2>
+
+        {% include "/v51/victim/tasks-v3.html" %}
+      </div>
+    </div>
+
+
+
+   
+
+      
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/victim-record.js"></script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-comms-tab]');
+    var panels = document.querySelectorAll('.comms-panel');
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = link.getAttribute('data-comms-tab');
+
+        // Update nav items
+        links.forEach(function (l) {
+          var li = l.closest('.x-govuk-secondary-navigation__list-item');
+          li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+          l.removeAttribute('aria-current');
+        });
+        var activeLi = link.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        link.setAttribute('aria-current', 'page');
+
+        // Show/hide panels
+        panels.forEach(function (panel) {
+          panel.hidden = (panel.id !== targetId);
+        });
+      });
+    });
+
+    // Activate the appropriate sub-tab based on the secondaryNav query param
+    var secondaryNavMap = {
+      'other': 'comms-other',
+      'ptm': 'comms-ptm',
+      'pcd': 'comms-pcd',
+      'vcl': 'comms-pcd'
+    };
+    var params = new URLSearchParams(window.location.search);
+    var secondaryNav = params.get('secondaryNav');
+    var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    if (targetSubTab) {
+      var targetLink = document.querySelector('[data-comms-tab="' + targetSubTab + '"]');
+      if (targetLink) {
+        targetLink.click();
+      }
+    }
+  })();
+</script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-case-contacts-tab]');
+    var panels = document.querySelectorAll('.case-contacts-panel');
+
+    if (!links.length || !panels.length) {
+      return;
+    }
+
+    function activateCaseContactsTab(targetId) {
+      links.forEach(function (link) {
+        var li = link.closest('.x-govuk-secondary-navigation__list-item');
+        li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+        link.removeAttribute('aria-current');
+      });
+
+      var activeLink = document.querySelector('[data-case-contacts-tab="' + targetId + '"]');
+      if (activeLink) {
+        var activeLi = activeLink.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        activeLink.setAttribute('aria-current', 'page');
+      }
+
+      panels.forEach(function (panel) {
+        panel.hidden = (panel.id !== targetId);
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        activateCaseContactsTab(link.getAttribute('data-case-contacts-tab'));
+      });
+    });
+
+    var secondaryNavMap = {
+      'case-contacts': 'case-contacts-contacts',
+      'contacts': 'case-contacts-contacts',
+      'cms': 'case-contacts-cms',
+      'cms-contacts': 'case-contacts-cms'
+    };
+
+
+    
+    var params = new URLSearchParams(window.location.search);
+    var secondaryNav = params.get('secondaryNav');
+    var targetSubTab = secondaryNav && secondaryNavMap[secondaryNav];
+    if (targetSubTab) {
+      activateCaseContactsTab(targetSubTab);
+    }
+  })();
+</script>
+{% endblock %}

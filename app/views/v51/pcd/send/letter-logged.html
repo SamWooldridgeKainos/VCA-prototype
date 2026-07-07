@@ -1,0 +1,72 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "Letter logged" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Letter logged
+      </h1>
+    </div>
+
+    <p class="govuk-body">
+      The {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}Charging decision{% endif %} letter was successfully logged for the victim, {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+    </p>
+
+    {% if (data['contactedBy'] == "call") %}
+
+      {% if (data['pcdCallAttempt'] == "1") %}
+        {% if (data['pcdVictimInformed1'] == "Yes") %}
+        <a href="/v51/victim?pcdStatus=fu-letter-after-call-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/v51/victim?pcdStatus=letter-after-call-attempt-1&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+
+      {% elif (data['pcdCallAttempt'] == "2") %}
+        {% if (data['pcdVictimInformed2'] == "Yes") %}
+        <a href="/v51/victim?pcdStatus=fu-letter-after-call-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/v51/victim?pcdStatus=letter-after-call-attempt-2&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+
+      {% elif (data['pcdCallAttempt'] == "3") %}
+        {% if (data['pcdVictimInformed3'] == "Yes") %}
+        <a href="/v51/victim?pcdStatus=fu-letter-after-call-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% else %}
+        <a href="/v51/victim?pcdStatus=letter-after-call-attempt-3&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+          Continue
+        </a>
+        {% endif %}
+      {% endif %}
+
+    {% else %}
+    <a href="/v51/victim?pcdStatus=letter-dispatched&pcdSent=yes&success=no&secondaryNav=pcd&nextTask#communications" class="govuk-button" data-module="govuk-button">
+      Continue
+    </a>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

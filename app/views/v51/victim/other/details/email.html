@@ -1,0 +1,40 @@
+{% block content %}
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Date of email
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ communication.otherEmailDate | formatDate }} at {{ communication.otherEmailHour }}:{{ communication.otherEmailMinutes }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Direction of email
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {% if (communication.otherEmailType == "Yes") %}Outbound{% else %}Inbound{% endif %}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Person contacted
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {% if (communication.otherIndividual == "Victim") %}
+                {{ communication.victimSurname | upper }}, {{ communication.victimForename }} ({{ communication.otherIndividual | lower }})
+            {% else %}
+                {{ communication.otherIndividualName }} ({{ communication.otherIndividualRole }})
+            {% endif %}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Purpose of email
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ communication.purposeOfCommunication }}
+        </dd>
+    </div>
+</dl>
+{% endblock %}

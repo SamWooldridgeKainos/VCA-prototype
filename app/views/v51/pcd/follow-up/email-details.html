@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Follow-up email details" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v51/pcd/follow-up/email-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+            <h1 class="govuk-heading-l">Follow-up email details</h1>
+            
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="date">
+                    Date sent
+                </label>
+
+                <div class="govuk-hint" id="follow-up-email-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div id="error-message-1" class="govuk-error-message govuk-!-display-none">
+                    <span class="govuk-visually-hidden">Error:</span> Enter the date the email was sent
+                </div>
+
+                <div class="moj-datepicker" id="follow-up-email-date-picker" data-module="moj-date-picker" data-excluded-days="">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="follow-up-email-date"
+                        name="followUpEmailDispatchDate"
+                        autocomplete="off"
+                        aria-describedby="follow-up-email-date-hint"
+                        value="" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--m" for="follow-up-email-notes">
+                        Notes (optional)
+                    </label>
+                </h1>
+
+                <textarea class="govuk-textarea" id="follow-up-email-notes" name="followUpEmailDispatchNotes" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+  function validateForm() {
+    var dateInput = document.getElementById('follow-up-email-date');
+    if (!dateInput.value.trim()) {
+      document.getElementById('error-form-group-1').classList.add('govuk-form-group--error');
+      document.getElementById('error-message-1').classList.remove('govuk-!-display-none');
+      dateInput.classList.add('govuk-input--error');
+      return false;
+    }
+    return true;
+  }
+</script>
+{% endblock %}

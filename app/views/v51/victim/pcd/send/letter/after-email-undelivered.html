@@ -1,0 +1,15 @@
+{% block content %}
+{% include "/v51/victim/pcd/details/letter.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous contact attempts
+    </span>
+  </summary>
+
+  {% include "/v51/victim/pcd/details/email.html" %}
+</details>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "This task already exists" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">
+            This task already exists
+        </h1>
+
+        <p class="govuk-body">
+            You cannot create this task. 
+            {% if data['existingTask'] == "meeting-offer" or data['existingTask'] == "meeting-arranged" or data['existingTask'] == "meeting-outcome" %}
+                A meeting task with the purpose of
+                {% if data['existingMeetingPurpose'] == "pre-trial" %}
+                    CPS pre-trial meeting
+                {% elif data['existingMeetingPurpose'] == "charging-decision" %}
+                    Inform victim about charging decision
+                {% elif data['existingMeetingPurpose'] == "stopped-altered" %}
+                    Stopped or substantially altered charge (VCL Scheme)
+                {% elif data['existingMeetingPurpose'] == "vrr" %}
+                    Victims' Right to Review (VRR)
+                {% elif data['existingMeetingPurpose'] == "complaint" %}
+                    Victim complaint
+                {% else %}
+                    {{ data['existingMeetingPurpose'] }}
+                {% endif %}
+                is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+            {% else %}
+                A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+            {% endif %}
+        </p>
+
+        <h2 class="govuk-heading-m">Existing task details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Task
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data['existingTask'] == "dtc" %}
+                        Inform of a decision to charge
+                    {% elif data['existingTask'] == "nfa" %}
+                        Inform of a no further action decision
+                    {% elif data['existingTask'] == "stopped-charge" %}
+                        Inform of a stopped charge
+                    {% elif data['existingTask'] == "altered-charge" %}
+                        Inform of a substantially altered charge
+                    {% elif data['existingTask'] == "meeting-offer" %}
+                        Log offered meeting
+                    {% elif data['existingTask'] == "meeting-arranged" %}
+                        Log arranged meeting
+                    {% elif data['existingTask'] == "meeting-outcome" %}
+                        Log meeting outcome
+                    {% elif data['existingTask'] == "other" %}
+                        {{ data['existingManualTaskName'] }}
+                    {% else %}
+                        {{ data['existingTask'] }}
+                    {% endif %}
+                </dd>
+            </div>
+            {% if data['existingTask'] == "meeting-offer" or data['existingTask'] == "meeting-arranged" or data['existingTask'] == "meeting-outcome" %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Purpose
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {% if data['existingMeetingPurpose'] == "pre-trial" %}
+                            CPS pre-trial meeting
+                        {% elif data['existingMeetingPurpose'] == "charging-decision" %}
+                            Inform victim about charging decision
+                        {% elif data['existingMeetingPurpose'] == "stopped-altered" %}
+                            Stopped or substantially altered charge (VCL Scheme)
+                        {% elif data['existingMeetingPurpose'] == "vrr" %}
+                            Victims' Right to Review (VRR)
+                        {% elif data['existingMeetingPurpose'] == "complaint" %}
+                            Victim complaint
+                        {% else %}
+                            {{ data['existingMeetingPurpose'] }}
+                        {% endif %}
+                    </dd>
+                </div>
+            {% endif %}
+            {% if data['existingTaskDueDate'] %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{ data['existingTaskDueDate'] | formatDate }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v51/victim/new-task/task-due-date?fromTaskAlreadyExists=yes">
+                            Change<span class="govuk-visually-hidden"> due date</span>
+                        </a>
+                    </dd>
+                </div>
+            {% else %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v51/victim/new-task/task-due-date?fromTaskAlreadyExists=yes" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
+                    </dd>
+                </div>
+            {% endif %}
+        </dl>
+
+        <form action="/v51/victim/new-task/task-already-exists-answer" method="post">
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
