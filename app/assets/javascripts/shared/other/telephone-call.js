@@ -44,7 +44,43 @@ function validateForm() {
         errors.push('<li><a href="#error-message-1">Enter the date of call</a></li>');
     }
 
+    if ((otherCallHour == '' || otherCallHour == null) && (otherCallMinutes == '' || otherCallMinutes == null)) {
+        // Error form group styling
+        $('#error-form-group-2').addClass('govuk-form-group--error');
 
+        // Error input field styling
+        $('#other-call-hour').addClass('govuk-input--error');
+        $('#other-call-minutes').addClass('govuk-input--error');
+
+        // Error message
+        $('#other-call-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the time of call</p>');
+
+        errors.push('<li><a href="#error-message-2">Enter the time of call</a></li>');
+
+    } else if ((otherCallHour == '' || otherCallHour == null) && (otherCallMinutes != '' && otherCallMinutes != null)) {
+        // Error form group styling
+        $('#error-form-group-2').addClass('govuk-form-group--error');
+
+        // Error input field styling
+        $('#other-call-hour').addClass('govuk-input--error');
+
+        // Error message
+        $('#other-call-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the hour for the time of call</p>');
+
+        errors.push('<li><a href="#error-message-2">Enter the hour for the time of call</a></li>');
+
+    } else if ((otherCallMinutes == '' || otherCallMinutes == null) && (otherCallHour != '' && otherCallHour != null)) {
+        // Error form group styling
+        $('#error-form-group-2').addClass('govuk-form-group--error');
+
+        // Error input field styling
+        $('#other-call-minutes').addClass('govuk-input--error');
+
+        // Error message
+        $('#other-call-time-hint').after('<p id="error-message-2" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the minutes for the time of call</p>');
+
+        errors.push('<li><a href="#error-message-2">Enter the minutes for the time of call</a></li>');
+    }
 
     if (!otherCallType.is(':checked')) {
         // Error form group styling

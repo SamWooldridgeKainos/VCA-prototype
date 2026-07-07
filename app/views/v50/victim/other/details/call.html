@@ -5,7 +5,7 @@
             Date of telephone call
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ communication.otherCallDate | formatDate }}{% if communication.otherCallHour and communication.otherCallMinutes %} at {{ communication.otherCallHour }}:{{ communication.otherCallMinutes }}{% endif %}
+            {{ communication.otherCallDate | formatDate }} at {{ communication.otherCallHour }}:{{ communication.otherCallMinutes }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
