@@ -1,0 +1,36 @@
+{% block content %}
+{% include "/v51/victim/pcd/details/call-attempt-1.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-0">
+
+{% if (data['pcdFumoc'] == "Email") %}
+    <a href="/v51/pcd/send/email-details" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+        Log an email<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+    </a>
+
+{% elif (data['pcdFumoc'] == "Post") %}
+
+    <a href="/v51/pcd/send/letter-details" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+        Log a letter<span class="govuk-visually-hidden"> to inform about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}</span>
+    </a>
+{% else %}
+    <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Letter sent by
+            </dt>
+            <dd class="govuk-summary-list__value">
+                Letter not wanted
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Reason for no letter
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{ data['pcdNoFumocDetails'] }}
+            </dd>
+        </div>
+    </dl>
+{% endif %}
+{% endblock %}

@@ -57,4 +57,33 @@ module.exports = router => {
         response.redirect("/v50/wft-meetings/new-task/check-task")
     })
 
+
+    router.post('/v51/wft-meetings/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "ptm") {
+            response.redirect("/v51/onb/manual-task")
+        } else if (nextTask == "No task at this time") {
+            response.redirect("/v51/onb/check-task?manualTask=no")
+        } else {
+            response.redirect("/v51/wft-meetings/new-task/purposet")
+        }
+    })
+
+    router.post('/v51/wft-meetings/new-task/purposet-answer', function(request, response) {
+
+        var purposet = request.session.data['purposet']
+        if (purposet == "yes"){
+            response.redirect("/v51/wft-meetings/new-task/task-due-date")
+        } else {
+            response.redirect("/v51/wft-meetings/new-task/task-due-date")
+        }
+    })
+
+    router.post('/v51/wft-meetings/new-task/task-due-date-answer', function(request, response) {
+
+        response.redirect("/v51/wft-meetings/new-task/check-task")
+    })
+
 }

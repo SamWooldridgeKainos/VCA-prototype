@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Update task status" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <h1 class="govuk-heading-l">
+        Update task
+    </h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Task name
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['manualTaskName'] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+              Due date
+          </dt>
+          {% if data['taskDueDate'] %}
+            <dd class="govuk-summary-list__value">
+                {{ data['taskDueDate'] | formatDate }}
+            </dd>
+          {% else %}
+            <dd class="govuk-summary-list__value">
+                Not set
+            </dd>
+          {% endif %}
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Note
+        </dt>
+        {% if data['taskNote'] == "" %}
+          <dd class="govuk-summary-list__value">
+              No note added
+          </dd>
+        {% else %}
+          <dd class="govuk-summary-list__value">
+              {{ data['taskNote'] | nl2br }}
+          </dd>
+        {% endif %}
+      </div>
+    </dl>
+
+    <form action="/v51/update-manual-task-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group-1">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h2 class="govuk-fieldset__heading">
+              Do you want to mark the task as complete?
+            </h2>
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios" id="radio-group">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="task-action-complete" name="taskAction" type="radio" value="complete">
+              <label class="govuk-label govuk-radios__label" for="task-action-complete">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="task-action-incomplete" name="taskAction" type="radio" value="incomplete">
+              <label class="govuk-label govuk-radios__label" for="task-action-incomplete">
+                No
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/shared/task-assignee.js"></script>
+<script src="/public/javascripts/shared/update-manual-task.js"></script>
+{% endblock %}

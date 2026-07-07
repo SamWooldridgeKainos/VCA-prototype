@@ -1,0 +1,20 @@
+{% block content %}
+<p class="govuk-body">
+    {{ data['victimForename'] }} {{ data['victimSurname'] }} has not been contacted by the CPS about the {% if (data['pcdType'] == "dtc") %}decision to charge{% elif (data['pcdType'] == "nfa") %}no further action decision{% else %}charging decision{% endif %}.
+</p>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-6">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Reason for not contacting
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ data['notContactedReason'] }}
+        </dd>
+    </div>
+</dl>
+
+<a href="/v51/pcd/pre-draft/start-communication" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Log a communication<span class="govuk-visually-hidden"> to inform about the {{ data['pcdType'] }}</span>
+</a>
+{% endblock %}
