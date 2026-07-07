@@ -80,3 +80,16 @@ addFilter('nextWorkingDay', () => {
   const yyyy = next.getFullYear()
   return `${dd}/${mm}/${yyyy}`
 })
+
+// Order VCL decision cards with the most recent activity first. Ties on the
+// activity date (intraday) fall back to the order they were logged, most
+// recently logged first.
+addFilter('sortVclDecisions', decisions => {
+  if (!Array.isArray(decisions)) return []
+  return decisions.slice().sort((a, b) => {
+    const dateA = a.sortDate || ''
+    const dateB = b.sortDate || ''
+    if (dateA !== dateB) return dateB.localeCompare(dateA)
+    return (b.loggedAt || 0) - (a.loggedAt || 0)
+  })
+})

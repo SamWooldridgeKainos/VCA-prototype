@@ -37,6 +37,8 @@ require('./routes/v42')(router)
 
 require('./routes/v50')(router)
 
+require('./routes/v51')(router)
+
 require('./routes/v60')(router)
 
 require('./routes/bfs')(router)

@@ -1,0 +1,448 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Victims" %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block header %}
+{% include "/v51/partials/header/victims-selected.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% set vloName = data['vlo'] | default('') %}
+{% set vloNameParts = vloName.split(', ') %}
+{% if vloNameParts | length == 2 %}
+  {% set vloLastname = vloNameParts[0] | capitalize %}
+  {% set vloFirstnameRaw = vloNameParts[1] %}
+  {% set vloFirstname = vloFirstnameRaw.split(' (')[0] %}
+  {% set vloFormatted = vloFirstname + ' ' + vloLastname %}
+{% else %}
+  {% set vloFormatted = vloName %}
+{% endif %}
+<div id="vlo-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the victim liaison officer for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ vloFormatted }}.
+    </h3>
+  </div>
+</div>
+
+<div id="service-success-banner" class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4" role="alert" aria-labelledby="govuk-notification-banner-title-service" data-module="govuk-notification-banner" style="display: none;">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title-service">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      {% if data['serviceLead'] == 'Not aligned' %}
+        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to Not aligned to a service.
+      {% else %}
+        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['serviceLead'] }}.
+      {% endif %}
+    </h3>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">Victims</h1>
+
+  </div>
+  <div class="govuk-grid-column-one-quarter">
+    <div class="tasks-filters">
+
+      <h2 class="govuk-heading-m">Search</h2>
+
+      <form id="search-criteria-form">
+        <div class="govuk-form-group govuk-!-margin-bottom-0">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Search by
+            </legend>
+            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="search-by-vlo" name="searchBy" type="radio" value="vlo-only" data-label="Victim liaison officer">
+                <label class="govuk-label govuk-radios__label" for="search-by-vlo">Victim liaison officer (VLO)</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="search-by-case-ref" name="searchBy" type="radio" value="case-reference" data-label="Case reference">
+                <label class="govuk-label govuk-radios__label" for="search-by-case-ref">Case reference</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="search-by-service-area" name="searchBy" type="radio" value="service-area" data-label="Service lead, area and VLO">
+                <label class="govuk-label govuk-radios__label" for="search-by-service-area">Service lead, CPS area and VLO</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div id="case-reference-section" class="moj-search govuk-!-padding-0" style="display: none;">
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="search-urn">
+                Case reference
+              </label>
+              <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" value="">
+            </div>
+
+        </div>
+
+        <div id="vlo-only-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend id="vlo-only-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                Victim liaison officer
+              </legend>
+              <div class="govuk-form-group govuk-!-margin-bottom-2">
+                <div id="vlo-only-autocomplete"></div>
+              </div>
+              <ul id="vlo-only-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+              </ul>
+              <div id="vlo-only-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for vlo in vloOfficers %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-{{ loop.index }}" name="vlo" type="checkbox" value="{{ vlo.id }}" data-label="{{ vlo.label }}"{% if vlo.checked %} checked{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-{{ loop.index }}">{{ vlo.label }}</label>
+                </div>
+                {% endfor %}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div id="service-area-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                Service lead
+              </legend>
+              <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
+                  <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
+                  <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
+                  <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
+                </div>
+                <div class="govuk-radios__divider">or</div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="none" data-label="Not aligned to a service">
+                  <label class="govuk-label govuk-radios__label" for="service-4">Not aligned</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend id="area-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                CPS area
+              </legend>
+              <div class="govuk-form-group govuk-!-margin-bottom-2">
+                <div id="area-autocomplete"></div>
+              </div>
+              <ul id="area-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+              </ul>
+              <div id="area-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for area in cpsAreas %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input area-checkbox" id="area-{{ loop.index }}" name="area" type="checkbox" value="{{ area.id }}" data-label="{{ area.label }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="area-{{ loop.index }}">{{ area.label }}</label>
+                </div>
+                {% endfor %}
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend id="service-area-vlo-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                Victim liaison officer
+              </legend>
+              <div class="govuk-form-group govuk-!-margin-bottom-2">
+                <div id="service-area-vlo-autocomplete"></div>
+              </div>
+              <ul id="service-area-vlo-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+              </ul>
+              <div id="service-area-vlo-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
+                {% for vlo in vloOfficers %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input service-area-vlo-checkbox" id="service-area-vlo-{{ loop.index }}" name="service-area-vlo" type="checkbox" value="{{ vlo.id }}" data-label="{{ vlo.label }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-area-vlo-{{ loop.index }}">{{ vlo.label }}</label>
+                </div>
+                {% endfor %}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <button type="submit" class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" data-module="govuk-button">
+          Search
+        </button>
+
+        <p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
+          <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+
+    <p class="govuk-body-s" id="results-count" style="display: none;"></p>
+
+    <p class="govuk-body-s" id="sorted-by-text" style="display: none;"><span class="govuk-!-font-weight-bold">Sorted by:</span> Victims first, Last name (A to Z)</p>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6" id="results-divider" style="display: none;">
+
+    <div id="victims-container" style="display: none;">
+      <div class="victims-page">
+        {% for record in victimRecords %}
+        {% if record.surname == 'PALMER' %}
+        {# Insert session-data record (PHILLIPS) before PALMER, maintaining sort order #}
+        <div class="govuk-!-margin-bottom-9">
+          {% if data['onboardedStatus'] == 'Yes' %}
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+            <a href="/v51/victim" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
+          </h2>
+          {% else %}
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</h2>
+          {% endif %}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Case reference
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['caseUrn'] }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Lead defendant
+              </dt>
+              <dd class="govuk-summary-list__value">
+                WRIGHT, Nathan
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                CPS area
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['area'] }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Service lead
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {% if data['onboardedStatus'] == 'Yes' %}
+                  {% if data['serviceLead'] == 'Not aligned' %}
+                    Not aligned
+                  {% else %}
+                    {{ data['serviceLead'] or data['service'] or 'Universal' }}
+                  {% endif %}
+                {% else %}
+                  Not onboarded
+                {% endif %}
+              </dd>
+              {% if data['onboardedStatus'] == 'Yes' %}
+              <dd class="govuk-summary-list__actions">
+                <a href="/v51/change-service" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service lead for {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</span></a>
+              </dd>
+              {% elif data['onboardedStatus'] != 'Yes' %}
+              <dd class="govuk-summary-list__actions">
+                <a href="/v51/onb/service-lead?detailChange=no" class="govuk-link govuk-link--no-visited-state">Onboard<span class="govuk-visually-hidden"> {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</span></a>
+              </dd>
+              {% endif %}
+            </div>
+              {% if data['onboardedStatus'] == 'Yes' %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Victim liaison officer
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['vlo'] or "Unassigned" }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="/v51/vlo">Change<span class="govuk-visually-hidden"> vlo</span></a>
+                </dd>
+              {% endif %}
+            </div>
+          </dl>
+        </div>
+        {% endif %}
+        <div class="govuk-!-margin-bottom-9">
+          {% if record.onboarded %}
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
+          </h2>
+          {% else %}
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+            {{ record.surname }}, {{ record.forename }}
+          </h2>
+          {% endif %}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Case reference
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ record.caseRef }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Lead defendant
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ record.leadDefendant }}
+              </dd>
+            </div>
+
+            {% if record.area %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                CPS area
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ record.area }}
+              </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Service lead
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ record.service }}
+              </dd>
+              {% if record.service in ['Universal', 'Enhanced', 'RASSO'] %}
+              <dd class="govuk-summary-list__actions">
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> service lead for {{ record.surname }}, {{ record.forename }}</span></a>
+              </dd>
+              {% elif not record.onboarded %}
+              <dd class="govuk-summary-list__actions">
+                <a href="#" class="govuk-link">Onboard<span class="govuk-visually-hidden"> {{ record.surname }}, {{ record.forename }}</span></a>
+              </dd>
+              {% endif %}
+            </div>
+            {% if record.onboarded %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Victim liaison officer
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ record.vlo }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> vlo</span></a>
+              </dd>
+            </div>
+            {% endif %}
+          </dl>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <nav class="govuk-pagination" aria-label="Pagination" style="display: none;">
+      <div class="govuk-pagination__prev" style="display: none;">
+        <a class="govuk-link govuk-pagination__link" href="#" rel="prev" id="pagination-prev">
+          <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+            <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+          </svg>
+          <span class="govuk-pagination__link-title">
+            Previous<span class="govuk-visually-hidden"> page</span>
+          </span>
+        </a>
+      </div>
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--current">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page" data-page="1">
+            1
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2" data-page="2">
+            2
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3" data-page="3">
+            3
+          </a>
+        </li>
+      </ul>
+      <div class="govuk-pagination__next">
+        <a class="govuk-link govuk-pagination__link" href="#" rel="next" id="pagination-next" data-page="2">
+          <span class="govuk-pagination__link-title">
+            Next<span class="govuk-visually-hidden"> page</span>
+          </span>
+          <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+            <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/filter-data.js"></script>
+<script src="/public/javascripts/shared/pagination.js"></script>
+<script src="/public/javascripts/shared/victims-pagination.js"></script>
+<script src="/public/javascripts/shared/victims.js"></script>
+<script src="/public/javascripts/shared/victims-autocomplete.js"></script>
+<script>
+  // Show success banner if URL has success params, then remove them
+  (function() {
+    var url = new URL(window.location.href);
+    if (url.searchParams.get('success') === 'yes' && url.searchParams.get('successReason') === 'vlo-updated') {
+      var banner = document.getElementById('vlo-success-banner');
+      if (banner) {
+        banner.style.display = 'block';
+      }
+      // Remove params from URL so banner doesn't show on back/refresh
+      url.searchParams.delete('success');
+      url.searchParams.delete('successReason');
+      window.history.replaceState({}, document.title, url.pathname + url.search);
+    }
+    if (url.searchParams.get('success') === 'yes' && url.searchParams.get('successReason') === 'service-updated') {
+      var banner = document.getElementById('service-success-banner');
+      if (banner) {
+        banner.style.display = 'block';
+      }
+      url.searchParams.delete('success');
+      url.searchParams.delete('successReason');
+      window.history.replaceState({}, document.title, url.pathname + url.search);
+    }
+  })();
+
+
+</script>
+{% endblock %}

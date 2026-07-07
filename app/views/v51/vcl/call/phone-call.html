@@ -1,0 +1,148 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Telephone call" %}
+
+{% set attemptNumber = (data['vdCallAttempts'] | length) + 1 %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v51/vcl/call/phone-call-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm">
+
+            <h1 class="govuk-heading-l">Telephone call {{ attemptNumber }}</h1>
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="phone-call-date">
+                    Date of call
+                </label>
+
+                <div class="govuk-hint" id="phone-call-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="phone-call-date-picker" data-module="moj-date-picker" data-excluded-days="">
+
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="phone-call-date"
+                        name="vdCallDate"
+                        autocomplete="off"
+                        aria-describedby="phone-call-date-hint"
+                        value="{{ data['vdCallDate'] }}" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of call
+                    </legend>
+
+                    <div id="call-time-hint" class="govuk-hint">
+                        Enter a time in 24-hour format. For example, 14:30
+                    </div>
+
+                    <div class="govuk-date-input" id="call-time">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-hour">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour" name="vdCallHour" type="text" inputmode="numeric" value="{{ data['vdCallHour'] }}">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="call-minutes">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes" name="vdCallMinutes" type="text" inputmode="numeric" value="{{ data['vdCallMinutes'] }}">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        What was the call direction?
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="call-type-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-outbound" name="vdCallType" type="radio" value="Yes" {{ checked('vdCallType','Yes') }} aria-describedby="outbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-outbound">
+                                Outbound
+                            </label>
+                            <div id="outbound-hint" class="govuk-hint govuk-radios__hint">
+                                I called the victim
+                            </div>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-type-inbound" name="vdCallType" type="radio" value="No" {{ checked('vdCallType','No') }} aria-describedby="inbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="call-type-inbound">
+                                Inbound
+                            </label>
+                            <div id="inbound-hint" class="govuk-hint govuk-radios__hint">
+                                The victim called the CPS
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-4">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Were you able to inform the victim of the decision?
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="victim-informed-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-yes" name="vdVictimInformed" type="radio" value="Yes" {{ checked('vdVictimInformed','Yes') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-yes">
+                                Yes
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="victim-informed-no" name="vdVictimInformed" type="radio" value="No" {{ checked('vdVictimInformed','No') }}>
+                            <label class="govuk-label govuk-radios__label" for="victim-informed-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="call-notes">
+                    Notes (optional)
+                </label>
+
+                <textarea class="govuk-textarea" id="call-notes" name="vdCallNotes" rows="4">{{ data['vdCallNotes'] }}</textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

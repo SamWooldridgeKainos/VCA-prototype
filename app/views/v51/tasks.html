@@ -1,0 +1,935 @@
+{% extends "layouts/main.html" %} {% set pageName="Tasks" %} {% block header %}
+{% include "/v51/partials/header/tasks-selected.html" %} {% endblock
+%} {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %} {% block
+content %} {% set assigneeName = data['taskAssignee'] | default('') %} {% set
+assigneeNameParts = assigneeName.split(', ') %} {% if assigneeNameParts | length
+== 2 %} {% set assigneeLastname = assigneeNameParts[0] | capitalize %} {% set
+assigneeFirstnameRaw = assigneeNameParts[1] %} {% set assigneeFirstname =
+assigneeFirstnameRaw.split(' (')[0] %} {% set assigneeFormatted =
+assigneeFirstname + ' ' + assigneeLastname %} {% else %} {% set
+assigneeFormatted = assigneeName %} {% endif %}
+
+<div
+  id="due-date-success-banner"
+  class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4"
+  role="alert"
+  aria-labelledby="govuk-notification-banner-title"
+  data-module="govuk-notification-banner"
+  style="display: none"
+>
+  <div class="govuk-notification-banner__header">
+    <h2
+      class="govuk-notification-banner__title"
+      id="govuk-notification-banner-title"
+    >
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task due date to {{ data['taskDueDate'] | formatDate }}.
+    </h3>
+  </div>
+</div>
+
+<div
+  id="assignee-success-banner"
+  class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4"
+  role="alert"
+  aria-labelledby="govuk-notification-banner-title-assignee"
+  data-module="govuk-notification-banner"
+  style="display: none"
+>
+  <div class="govuk-notification-banner__header">
+    <h2
+      class="govuk-notification-banner__title"
+      id="govuk-notification-banner-title-assignee"
+    >
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You changed the task assignee to {{ assigneeFormatted }}.
+    </h3>
+  </div>
+</div>
+
+<div
+  id="manual-task-completed-banner"
+  class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-4"
+  role="alert"
+  aria-labelledby="govuk-notification-banner-title-task-completed"
+  data-module="govuk-notification-banner"
+  style="display: none"
+>
+  <div class="govuk-notification-banner__header">
+    <h2
+      class="govuk-notification-banner__title"
+      id="govuk-notification-banner-title-task-completed"
+    >
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      You marked the task '{{ data['manualTaskName'] }}' as complete.
+    </h3>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
+  </div>
+
+  <div class="govuk-grid-column-one-quarter">
+    <div class="tasks-filters">
+      <h2 class="govuk-heading-m">Search</h2>
+
+      <form id="filters-form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend
+              id="task-assignee-legend"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
+            >
+              Task assignee
+            </legend>
+            <div class="govuk-form-group govuk-!-margin-bottom-2">
+              <div id="assignee-autocomplete"></div>
+            </div>
+            <ul
+              id="task-assignee-chips-container"
+              class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2"
+            ></ul>
+            <div
+              id="task-assignee-checkboxes-container"
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
+              style="display: none"
+            >
+              {% for assignee in taskAssignees %}
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-assignee-checkbox"
+                  id="task-assignee-{{ loop.index }}"
+                  name="taskAssignee"
+                  type="checkbox"
+                  value="{{ assignee.id }}"
+                  data-label="{{ assignee.label }}"
+                  {{ "checked" if assignee.checked }}
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="task-assignee-{{ loop.index }}"
+                  >{{ assignee.label }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Service lead
+            </legend>
+            <div
+              class="govuk-radios govuk-radios--small"
+              data-module="govuk-radios"
+            >
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input service-radio"
+                  id="service-1"
+                  name="service"
+                  type="radio"
+                  value="universal"
+                  data-label="Universal"
+                />
+                <label class="govuk-label govuk-radios__label" for="service-1"
+                  >Universal</label
+                >
+              </div>
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input service-radio"
+                  id="service-2"
+                  name="service"
+                  type="radio"
+                  value="enhanced"
+                  data-label="Enhanced"
+                />
+                <label class="govuk-label govuk-radios__label" for="service-2"
+                  >Enhanced</label
+                >
+              </div>
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input service-radio"
+                  id="service-3"
+                  name="service"
+                  type="radio"
+                  value="rasso"
+                  data-label="RASSO"
+                />
+                <label class="govuk-label govuk-radios__label" for="service-3"
+                  >RASSO</label
+                >
+              </div>
+              <div class="govuk-radios__divider">or</div>
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input service-radio"
+                  id="service-4"
+                  name="service"
+                  type="radio"
+                  value="none"
+                  data-label="Not aligned to a service"
+                />
+                <label class="govuk-label govuk-radios__label" for="service-4"
+                  >Not aligned</label
+                >
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend
+              id="area-legend"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
+            >
+              CPS area
+            </legend>
+            <div class="govuk-form-group govuk-!-margin-bottom-2">
+              <div id="area-autocomplete"></div>
+            </div>
+            <ul
+              id="area-chips-container"
+              class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2"
+            ></ul>
+            <div
+              id="area-checkboxes-container"
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
+              style="display: none"
+            >
+              {% for area in cpsAreas %}
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input area-checkbox"
+                  id="area-{{ loop.index }}"
+                  name="area"
+                  type="checkbox"
+                  value="{{ area.id }}"
+                  data-label="{{ area.label }}"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="area-{{ loop.index }}"
+                  >{{ area.label }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Due date
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
+            >
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input due-checkbox"
+                  id="due-1"
+                  name="due"
+                  type="checkbox"
+                  value="overdue"
+                  data-label="Overdue"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="due-1"
+                  >Overdue</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input due-checkbox"
+                  id="due-2"
+                  name="due"
+                  type="checkbox"
+                  value="due-today"
+                  data-label="Due today"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="due-2"
+                  >Due today</label
+                >
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Task type
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
+            >
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-1"
+                  name="taskType"
+                  type="checkbox"
+                  value="decision-to-charge"
+                  data-label="Inform of a decision to charge"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-1"
+                  >Inform of a decision to charge</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-2"
+                  name="taskType"
+                  type="checkbox"
+                  value="no-further-action"
+                  data-label="Inform of a no further action decision"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-2"
+                  >Inform of a no further action decision</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-8"
+                  name="taskType"
+                  type="checkbox"
+                  value="stopped-charge"
+                  data-label="Inform of a stopped charge"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-8"
+                  >Inform of a stopped charge</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-9"
+                  name="taskType"
+                  type="checkbox"
+                  value="altered-charge"
+                  data-label="Inform of a substantially altered charge"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-9"
+                  >Inform of a substantially altered charge</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-3"
+                  name="taskType"
+                  type="checkbox"
+                  value="log-offered-meeting"
+                  data-label="Log offered meeting"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-3"
+                  >Log offered meeting</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-4"
+                  name="taskType"
+                  type="checkbox"
+                  value="log-offer-response"
+                  data-label="Log offer response"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-4"
+                  >Log offer response</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-5"
+                  name="taskType"
+                  type="checkbox"
+                  value="log-arranged-meeting"
+                  data-label="Log arranged meeting"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-5"
+                  >Log arranged meeting</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-6"
+                  name="taskType"
+                  type="checkbox"
+                  value="log-meeting-outcome"
+                  data-label="Log meeting outcome"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-6"
+                  >Log meeting outcome</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input task-type-checkbox"
+                  id="task-type-7"
+                  name="taskType"
+                  type="checkbox"
+                  value="other"
+                  data-label="Other"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="task-type-7"
+                  >Other</label
+                >
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Meeting purpose
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
+            >
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-1"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="pre-trial"
+                  data-label="CPS pre-trial meeting"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-1"
+                  >CPS pre-trial meeting</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-2"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="charging-decision"
+                  data-label="Inform victim about charging decision"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-2"
+                  >Inform victim about charging decision</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-3"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="stopped-altered"
+                  data-label="Stopped or substantially altered charge (VCL Scheme)"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-3"
+                  >Stopped or substantially altered charge (VCL Scheme)</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-4"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="vrr"
+                  data-label="Victims' Right to Review (VRR)"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-4"
+                  >Victims' Right to Review (VRR)</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-5"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="complaint"
+                  data-label="Victim complaint"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-5"
+                  >Victim complaint</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input meeting-purpose-checkbox"
+                  id="meeting-purpose-6"
+                  name="meetingPurpose"
+                  type="checkbox"
+                  value="other"
+                  data-label="Other"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="meeting-purpose-6"
+                  >Other</label
+                >
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Search
+        </button>
+
+        <p class="govuk-body" id="clear-filters-wrapper" style="display: none">
+          <a class="govuk-link govuk-link--no-visited-state"
+            href="/v51/onb/tasks/clear-filters">Clear search</a
+          >
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+
+    <p class="govuk-body-s" id="results-count"></p>
+
+    <p class="govuk-body-s" id="sorted-by-text">
+      <span class="govuk-!-font-weight-bold">Sorted by:</span> Due date
+    </p>
+
+    <hr
+      id="results-divider"
+      class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-6"
+    />
+
+    {% for record in taskRecords %}
+    {% if loop.index == 6 %}
+    {# Insert session-data record (PHILLIPS) after static PHILLIPS task, maintaining original order #}
+    {# VCL tasks (stopped/substantially altered charge) still show even when the charging decision (pcd) is complete #}
+    {% if ((data['pcdSent'] == "yes") or (data['pcdFumoc'] == "None") or (data['nextTask'] == "") or (data['nextTask'] == "no-task")) and (data['nextTask'] != "stopped-charge") and (data['nextTask'] != "altered-charge") %}
+    {% else %}
+    <div class="govuk-!-margin-bottom-9" id="manual-task-container">
+      <dl class="govuk-summary-list">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+          <a
+            href="/v51/victim?success=no"
+            class="govuk-link govuk-link--no-visited-state"
+            >{{ data['victimSurname'] | upper }},
+            {{ data['victimForename'] | capitalize }}</a
+          >
+        </h2>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Task</dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">
+              {% if (data['nextTask'] == "dtc") %}
+                Inform of a decision to charge
+              {% elif (data['nextTask'] == "nfa") %}
+                Inform of a no further action decision
+              {% elif (data['nextTask'] == "stopped-charge") %}
+                Inform of a stopped charge
+              {% elif (data['nextTask'] == "altered-charge") %}
+                Inform of a substantially altered charge
+              {% elif (data['nextTask'] == "meeting-offer") %}
+                Log offered meeting
+              {% elif (data['nextTask'] == "meeting-arranged") %}
+                Log arranged meeting
+              {% elif (data['nextTask'] == "meeting-outcome") %}
+                Log meeting outcome
+              {% elif (data['nextTask'] == "other") %}
+                {{ data['manualTaskName'] }}
+              {% else %}
+                {{ data['nextTask'] }}
+              {% endif %}
+            </span>
+          </dd>
+        </div>
+        {% if (data['nextTask'] == "meeting-offer") or (data['nextTask'] ==
+        "meeting-arranged") or (data['nextTask'] == "meeting-outcome") %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Purpose</dt>
+          <dd class="govuk-summary-list__value">
+            {% if data['meetingPurpose'] == "pre-trial" %} CPS pre-trial meeting
+            {% elif data['meetingPurpose'] == "charging-decision" %} Inform
+            victim about charging decision {% elif data['meetingPurpose'] ==
+            "stopped-altered" %} Stopped or substantially altered charge (VCL
+            Scheme) {% elif data['meetingPurpose'] == "vrr" %} Victims' Right to
+            Review (VRR) {% elif data['meetingPurpose'] == "complaint" %}
+            Complaint about victim care {% else %}
+            {{ data['meetingPurposeDetails'] }}
+            {% endif %}
+          </dd>
+        </div>
+        {% endif %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Due date</dt>
+          {% if data['taskDueDate'] %}
+          <dd class="govuk-summary-list__value due-date-value">
+            {{ data['taskDueDate'] | formatDate }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a
+              href="/v51/next-task-due-date"
+              class="govuk-link govuk-link--no-visited-state"
+              >Change<span class="govuk-visually-hidden"> due date</span></a
+            >
+          </dd>
+          {% else %}
+          <dd class="govuk-summary-list__value due-date-value">
+            <a
+              href="/v51/next-task-due-date"
+              class="govuk-link govuk-link--no-visited-state"
+              >Enter a due date</a
+            >
+          </dd>
+          {% endif %}
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Service lead</dt>
+          <dd class="govuk-summary-list__value">
+            {% if data['onboardedStatus'] == 'Yes' %} {% if data['serviceLead']
+            == 'Not aligned' %} Not aligned {% else %}
+            {{ data['serviceLead'] or data['service'] or 'Universal' }}
+            {% endif %} {% else %} Not onboarded {% endif %}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">CPS area</dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['area'] or 'London' }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Task assignee</dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['taskAssignee'] or data['vlo'] or 'Unassigned' }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a
+              href="/v51/task-assignee"
+              class="govuk-link govuk-link--no-visited-state"
+              >Change<span class="govuk-visually-hidden">
+                task assignee</span
+              ></a
+            >
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Next action</dt>
+          <dd class="govuk-summary-list__value">
+            {% if (data['nextTask'] == "dtc") or (data['nextTask'] == "nfa") %}
+            {% if (data['pcdStatus'] == "log-not-started") %}
+            <a
+              href="/v51/pcd/pre-draft/contacted-by"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log a communication</a
+            >
+            {% elif (data['pcdStatus'] == "before-text-logged") %}
+            <a
+              href="/v51/pcd/call/was-text-message-sent"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log text message details</a
+            >
+            {% elif (data['pcdStatus'] == "after-call-attempt-1") or
+            (data['pcdStatus'] == "after-call-attempt-2") %}
+            <a
+              href="/v51/pcd/call/next-attempt-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log another communication</a
+            >
+            {% elif (data['pcdStatus'] == "after-call-attempt-3") %}
+            <a
+              href="/v51/pcd/call/next-attempt-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log another communication</a
+            >
+            {% elif (data['pcdStatus'] == "select-fumoc") %}
+            <a
+              href="/v51/pcd/call/follow-up-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Select letter dispatch method</a
+            >
+            {% elif (data['pcdStatus'] == "informed-after-call-1") or
+            (data['pcdStatus'] == "informed-after-call-2") or (data['pcdStatus']
+            == "informed-after-call-3") %} {% if (data['pcdFumoc'] == "Email")
+            %}
+            <a
+              href="/v51/pcd/send/email-details"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log email details</a
+            >
+            {% elif (data['pcdFumoc'] == "Post") %}
+            <a
+              href="/v51/pcd/send/letter-details"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log letter details</a
+            >
+            {% endif %} {% endif %} {% elif (data['nextTask'] ==
+            "stopped-charge") or (data['nextTask'] == "altered-charge") %} {% if
+            (data['vclStatus'] == "log-not-started") %}
+            <a
+              href="/v51/vcl/pre-draft/contacted-by"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log a communication</a
+            >
+            {% elif (data['vclStatus'] == "before-text-logged") %}
+            <a
+              href="/v51/vcl/call/was-text-message-sent"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log text message details</a
+            >
+            {% elif (data['vclStatus'] == "after-call-attempt-1") or
+            (data['vclStatus'] == "after-call-attempt-2") %}
+            <a
+              href="/v51/vcl/call/next-attempt-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log another communication</a
+            >
+            {% elif (data['vclStatus'] == "after-call-attempt-3") %}
+            <a
+              href="/v51/vcl/call/next-attempt-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log another communication</a
+            >
+            {% elif (data['vclStatus'] == "select-fumoc") %}
+            <a
+              href="/v51/vcl/call/follow-up-moc"
+              class="govuk-link govuk-link--no-visited-state"
+              >Select letter dispatch method</a
+            >
+            {% elif (data['vclStatus'] == "informed-after-call-1") or
+            (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus']
+            == "informed-after-call-3") %} {% if (data['vclFumoc'] == "Email")
+            %}
+            <a
+              href="/v51/vcl/send/email-details"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log email details</a
+            >
+            {% elif (data['vclFumoc'] == "Post") %}
+            <a
+              href="/v51/vcl/send/letter-details"
+              class="govuk-link govuk-link--no-visited-state"
+              >Log letter details</a
+            >
+            {% endif %} {% endif %} {% elif (data['nextTask'] ==
+            "meeting-offer") %}
+            <a href="#" class="govuk-link govuk-link--no-visited-state"
+              >Log offer</a
+            >
+            {% elif (data['nextTask'] == "meeting-arranged") %}
+            <a href="#" class="govuk-link govuk-link--no-visited-state"
+              >Confirm arranged meeting</a
+            >
+            {% elif (data['nextTask'] == "meeting-outcome") %}
+            <a href="#" class="govuk-link govuk-link--no-visited-state"
+              >Log outcome</a
+            >
+            {% elif (data['nextTask'] == "other") %}
+            <a
+              href="/v51/update-manual-task"
+              class="govuk-link govuk-link--no-visited-state"
+              >Update task</a
+            >
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    {% endif %}
+    {% endif %}
+    <div class="govuk-!-margin-bottom-9">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+        <a
+          href="{{ '/v51/victim?success=no' if (loop.index == 1 or loop.index == 5) else '#' }}"
+          class="govuk-link govuk-link--no-visited-state"
+          >{{ record.surname }}, {{ record.forename }}</a
+        >
+      </h2>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Task</dt>
+          <dd class="govuk-summary-list__value">
+            <span class="govuk-!-font-weight-bold">{{ record.task }}</span>
+          </dd>
+        </div>
+        {% if record.purpose %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Purpose</dt>
+          <dd class="govuk-summary-list__value">
+            {{ record.purpose }}
+          </dd>
+        </div>
+        {% endif %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Due date</dt>
+          <dd class="govuk-summary-list__value due-date-value">
+            {% if record.dueDateTag %}<span
+              class="govuk-tag govuk-tag--{{
+                record.dueDateTagColor
+              }} due-date-tag"
+              >{{ record.dueDateTag }}</span
+            ><br class="due-date-break" />
+            {% endif %}{{ record.dueDate }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state"
+              >Change<span class="govuk-visually-hidden"> due date</span></a
+            >
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Service lead</dt>
+          <dd class="govuk-summary-list__value">
+            {{ record.service }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">CPS area</dt>
+          <dd class="govuk-summary-list__value">
+            {{ record.area }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Task assignee</dt>
+          <dd class="govuk-summary-list__value">
+            {{ record.taskAssignee }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a href="#" class="govuk-link govuk-link--no-visited-state"
+              >Change<span class="govuk-visually-hidden">
+                task assignee</span
+              ></a
+            >
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Next action</dt>
+          <dd class="govuk-summary-list__value">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">{{
+              record.nextAction
+            }}</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+    {% endfor %}
+
+    <nav class="govuk-pagination" aria-label="Pagination">
+      <div class="govuk-pagination__prev" style="display: none">
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="#"
+          rel="prev"
+          id="pagination-prev"
+        >
+          <svg
+            class="govuk-pagination__icon govuk-pagination__icon--prev"
+            xmlns="http://www.w3.org/2000/svg"
+            height="13"
+            width="15"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 15 13"
+          >
+            <path
+              d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"
+            ></path>
+          </svg>
+          <span class="govuk-pagination__link-title">
+            Previous<span class="govuk-visually-hidden"> page</span>
+          </span>
+        </a>
+      </div>
+      <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--current">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 1"
+            aria-current="page"
+            data-page="1"
+          >
+            1
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 2"
+            data-page="2"
+          >
+            2
+          </a>
+        </li>
+        <li class="govuk-pagination__item">
+          <a
+            class="govuk-link govuk-pagination__link"
+            href="#"
+            aria-label="Page 3"
+            data-page="3"
+          >
+            3
+          </a>
+        </li>
+      </ul>
+      <div class="govuk-pagination__next">
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="#"
+          rel="next"
+          id="pagination-next"
+          data-page="2"
+        >
+          <span class="govuk-pagination__link-title">
+            Next<span class="govuk-visually-hidden"> page</span>
+          </span>
+          <svg
+            class="govuk-pagination__icon govuk-pagination__icon--next"
+            xmlns="http://www.w3.org/2000/svg"
+            height="13"
+            width="15"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 15 13"
+          >
+            <path
+              d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/shared/filter-data.js"></script>
+<script src="/public/javascripts/shared/pagination.js"></script>
+<script src="/public/javascripts/shared/tasks-pagination.js"></script>
+<script src="/public/javascripts/shared/tasks.js"></script>
+<script src="/public/javascripts/shared/tasks-autocomplete.js"></script>
+{% endblock %}
