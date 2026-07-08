@@ -18,6 +18,9 @@
             {% if fromTaskAlreadyExists %}
             <input type="hidden" name="fromTaskAlreadyExists" value="yes">
             {% endif %}
+            {% if fromPcd %}
+            <input type="hidden" name="fromPcd" value="yes">
+            {% endif %}
 
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">

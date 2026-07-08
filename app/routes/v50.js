@@ -208,10 +208,12 @@ module.exports = router => {
     router.get('/v50/victim/new-task/task-due-date', function(request, response) {
         var fromCheck = request.query.fromCheck === 'yes'
         var fromTaskAlreadyExists = request.query.fromTaskAlreadyExists === 'yes'
+        var fromPcd = request.query.fromPcd === 'yes'
         delete request.session.data['fromCheck']
         response.render('v50/victim/new-task/task-due-date', {
             fromCheck: fromCheck,
-            fromTaskAlreadyExists: fromTaskAlreadyExists
+            fromTaskAlreadyExists: fromTaskAlreadyExists,
+            fromPcd: fromPcd
         })
     })
 
@@ -227,6 +229,9 @@ module.exports = router => {
 
         if (request.body.fromTaskAlreadyExists === 'yes') {
             request.session.data['existingTaskDueDate'] = request.session.data['taskDueDate'] || ''
+            if (request.body.fromPcd === 'yes') {
+                return response.redirect("/v50/victim?success=yes&successReason=due-date-updated&secondaryNav=pcd#communications")
+            }
             return response.redirect("/v50/tasks?success=yes&successReason=due-date-updated")
         }
 
@@ -325,13 +330,27 @@ module.exports = router => {
     router.post('/v50/pcd/draft/pcd-type-answer', function(request, response) {
 
         var pcdType = request.session.data['pcdType']
+        var existingTask = request.session.data['existingTask'] || ''
+
         if (pcdType == "dtc"){
+            if (existingTask == "dtc") {
+                return response.redirect("/v50/pcd/draft/task-already-exists")
+            }
             response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=dtc&nextTask=dtc&existingTask=dtc&success=yes&successReason=task-created")
         } else if (pcdType == "nfa") {
+            if (existingTask == "nfa") {
+                return response.redirect("/v50/pcd/draft/task-already-exists")
+            }
             response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=nfa&nextTask=nfa&existingTask=nfa&success=yes&successReason=task-created")
         } else {
             response.redirect("#")
         }
+    })
+
+    router.post('/v50/pcd/draft/task-already-exists-answer', function(request, response) {
+
+        var pcdType = request.session.data['pcdType']
+        response.redirect("/v50/pcd/pre-draft/contacted-by?pcdStatus=log-not-started&pcdType=" + pcdType + "&nextTask=" + pcdType + "&existingTask=" + pcdType + "&success=yes&successReason=task-created")
     })
 
     router.get('/v50/pcd/pre-draft/start-communication', function(request, response) {

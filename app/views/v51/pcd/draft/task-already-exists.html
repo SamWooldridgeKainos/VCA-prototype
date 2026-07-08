@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "This task already exists" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">
+            This task already exists
+        </h1>
+
+        <p class="govuk-body">
+            You cannot create this task. 
+            A task with these details is already in progress for {{ data['victimForename'] }} {{ data['victimSurname'] }}.
+        </p>
+
+        <h2 class="govuk-heading-m">Existing task details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Task
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data['existingTask'] == "dtc" %}
+                        Inform of a decision to charge
+                    {% elif data['existingTask'] == "nfa" %}
+                        Inform of a no further action decision
+                    {% else %}
+                        {{ data['existingTask'] }}
+                    {% endif %}
+                </dd>
+            </div>
+            {% if data['existingTaskDueDate'] %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{ data['existingTaskDueDate'] | formatDate }}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/v51/victim/new-task/task-due-date?fromTaskAlreadyExists=yes&fromPcd=yes">
+                            Change<span class="govuk-visually-hidden"> due date</span>
+                        </a>
+                    </dd>
+                </div>
+            {% else %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Due date
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <a href="/v51/victim/new-task/task-due-date?fromTaskAlreadyExists=yes&fromPcd=yes" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
+                    </dd>
+                </div>
+            {% endif %}
+        </dl>
+
+        <form action="/v51/pcd/draft/task-already-exists-answer" method="post">
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

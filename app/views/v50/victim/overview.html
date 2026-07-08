@@ -20,7 +20,7 @@
             <div class="govuk-summary-card__content">
                 <p class="govuk-body govuk-!-margin-bottom-0">Name: {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Age: {{ data['victimAge'] }} ({{ data['victimDateOfBirth'] }})</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">Category: Victim</p>
+                <p class="govuk-body govuk-!-margin-bottom-0">Category: {% if data['victimCategory'] is string %}{{ data['victimCategory'] }}{% elif data['victimCategory'] %}{{ data['victimCategory'] | join(', ') }}{% endif %}</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Disability or access needs: Yes</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Address: {{ data['victimAddressLine1'] }}, {{ data['victimAddressLine2'] }}, {{ data['victimAddressLine3'] }}, {{ data['victimPostCode'] }}</p>
                 <p class="govuk-body govuk-!-margin-bottom-0">Phone: {{ data['victimPhoneNumber'] }}</p>
