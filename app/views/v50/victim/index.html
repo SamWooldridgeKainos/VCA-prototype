@@ -189,7 +189,8 @@
             data['successReason'] == "not-informed-after-call-3" or
             data['successReason'] == "informed-after-call-3" or
             data['successReason'] == "draft-approved-to-send" or
-            data['successReason'] == "not-contacted-logged"
+            data['successReason'] == "not-contacted-logged" or
+            data['successReason'] == "due-date-updated"
           ) %}
             <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
               <div class="govuk-notification-banner__header">
@@ -209,6 +210,8 @@
                     Letter sent to CMS and approved to send.
                   {% elif (data['successReason'] == "not-contacted-logged") %}
                     Reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }} logged.
+                  {% elif (data['successReason'] == "due-date-updated") %}
+                    You updated the due date to {{ data['existingTaskDueDate'] | formatDate }}.
                   {% endif %}
                 </h3>
               </div>

@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block beforeContent %}
-
+{% if data['successReason'] != "task-created" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
