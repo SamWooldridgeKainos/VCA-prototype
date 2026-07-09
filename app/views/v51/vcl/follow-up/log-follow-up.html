@@ -20,23 +20,25 @@
 
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              What do you want to do?
+              How did you follow up with {{ data['victimForename'] }} {{ data['victimSurname'] }}?
             </h1>
           </legend>
-
+          <div id="error-message" class="govuk-error-message govuk-!-display-none">
+            <span class="govuk-visually-hidden">Error:</span> Select how you followed up with {{ data['victimForename'] }} {{ data['victimSurname'] }}
+          </div>
           <div class="govuk-radios" id="radio-group">
 
             <div class="govuk-radios__item">
               <input type="radio" class="govuk-radios__input" id="follow-up-email" name="vclFollowUpType" value="email" {{ checked('vclFollowUpType','email') }}>
               <label class="govuk-label govuk-radios__label" for="follow-up-email">
-                Log an email
+                Email
               </label>
             </div>
 
             <div class="govuk-radios__item">
               <input type="radio" class="govuk-radios__input" id="follow-up-letter" name="vclFollowUpType" value="post" {{ checked('vclFollowUpType','post') }}>
               <label class="govuk-label govuk-radios__label" for="follow-up-letter">
-                Log a letter
+                Post
               </label>
             </div>
 

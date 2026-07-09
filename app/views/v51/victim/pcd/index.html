@@ -1,13 +1,17 @@
 {% block content %}
 
+{# An in-progress VCL decision (call attempts logged, victim not yet informed and
+   nothing sent) is held in the transient vd* data until it completes. #}
+{% set vclInProgress = data['vdType'] and data['vdCallAttempts'] and (data['vdCallAttempts'] | length > 0) %}
+
 {# A pending VCL task (from the Tasks page) is reflected here as a card, in the
    same way a pending charging-decision (pcd) task is. It shows until the first
    VCL communication for it has been logged. #}
-{% set pendingVclTask = ((data['nextTask'] == "stopped-charge") or (data['nextTask'] == "altered-charge")) and (data['vclStatus'] == "log-not-started") and ((not data['vclDecisions']) or (data['vclDecisions'] | length == 0)) %}
+{% set pendingVclTask = ((data['nextTask'] == "stopped-charge") or (data['nextTask'] == "altered-charge")) and (data['vclStatus'] == "log-not-started") and ((not data['vclDecisions']) or (data['vclDecisions'] | length == 0)) and (not vclInProgress) %}
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        {% if (data['pcdType'] == "dtc") and (data['pcdSent'] == "yes") and (not pendingVclTask) %}
+        {% if (data['pcdType'] == "dtc") and (data['pcdSent'] == "yes") and (not pendingVclTask) and (not vclInProgress) %}
             <p class="govuk-body">
                 <a href="/v51/vcl/draft/vcl-type" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-4" data-module="govuk-button">
                     Log a VCL communication
@@ -34,6 +38,10 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
+        {% if vclInProgress %}
+            {% set decision = { type: data['vdType'], stoppedReason: data['vdStoppedReason'], alteredType: data['vdAlteredType'], contactedBy: data['vdContactedBy'], callAttempts: data['vdCallAttempts'], inProgress: true } %}
+            {% include "/v51/victim/vcl/card.html" %}
         {% endif %}
         {% if data['vclDecisions'] and (data['vclDecisions'] | length > 0) %}
             {% for decision in data['vclDecisions'] | sortVclDecisions %}
@@ -185,7 +193,7 @@
                                 {% if (data['pcdSent'] == "yes") %}
 
                                 {% if data['pcdFollowUps'] and data['pcdFollowUps'] | length > 0 %}
-                                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-4">
+                                <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-top-4">
                                 <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Follow-ups</h3>
                                 {% for followUp in data['pcdFollowUps'] %}
                                 <dl class="govuk-summary-list govuk-!-margin-bottom-4">
