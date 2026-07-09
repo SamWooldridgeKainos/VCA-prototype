@@ -577,6 +577,8 @@ module.exports = router => {
         'vdCallAttempts', 'vdCallDate', 'vdCallHour', 'vdCallMinutes',
         'vdCallType', 'vdVictimInformed', 'vdCallNotes',
         'vdFumoc', 'vdNoFumocDetails', 'vdNextMoc',
+        'vdWasTextMessageSent', 'vdTextMessageDate', 'vdTextMessageHour', 'vdTextMessageMinutes',
+        'vdSecondCallHour', 'vdSecondCallMinutes', 'vdThirdCallHour', 'vdThirdCallMinutes',
         'vdEmailDate', 'vdEmailNotes', 'vdLetterDate', 'vdLetterNotes',
         'vdNotContactedReason'
     ]
@@ -696,6 +698,7 @@ module.exports = router => {
         })
 
         var informed = data['vdVictimInformed']
+        var attemptCount = data['vdCallAttempts'].length
 
         var attemptFields = ['vdCallDate', 'vdCallHour', 'vdCallMinutes', 'vdCallType', 'vdVictimInformed', 'vdCallNotes']
         attemptFields.forEach(function(field) {
@@ -704,9 +707,54 @@ module.exports = router => {
 
         if (informed == "Yes") {
             response.redirect("/v51/vcl/call/follow-up-moc")
+        } else if (attemptCount == 1) {
+            // The text message questions are only asked after the first call attempt.
+            response.redirect("/v51/vcl/call/was-text-message-sent")
         } else {
-            response.redirect("/v51/vcl/call/next-attempt-moc")
+            response.redirect("/v51/victim?secondaryNav=pcd#communications")
         }
+    })
+
+    router.post('/v51/vcl/call/was-text-message-sent-answer', function(request, response) {
+        var data = request.session.data
+        var attempts = data['vdCallAttempts'] || []
+        var last = attempts.length ? attempts[attempts.length - 1] : null
+        if (last) {
+            last.textSent = data['vdWasTextMessageSent'] || ''
+        }
+
+        if (data['vdWasTextMessageSent'] == "Yes") {
+            response.redirect("/v51/vcl/call/text-message-details")
+        } else {
+            data['vdWasTextMessageSent'] = ''
+            response.redirect("/v51/victim?secondaryNav=pcd#communications")
+        }
+    })
+
+    router.post('/v51/vcl/call/text-message-details-answer', function(request, response) {
+        var data = request.session.data
+        var attempts = data['vdCallAttempts'] || []
+        var last = attempts.length ? attempts[attempts.length - 1] : null
+        if (last) {
+            last.textDate = data['vdTextMessageDate'] || ''
+            last.textHour = data['vdTextMessageHour'] || ''
+            last.textMinutes = data['vdTextMessageMinutes'] || ''
+            last.secondCallHour = data['vdSecondCallHour'] || ''
+            last.secondCallMinutes = data['vdSecondCallMinutes'] || ''
+            last.thirdCallHour = data['vdThirdCallHour'] || ''
+            last.thirdCallMinutes = data['vdThirdCallMinutes'] || ''
+        }
+
+        data['vdWasTextMessageSent'] = ''
+        data['vdTextMessageDate'] = ''
+        data['vdTextMessageHour'] = ''
+        data['vdTextMessageMinutes'] = ''
+        data['vdSecondCallHour'] = ''
+        data['vdSecondCallMinutes'] = ''
+        data['vdThirdCallHour'] = ''
+        data['vdThirdCallMinutes'] = ''
+
+        response.redirect("/v51/victim?secondaryNav=pcd#communications")
     })
 
     router.post('/v51/vcl/call/next-attempt-moc-answer', function(request, response) {
