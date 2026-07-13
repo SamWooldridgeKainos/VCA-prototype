@@ -82,14 +82,10 @@
                     Service lead
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data['serviceLead'] == 'Not aligned' %}
-                        Not aligned
-                    {% else %}
-                        {{ data['serviceLead'] }}
-                    {% endif %}
+                  Bereaved Family Scheme
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/service-lead?successNotification&detailChange=service-lead">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/service-lead?successNotification&detailChange=service-lead">
                         Change<span class="govuk-visually-hidden"> service lead</span>
                     </a>
                 </dd>
@@ -98,57 +94,41 @@
                 <dt class="govuk-summary-list__key">
                     Charging type
                 </dt>
-                {% if data['caseType'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['caseType'] | capitalize }}
+            <dd class="govuk-summary-list__value">
+     Red
                     </dd>
+                  
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/ur/bfs/onb/check-details/case-type?successNotification&detailChange=case-type">
                             Change<span class="govuk-visually-hidden"> charging type</span>
                         </a>
                     </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
-                    </dd>
-                {% endif %}
+      
+                   
+          
             </div>
-           <!-- <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                    Family Liaison Officer 
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="/ur/bfs/onb/check-details/flo" class="govuk-link govuk-link--no-visited-state">Enter Family Liaison Officer's details</a>
-                    </dd>
-            
-           
-               
-  
-            </div>-->
-
-                      <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                   Family Liaison Officer 
-                </dt>
-            
-                    <dd class="govuk-summary-list__value">
-  <!-- Full name: ROSS, Jonathan<br/>
+   Full name: ROSS, Jonathan<br/>
           Email: jonathan.ross@cps.gov.uk<br/>
-            Telephone number: 07712345678<br/>-->
-  <a href="check-details/flo" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
+            Telephone number: 07712345678<br/>
+
                     </dd>
             
               
-                 <!-- <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="check-details/flo">
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="#">
                         Change<span class="govuk-visually-hidden"> service lead</span>
                     </a>
-                </dd>-->
+                </dd>
   
             </div>
 
-              <!--<div class="govuk-summary-list__row">
+   <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                    Preferred case contact  
                 </dt>
@@ -159,103 +139,76 @@
             
                  <dd class="govuk-summary-list__actions">
                              <ul class="govuk-summary-list__actions-list">
-          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="check-details/case-contact"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
         </ul>
                 </dd>
           
   
-            </div>-->
-            </dl>
-
-            <h2 class="govuk-heading-m">Bereaved family members 
-</h2>
-
-      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-           No family members added
-            </dt>
-            <dd class="govuk-summary-list__value">
-              <a class="govuk-link" href="check-details/family-members/name">Add family member<span class="govuk-visually-hidden"> Add a Bereaved family member</span></a>
-            </dd>
-           
-          </div>
-
-          <!--
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Licence type
-            </dt>
-            <dd class="govuk-summary-list__value">
-              For personal use
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> licence type</span></a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Home address
-            </dt>
-            <dd class="govuk-summary-list__value">
-              72 Guild Street<br>London<br>SE23 6FH
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> home address</span></a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Licence period
-            </dt>
-            <dd class="govuk-summary-list__value">
-              Valid for 6 months
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> licence period</span></a>
-            </dd>
-          </div>
-        </dl>-->
-
-
-<!---
+            </div>
                 <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Bereaved family representative - Primary contact
+                   Bereaved family representative - Primary contact
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="check-details/family-contact" class="govuk-link govuk-link--no-visited-state">Add primary contact</a>
-                    </dd>
-         
+                           Full name: PAIN, Sydney<br/>
+          Email: sydney-pain@gmail.com<br/>
+            Telephone number: +447712345678<br/>
+             Relationship to victim: Sister<br/>
+        
+               Prefered method of contact: Telephone<br/>
+            Prefered Language: English<br/>
+          
               
+
+
+                    </dd>
+            
+                <dd class="govuk-summary-list__actions">
+                             <ul class="govuk-summary-list__actions-list">
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+        </ul>
+                </dd>
+
+         
           
   
             </div>
-
-
-
-    
-
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Additional contacts  
+
+                  Additional contacts
                 </dt>
             
                     <dd class="govuk-summary-list__value">
-                        <a href="check-details/family-contact2" class="govuk-link govuk-link--no-visited-state">Add additional contacts  </a>
+                
+
+      Full name: STARK, Tony<br/>
+          Email: tony-stark@gmail.com<br/>
+            Telephone number: +447712345448<br/>
+             Relationship to victim: Brother<br/>
+                <br/>
+
+
+                 Full name: STARK, Ned<br/>
+          Email: ned-stark@gmail.com<br/>
+            Telephone number: +447712345448<br/>
+             Relationship to victim: Brother<br/>
+                <br/>
+                
+                        <a href="family-contact3" class="govuk-link govuk-link--no-visited-state">Add additional contacts</a>
                     </dd>
             
-              
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="all-additional-contact.html">
+                        Change<span class="govuk-visually-hidden"> Additional contact</span>
+                    </a>
+                </dd>
           
   
             </div>
-
-
-
-        -->
-            <!--
+           <!--
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred method of contact
@@ -277,6 +230,8 @@
                     </dd>
                 {% endif %}
             </div>
+
+           
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Preferred correspondence language
@@ -389,8 +344,7 @@
         <p class="govuk-body">
             After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
         </p>
-         </p>
-        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href=../next-task.html role="button" draggable="false" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     </div>
