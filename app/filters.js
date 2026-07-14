@@ -93,3 +93,16 @@ addFilter('sortVclDecisions', decisions => {
     return (b.loggedAt || 0) - (a.loggedAt || 0)
   })
 })
+
+// Order charging decision (pcd) cards with the most recent activity first.
+// Ties on the activity date fall back to the order they were logged, most
+// recently logged first. Mirrors sortVclDecisions.
+addFilter('sortPcdDecisions', decisions => {
+  if (!Array.isArray(decisions)) return []
+  return decisions.slice().sort((a, b) => {
+    const dateA = a.sortDate || ''
+    const dateB = b.sortDate || ''
+    if (dateA !== dateB) return dateB.localeCompare(dateA)
+    return (b.loggedAt || 0) - (a.loggedAt || 0)
+  })
+})

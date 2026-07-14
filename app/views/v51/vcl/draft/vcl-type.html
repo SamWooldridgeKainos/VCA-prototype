@@ -1,5 +1,5 @@
 {% extends "layouts/main.html" %}
-{% set pageName="VCL type" %}
+{% set pageName="Communication type" %}
 
 {% block header %}
 {% include "/v51/partials/header/none-selected.html" %}
@@ -24,18 +24,36 @@
                     </h1>
                 </legend>
 
+                <div class="govuk-hint">
+                    This will determine the type of task created to inform the victim.
+                </div>
+
                 <div class="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="vcl-type-stop" name="vdType" value="stopped-charge" {{ checked('vdType','stopped-charge') }}>
-                        <label class="govuk-label govuk-radios__label" for="vcl-type-stop">
+                        <input type="radio" class="govuk-radios__input" id="comm-type-dtc" name="commType" value="dtc" {{ checked('commType','dtc') }}>
+                        <label class="govuk-label govuk-radios__label" for="comm-type-dtc">
+                            Decision to charge
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="comm-type-nfa" name="commType" value="nfa" {{ checked('commType','nfa') }}>
+                        <label class="govuk-label govuk-radios__label" for="comm-type-nfa">
+                            No further action decision
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="comm-type-stop" name="commType" value="stopped-charge" {{ checked('commType','stopped-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="comm-type-stop">
                             Stopped charge
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="vcl-type-altered-charge" name="vdType" value="altered-charge" {{ checked('vdType','altered-charge') }}>
-                        <label class="govuk-label govuk-radios__label" for="vcl-type-altered-charge">
+                        <input type="radio" class="govuk-radios__input" id="comm-type-altered-charge" name="commType" value="altered-charge" {{ checked('commType','altered-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="comm-type-altered-charge">
                             Substantially altered charge
                         </label>
                     </div>
