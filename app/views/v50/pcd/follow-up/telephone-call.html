@@ -1,0 +1,153 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Follow-up telephone call" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form action="/v50/pcd/follow-up/telephone-call-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+            <h1 class="govuk-heading-l">Follow-up telephone call</h1>
+
+            <div class="govuk-form-group" id="error-form-group-1">
+                <label class="govuk-label govuk-label--m" for="follow-up-call-date">
+                    Date of call
+                </label>
+
+                <div class="govuk-hint" id="follow-up-call-date-hint">
+                    Use the date picker or enter a date. For example, 17/05/2025
+                </div>
+
+                <div class="moj-datepicker" id="follow-up-call-date-picker" data-module="moj-date-picker" data-excluded-days="">
+        
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="follow-up-call-date"
+                        name="followUpCallDate"
+                        autocomplete="off"
+                        aria-describedby="follow-up-call-date-hint"
+                        value="" />
+                </div>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-2">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="follow-up-call-time-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Time of call
+                    </legend>
+
+                    <div id="follow-up-call-time-hint" class="govuk-hint">
+                        Enter a time in 24-hour format. For example, 14:30
+                    </div>
+
+                    <div class="govuk-date-input" id="follow-up-call-time">
+
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="follow-up-call-hour">
+                                    Hour
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="follow-up-call-hour" name="followUpCallHour" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item" style="margin-right: 10px;">
+                            <span class="govuk-body">:</span>
+                        </div>
+                        
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="follow-up-call-minutes">
+                                    Minutes
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="follow-up-call-minutes" name="followUpCallMinutes" type="text" inputmode="numeric">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-3">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Direction of call
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="follow-up-call-type-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-call-type-outbound" name="followUpCallType" type="radio" value="Outbound" aria-describedby="follow-up-call-outbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-call-type-outbound">
+                                Outbound
+                            </label>
+                            <div id="follow-up-call-outbound-hint" class="govuk-hint govuk-radios__hint">
+                                I called them
+                            </div>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-call-type-inbound" name="followUpCallType" type="radio" value="Inbound" aria-describedby="follow-up-call-inbound-hint">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-call-type-inbound">
+                                Inbound
+                            </label>
+                            <div id="follow-up-call-inbound-hint" class="govuk-hint govuk-radios__hint">
+                                They called victim services
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group" id="error-form-group-4">
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Were you able to inform the victim of the decision?
+                    </legend>
+
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="follow-up-victim-informed-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-victim-informed-yes" name="followUpVictimInformed" type="radio" value="Yes">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-victim-informed-yes">
+                                Yes
+                            </label>
+                        </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-victim-informed-no" name="followUpVictimInformed" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-victim-informed-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--m" for="follow-up-call-notes">
+                        Notes (optional)
+                    </label>
+                </h1>
+
+                <textarea class="govuk-textarea" id="follow-up-call-notes" name="followUpCallNotes" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/pcd/follow-up/telephone-call.js"></script>
+{% endblock %}

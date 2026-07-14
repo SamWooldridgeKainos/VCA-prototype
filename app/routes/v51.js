@@ -519,8 +519,12 @@ module.exports = router => {
 
         var pcdFollowUpType = request.session.data['pcdFollowUpType']
 
-        if (pcdFollowUpType == "email") {
+        if (pcdFollowUpType == "call") {
+            response.redirect("/v51/pcd/follow-up/telephone-call")
+        } else if (pcdFollowUpType == "email") {
             response.redirect("/v51/pcd/follow-up/email-details")
+        } else if (pcdFollowUpType == "not-contacted") {
+            response.redirect("/v51/pcd/follow-up/not-contacted-reason")
         } else {
             response.redirect("/v51/pcd/follow-up/letter-details")
         }
@@ -567,6 +571,29 @@ module.exports = router => {
         response.redirect("/v51/pcd/follow-up/email-logged")
     })
 
+    router.post('/v51/pcd/follow-up/telephone-call-answer', function(request, response) {
+
+        var data = request.session.data
+
+        addPcdFollowUp(data, {
+            type: 'call',
+            date: data['followUpCallDate'] || '',
+            time: (data['followUpCallHour'] || '') + ':' + (data['followUpCallMinutes'] || ''),
+            direction: data['followUpCallType'] || '',
+            victimInformed: data['followUpVictimInformed'] || '',
+            notes: data['followUpCallNotes'] || ''
+        })
+
+        data['followUpCallDate'] = ''
+        data['followUpCallHour'] = ''
+        data['followUpCallMinutes'] = ''
+        data['followUpCallType'] = ''
+        data['followUpVictimInformed'] = ''
+        data['followUpCallNotes'] = ''
+
+        response.redirect("/v51/pcd/follow-up/call-logged")
+    })
+
     router.post('/v51/pcd/follow-up/letter-details-answer', function(request, response) {
 
         var data = request.session.data
@@ -581,6 +608,20 @@ module.exports = router => {
         data['followUpLetterDispatchNotes'] = ''
 
         response.redirect("/v51/pcd/follow-up/letter-logged")
+    })
+
+    router.post('/v51/pcd/follow-up/not-contacted-reason-answer', function(request, response) {
+
+        var data = request.session.data
+
+        addPcdFollowUp(data, {
+            type: 'not-contacted',
+            reason: data['followUpNotContactedReason'] || ''
+        })
+
+        data['followUpNotContactedReason'] = ''
+
+        response.redirect("/v51/pcd/follow-up/not-contacted-logged")
     })
 
     router.post('/v51/pcd/preferred-method-of-contact-answer', function(request, response) {

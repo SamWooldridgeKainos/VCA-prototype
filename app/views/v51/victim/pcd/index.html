@@ -199,12 +199,34 @@
                                 <dl class="govuk-summary-list govuk-!-margin-bottom-4">
                                     <div class="govuk-summary-list__row">
                                         <dt class="govuk-summary-list__key">
-                                            {% if followUp.type == "email" %}Follow-up email sent{% else %}Follow-up letter sent{% endif %}
+                                            {% if followUp.type == "email" %}Follow-up email sent{% elif followUp.type == "call" %}Follow-up telephone call{% elif followUp.type == "not-contacted" %}Decision not to contact{% else %}Follow-up letter sent{% endif %}
                                         </dt>
                                         <dd class="govuk-summary-list__value">
-                                            {{ followUp.date | formatDate }}
+                                            {% if followUp.type == "not-contacted" %}
+                                                {{ followUp.reason }}
+                                            {% elif followUp.type == "call" and followUp.time %}{{ followUp.date | formatDate }} at {{ followUp.time }}{% else %}{{ followUp.date | formatDate }}{% endif %}
                                         </dd>
                                     </div>
+                                    {% if followUp.type == "call" and followUp.direction %}
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            Direction of call
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ followUp.direction }}
+                                        </dd>
+                                    </div>
+                                    {% endif %}
+                                    {% if followUp.type == "call" and followUp.victimInformed %}
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            Victim informed of decision
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ followUp.victimInformed }}
+                                        </dd>
+                                    </div>
+                                    {% endif %}
                                     {% if followUp.notes %}
                                     <div class="govuk-summary-list__row">
                                         <dt class="govuk-summary-list__key">
