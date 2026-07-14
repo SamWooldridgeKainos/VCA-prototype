@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Reason for not contacting the victim" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/v51/pcd/follow-up/not-contacted-reason-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="not-contacted-reason">
+            What is the reason for not contacting {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+          </label>
+        </h1>
+        <textarea class="govuk-textarea" id="not-contacted-reason" name="followUpNotContactedReason" rows="5"></textarea>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+function validateForm() {
+    $('#error-form-group').removeClass('govuk-form-group--error');
+    $('#not-contacted-reason').removeClass('govuk-textarea--error');
+    $('#error-message-1').remove();
+    $('#error-summary').remove();
+
+    var reason = $('#not-contacted-reason').val();
+
+    if (reason && reason.trim().length > 0) {
+        return true;
+    } else {
+        $('#error-form-group').addClass('govuk-form-group--error');
+        $('#not-contacted-reason').before('<p id="error-message-1" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a reason for not contacting the victim</p>');
+        $('#not-contacted-reason').addClass('govuk-textarea--error');
+        $('#myForm').before(
+            '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"><li><a href="#error-message-1">Enter a reason for not contacting the victim</a></li></ul></div></div>'
+        );
+        $('#error-summary').focus();
+        return false;
+    }
+}
+</script>
+{% endblock %}
