@@ -526,18 +526,41 @@ module.exports = router => {
         }
     })
 
+    // Follow-ups can be logged against the live charging decision or, once a
+    // decision has its own card, against a specific archived decision identified
+    // by the decision's loggedAt id carried in the pcdId param. This keeps the
+    // pre-existing follow-up behaviour for the current decision while letting
+    // each subsequent decision keep its own follow-up list.
+    function addPcdFollowUp(data, followUp) {
+        var pcdId = data['pcdId']
+        if (pcdId) {
+            var decisions = data['pcdDecisions'] || []
+            var decision = decisions.find(function(d) {
+                return String(d.loggedAt) === String(pcdId)
+            })
+            if (decision) {
+                if (!Array.isArray(decision.followUps)) {
+                    decision.followUps = []
+                }
+                decision.followUps.push(followUp)
+                return
+            }
+        }
+        var followUps = data['pcdFollowUps'] || []
+        followUps.push(followUp)
+        data['pcdFollowUps'] = followUps
+    }
+
     router.post('/v50/pcd/follow-up/email-details-answer', function(request, response) {
 
         var data = request.session.data
-        var followUps = data['pcdFollowUps'] || []
 
-        followUps.push({
+        addPcdFollowUp(data, {
             type: 'email',
             date: data['followUpEmailDispatchDate'] || '',
             notes: data['followUpEmailDispatchNotes'] || ''
         })
 
-        data['pcdFollowUps'] = followUps
         data['followUpEmailDispatchDate'] = ''
         data['followUpEmailDispatchNotes'] = ''
 
@@ -547,15 +570,13 @@ module.exports = router => {
     router.post('/v50/pcd/follow-up/letter-details-answer', function(request, response) {
 
         var data = request.session.data
-        var followUps = data['pcdFollowUps'] || []
 
-        followUps.push({
+        addPcdFollowUp(data, {
             type: 'post',
             date: data['followUpLetterDispatchDate'] || '',
             notes: data['followUpLetterDispatchNotes'] || ''
         })
 
-        data['pcdFollowUps'] = followUps
         data['followUpLetterDispatchDate'] = ''
         data['followUpLetterDispatchNotes'] = ''
 
@@ -565,6 +586,102 @@ module.exports = router => {
     router.post('/v50/pcd/preferred-method-of-contact-answer', function(request, response) {
 
         response.redirect("/v50/victim?success=yes&successReason=pmoc-updated#victim-details")
+    })
+
+    // Flat fields holding the single in-progress charging decision (pcd). These
+    // are archived into data['pcdDecisions'] and cleared when the user chooses to
+    // "Log another communication" so each decision keeps its own card and the
+    // next task starts from a clean slate.
+    var pcdTransientFields = [
+        'pcdType', 'pcdStatus', 'pcdSent', 'contactedBy', 'notContactedReason',
+        'pcdCallDate1', 'pcdCallHour1', 'pcdCallMinutes1', 'pcdCallType1', 'pcdVictimInformed1', 'pcdCallNotes1',
+        'pcdCallDate2', 'pcdCallHour2', 'pcdCallMinutes2', 'pcdCallType2', 'pcdVictimInformed2', 'pcdCallNotes2',
+        'pcdCallDate3', 'pcdCallHour3', 'pcdCallMinutes3', 'pcdCallType3', 'pcdVictimInformed3', 'pcdCallNotes3',
+        'pcdWasTextMessageSent', 'pcdTextMessageDate', 'pcdTextMessageHour', 'pcdTextMessageMinutes',
+        'pcdSecondCallHour', 'pcdSecondCallMinutes', 'pcdThirdCallHour', 'pcdThirdCallMinutes',
+        'pcdCallAttempt', 'pcdFumoc', 'pcdNoFumocDetails', 'pcdAttemptToContactAgain',
+        'emailDispatchDate', 'emailDispatchNotes', 'letterDispatchDate', 'letterDispatchNotes',
+        'pcdFollowUps', 'existingTask'
+    ]
+
+    function finalizePcdDecision(data) {
+        if (!data['pcdType']) return
+
+        var today = new Date().toLocaleDateString('en-GB')
+
+        var attempts = []
+        for (var i = 1; i <= 3; i++) {
+            var informed = data['pcdVictimInformed' + i]
+            var hour = data['pcdCallHour' + i]
+            var type = data['pcdCallType' + i]
+            if (informed || hour || type) {
+                attempts.push({
+                    date: data['pcdCallDate' + i] || today,
+                    hour: hour || '',
+                    minutes: data['pcdCallMinutes' + i] || '',
+                    direction: type || '',
+                    informed: informed || '',
+                    notes: data['pcdCallNotes' + i] || ''
+                })
+            }
+        }
+
+        // A text message can only follow the first call attempt.
+        if (attempts.length > 0) {
+            if (data['pcdWasTextMessageSent'] === 'Yes') {
+                attempts[0].textSent = 'Yes'
+                attempts[0].textDate = data['pcdTextMessageDate'] || today
+                attempts[0].textHour = data['pcdTextMessageHour'] || ''
+                attempts[0].textMinutes = data['pcdTextMessageMinutes'] || ''
+            } else if (data['pcdWasTextMessageSent'] === 'No') {
+                attempts[0].textSent = 'No'
+            }
+        }
+
+        var emailSent = !!data['emailDispatchDate']
+        var letterSent = !!data['letterDispatchDate']
+
+        var activityDates = []
+        attempts.forEach(function(a) {
+            if (a.date) activityDates.push(toSortDate(a.date, a.hour, a.minutes))
+        })
+        if (emailSent) activityDates.push(toSortDate(data['emailDispatchDate']))
+        if (letterSent) activityDates.push(toSortDate(data['letterDispatchDate']))
+        activityDates = activityDates.filter(Boolean).sort()
+        var sortDate = activityDates.length ? activityDates[activityDates.length - 1] : toSortDate(today)
+
+        var decision = {
+            type: data['pcdType'] || '',
+            contactedBy: data['contactedBy'] || '',
+            notContactedReason: data['notContactedReason'] || '',
+            callAttempts: attempts,
+            emailDate: emailSent ? (data['emailDispatchDate'] || today) : '',
+            emailNotes: data['emailDispatchNotes'] || '',
+            letterDate: letterSent ? (data['letterDispatchDate'] || today) : '',
+            letterNotes: data['letterDispatchNotes'] || '',
+            fumoc: data['pcdFumoc'] || '',
+            noFumocDetails: data['pcdNoFumocDetails'] || '',
+            followUps: (data['pcdFollowUps'] || []).slice(),
+            sortDate: sortDate,
+            loggedAt: Date.now()
+        }
+
+        if (!Array.isArray(data['pcdDecisions'])) {
+            data['pcdDecisions'] = []
+        }
+        data['pcdDecisions'].push(decision)
+
+        pcdTransientFields.forEach(function(field) {
+            delete data[field]
+        })
+    }
+
+    // "Log another communication" - archive the current charging decision into
+    // its own card, then restart the exact same charging decision flow from the
+    // pcd-type page.
+    router.get('/v50/pcd/log-another', function(request, response) {
+        finalizePcdDecision(request.session.data)
+        response.redirect("/v50/pcd/draft/pcd-type")
     })
 
     //case information
