@@ -1,0 +1,192 @@
+{% block content %}
+{# Read-only summary card for a previously logged charging decision (pcd)
+   communication. Renders from an archived `decision` object built by
+   finalizePcdDecision() so each logged charging decision keeps its own card. #}
+{% macro renderCallAttempt(attempt, number) %}
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Telephone call {{ number }}</dt>
+        <dd class="govuk-summary-list__value">{{ attempt.date | formatDate }}{% if attempt.hour %} at {{ attempt.hour }}:{{ attempt.minutes }}{% endif %}</dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Call direction</dt>
+        <dd class="govuk-summary-list__value">{% if (attempt.direction == "Yes") %}Outbound{% else %}Inbound{% endif %}</dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Victim informed</dt>
+        <dd class="govuk-summary-list__value">{{ attempt.informed }}</dd>
+    </div>
+    {% if attempt.notes %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Notes</dt>
+        <dd class="govuk-summary-list__value">{{ attempt.notes }}</dd>
+    </div>
+    {% endif %}
+    {% if (attempt.textSent == "No") %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Text message sent</dt>
+        <dd class="govuk-summary-list__value">No</dd>
+    </div>
+    {% elif (attempt.textSent == "Yes") %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Text message sent</dt>
+        <dd class="govuk-summary-list__value">{{ attempt.textDate | formatDate }}{% if attempt.textHour %} at {{ attempt.textHour }}:{{ attempt.textMinutes }}{% endif %}</dd>
+    </div>
+    {% endif %}
+</dl>
+{% endmacro %}
+{% macro renderEmailSection(decision) %}
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Email sent</dt>
+        <dd class="govuk-summary-list__value">{{ decision.emailDate | formatDate }}</dd>
+    </div>
+    {% if decision.emailNotes %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Notes</dt>
+        <dd class="govuk-summary-list__value">{{ decision.emailNotes }}</dd>
+    </div>
+    {% endif %}
+</dl>
+{% endmacro %}
+{% macro renderLetterSection(decision) %}
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Letter sent</dt>
+        <dd class="govuk-summary-list__value">{{ decision.letterDate | formatDate }}</dd>
+    </div>
+    {% if decision.letterNotes %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Notes</dt>
+        <dd class="govuk-summary-list__value">{{ decision.letterNotes }}</dd>
+    </div>
+    {% endif %}
+</dl>
+{% endmacro %}
+{% macro renderAllCallsPrevious(decision) %}
+{% set count = decision.callAttempts | length %}
+<details class="govuk-details">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">Previous contact attempts</span>
+    </summary>
+    <div class="govuk-details__text">
+        {% for i in range(0, count) | reverse %}
+        {{ renderCallAttempt(decision.callAttempts[i], i + 1) }}
+        {% if not loop.last %}
+        <hr class="govuk-section-break govuk-section-break--m">
+        {% endif %}
+        {% endfor %}
+    </div>
+</details>
+{% endmacro %}
+<div class="govuk-summary-card govuk-!-margin-bottom-6">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+            {% if (decision.type == "dtc") %}Inform of a decision to charge{% elif (decision.type == "nfa") %}Inform of a no further action decision{% endif %}
+        </h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+
+                {% if (decision.contactedBy == "not-contacted") %}
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Reason for not contacting</dt>
+                        <dd class="govuk-summary-list__value">{{ decision.notContactedReason }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+
+                {% set callCount = (decision.callAttempts | length) if decision.callAttempts else 0 %}
+                {% set informedByPhone = (callCount > 0) and (decision.callAttempts[callCount - 1].informed == "Yes") %}
+                {% set commsIsSuccessfulContact = (decision.emailDate or decision.letterDate) and (callCount > 0) and (not informedByPhone) %}
+
+                {% if commsIsSuccessfulContact %}
+                {# The victim could not be reached by phone, so the email/letter is the successful attempt: show it at the top and list all calls under Previous contact attempts. #}
+                {% if decision.emailDate %}{{ renderEmailSection(decision) }}{% endif %}
+                {% if decision.letterDate %}{{ renderLetterSection(decision) }}{% endif %}
+                <hr class="govuk-section-break govuk-section-break--m">
+                {{ renderAllCallsPrevious(decision) }}
+                {% else %}
+                {% if callCount > 0 %}
+                {% set lastAttempt = decision.callAttempts[callCount - 1] %}
+                {{ renderCallAttempt(lastAttempt, callCount) }}
+                {% if callCount > 1 %}
+                <details class="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">Previous contact attempts</span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        {% for i in range(0, callCount - 1) | reverse %}
+                        {{ renderCallAttempt(decision.callAttempts[i], i + 1) }}
+                        {% if not loop.last %}
+                        <hr class="govuk-section-break govuk-section-break--m">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </details>
+                {% endif %}
+                {% endif %}
+
+                {% if decision.emailDate %}
+                {% if callCount %}
+                <hr class="govuk-section-break govuk-section-break--m">
+                {% endif %}
+                {{ renderEmailSection(decision) }}
+                {% endif %}
+
+                {% if decision.letterDate %}
+                {% if callCount %}
+                <hr class="govuk-section-break govuk-section-break--m">
+                {% endif %}
+                {{ renderLetterSection(decision) }}
+                {% endif %}
+                {% endif %}
+
+                {% if (decision.fumoc == "None") %}
+                <hr class="govuk-section-break govuk-section-break--m">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Letter sent by</dt>
+                        <dd class="govuk-summary-list__value">Letter not wanted</dd>
+                    </div>
+                    {% if decision.noFumocDetails %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Reason for no letter</dt>
+                        <dd class="govuk-summary-list__value">{{ decision.noFumocDetails }}</dd>
+                    </div>
+                    {% endif %}
+                </dl>
+                {% endif %}
+
+                {% if decision.emailDate or decision.letterDate or (decision.fumoc == "None") %}
+                {% if decision.followUps and decision.followUps | length > 0 %}
+                <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-top-4">
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Follow-ups</h3>
+                {% for followUp in decision.followUps %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">{% if followUp.type == "email" %}Follow-up email sent{% else %}Follow-up letter sent{% endif %}</dt>
+                        <dd class="govuk-summary-list__value">{{ followUp.date | formatDate }}</dd>
+                    </div>
+                    {% if followUp.notes %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Notes</dt>
+                        <dd class="govuk-summary-list__value">{{ followUp.notes }}</dd>
+                    </div>
+                    {% endif %}
+                </dl>
+                {% endfor %}
+                {% endif %}
+
+                <a href="/v51/pcd/follow-up/log-follow-up?pcdId={{ decision.loggedAt }}" class="govuk-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-2" data-module="govuk-button">
+                    Log a follow-up
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
