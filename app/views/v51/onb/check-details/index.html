@@ -45,7 +45,7 @@
                     </h3>
                     {% elif data['detailChange'] == "pmoc" %}
                     <h3 class="govuk-notification-banner__heading">
-                        You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                        You changed the preferred method of contact for CPS for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
                     </h3>
                     {% elif data['detailChange'] == "preferred-correspondence-language" %}
                     <h3 class="govuk-notification-banner__heading">
@@ -165,7 +165,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Preferred method of contact
+                    Preferred method of contact for CPS
                 </dt>
                 {% if data['pmoc'] %}
                     <dd class="govuk-summary-list__value">
@@ -173,13 +173,13 @@
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link govuk-link--no-visited-state" href="/v51/onb/check-details/pmoc?successNotification&detailChange=pmoc">
-                            Change<span class="govuk-visually-hidden"> preferred method of contact</span>
+                            Change<span class="govuk-visually-hidden"> preferred method of contact for CPS</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
                         <a href="/v51/onb/check-details/pmoc?successNotification&detailChange=pmoc" class="govuk-link govuk-link--no-visited-state">
-                            Select preferred method of contact
+                            Select preferred method of contact for CPS
                         </a>
                     </dd>
                 {% endif %}

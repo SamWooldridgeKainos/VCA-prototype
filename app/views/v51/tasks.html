@@ -272,6 +272,32 @@ assigneeFormatted = assigneeName %} {% endif %}
                   >Due today</label
                 >
               </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input due-checkbox"
+                  id="due-3"
+                  name="due"
+                  type="checkbox"
+                  value="due-tomorrow"
+                  data-label="Due tomorrow"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="due-3"
+                  >Due tomorrow</label
+                >
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input
+                  class="govuk-checkboxes__input due-checkbox"
+                  id="due-4"
+                  name="due"
+                  type="checkbox"
+                  value="due-next-7-days"
+                  data-label="Due in the next 7 days"
+                />
+                <label class="govuk-label govuk-checkboxes__label" for="due-4"
+                  >Due in the next 7 days</label
+                >
+              </div>
             </div>
           </fieldset>
         </div>
@@ -512,9 +538,9 @@ assigneeFormatted = assigneeName %} {% endif %}
 
   <div class="govuk-grid-column-three-quarters">
 
-    <p class="govuk-body-s" id="results-count"></p>
+    <p class="govuk-body" id="results-count"></p>
 
-    <p class="govuk-body-s" id="sorted-by-text">
+    <p class="govuk-body" id="sorted-by-text">
       <span class="govuk-!-font-weight-bold">Sorted by:</span> Due date
     </p>
 
