@@ -247,6 +247,29 @@ function updateClearFiltersVisibility() {
     }
 }
 
+// Parse a due date from the "Due date" field text (ignoring any tags)
+function parseDueDateFromText(dateText) {
+    // Remove tags like "Overdue", "Due today", "Due tomorrow" and extract the date
+    var cleanText = dateText.replace(/Overdue|Due today|Due tomorrow|Due in \d+ days?/gi, '').trim();
+
+    var months = {
+        'january': 0, 'february': 1, 'march': 2, 'april': 3,
+        'may': 4, 'june': 5, 'july': 6, 'august': 7,
+        'september': 8, 'october': 9, 'november': 10, 'december': 11
+    };
+
+    var match = cleanText.match(/(\d{1,2})\s+(\w+)\s+(\d{4})/);
+    if (match) {
+        var day = parseInt(match[1]);
+        var month = months[match[2].toLowerCase()];
+        var year = parseInt(match[3]);
+        if (month !== undefined) {
+            return new Date(year, month, day);
+        }
+    }
+    return null;
+}
+
 // Apply filters to task list
 function applyTaskFilters() {
     var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
@@ -372,6 +395,22 @@ function applyTaskFilters() {
                 }
                 if (due === 'Due today') {
                     return dueDateValue.indexOf('Due today') !== -1;
+                }
+                if (due === 'Due tomorrow') {
+                    return dueDateValue.indexOf('Due tomorrow') !== -1;
+                }
+                if (due === 'Due in the next 7 days') {
+                    var dueDate = parseDueDateFromText(dueDateValue);
+                    if (!dueDate) return false;
+                    var today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    dueDate.setHours(0, 0, 0, 0);
+                    // Exclude tasks that are already overdue
+                    if (dueDate < today) return false;
+                    // Include tasks due within the next 7 calendar days (inclusive of today)
+                    var limit = new Date(today);
+                    limit.setDate(limit.getDate() + 7);
+                    return dueDate <= limit;
                 }
                 return false;
             });
@@ -632,7 +671,7 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
 (function() {
     function parseDueDate(dateText) {
         // Remove tags like "Overdue", "Due today" and extract the date
-        var cleanText = dateText.replace(/Overdue|Due today|Due in \d+ days?/gi, '').trim();
+        var cleanText = dateText.replace(/Overdue|Due today|Due tomorrow|Due in \d+ days?/gi, '').trim();
         
         // Parse date in format "14 November 2025"
         var months = {
@@ -710,6 +749,51 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
     
     // Make function available globally
     window.sortTasksByDueDate = sortTasksByDueDate;
+})();
+
+// Apply a yellow "Due tomorrow" tag to tasks that are genuinely due the next
+// calendar day. Because sample due dates skip weekends, a task can land on a
+// weekday that is not literally tomorrow (e.g. a Monday when today is Friday),
+// so the tag is decided from the real date rather than static data.
+(function() {
+    function updateDueTomorrowTags() {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        var valueEls = document.querySelectorAll('.due-date-value');
+        valueEls.forEach(function(el) {
+            var existingTag = el.querySelector('.due-date-tag');
+            var hasTomorrowTag = existingTag && existingTag.textContent.trim() === 'Due tomorrow';
+            var dueDate = parseDueDateFromText(el.textContent);
+            var isTomorrow = dueDate && dueDate.getTime() === tomorrow.getTime();
+
+            if (isTomorrow && !existingTag) {
+                var tag = document.createElement('span');
+                tag.className = 'govuk-tag govuk-tag--yellow due-date-tag';
+                tag.textContent = 'Due tomorrow';
+                var br = document.createElement('br');
+                br.className = 'due-date-break';
+                el.insertBefore(br, el.firstChild);
+                el.insertBefore(tag, el.firstChild);
+            } else if (!isTomorrow && hasTomorrowTag) {
+                var trailingBreak = existingTag.nextElementSibling;
+                if (trailingBreak && trailingBreak.classList.contains('due-date-break')) {
+                    trailingBreak.remove();
+                }
+                existingTag.remove();
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateDueTomorrowTags);
+    } else {
+        updateDueTomorrowTags();
+    }
+
+    window.updateDueTomorrowTags = updateDueTomorrowTags;
 })();
 
 // Restore filter settings from localStorage if available
