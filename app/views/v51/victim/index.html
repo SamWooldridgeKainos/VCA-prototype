@@ -101,7 +101,7 @@
                 {% if (data['successReason'] == "email-address-updated") %}
                   You changed the email address for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['victimEmailAddress'] }}.
                 {% elif (data['successReason'] == "pmoc-updated") %}
-                  You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                  You changed the preferred method of contact for CPS for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
                 {% elif (data['successReason'] == "full-name-updated") %}
                   You changed the victim's name and title to {{ data['victimTitle'] }} {{ data['victimForename'] }} {{ data['victimSurname'] }}.
                 {% elif (data['successReason'] == "preferred-name-updated") %}

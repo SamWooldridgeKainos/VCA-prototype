@@ -409,7 +409,7 @@ function applyTaskFilters() {
                     if (dueDate < today) return false;
                     // Include tasks due within the next 7 calendar days (inclusive of today)
                     var limit = new Date(today);
-                    limit.setDate(limit.getDate() + 7);
+                    limit.setDate(limit.getDate() + 6);
                     return dueDate <= limit;
                 }
                 return false;
@@ -751,49 +751,77 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
     window.sortTasksByDueDate = sortTasksByDueDate;
 })();
 
-// Apply a yellow "Due tomorrow" tag to tasks that are genuinely due the next
-// calendar day. Because sample due dates skip weekends, a task can land on a
-// weekday that is not literally tomorrow (e.g. a Monday when today is Friday),
-// so the tag is decided from the real date rather than static data.
+// Apply the appropriate due-date tag (Overdue, Due today or Due tomorrow) to the
+// manual/session-data task (e.g. PHILLIPS, Sarah), whose due date is entered by
+// the user and therefore has no static tag in the sample data.
 (function() {
-    function updateDueTomorrowTags() {
+    // Parse a due date from the "Due date" cell text (ignoring any tags)
+    function parseDate(dateText) {
+        var cleanText = dateText.replace(/Overdue|Due today|Due tomorrow|Due in \d+ days?/gi, '').trim();
+        var months = {
+            'january': 0, 'february': 1, 'march': 2, 'april': 3,
+            'may': 4, 'june': 5, 'july': 6, 'august': 7,
+            'september': 8, 'october': 9, 'november': 10, 'december': 11
+        };
+        var match = cleanText.match(/(\d{1,2})\s+(\w+)\s+(\d{4})/);
+        if (match) {
+            var day = parseInt(match[1]);
+            var month = months[match[2].toLowerCase()];
+            var year = parseInt(match[3]);
+            if (month !== undefined) {
+                return new Date(year, month, day);
+            }
+        }
+        return null;
+    }
+
+    function applyManualTaskDueTag() {
+        var container = document.getElementById('manual-task-container');
+        if (!container) return;
+
+        var valueEl = container.querySelector('.due-date-value');
+        if (!valueEl) return;
+
+        // Leave any existing tag untouched
+        if (valueEl.querySelector('.due-date-tag')) return;
+
+        var dueDate = parseDate(valueEl.textContent);
+        if (!dueDate) return;
+
         var today = new Date();
         today.setHours(0, 0, 0, 0);
+        dueDate.setHours(0, 0, 0, 0);
         var tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var valueEls = document.querySelectorAll('.due-date-value');
-        valueEls.forEach(function(el) {
-            var existingTag = el.querySelector('.due-date-tag');
-            var hasTomorrowTag = existingTag && existingTag.textContent.trim() === 'Due tomorrow';
-            var dueDate = parseDueDateFromText(el.textContent);
-            var isTomorrow = dueDate && dueDate.getTime() === tomorrow.getTime();
+        var label, color;
+        if (dueDate < today) {
+            label = 'Overdue';
+            color = 'red';
+        } else if (dueDate.getTime() === today.getTime()) {
+            label = 'Due today';
+            color = 'pink';
+        } else if (dueDate.getTime() === tomorrow.getTime()) {
+            label = 'Due tomorrow';
+            color = 'yellow';
+        } else {
+            return;
+        }
 
-            if (isTomorrow && !existingTag) {
-                var tag = document.createElement('span');
-                tag.className = 'govuk-tag govuk-tag--yellow due-date-tag';
-                tag.textContent = 'Due tomorrow';
-                var br = document.createElement('br');
-                br.className = 'due-date-break';
-                el.insertBefore(br, el.firstChild);
-                el.insertBefore(tag, el.firstChild);
-            } else if (!isTomorrow && hasTomorrowTag) {
-                var trailingBreak = existingTag.nextElementSibling;
-                if (trailingBreak && trailingBreak.classList.contains('due-date-break')) {
-                    trailingBreak.remove();
-                }
-                existingTag.remove();
-            }
-        });
+        var tag = document.createElement('span');
+        tag.className = 'govuk-tag govuk-tag--' + color + ' due-date-tag';
+        tag.textContent = label;
+        var lineBreak = document.createElement('br');
+        lineBreak.className = 'due-date-break';
+        valueEl.insertBefore(lineBreak, valueEl.firstChild);
+        valueEl.insertBefore(tag, valueEl.firstChild);
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateDueTomorrowTags);
+        document.addEventListener('DOMContentLoaded', applyManualTaskDueTag);
     } else {
-        updateDueTomorrowTags();
+        applyManualTaskDueTag();
     }
-
-    window.updateDueTomorrowTags = updateDueTomorrowTags;
 })();
 
 // Restore filter settings from localStorage if available
