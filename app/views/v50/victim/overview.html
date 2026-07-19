@@ -52,7 +52,7 @@
                         <dd class="govuk-summary-list__value"></dd>
                     </div>
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Preferred method of contact</dt>
+                        <dt class="govuk-summary-list__key">Preferred method of contact for CPS</dt>
                         <dd class="govuk-summary-list__value">{{ data['pmoc'] | capitalize }}</dd>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -79,14 +79,151 @@
             </div>
 
             <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
+                {% set hasFlo = (data['familyLiaisonOfficerDeleted'] != 'yes') and (data['familyLiaisonOfficerName']) and (data['familyLiaisonOfficerEmailAddress'] or data['familyLiaisonOfficerPhoneNumber']) %}
+                {% set hasIdva = (data['idvaDeleted'] != 'yes') and (data['idvaName']) and (data['idvaEmailAddress'] or data['idvaPhoneNumber']) %}
+                {% set hasIsva = (data['isvaDeleted'] != 'yes') and (data['isvaName']) and (data['isvaEmailAddress'] or data['isvaPhoneNumber']) %}
+
+                {% if hasFlo %}
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Family Liaison Officer</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Officer in the case</dt>
-                        <dd class="govuk-summary-list__value">{{ data['oicCollarNumber'] }} {{ data['oicSurname'] | upper }}, {{ data['oicForename'] }}</dd>
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['familyLiaisonOfficerName'] }}</dd>
                     </div>
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Victim liaison officer</dt>
-                        <dd class="govuk-summary-list__value">{{ data['vlo'] | default('Unassigned') }}</dd>
+                        <dt class="govuk-summary-list__key">Address</dt>
+                        <dd class="govuk-summary-list__value">Not applicable</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['familyLiaisonOfficerEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['familyLiaisonOfficerPhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+                {% if hasIdva %}
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Independent Domestic Violence Advisor (IDVA)</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['idvaName'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Address</dt>
+                        <dd class="govuk-summary-list__value">{{ data['idvaAddressLine1'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['idvaEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['idvaPhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+                {% if hasIsva %}
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Independent Sexual Violence Advisor (ISVA)</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['isvaName'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Address</dt>
+                        <dd class="govuk-summary-list__value">{{ data['isvaAddressLine1'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['isvaEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['isvaPhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Counsel</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['counselSurname'] | upper }}, {{ data['counselForename'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Organisation</dt>
+                        <dd class="govuk-summary-list__value"></dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['counselEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['counselPhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Defence solicitor</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['defenceSolicitorSurname'] | upper }}, {{ data['defenceSolicitorForename'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Organisation</dt>
+                        <dd class="govuk-summary-list__value"></dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['defenceSolicitorEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['defenceSolicitorPhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">High Court Advocate</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['highCourtAdvocateSurname'] | upper }}, {{ data['highCourtAdvocateForename'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Organisation</dt>
+                        <dd class="govuk-summary-list__value"></dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['highCourtAdvocateEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['highCourtAdvocatePhoneNumber'] }}</dd>
+                    </div>
+                </dl>
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Officer in Charge</h3>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">{{ data['oicRank'] }} {{ data['oicSurname'] | upper }}, {{ data['oicForename'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Organisation</dt>
+                        <dd class="govuk-summary-list__value">{{ data['policeForce'] or 'Metropolitan Police' }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email</dt>
+                        <dd class="govuk-summary-list__value">{{ data['oicEmailAddress'] }}</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Telephone</dt>
+                        <dd class="govuk-summary-list__value">{{ data['oicPhoneNumber'] }}</dd>
                     </div>
                 </dl>
             </div>
