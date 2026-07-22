@@ -6,7 +6,7 @@ module.exports = {
   'vclStatus': 'log-not-started',
   'pcdStatus': 'log-not-started',
   'recipient': 'victim',
-  'area': 'London',
+  'area': 'London North',
 
   'detailChange': 'no',
 
