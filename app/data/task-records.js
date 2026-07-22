@@ -20,7 +20,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Select letter dispatch method'
   },
@@ -33,7 +33,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -47,7 +47,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log offer'
   },
@@ -60,7 +60,7 @@ module.exports = [
     dueDateTag: 'Due tomorrow',
     dueDateTagColor: 'yellow',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -72,7 +72,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(5), daysOffset: 5,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log offer'
   },
@@ -85,7 +85,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log email'
   },
@@ -98,7 +98,7 @@ module.exports = [
     dueDateTag: 'Due tomorrow',
     dueDateTagColor: 'yellow',
     service: 'RASSO',
-    area: 'Greater Manchester',
+    area: 'North West',
     taskAssignee: 'KUMAR, Priya',
     nextAction: 'Log a communication'
   },
@@ -112,7 +112,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Confirm arranged meeting'
   },
@@ -125,7 +125,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Lancashire',
+    area: 'North West',
     taskAssignee: 'Unassigned',
     nextAction: 'Log a communication'
   },
@@ -136,7 +136,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(8), daysOffset: 8,
     service: 'RASSO',
-    area: 'Merseyside',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'BISHOP, James',
     nextAction: 'Log a communication'
   },
@@ -150,7 +150,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Enhanced',
-    area: 'South Wales',
+    area: 'Cymru/Wales',
     taskAssignee: 'MORRISON, Claire',
     nextAction: 'Confirm arranged meeting'
   },
@@ -162,7 +162,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(4), daysOffset: 4,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -176,7 +176,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Devon and Cornwall',
+    area: 'South West',
     taskAssignee: 'HAYES, Michael',
     nextAction: 'Continue draft'
   },
@@ -187,7 +187,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(10), daysOffset: 10,
     service: 'Enhanced',
-    area: 'West Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'ANDERSON, David',
     nextAction: 'Log a communication'
   },
@@ -200,7 +200,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Gloucestershire',
+    area: 'South West',
     taskAssignee: 'WRIGHT, Hannah',
     nextAction: 'Log a communication'
   },
@@ -211,7 +211,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(7), daysOffset: 7,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -224,7 +224,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'Bedfordshire',
+    area: 'East of England',
     taskAssignee: 'MARTINEZ, Carlos',
     nextAction: 'Log a communication'
   },
@@ -235,7 +235,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(11), daysOffset: 11,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -247,7 +247,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(12), daysOffset: 12,
     service: 'RASSO',
-    area: 'Greater Manchester',
+    area: 'North West',
     taskAssignee: 'KUMAR, Priya',
     nextAction: 'Log offer'
   },
@@ -260,7 +260,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Cambridgeshire',
+    area: 'East of England',
     taskAssignee: 'HENDERSON, Louise',
     nextAction: 'Log a communication'
   },
@@ -272,7 +272,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(3), daysOffset: 3,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Confirm arranged meeting'
   },
@@ -283,7 +283,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(14), daysOffset: 14,
     service: 'RASSO',
-    area: 'Merseyside',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'BISHOP, James',
     nextAction: 'Select letter dispatch method'
   },
@@ -297,7 +297,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Sussex',
+    area: 'South East',
     taskAssignee: "O'CONNELL, Siobhan",
     nextAction: 'Continue draft'
   },
@@ -308,7 +308,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(18), daysOffset: 18,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -321,7 +321,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Enhanced',
-    area: 'West Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'ANDERSON, David',
     nextAction: 'Log a communication'
   },
@@ -333,7 +333,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(13), daysOffset: 13,
     service: 'Enhanced',
-    area: 'South Wales',
+    area: 'Cymru/Wales',
     taskAssignee: 'MORRISON, Claire',
     nextAction: 'Log offer'
   },
@@ -346,7 +346,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'Gloucestershire',
+    area: 'South West',
     taskAssignee: 'WRIGHT, Hannah',
     nextAction: 'Select letter dispatch method'
   },
@@ -357,7 +357,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(17), daysOffset: 17,
     service: 'RASSO',
-    area: 'Devon and Cornwall',
+    area: 'South West',
     taskAssignee: 'HAYES, Michael',
     nextAction: 'Log a communication'
   },
@@ -369,7 +369,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(4), daysOffset: 4,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Confirm arranged meeting'
   },
@@ -380,7 +380,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(26), daysOffset: 26,
     service: 'Enhanced',
-    area: 'Lincolnshire',
+    area: 'East Midlands',
     taskAssignee: 'CHEN, Michael',
     nextAction: 'Log a communication'
   },
@@ -394,7 +394,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Humberside',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'PATEL, Ravi',
     nextAction: 'Log a communication'
   },
@@ -406,7 +406,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(21), daysOffset: 21,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log offer'
   },
@@ -419,7 +419,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'North Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'JOHNSON, Patricia',
     nextAction: 'Log email'
   },
@@ -430,7 +430,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(24), daysOffset: 24,
     service: 'Enhanced',
-    area: 'Nottinghamshire',
+    area: 'East Midlands',
     taskAssignee: 'GARCÍA, Luis',
     nextAction: 'Log a communication'
   },
@@ -444,7 +444,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Confirm arranged meeting'
   },
@@ -455,7 +455,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(19), daysOffset: 19,
     service: 'Universal',
-    area: 'Cheshire',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'WILLIAMS, Anna',
     nextAction: 'Log a communication'
   },
@@ -466,7 +466,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(20), daysOffset: 20,
     service: 'Enhanced',
-    area: 'Stafford',
+    area: 'West Midlands',
     taskAssignee: 'STEWART, James',
     nextAction: 'Continue draft'
   },
@@ -479,7 +479,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Suffolk',
+    area: 'East of England',
     taskAssignee: 'LEWIS, Elizabeth',
     nextAction: 'Select letter dispatch method'
   },
@@ -490,7 +490,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(31), daysOffset: 31,
     service: 'Universal',
-    area: 'Thames Valley',
+    area: 'Thames and Chiltern',
     taskAssignee: 'WALKER, George',
     nextAction: 'Log a communication'
   },
@@ -502,7 +502,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(25), daysOffset: 25,
     service: 'Enhanced',
-    area: 'Warwickshire',
+    area: 'West Midlands',
     taskAssignee: 'CLARK, Victoria',
     nextAction: 'Log offer'
   },
@@ -515,7 +515,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -527,7 +527,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(27), daysOffset: 27,
     service: 'RASSO',
-    area: 'Greater Manchester',
+    area: 'North West',
     taskAssignee: 'KUMAR, Priya',
     nextAction: 'Confirm arranged meeting'
   },
@@ -541,7 +541,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Merseyside',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'BISHOP, James',
     nextAction: 'Log a communication'
   },
@@ -552,7 +552,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(38), daysOffset: 38,
     service: 'Enhanced',
-    area: 'South Wales',
+    area: 'Cymru/Wales',
     taskAssignee: 'MORRISON, Claire',
     nextAction: 'Log email'
   },
@@ -563,7 +563,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(32), daysOffset: 32,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Select letter dispatch method'
   },
@@ -575,7 +575,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(26), daysOffset: 26,
     service: 'RASSO',
-    area: 'Devon and Cornwall',
+    area: 'South West',
     taskAssignee: 'HAYES, Michael',
     nextAction: 'Log offer'
   },
@@ -588,7 +588,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Enhanced',
-    area: 'West Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'ANDERSON, David',
     nextAction: 'Log a communication'
   },
@@ -599,7 +599,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(35), daysOffset: 35,
     service: 'Universal',
-    area: 'Gloucestershire',
+    area: 'South West',
     taskAssignee: 'WRIGHT, Hannah',
     nextAction: 'Log a communication'
   },
@@ -613,7 +613,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Confirm arranged meeting'
   },
@@ -625,7 +625,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(22), daysOffset: 22,
     service: 'Universal',
-    area: 'Bedfordshire',
+    area: 'East of England',
     taskAssignee: 'MARTINEZ, Carlos',
     nextAction: 'Continue draft'
   },
@@ -636,7 +636,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(23), daysOffset: 23,
     service: 'Enhanced',
-    area: 'Lincolnshire',
+    area: 'East Midlands',
     taskAssignee: 'CHEN, Michael',
     nextAction: 'Log a communication'
   },
@@ -649,7 +649,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Humberside',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'PATEL, Ravi',
     nextAction: 'Log a communication'
   },
@@ -661,7 +661,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(15), daysOffset: 15,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log offer'
   },
@@ -674,7 +674,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Sussex',
+    area: 'South East',
     taskAssignee: "O'CONNELL, Siobhan",
     nextAction: 'Select letter dispatch method'
   },
@@ -686,7 +686,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(28), daysOffset: 28,
     service: 'Universal',
-    area: 'North Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'JOHNSON, Patricia',
     nextAction: 'Confirm arranged meeting'
   },
@@ -697,7 +697,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(29), daysOffset: 29,
     service: 'Enhanced',
-    area: 'Nottinghamshire',
+    area: 'East Midlands',
     taskAssignee: 'GARCÍA, Luis',
     nextAction: 'Log email'
   },
@@ -711,7 +711,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Cambridgeshire',
+    area: 'East of England',
     taskAssignee: 'HENDERSON, Louise',
     nextAction: 'Log a communication'
   },
@@ -722,7 +722,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(33), daysOffset: 33,
     service: 'Universal',
-    area: 'Cheshire',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'WILLIAMS, Anna',
     nextAction: 'Log a communication'
   },
@@ -733,7 +733,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(34), daysOffset: 34,
     service: 'Enhanced',
-    area: 'Stafford',
+    area: 'West Midlands',
     taskAssignee: 'STEWART, James',
     nextAction: 'Select letter dispatch method'
   },
@@ -747,7 +747,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log offer'
   },
@@ -758,7 +758,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(36), daysOffset: 36,
     service: 'RASSO',
-    area: 'Suffolk',
+    area: 'East of England',
     taskAssignee: 'LEWIS, Elizabeth',
     nextAction: 'Log a communication'
   },
@@ -770,7 +770,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(37), daysOffset: 37,
     service: 'Universal',
-    area: 'Thames Valley',
+    area: 'Thames and Chiltern',
     taskAssignee: 'WALKER, George',
     nextAction: 'Confirm arranged meeting'
   },
@@ -783,7 +783,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Enhanced',
-    area: 'Warwickshire',
+    area: 'West Midlands',
     taskAssignee: 'CLARK, Victoria',
     nextAction: 'Log a communication'
   },
@@ -795,7 +795,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(9), daysOffset: 9,
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Continue draft'
   },
@@ -808,7 +808,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'RASSO',
-    area: 'Greater Manchester',
+    area: 'North West',
     taskAssignee: 'KUMAR, Priya',
     nextAction: 'Log a communication'
   },
@@ -819,7 +819,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(40), daysOffset: 40,
     service: 'RASSO',
-    area: 'Merseyside',
+    area: 'Mersey-Cheshire',
     taskAssignee: 'BISHOP, James',
     nextAction: 'Select letter dispatch method'
   },
@@ -831,7 +831,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(41), daysOffset: 41,
     service: 'Enhanced',
-    area: 'South Wales',
+    area: 'Cymru/Wales',
     taskAssignee: 'MORRISON, Claire',
     nextAction: 'Log offer'
   },
@@ -844,7 +844,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'RASSO',
-    area: 'Devon and Cornwall',
+    area: 'South West',
     taskAssignee: 'HAYES, Michael',
     nextAction: 'Log email'
   },
@@ -856,7 +856,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(43), daysOffset: 43,
     service: 'Enhanced',
-    area: 'West Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'ANDERSON, David',
     nextAction: 'Confirm arranged meeting'
   },
@@ -867,7 +867,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(44), daysOffset: 44,
     service: 'Universal',
-    area: 'Gloucestershire',
+    area: 'South West',
     taskAssignee: 'WRIGHT, Hannah',
     nextAction: 'Log a communication'
   },
@@ -881,7 +881,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -892,7 +892,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(16), daysOffset: 16,
     service: 'Universal',
-    area: 'Bedfordshire',
+    area: 'East of England',
     taskAssignee: 'MARTINEZ, Carlos',
     nextAction: 'Log a communication'
   },
@@ -903,7 +903,7 @@ module.exports = [
     task: 'Inform of a decision to charge',
     dueDate: formatDate(2), daysOffset: 2,
     service: 'Enhanced',
-    area: 'Lincolnshire',
+    area: 'East Midlands',
     taskAssignee: 'CHEN, Michael',
     nextAction: 'Select letter dispatch method'
   },
@@ -917,7 +917,7 @@ module.exports = [
     dueDateTag: 'Overdue',
     dueDateTagColor: 'red',
     service: 'Universal',
-    area: 'Humberside',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'PATEL, Ravi',
     nextAction: 'Log offer'
   },
@@ -928,7 +928,7 @@ module.exports = [
     task: 'Inform of a no further action decision',
     dueDate: formatDate(30), daysOffset: 30,
     service: 'RASSO',
-    area: 'Sussex',
+    area: 'South East',
     taskAssignee: "O'CONNELL, Siobhan",
     nextAction: 'Log a communication'
   },
@@ -940,7 +940,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(39), daysOffset: 39,
     service: 'Universal',
-    area: 'North Yorkshire',
+    area: 'Yorkshire and Humberside',
     taskAssignee: 'JOHNSON, Patricia',
     nextAction: 'Confirm arranged meeting'
   },
@@ -953,7 +953,7 @@ module.exports = [
     dueDateTag: 'Due today',
     dueDateTagColor: 'pink',
     service: 'Universal',
-    area: 'London',
+    area: 'London North',
     taskAssignee: 'THOMPSON, Sarah (you)',
     nextAction: 'Log a communication'
   },
@@ -965,7 +965,7 @@ module.exports = [
     purpose: 'CPS pre-trial meeting',
     dueDate: formatDate(42), daysOffset: 42,
     service: 'Enhanced',
-    area: 'Nottinghamshire',
+    area: 'East Midlands',
     taskAssignee: 'GARCÍA, Luis',
     nextAction: 'Continue draft'
   }
