@@ -40,6 +40,73 @@
                 </div>
             </div>
 
+            <div class="govuk-form-group" id="error-form-group-person-contacted">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Person contacted
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios" id="follow-up-letter-individual-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-letter-individual-victim" name="followUpLetterIndividual" type="radio" value="Victim">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-letter-individual-victim">
+                                Victim
+                            </label>
+                            <div id="follow-up-letter-individual-victim-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-letter-individual-police" name="followUpLetterIndividual" type="radio" value="Via police">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-letter-individual-police">
+                                Via police
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-letter-individual-isva" name="followUpLetterIndividual" type="radio" value="Via ISVA">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-letter-individual-isva">
+                                Via independent sexual violence adviser (ISVA)
+                            </label>
+                            {% if data['isvaName'] and data['isvaDeleted'] != 'yes' %}
+                            <div id="follow-up-letter-individual-isva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['isvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-letter-individual-idva" name="followUpLetterIndividual" type="radio" value="Via IDVA">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-letter-individual-idva">
+                                Via independent domestic violence adviser (IDVA)
+                            </label>
+                            {% if data['idvaName'] and data['idvaDeleted'] != 'yes' %}
+                            <div id="follow-up-letter-individual-idva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['idvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="follow-up-letter-individual-other" name="followUpLetterIndividual" type="radio" value="Other" data-aria-controls="conditional-follow-up-letter-individual">
+                            <label class="govuk-label govuk-radios__label" for="follow-up-letter-individual-other">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-follow-up-letter-individual">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="follow-up-letter-individual-name">
+                                    Name
+                                </label>
+                                <input class="govuk-input" id="follow-up-letter-individual-name" name="followUpLetterIndividualName" type="text">
+                            </div>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="follow-up-letter-individual-role">
+                                    Role
+                                </label>
+                                <input class="govuk-input" id="follow-up-letter-individual-role" name="followUpLetterIndividualRole" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--m" for="follow-up-letter-notes">

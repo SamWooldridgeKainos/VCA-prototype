@@ -1,3 +1,4 @@
+{% import "/v51/victim/pcd/details/_person-contacted.html" as pc with context %}
 {% block content %}
 <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
@@ -8,6 +9,7 @@
             {{ "today" | govukDate(showWeekday=true) }}
         </dd>
     </div>
+    {{ pc.personContacted(data['letterDispatchIndividual'], data['letterDispatchIndividualName'], data['letterDispatchIndividualRole']) }}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             Notes

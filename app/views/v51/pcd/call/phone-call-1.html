@@ -78,7 +78,7 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        What was the call direction?
+                        Call direction
                     </legend>
 
                     <div class="govuk-radios" data-module="govuk-radios" id="call-type-radios">
@@ -105,11 +105,78 @@
                 </fieldset>
             </div>
 
+            <div class="govuk-form-group" id="error-form-group-person-contacted">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Person contacted
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios" id="call-individual-radios-1">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-individual-victim-1" name="pcdCallIndividual1" type="radio" value="Victim">
+                            <label class="govuk-label govuk-radios__label" for="call-individual-victim-1">
+                                Victim
+                            </label>
+                            <div id="call-individual-victim-hint-1" class="govuk-hint govuk-radios__hint">
+                                {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-individual-police-1" name="pcdCallIndividual1" type="radio" value="Via police">
+                            <label class="govuk-label govuk-radios__label" for="call-individual-police-1">
+                                Via police
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-individual-isva-1" name="pcdCallIndividual1" type="radio" value="Via ISVA">
+                            <label class="govuk-label govuk-radios__label" for="call-individual-isva-1">
+                                Via independent sexual violence adviser (ISVA)
+                            </label>
+                            {% if data['isvaName'] and data['isvaDeleted'] != 'yes' %}
+                            <div id="call-individual-isva-hint-1" class="govuk-hint govuk-radios__hint">
+                                {{ data['isvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-individual-idva-1" name="pcdCallIndividual1" type="radio" value="Via IDVA">
+                            <label class="govuk-label govuk-radios__label" for="call-individual-idva-1">
+                                Via independent domestic violence adviser (IDVA)
+                            </label>
+                            {% if data['idvaName'] and data['idvaDeleted'] != 'yes' %}
+                            <div id="call-individual-idva-hint-1" class="govuk-hint govuk-radios__hint">
+                                {{ data['idvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="call-individual-other-1" name="pcdCallIndividual1" type="radio" value="Other" data-aria-controls="conditional-call-individual-1">
+                            <label class="govuk-label govuk-radios__label" for="call-individual-other-1">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-call-individual-1">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="call-individual-name-1">
+                                    Name
+                                </label>
+                                <input class="govuk-input" id="call-individual-name-1" name="pcdCallIndividualName1" type="text">
+                            </div>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="call-individual-role-1">
+                                    Role
+                                </label>
+                                <input class="govuk-input" id="call-individual-role-1" name="pcdCallIndividualRole1" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
             <div class="govuk-form-group" id="error-form-group-4">
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Were you able to inform the victim of the decision?
+                        Victim informed of decision
                     </legend>
 
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios" id="victim-informed-radios">

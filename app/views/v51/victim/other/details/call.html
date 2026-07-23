@@ -22,7 +22,13 @@
         </dt>
         <dd class="govuk-summary-list__value">
             {% if (communication.otherIndividual == "Victim") %}
-                {{ communication.victimSurname | upper }}, {{ communication.victimForename }} ({{ communication.otherIndividual | lower }})
+                {{ communication.victimSurname | upper }}, {{ communication.victimForename }} (victim)
+            {% elif (communication.otherIndividual == "Via police") %}
+                Via police
+            {% elif (communication.otherIndividual == "Via ISVA") %}
+                Via ISVA{% if data['isvaName'] and data['isvaDeleted'] != 'yes' %} ({{ data['isvaName'] }}){% endif %}
+            {% elif (communication.otherIndividual == "Via IDVA") %}
+                Via IDVA{% if data['idvaName'] and data['idvaDeleted'] != 'yes' %} ({{ data['idvaName'] }}){% endif %}
             {% else %}
                 {{ communication.otherIndividualName }} ({{ communication.otherIndividualRole }})
             {% endif %}

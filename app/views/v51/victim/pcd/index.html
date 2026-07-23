@@ -227,6 +227,16 @@
                                         </dd>
                                     </div>
                                     {% endif %}
+                                    {% if followUp.individual %}
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            Person contacted
+                                        </dt>
+                                        <dd class="govuk-summary-list__value">
+                                            {{ followUp.individual }}
+                                        </dd>
+                                    </div>
+                                    {% endif %}
                                     {% if followUp.notes %}
                                     <div class="govuk-summary-list__row">
                                         <dt class="govuk-summary-list__key">

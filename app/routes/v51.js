@@ -562,11 +562,15 @@ module.exports = router => {
         addPcdFollowUp(data, {
             type: 'email',
             date: data['followUpEmailDispatchDate'] || '',
-            notes: data['followUpEmailDispatchNotes'] || ''
+            notes: data['followUpEmailDispatchNotes'] || '',
+            individual: resolvePersonContacted(data, data['followUpEmailIndividual'], data['followUpEmailIndividualName'], data['followUpEmailIndividualRole'])
         })
 
         data['followUpEmailDispatchDate'] = ''
         data['followUpEmailDispatchNotes'] = ''
+        data['followUpEmailIndividual'] = ''
+        data['followUpEmailIndividualName'] = ''
+        data['followUpEmailIndividualRole'] = ''
 
         response.redirect("/v51/pcd/follow-up/email-logged")
     })
@@ -581,7 +585,8 @@ module.exports = router => {
             time: (data['followUpCallHour'] || '') + ':' + (data['followUpCallMinutes'] || ''),
             direction: data['followUpCallType'] || '',
             victimInformed: data['followUpVictimInformed'] || '',
-            notes: data['followUpCallNotes'] || ''
+            notes: data['followUpCallNotes'] || '',
+            individual: resolvePersonContacted(data, data['followUpCallIndividual'], data['followUpCallIndividualName'], data['followUpCallIndividualRole'])
         })
 
         data['followUpCallDate'] = ''
@@ -590,6 +595,9 @@ module.exports = router => {
         data['followUpCallType'] = ''
         data['followUpVictimInformed'] = ''
         data['followUpCallNotes'] = ''
+        data['followUpCallIndividual'] = ''
+        data['followUpCallIndividualName'] = ''
+        data['followUpCallIndividualRole'] = ''
 
         response.redirect("/v51/pcd/follow-up/call-logged")
     })
@@ -601,11 +609,15 @@ module.exports = router => {
         addPcdFollowUp(data, {
             type: 'post',
             date: data['followUpLetterDispatchDate'] || '',
-            notes: data['followUpLetterDispatchNotes'] || ''
+            notes: data['followUpLetterDispatchNotes'] || '',
+            individual: resolvePersonContacted(data, data['followUpLetterIndividual'], data['followUpLetterIndividualName'], data['followUpLetterIndividualRole'])
         })
 
         data['followUpLetterDispatchDate'] = ''
         data['followUpLetterDispatchNotes'] = ''
+        data['followUpLetterIndividual'] = ''
+        data['followUpLetterIndividualName'] = ''
+        data['followUpLetterIndividualRole'] = ''
 
         response.redirect("/v51/pcd/follow-up/letter-logged")
     })
@@ -638,12 +650,44 @@ module.exports = router => {
         'pcdCallDate1', 'pcdCallHour1', 'pcdCallMinutes1', 'pcdCallType1', 'pcdVictimInformed1', 'pcdCallNotes1',
         'pcdCallDate2', 'pcdCallHour2', 'pcdCallMinutes2', 'pcdCallType2', 'pcdVictimInformed2', 'pcdCallNotes2',
         'pcdCallDate3', 'pcdCallHour3', 'pcdCallMinutes3', 'pcdCallType3', 'pcdVictimInformed3', 'pcdCallNotes3',
+        'pcdCallIndividual1', 'pcdCallIndividualName1', 'pcdCallIndividualRole1',
+        'pcdCallIndividual2', 'pcdCallIndividualName2', 'pcdCallIndividualRole2',
+        'pcdCallIndividual3', 'pcdCallIndividualName3', 'pcdCallIndividualRole3',
         'pcdWasTextMessageSent', 'pcdTextMessageDate', 'pcdTextMessageHour', 'pcdTextMessageMinutes',
         'pcdSecondCallHour', 'pcdSecondCallMinutes', 'pcdThirdCallHour', 'pcdThirdCallMinutes',
         'pcdCallAttempt', 'pcdFumoc', 'pcdNoFumocDetails', 'pcdAttemptToContactAgain',
-        'emailDispatchDate', 'emailDispatchNotes', 'letterDispatchDate', 'letterDispatchNotes',
+        'emailDispatchDate', 'emailDispatchNotes', 'emailDispatchIndividual', 'emailDispatchIndividualName', 'emailDispatchIndividualRole',
+        'letterDispatchDate', 'letterDispatchNotes', 'letterDispatchIndividual', 'letterDispatchIndividualName', 'letterDispatchIndividualRole',
         'pcdFollowUps', 'existingTask'
     ]
+
+    // Resolve a "Person contacted" radio value into a display string, pulling the
+    // relevant contact name through from the Case contacts tab when present.
+    function resolvePersonContacted(data, value, name, role) {
+        if (!value) return ''
+        if (value === 'Victim') {
+            var surname = (data['victimSurname'] || '').toUpperCase()
+            var forename = data['victimForename'] || ''
+            var victimName = [surname, forename].filter(Boolean).join(', ')
+            return victimName ? 'Victim (' + victimName + ')' : 'Victim'
+        }
+        if (value === 'Via police') {
+            return 'Via police'
+        }
+        if (value === 'Via ISVA') {
+            var hasIsva = data['isvaName'] && data['isvaDeleted'] !== 'yes'
+            return hasIsva ? 'Via ISVA (' + data['isvaName'] + ')' : 'Via ISVA'
+        }
+        if (value === 'Via IDVA') {
+            var hasIdva = data['idvaName'] && data['idvaDeleted'] !== 'yes'
+            return hasIdva ? 'Via IDVA (' + data['idvaName'] + ')' : 'Via IDVA'
+        }
+        if (value === 'Other') {
+            var detail = [name, role].filter(Boolean).join(', ')
+            return detail ? 'Other (' + detail + ')' : 'Other'
+        }
+        return value
+    }
 
     function finalizePcdDecision(data) {
         if (!data['pcdType']) return
@@ -662,7 +706,8 @@ module.exports = router => {
                     minutes: data['pcdCallMinutes' + i] || '',
                     direction: type || '',
                     informed: informed || '',
-                    notes: data['pcdCallNotes' + i] || ''
+                    notes: data['pcdCallNotes' + i] || '',
+                    individual: resolvePersonContacted(data, data['pcdCallIndividual' + i], data['pcdCallIndividualName' + i], data['pcdCallIndividualRole' + i])
                 })
             }
         }
@@ -698,8 +743,10 @@ module.exports = router => {
             callAttempts: attempts,
             emailDate: emailSent ? (data['emailDispatchDate'] || today) : '',
             emailNotes: data['emailDispatchNotes'] || '',
+            emailIndividual: emailSent ? resolvePersonContacted(data, data['emailDispatchIndividual'], data['emailDispatchIndividualName'], data['emailDispatchIndividualRole']) : '',
             letterDate: letterSent ? (data['letterDispatchDate'] || today) : '',
             letterNotes: data['letterDispatchNotes'] || '',
+            letterIndividual: letterSent ? resolvePersonContacted(data, data['letterDispatchIndividual'], data['letterDispatchIndividualName'], data['letterDispatchIndividualRole']) : '',
             fumoc: data['pcdFumoc'] || '',
             noFumocDetails: data['pcdNoFumocDetails'] || '',
             followUps: (data['pcdFollowUps'] || []).slice(),
@@ -726,10 +773,13 @@ module.exports = router => {
         'vdType', 'vdStoppedReason', 'vdAlteredType', 'vdContactedBy',
         'vdCallAttempts', 'vdCallDate', 'vdCallHour', 'vdCallMinutes',
         'vdCallType', 'vdVictimInformed', 'vdCallNotes',
+        'vdCallIndividual', 'vdCallIndividualName', 'vdCallIndividualRole',
         'vdFumoc', 'vdNoFumocDetails', 'vdNextMoc',
         'vdWasTextMessageSent', 'vdTextMessageDate', 'vdTextMessageHour', 'vdTextMessageMinutes',
         'vdSecondCallHour', 'vdSecondCallMinutes', 'vdThirdCallHour', 'vdThirdCallMinutes',
         'vdEmailDate', 'vdEmailNotes', 'vdLetterDate', 'vdLetterNotes',
+        'vdEmailIndividual', 'vdEmailIndividualName', 'vdEmailIndividualRole',
+        'vdLetterIndividual', 'vdLetterIndividualName', 'vdLetterIndividualRole',
         'vdNotContactedReason'
     ]
 
@@ -756,8 +806,10 @@ module.exports = router => {
             noFumocDetails: data['vdNoFumocDetails'] || '',
             emailDate: data['vdEmailDate'] || '',
             emailNotes: data['vdEmailNotes'] || '',
+            emailIndividual: data['vdEmailDate'] ? resolvePersonContacted(data, data['vdEmailIndividual'], data['vdEmailIndividualName'], data['vdEmailIndividualRole']) : '',
             letterDate: data['vdLetterDate'] || '',
             letterNotes: data['vdLetterNotes'] || '',
+            letterIndividual: data['vdLetterDate'] ? resolvePersonContacted(data, data['vdLetterIndividual'], data['vdLetterIndividualName'], data['vdLetterIndividualRole']) : '',
             notContactedReason: data['vdNotContactedReason'] || '',
             sortDate: sortDate,
             loggedAt: Date.now()
@@ -857,13 +909,14 @@ module.exports = router => {
             minutes: data['vdCallMinutes'] || '',
             direction: data['vdCallType'] || '',
             informed: data['vdVictimInformed'] || '',
-            notes: data['vdCallNotes'] || ''
+            notes: data['vdCallNotes'] || '',
+            individual: resolvePersonContacted(data, data['vdCallIndividual'], data['vdCallIndividualName'], data['vdCallIndividualRole'])
         })
 
         var informed = data['vdVictimInformed']
         var attemptCount = data['vdCallAttempts'].length
 
-        var attemptFields = ['vdCallDate', 'vdCallHour', 'vdCallMinutes', 'vdCallType', 'vdVictimInformed', 'vdCallNotes']
+        var attemptFields = ['vdCallDate', 'vdCallHour', 'vdCallMinutes', 'vdCallType', 'vdVictimInformed', 'vdCallNotes', 'vdCallIndividual', 'vdCallIndividualName', 'vdCallIndividualRole']
         attemptFields.forEach(function(field) {
             delete data[field]
         })
@@ -990,10 +1043,14 @@ module.exports = router => {
         addVclFollowUp(data, {
             type: 'email',
             date: data['vclFollowUpEmailDate'] || '',
-            notes: data['vclFollowUpEmailNotes'] || ''
+            notes: data['vclFollowUpEmailNotes'] || '',
+            individual: resolvePersonContacted(data, data['vclFollowUpEmailIndividual'], data['vclFollowUpEmailIndividualName'], data['vclFollowUpEmailIndividualRole'])
         })
         data['vclFollowUpEmailDate'] = ''
         data['vclFollowUpEmailNotes'] = ''
+        data['vclFollowUpEmailIndividual'] = ''
+        data['vclFollowUpEmailIndividualName'] = ''
+        data['vclFollowUpEmailIndividualRole'] = ''
         response.redirect("/v51/vcl/follow-up/email-logged")
     })
 
@@ -1002,10 +1059,14 @@ module.exports = router => {
         addVclFollowUp(data, {
             type: 'post',
             date: data['vclFollowUpLetterDate'] || '',
-            notes: data['vclFollowUpLetterNotes'] || ''
+            notes: data['vclFollowUpLetterNotes'] || '',
+            individual: resolvePersonContacted(data, data['vclFollowUpLetterIndividual'], data['vclFollowUpLetterIndividualName'], data['vclFollowUpLetterIndividualRole'])
         })
         data['vclFollowUpLetterDate'] = ''
         data['vclFollowUpLetterNotes'] = ''
+        data['vclFollowUpLetterIndividual'] = ''
+        data['vclFollowUpLetterIndividualName'] = ''
+        data['vclFollowUpLetterIndividualRole'] = ''
         response.redirect("/v51/vcl/follow-up/letter-logged")
     })
 
