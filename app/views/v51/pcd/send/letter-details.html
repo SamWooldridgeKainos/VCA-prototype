@@ -36,6 +36,73 @@
                 </div>
             </div>
 
+            <div class="govuk-form-group" id="error-form-group-person-contacted">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Person contacted
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios" id="letter-individual-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="letter-individual-victim" name="letterDispatchIndividual" type="radio" value="Victim">
+                            <label class="govuk-label govuk-radios__label" for="letter-individual-victim">
+                                Victim
+                            </label>
+                            <div id="letter-individual-victim-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="letter-individual-police" name="letterDispatchIndividual" type="radio" value="Via police">
+                            <label class="govuk-label govuk-radios__label" for="letter-individual-police">
+                                Via police
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="letter-individual-isva" name="letterDispatchIndividual" type="radio" value="Via ISVA">
+                            <label class="govuk-label govuk-radios__label" for="letter-individual-isva">
+                                Via independent sexual violence adviser (ISVA)
+                            </label>
+                            {% if data['isvaName'] and data['isvaDeleted'] != 'yes' %}
+                            <div id="letter-individual-isva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['isvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="letter-individual-idva" name="letterDispatchIndividual" type="radio" value="Via IDVA">
+                            <label class="govuk-label govuk-radios__label" for="letter-individual-idva">
+                                Via independent domestic violence adviser (IDVA)
+                            </label>
+                            {% if data['idvaName'] and data['idvaDeleted'] != 'yes' %}
+                            <div id="letter-individual-idva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['idvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="letter-individual-other" name="letterDispatchIndividual" type="radio" value="Other" data-aria-controls="conditional-letter-individual">
+                            <label class="govuk-label govuk-radios__label" for="letter-individual-other">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-letter-individual">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="letter-individual-name">
+                                    Name
+                                </label>
+                                <input class="govuk-input" id="letter-individual-name" name="letterDispatchIndividualName" type="text">
+                            </div>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="letter-individual-role">
+                                    Role
+                                </label>
+                                <input class="govuk-input" id="letter-individual-role" name="letterDispatchIndividualRole" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--m" for="letter-dispatch-notes">

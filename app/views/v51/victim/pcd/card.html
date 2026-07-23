@@ -12,6 +12,12 @@
         <dt class="govuk-summary-list__key">Call direction</dt>
         <dd class="govuk-summary-list__value">{% if (attempt.direction == "Yes") %}Outbound{% else %}Inbound{% endif %}</dd>
     </div>
+    {% if attempt.individual %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Person contacted</dt>
+        <dd class="govuk-summary-list__value">{{ attempt.individual }}</dd>
+    </div>
+    {% endif %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Victim informed</dt>
         <dd class="govuk-summary-list__value">{{ attempt.informed }}</dd>
@@ -41,6 +47,12 @@
         <dt class="govuk-summary-list__key">Email sent</dt>
         <dd class="govuk-summary-list__value">{{ decision.emailDate | formatDate }}</dd>
     </div>
+    {% if decision.emailIndividual %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Person contacted</dt>
+        <dd class="govuk-summary-list__value">{{ decision.emailIndividual }}</dd>
+    </div>
+    {% endif %}
     {% if decision.emailNotes %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Notes</dt>
@@ -55,6 +67,12 @@
         <dt class="govuk-summary-list__key">Letter sent</dt>
         <dd class="govuk-summary-list__value">{{ decision.letterDate | formatDate }}</dd>
     </div>
+    {% if decision.letterIndividual %}
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Person contacted</dt>
+        <dd class="govuk-summary-list__value">{{ decision.letterIndividual }}</dd>
+    </div>
+    {% endif %}
     {% if decision.letterNotes %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Notes</dt>
@@ -170,6 +188,12 @@
                         <dt class="govuk-summary-list__key">{% if followUp.type == "email" %}Follow-up email sent{% else %}Follow-up letter sent{% endif %}</dt>
                         <dd class="govuk-summary-list__value">{{ followUp.date | formatDate }}</dd>
                     </div>
+                    {% if followUp.individual %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Person contacted</dt>
+                        <dd class="govuk-summary-list__value">{{ followUp.individual }}</dd>
+                    </div>
+                    {% endif %}
                     {% if followUp.notes %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Notes</dt>

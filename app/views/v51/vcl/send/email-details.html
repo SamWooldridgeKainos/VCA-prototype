@@ -35,6 +35,73 @@
                 </div>
             </div>
 
+            <div class="govuk-form-group" id="error-form-group-person-contacted">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Person contacted
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios" id="vcl-email-individual-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vcl-email-individual-victim" name="vdEmailIndividual" type="radio" value="Victim">
+                            <label class="govuk-label govuk-radios__label" for="vcl-email-individual-victim">
+                                Victim
+                            </label>
+                            <div id="vcl-email-individual-victim-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vcl-email-individual-police" name="vdEmailIndividual" type="radio" value="Via police">
+                            <label class="govuk-label govuk-radios__label" for="vcl-email-individual-police">
+                                Via police
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vcl-email-individual-isva" name="vdEmailIndividual" type="radio" value="Via ISVA">
+                            <label class="govuk-label govuk-radios__label" for="vcl-email-individual-isva">
+                                Via independent sexual violence adviser (ISVA)
+                            </label>
+                            {% if data['isvaName'] and data['isvaDeleted'] != 'yes' %}
+                            <div id="vcl-email-individual-isva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['isvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vcl-email-individual-idva" name="vdEmailIndividual" type="radio" value="Via IDVA">
+                            <label class="govuk-label govuk-radios__label" for="vcl-email-individual-idva">
+                                Via independent domestic violence adviser (IDVA)
+                            </label>
+                            {% if data['idvaName'] and data['idvaDeleted'] != 'yes' %}
+                            <div id="vcl-email-individual-idva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['idvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vcl-email-individual-other" name="vdEmailIndividual" type="radio" value="Other" data-aria-controls="conditional-vcl-email-individual">
+                            <label class="govuk-label govuk-radios__label" for="vcl-email-individual-other">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-vcl-email-individual">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="vcl-email-individual-name">
+                                    Name
+                                </label>
+                                <input class="govuk-input" id="vcl-email-individual-name" name="vdEmailIndividualName" type="text">
+                            </div>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="vcl-email-individual-role">
+                                    Role
+                                </label>
+                                <input class="govuk-input" id="vcl-email-individual-role" name="vdEmailIndividualRole" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--m" for="email-dispatch-notes">

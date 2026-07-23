@@ -121,6 +121,34 @@
                             </div>
                         </div>
                         <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-individual-police" name="otherIndividual" type="radio" value="Via police">
+                            <label class="govuk-label govuk-radios__label" for="other-individual-police">
+                                Via police
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-individual-isva" name="otherIndividual" type="radio" value="Via ISVA">
+                            <label class="govuk-label govuk-radios__label" for="other-individual-isva">
+                                Via independent sexual violence adviser (ISVA)
+                            </label>
+                            {% if data['isvaName'] and data['isvaDeleted'] != 'yes' %}
+                            <div id="other-individual-isva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['isvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="other-individual-idva" name="otherIndividual" type="radio" value="Via IDVA">
+                            <label class="govuk-label govuk-radios__label" for="other-individual-idva">
+                                Via independent domestic violence adviser (IDVA)
+                            </label>
+                            {% if data['idvaName'] and data['idvaDeleted'] != 'yes' %}
+                            <div id="other-individual-idva-hint" class="govuk-hint govuk-radios__hint">
+                                {{ data['idvaName'] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="other-individual-other" name="otherIndividual" type="radio" value="Other" data-aria-controls="conditional-other-individual">
                             <label class="govuk-label govuk-radios__label" for="other-individual-other">
                                 Other

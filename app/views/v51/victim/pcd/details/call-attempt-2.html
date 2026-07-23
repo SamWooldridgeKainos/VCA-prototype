@@ -16,6 +16,7 @@
             {% if (data['pcdCallType2'] == "Yes") %}Outbound{% else %}Inbound{% endif %}
         </dd>
     </div>
+    {{ pc.personContacted(data['pcdCallIndividual2'], data['pcdCallIndividualName2'], data['pcdCallIndividualRole2']) }}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             Victim informed
