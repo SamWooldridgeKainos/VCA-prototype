@@ -1,0 +1,28 @@
+{# Renders a "Person contacted" summary row for a logged charging decision (pcd)
+   communication, pulling the relevant contact name through from the Case
+   contacts tab when present. Import with context so the macro can read `data`.
+   "Via police" resolves to the Officer in Charge from the Case contacts tab. #}
+{% macro personContacted(value, name, role) %}
+{% if value %}
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+        Person contacted
+    </dt>
+    <dd class="govuk-summary-list__value">
+        {%- if value == 'Victim' -%}
+            Victim{% if data['victimSurname'] or data['victimForename'] %} ({{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}){% endif %}
+        {%- elif value == 'Via police' -%}
+            Via police
+        {%- elif value == 'Via ISVA' -%}
+            Via ISVA{% if data['isvaName'] and data['isvaDeleted'] != 'yes' %} ({{ data['isvaName'] }}){% endif %}
+        {%- elif value == 'Via IDVA' -%}
+            Via IDVA{% if data['idvaName'] and data['idvaDeleted'] != 'yes' %} ({{ data['idvaName'] }}){% endif %}
+        {%- elif value == 'Other' -%}
+            Other{% if name or role %} ({{ name }}{% if name and role %}, {% endif %}{{ role }}){% endif %}
+        {%- else -%}
+            {{ value }}
+        {%- endif -%}
+    </dd>
+</div>
+{% endif %}
+{% endmacro %}
