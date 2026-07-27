@@ -1,0 +1,78 @@
+flowchart LR
+    n_v51_pcd_send_letter_details["Letter details<br/><small>/v51/pcd/send/letter-details</small>"]
+    n_v51_pcd_draft_task_already_exists["This task already exists<br/><small>/v51/pcd/draft/task-already-exists</small>"]
+    n_v51_pcd_follow_up_telephone_call["Follow-up telephone call<br/><small>/v51/pcd/follow-up/telephone-call</small>"]
+    n_v51_pcd_pre_draft_contacted_by["How did you contact the victim?<br/><small>/v51/pcd/pre-draft/contacted-by</small>"]
+    n_v51_pcd_call_text_message_details["Text message details<br/><small>/v51/pcd/call/text-message-details</small>"]
+    n_v51_pcd_follow_up_letter_logged["Follow-up letter logged<br/><small>/v51/pcd/follow-up/letter-logged</small>"]
+    n_v51_pcd_follow_up_log_follow_up["Log a follow-up<br/><small>/v51/pcd/follow-up/log-follow-up</small>"]
+    n_v51_pcd_call_phone_call_2["Telephone call 2<br/><small>/v51/pcd/call/phone-call-2</small>"]
+    n_v51_pcd_send_letter_logged["Letter logged<br/><small>/v51/pcd/send/letter-logged</small>"]
+    n_v51_pcd_draft_pcd_type["Charging decision type<br/><small>/v51/pcd/draft/pcd-type</small>"]
+    n_v51_pcd_follow_up_not_contacted_logged["Decision not to contact logged<br/><small>/v51/pcd/follow-up/not-contacted-logged</small>"]
+    n_v51_pcd_pre_draft_check_eligibility["Check eligibility<br/><small>/v51/pcd/pre-draft/check-eligibility</small>"]
+    n_v51_pcd_send_email_logged["Email logged<br/><small>/v51/pcd/send/email-logged</small>"]
+    n_v51_pcd_follow_up_email_details["Follow-up email details<br/><small>/v51/pcd/follow-up/email-details</small>"]
+    n_v51_pcd_draft_first_hearing["First hearing<br/><small>/v51/pcd/draft/first-hearing</small>"]
+    n_v51_pcd_send_email_details["Email details<br/><small>/v51/pcd/send/email-details</small>"]
+    n_v51_pcd_call_next_attempt_moc["Next attempt method of contact<br/><small>/v51/pcd/call/next-attempt-moc</small>"]
+    n_v51_pcd_call_follow_up_moc["Follow-up method of contact<br/><small>/v51/pcd/call/follow-up-moc</small>"]
+    n_v51_pcd_follow_up_call_logged["Follow-up telephone call logged<br/><small>/v51/pcd/follow-up/call-logged</small>"]
+    n_v51_pcd_follow_up_email_logged["Follow-up email logged<br/><small>/v51/pcd/follow-up/email-logged</small>"]
+    n_v51_pcd_call_phone_call_3["Telephone call 3 details<br/><small>/v51/pcd/call/phone-call-3</small>"]
+    n_v51_pcd_call_phone_call_1["Telephone call 1<br/><small>/v51/pcd/call/phone-call-1</small>"]
+    n_v51_pcd_follow_up_letter_details["Follow-up letter details<br/><small>/v51/pcd/follow-up/letter-details</small>"]
+    n_v51_pcd_follow_up_not_contacted_reason["Reason for not contacting the victim<br/><small>/v51/pcd/follow-up/not-contacted-reason</small>"]
+    n_v51_pcd_pre_draft_not_contacted_reason["Reason for not contacting the victim<br/><small>/v51/pcd/pre-draft/not-contacted-reason</small>"]
+    n_v51_pcd_call_was_text_message_sent["Was a text message sent to the victim?<br/><small>/v51/pcd/call/was-text-message-sent</small>"]
+    n_v51_pcd_call_follow_up_moc_answer(["/v51/pcd/call/follow-up-moc-answer"])
+    n_v51_pcd_call_follow_up_moc --> n_v51_pcd_call_follow_up_moc_answer
+    n_v51_pcd_call_next_attempt_moc_answer(["/v51/pcd/call/next-attempt-moc-answer"])
+    n_v51_pcd_call_next_attempt_moc --> n_v51_pcd_call_next_attempt_moc_answer
+    n_v51_pcd_call_phone_call_1_answer(["/v51/pcd/call/phone-call-1-answer"])
+    n_v51_pcd_call_phone_call_1 --> n_v51_pcd_call_phone_call_1_answer
+    n_v51_pcd_call_phone_call_2_answer(["/v51/pcd/call/phone-call-2-answer"])
+    n_v51_pcd_call_phone_call_2 --> n_v51_pcd_call_phone_call_2_answer
+    n_v51_pcd_call_phone_call_3_answer(["/v51/pcd/call/phone-call-3-answer"])
+    n_v51_pcd_call_phone_call_3 --> n_v51_pcd_call_phone_call_3_answer
+    n_v51_pcd_call_text_message_details_answer(["/v51/pcd/call/text-message-details-answer"])
+    n_v51_pcd_call_text_message_details --> n_v51_pcd_call_text_message_details_answer
+    n_v51_pcd_call_was_text_message_sent_answer(["/v51/pcd/call/was-text-message-sent-answer"])
+    n_v51_pcd_call_was_text_message_sent --> n_v51_pcd_call_was_text_message_sent_answer
+    n_v51_pcd_draft_first_hearing_answer(["/v51/pcd/draft/first-hearing-answer"])
+    n_v51_pcd_draft_first_hearing --> n_v51_pcd_draft_first_hearing_answer
+    n_v51_pcd_draft_pcd_type_answer(["/v51/pcd/draft/pcd-type-answer"])
+    n_v51_pcd_draft_pcd_type --> n_v51_pcd_draft_pcd_type_answer
+    n_v51_pcd_draft_task_already_exists_answer(["/v51/pcd/draft/task-already-exists-answer"])
+    n_v51_pcd_draft_task_already_exists --> n_v51_pcd_draft_task_already_exists_answer
+    n_v51_victim_new_task_task_due_date["Task due date<br/><small>/v51/victim/new-task/task-due-date</small>"]
+    n_v51_pcd_draft_task_already_exists --> n_v51_victim_new_task_task_due_date
+    n_v51_victim["Victim<br/><small>/v51/victim</small>"]
+    n_v51_pcd_follow_up_call_logged --> n_v51_victim
+    n_v51_pcd_follow_up_email_details_answer(["/v51/pcd/follow-up/email-details-answer"])
+    n_v51_pcd_follow_up_email_details --> n_v51_pcd_follow_up_email_details_answer
+    n_v51_pcd_follow_up_email_logged --> n_v51_victim
+    n_v51_pcd_follow_up_letter_details_answer(["/v51/pcd/follow-up/letter-details-answer"])
+    n_v51_pcd_follow_up_letter_details --> n_v51_pcd_follow_up_letter_details_answer
+    n_v51_pcd_follow_up_letter_logged --> n_v51_victim
+    n_v51_pcd_follow_up_log_follow_up_answer(["/v51/pcd/follow-up/log-follow-up-answer"])
+    n_v51_pcd_follow_up_log_follow_up --> n_v51_pcd_follow_up_log_follow_up_answer
+    n_v51_pcd_follow_up_not_contacted_logged --> n_v51_victim
+    n_v51_pcd_follow_up_not_contacted_reason_answer(["/v51/pcd/follow-up/not-contacted-reason-answer"])
+    n_v51_pcd_follow_up_not_contacted_reason --> n_v51_pcd_follow_up_not_contacted_reason_answer
+    n_v51_pcd_follow_up_telephone_call_answer(["/v51/pcd/follow-up/telephone-call-answer"])
+    n_v51_pcd_follow_up_telephone_call --> n_v51_pcd_follow_up_telephone_call_answer
+    n_v51_pcd_pre_draft_check_eligibility_answer(["/v51/pcd/pre-draft/check-eligibility-answer"])
+    n_v51_pcd_pre_draft_check_eligibility --> n_v51_pcd_pre_draft_check_eligibility_answer
+    n_v51_pcd_pre_draft_contacted_by_answer(["/v51/pcd/pre-draft/contacted-by-answer"])
+    n_v51_pcd_pre_draft_contacted_by --> n_v51_pcd_pre_draft_contacted_by_answer
+    n_v51_pcd_pre_draft_not_contacted_reason_answer(["/v51/pcd/pre-draft/not-contacted-reason-answer"])
+    n_v51_pcd_pre_draft_not_contacted_reason --> n_v51_pcd_pre_draft_not_contacted_reason_answer
+    n_v51_pcd_send_email_details_answer(["/v51/pcd/send/email-details-answer"])
+    n_v51_pcd_send_email_details --> n_v51_pcd_send_email_details_answer
+    n_v51_pcd_send_email_logged --> n_v51_victim
+    n_v51_pcd_send_letter_details_answer(["/v51/pcd/send/letter-details-answer"])
+    n_v51_pcd_send_letter_details --> n_v51_pcd_send_letter_details_answer
+    n_v51_pcd_send_letter_logged --> n_v51_victim
+    classDef answer fill:#fff2cc,stroke:#d6b656,color:#333;
+    class n_v51_pcd_call_was_text_message_sent_answer,n_v51_pcd_follow_up_telephone_call_answer,n_v51_pcd_pre_draft_not_contacted_reason_answer,n_v51_pcd_call_phone_call_2_answer,n_v51_pcd_follow_up_email_details_answer,n_v51_pcd_draft_first_hearing_answer,n_v51_pcd_pre_draft_check_eligibility_answer,n_v51_pcd_follow_up_letter_details_answer,n_v51_pcd_send_letter_details_answer,n_v51_pcd_draft_pcd_type_answer,n_v51_pcd_pre_draft_contacted_by_answer,n_v51_pcd_call_next_attempt_moc_answer,n_v51_pcd_send_email_details_answer,n_v51_pcd_draft_task_already_exists_answer,n_v51_pcd_call_follow_up_moc_answer,n_v51_pcd_call_phone_call_1_answer,n_v51_pcd_follow_up_not_contacted_reason_answer,n_v51_pcd_follow_up_log_follow_up_answer,n_v51_pcd_call_phone_call_3_answer,n_v51_pcd_call_text_message_details_answer answer;

@@ -1,0 +1,80 @@
+flowchart LR
+    n_v51_wft_meetings_new_task_task_selection["Task selection<br/><small>/v51/wft-meetings/new-task/task-selection</small>"]
+    n_v51_wft_meetings_new_task_task_created["Victim onboarded<br/><small>/v51/wft-meetings/new-task/task-created</small>"]
+    n_v51_wft_meetings_victims["Victims<br/><small>/v51/wft-meetings/victims</small>"]
+    n_v51_wft_meetings_new_task_purposet["Task selection<br/><small>/v51/wft-meetings/new-task/purposet</small>"]
+    n_v51_wft_meetings_log_offer_response["Tasks<br/><small>/v51/wft-meetings/log-offer-response</small>"]
+    n_v51_wft_meetings_new_task_manual_task["Set a reminder<br/><small>/v51/wft-meetings/new-task/manual-task</small>"]
+    n_v51_wft_meetings_log_offer_response_check["Tasks<br/><small>/v51/wft-meetings/log-offer-response-check</small>"]
+    n_v51_wft_meetings_tasks["Tasks<br/><small>/v51/wft-meetings/tasks</small>"]
+    n_v51_wft_meetings_log_arranged_meeting_check["Tasks<br/><small>/v51/wft-meetings/log-arranged-meeting-check</small>"]
+    n_v51_wft_meetings_tasks2["Tasks<br/><small>/v51/wft-meetings/tasks2</small>"]
+    n_v51_wft_meetings_log_meeting_outcome["Tasks<br/><small>/v51/wft-meetings/log-meeting-outcome</small>"]
+    n_v51_wft_meetings_log_meeting_outcome_check["Tasks<br/><small>/v51/wft-meetings/log-meeting-outcome-check</small>"]
+    n_v51_wft_meetings_new_task_check_task["Check the task details are correct<br/><small>/v51/wft-meetings/new-task/check-task</small>"]
+    n_v51_wft_meetings_log_offer_task["Tasks<br/><small>/v51/wft-meetings/log-offer-task</small>"]
+    n_v51_wft_meetings_new_task_task_due_date["Task due date<br/><small>/v51/wft-meetings/new-task/task-due-date</small>"]
+    n_v51_wft_meetings_log_arranged_meeting["Tasks<br/><small>/v51/wft-meetings/log-arranged-meeting</small>"]
+    n_v51_onb_tasks_clear_filters(["/v51/onb/tasks/clear-filters"])
+    n_v51_wft_meetings_log_arranged_meeting --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_arranged_meeting_check --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_meeting_outcome --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_meeting_outcome_check --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_offer_response --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_offer_response_check --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_log_offer_task --> n_v51_onb_tasks_clear_filters
+    n_v51_victim_new_task_manual_task["Set a reminder<br/><small>/v51/victim/new-task/manual-task</small>"]
+    n_v51_wft_meetings_new_task_check_task --> n_v51_victim_new_task_manual_task
+    n_v51_victim_new_task_task_due_date["Task due date<br/><small>/v51/victim/new-task/task-due-date</small>"]
+    n_v51_wft_meetings_new_task_check_task --> n_v51_victim_new_task_task_due_date
+    n_v51_victim_new_task_task_selection["Task selection<br/><small>/v51/victim/new-task/task-selection</small>"]
+    n_v51_wft_meetings_new_task_check_task --> n_v51_victim_new_task_task_selection
+    n_v51_victim_new_task_manual_task_answer(["/v51/victim/new-task/manual-task-answer"])
+    n_v51_wft_meetings_new_task_manual_task --> n_v51_victim_new_task_manual_task_answer
+    n_v51_wft_meetings_new_task_purposet_answer(["/v51/wft-meetings/new-task/purposet-answer"])
+    n_v51_wft_meetings_new_task_purposet --> n_v51_wft_meetings_new_task_purposet_answer
+    n_v51_wft_meetings_new_task_task_due_date_answer(["/v51/wft-meetings/new-task/task-due-date-answer"])
+    n_v51_wft_meetings_new_task_task_due_date --> n_v51_wft_meetings_new_task_task_due_date_answer
+    n_v51_wft_meetings_new_task_next_task_answer(["/v51/wft-meetings/new-task/next-task-answer"])
+    n_v51_wft_meetings_new_task_task_selection --> n_v51_wft_meetings_new_task_next_task_answer
+    n_v51_change_task_due_date["Change task due date<br/><small>/v51/change-task-due-date</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_change_task_due_date
+    n_v51_wft_meetings_tasks --> n_v51_onb_tasks_clear_filters
+    n_v51_pcd_call_follow_up_moc["Follow-up method of contact<br/><small>/v51/pcd/call/follow-up-moc</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_call_follow_up_moc
+    n_v51_pcd_call_next_attempt_moc["Next attempt method of contact<br/><small>/v51/pcd/call/next-attempt-moc</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_call_next_attempt_moc
+    n_v51_pcd_call_was_text_message_sent["Was a text message sent to the victim?<br/><small>/v51/pcd/call/was-text-message-sent</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_call_was_text_message_sent
+    n_v51_pcd_pre_draft_check_details[/"/v51/pcd/pre-draft/check-details"/]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_pre_draft_check_details
+    n_v51_pcd_pre_draft_contacted_by["How did you contact the victim?<br/><small>/v51/pcd/pre-draft/contacted-by</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_pre_draft_contacted_by
+    n_v51_pcd_send_email_details["Email details<br/><small>/v51/pcd/send/email-details</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_send_email_details
+    n_v51_pcd_send_letter_details["Letter details<br/><small>/v51/pcd/send/letter-details</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_pcd_send_letter_details
+    n_v51_task_assignee["Task Assignee<br/><small>/v51/task-assignee</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_task_assignee
+    n_v51_victim["Victim<br/><small>/v51/victim</small>"]
+    n_v51_wft_meetings_tasks --> n_v51_victim
+    n_v51_wft_meetings_tasks2 --> n_v51_change_task_due_date
+    n_v51_wft_meetings_tasks2 --> n_v51_onb_tasks_clear_filters
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_call_follow_up_moc
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_call_next_attempt_moc
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_call_was_text_message_sent
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_pre_draft_check_details
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_pre_draft_contacted_by
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_send_email_details
+    n_v51_wft_meetings_tasks2 --> n_v51_pcd_send_letter_details
+    n_v51_wft_meetings_tasks2 --> n_v51_task_assignee
+    n_v51_wft_meetings_tasks2 --> n_v51_victim
+    n_v51_onb_service_lead["Service lead<br/><small>/v51/onb/service-lead</small>"]
+    n_v51_wft_meetings_victims --> n_v51_onb_service_lead
+    n_v51_wft_meetings_victims --> n_v51_victim
+    n_v51_vlo["Victim liaison officer<br/><small>/v51/vlo</small>"]
+    n_v51_wft_meetings_victims --> n_v51_vlo
+    classDef answer fill:#fff2cc,stroke:#d6b656,color:#333;
+    class n_v51_victim_new_task_manual_task_answer,n_v51_wft_meetings_new_task_next_task_answer,n_v51_wft_meetings_new_task_task_due_date_answer,n_v51_wft_meetings_new_task_purposet_answer,n_v51_onb_tasks_clear_filters answer;
+    classDef external fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4 3;
+    class n_v51_pcd_pre_draft_check_details external;
