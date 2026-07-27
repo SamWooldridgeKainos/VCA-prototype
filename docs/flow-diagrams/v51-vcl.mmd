@@ -1,0 +1,53 @@
+flowchart LR
+    n_v51_vcl_follow_up_log_follow_up["Log a follow-up<br/><small>/v51/vcl/follow-up/log-follow-up</small>"]
+    n_v51_vcl_pre_draft_contacted_by["How did you contact the victim?<br/><small>/v51/vcl/pre-draft/contacted-by</small>"]
+    n_v51_vcl_follow_up_email_details["Follow-up email details<br/><small>/v51/vcl/follow-up/email-details</small>"]
+    n_v51_vcl_send_email_details["Email details<br/><small>/v51/vcl/send/email-details</small>"]
+    n_v51_vcl_follow_up_letter_logged["Follow-up letter logged<br/><small>/v51/vcl/follow-up/letter-logged</small>"]
+    n_v51_vcl_follow_up_email_logged["Follow-up email logged<br/><small>/v51/vcl/follow-up/email-logged</small>"]
+    n_v51_vcl_draft_stopped_charge["Stopped charge reason<br/><small>/v51/vcl/draft/stopped-charge</small>"]
+    n_v51_vcl_call_text_message_details["Text message details<br/><small>/v51/vcl/call/text-message-details</small>"]
+    n_v51_vcl_draft_vcl_type["Communication type<br/><small>/v51/vcl/draft/vcl-type</small>"]
+    n_v51_vcl_pre_draft_not_contacted_reason["Reason for not contacting the victim<br/><small>/v51/vcl/pre-draft/not-contacted-reason</small>"]
+    n_v51_vcl_call_next_attempt_moc["Next attempt method of contact<br/><small>/v51/vcl/call/next-attempt-moc</small>"]
+    n_v51_vcl_draft_substantially_altered_charge["Substantially altered charge<br/><small>/v51/vcl/draft/substantially-altered-charge</small>"]
+    n_v51_vcl_call_was_text_message_sent["Was a text message sent to the victim?<br/><small>/v51/vcl/call/was-text-message-sent</small>"]
+    n_v51_vcl_send_letter_details["Letter details<br/><small>/v51/vcl/send/letter-details</small>"]
+    n_v51_vcl_call_phone_call["Telephone call<br/><small>/v51/vcl/call/phone-call</small>"]
+    n_v51_vcl_call_follow_up_moc["Follow-up method of contact<br/><small>/v51/vcl/call/follow-up-moc</small>"]
+    n_v51_vcl_follow_up_letter_details["Follow-up letter details<br/><small>/v51/vcl/follow-up/letter-details</small>"]
+    n_v51_vcl_call_follow_up_moc_answer(["/v51/vcl/call/follow-up-moc-answer"])
+    n_v51_vcl_call_follow_up_moc --> n_v51_vcl_call_follow_up_moc_answer
+    n_v51_vcl_call_next_attempt_moc_answer(["/v51/vcl/call/next-attempt-moc-answer"])
+    n_v51_vcl_call_next_attempt_moc --> n_v51_vcl_call_next_attempt_moc_answer
+    n_v51_vcl_call_phone_call_answer(["/v51/vcl/call/phone-call-answer"])
+    n_v51_vcl_call_phone_call --> n_v51_vcl_call_phone_call_answer
+    n_v51_vcl_call_text_message_details_answer(["/v51/vcl/call/text-message-details-answer"])
+    n_v51_vcl_call_text_message_details --> n_v51_vcl_call_text_message_details_answer
+    n_v51_vcl_call_was_text_message_sent_answer(["/v51/vcl/call/was-text-message-sent-answer"])
+    n_v51_vcl_call_was_text_message_sent --> n_v51_vcl_call_was_text_message_sent_answer
+    n_v51_vcl_draft_stopped_charge_answer(["/v51/vcl/draft/stopped-charge-answer"])
+    n_v51_vcl_draft_stopped_charge --> n_v51_vcl_draft_stopped_charge_answer
+    n_v51_vcl_draft_substantially_altered_charge_answer(["/v51/vcl/draft/substantially-altered-charge-answer"])
+    n_v51_vcl_draft_substantially_altered_charge --> n_v51_vcl_draft_substantially_altered_charge_answer
+    n_v51_vcl_draft_vcl_type_answer(["/v51/vcl/draft/vcl-type-answer"])
+    n_v51_vcl_draft_vcl_type --> n_v51_vcl_draft_vcl_type_answer
+    n_v51_vcl_follow_up_email_details_answer(["/v51/vcl/follow-up/email-details-answer"])
+    n_v51_vcl_follow_up_email_details --> n_v51_vcl_follow_up_email_details_answer
+    n_v51_victim["Victim<br/><small>/v51/victim</small>"]
+    n_v51_vcl_follow_up_email_logged --> n_v51_victim
+    n_v51_vcl_follow_up_letter_details_answer(["/v51/vcl/follow-up/letter-details-answer"])
+    n_v51_vcl_follow_up_letter_details --> n_v51_vcl_follow_up_letter_details_answer
+    n_v51_vcl_follow_up_letter_logged --> n_v51_victim
+    n_v51_vcl_follow_up_log_follow_up_answer(["/v51/vcl/follow-up/log-follow-up-answer"])
+    n_v51_vcl_follow_up_log_follow_up --> n_v51_vcl_follow_up_log_follow_up_answer
+    n_v51_vcl_pre_draft_contacted_by_answer(["/v51/vcl/pre-draft/contacted-by-answer"])
+    n_v51_vcl_pre_draft_contacted_by --> n_v51_vcl_pre_draft_contacted_by_answer
+    n_v51_vcl_pre_draft_not_contacted_reason_answer(["/v51/vcl/pre-draft/not-contacted-reason-answer"])
+    n_v51_vcl_pre_draft_not_contacted_reason --> n_v51_vcl_pre_draft_not_contacted_reason_answer
+    n_v51_vcl_send_email_details_answer(["/v51/vcl/send/email-details-answer"])
+    n_v51_vcl_send_email_details --> n_v51_vcl_send_email_details_answer
+    n_v51_vcl_send_letter_details_answer(["/v51/vcl/send/letter-details-answer"])
+    n_v51_vcl_send_letter_details --> n_v51_vcl_send_letter_details_answer
+    classDef answer fill:#fff2cc,stroke:#d6b656,color:#333;
+    class n_v51_vcl_pre_draft_not_contacted_reason_answer,n_v51_vcl_draft_vcl_type_answer,n_v51_vcl_call_follow_up_moc_answer,n_v51_vcl_draft_stopped_charge_answer,n_v51_vcl_pre_draft_contacted_by_answer,n_v51_vcl_send_email_details_answer,n_v51_vcl_follow_up_letter_details_answer,n_v51_vcl_call_phone_call_answer,n_v51_vcl_call_text_message_details_answer,n_v51_vcl_follow_up_email_details_answer,n_v51_vcl_call_was_text_message_sent_answer,n_v51_vcl_send_letter_details_answer,n_v51_vcl_draft_substantially_altered_charge_answer,n_v51_vcl_call_next_attempt_moc_answer,n_v51_vcl_follow_up_log_follow_up_answer answer;
