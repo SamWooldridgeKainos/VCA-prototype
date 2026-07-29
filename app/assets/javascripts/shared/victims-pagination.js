@@ -1,7 +1,7 @@
 // Victims page pagination
 // Depends on: pagination.js (PaginationCore)
 (function() {
-    var RESULTS_PER_PAGE = window.PAGINATION_RESULTS_PER_PAGE || 10;
+    var RESULTS_PER_PAGE = 10;
 
     function recalculatePagination() {
         var victimPages = document.querySelectorAll('.victims-page');
