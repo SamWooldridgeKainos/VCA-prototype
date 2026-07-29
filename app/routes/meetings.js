@@ -32,6 +32,17 @@ module.exports = router => {
         response.redirect("/v60/wft-meetings/new-task/check-task")
     })
 
+
+          router.post('/ur/bfs/meetings-2//meetings-2/logging-answer', function(request, response) {
+
+        var logging = request.session.data['logging']
+        if (logging == "yes"){
+            response.redirect("/ur/bfs/meetings-2/purpose2")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/purpose")
+        }
+    })
+
     router.post('/logging-answer', function(request, response) {
 
         var logging = request.session.data['logging']
@@ -42,6 +53,7 @@ module.exports = router => {
         }
     })
 
+  
     router.post('/purpose-answer', function(request, response) {
 
         var purpose = request.session.data['purpose']
@@ -49,6 +61,16 @@ module.exports = router => {
             response.redirect("/ur/meetings/did-victim-request")
         } else {
             response.redirect("/ur/meetings/did-victim-request")
+        }
+    })
+
+       router.post('bfs/meetings-2/purpose2-answer', function(request, response) {
+
+        var purpose = request.session.data['purpose2']
+        if (purpose == "pre-trial"){
+            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
         }
     })
 
@@ -65,13 +87,34 @@ module.exports = router => {
 
 
 
-    router.post('/purpose3-answer', function(request, response) {
+    router.post('/ur/bfs/meetings-2/purpose3-answer', function(request, response) {
+
+        var purpose3 = request.session.data['purpose3']
+        if (purpose3 == "pre-trial"){
+            response.redirect("/ur/bfs/meetings-2/did-victim-request")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/did-victim-request")
+        }
+    })
+
+     router.post('/purpose3-answer', function(request, response) {
 
         var purpose3 = request.session.data['purpose3']
         if (purpose3 == "pre-trial"){
             response.redirect("/ur/meetings-2/did-victim-request")
         } else {
             response.redirect("/ur/meetings-2/did-victim-request")
+        }
+    })
+
+
+      router.post('/ur/bfs/meetings-2/purpose4-answer', function(request, response) {
+
+        var purpose4 = request.session.data['purpose4']
+        if (purpose4 == "pre-trial"){
+            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
         }
     })
 
@@ -82,6 +125,18 @@ module.exports = router => {
             response.redirect("/ur/meetings-2/has-meeting-been-offered")
         } else {
             response.redirect("/ur/meetings-2/has-meeting-been-offered")
+        }
+    })
+
+    
+
+      router.post('/ur/bfs/meetings-2/has-meeting-been-offered', function(request, response) {
+
+        var offered = request.session.data['offered']
+        if (offered == "yes"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/howoffered")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/reason-why")
         }
     })
     router.post('/has-meeting-been-offered', function(request, response) {
@@ -104,6 +159,17 @@ module.exports = router => {
         }
     })
 
+
+
+    router.post('/ur/bfs/meetings-2/format2-answer', function(request, response) {
+
+        var format2 = request.session.data['format2']
+        if (format2 == "face-to-face"){
+            response.redirect("/ur/bfs/meetings-2/location")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+        }
+    })
     router.post('/format2-answer', function(request, response) {
 
         var format2 = request.session.data['format2']
@@ -113,6 +179,30 @@ module.exports = router => {
             response.redirect("/ur/meetings-2/who-is-attending")
         }
     })
+
+    router.post('/ur/bfs/meetings-2/howoffered-answer', function(request, response) {
+
+        var howoffered = request.session.data['howoffered']
+        if (howoffered == "letter-post"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-post#communications")
+    }
+    else if (howoffered == "letter-email"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-email#communications")
+        }
+
+    else if (howoffered == "letter-isva"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-isva#communications")
+        }
+
+    else if (howoffered == "letter-police"){
+    response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-police#communications")
+
+
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-telephone#communications")
+        }
+    })
+
 
     router.post('/howoffered-answer', function(request, response) {
 
@@ -136,8 +226,35 @@ module.exports = router => {
             response.redirect("/ur/meetings-2/cps-offer/meeting-offered-telephone#communications")
         }
     })
+    
 
-    router.post('/howoffered2-answer', function(request, response) {
+     
+    
+    router.post('/ur/bfs/meetings-2/howoffered2-answer', function(request, response) {
+
+        var howoffered2 = request.session.data['howoffered2']
+        if (howoffered2 == "letter-post"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-post2#communications")
+    }
+    else if (howoffered2 == "letter-email"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-email#communications")
+        }
+
+    else if (howoffered2 == "letter-isva"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-isva#communications")
+        }
+
+    else if (howoffered2 == "letter-police"){
+    response.redirect("/ur/meetings-2/bfs/cps-offer/meeting-offered-police#communications")
+
+
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-telephone#communications")
+        }
+    })
+
+
+       router.post('/howoffered2-answer', function(request, response) {
 
         var howoffered2 = request.session.data['howoffered2']
         if (howoffered2 == "letter-post"){
@@ -157,6 +274,31 @@ module.exports = router => {
 
         } else {
             response.redirect("/ur/meetings-2/cps-offer/meeting-offered-telephone#communications")
+        }
+    })
+
+
+
+    router.post('/ur/bfs/meetings-2/recordaccepted-answer', function(request, response) {
+
+        var recordaccepted = request.session.data['recordaccepted']
+        if (recordaccepted == "letter-post"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-accepted-post#communications")
+    }
+    else if (recordaccepted == "letter-email"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-accepted-email#communications")
+        }
+
+    else if (recordaccepted == "letter-isva"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-accepted-isva#communications")
+        }
+
+    else if (recordaccepted == "letter-police"){
+    response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-accepted-police#communications")
+
+
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-accepted-telephone#communications")
         }
     })
 
@@ -183,6 +325,30 @@ module.exports = router => {
             response.redirect("/ur/meetings-2/cps-offer/meeting-accepted-telephone#communications")
         }
     })
+
+       router.post('/ur/bfs/meetings-2/recorddeclined-answer', function(request, response) {
+
+        var recorddeclined = request.session.data['recorddeclined']
+        if (recorddeclined == "letter-post"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-declined-post#communications")
+    }
+    else if (recorddeclined == "letter-email"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-declined-email#communications")
+        }
+
+    else if (recorddeclined == "letter-isva"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-declined-isva#communications")
+        }
+
+    else if (recorddeclined == "letter-police"){
+    response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-declined-police#communications")
+
+
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-declined-telephone#communications")
+        }
+    })
+
 
     router.post('/recorddeclined-answer', function(request, response) {
 
@@ -227,6 +393,24 @@ module.exports = router => {
     })
 
 
+    router.post('/ur/bfs/meetings-2/location2-answer', function(request, response) {
+
+        var location2 = request.session.data['location2']
+        if (location2 == "cps"){
+            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+    }
+    else if (location2 == "magistrate"){
+            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+        }
+
+    else if (location2 == "crown"){
+    response.redirect("/ur/bfs/meetings-2/who-is-attending")
+
+        } else {
+            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+        }
+    })
+
     router.post('/location2-answer', function(request, response) {
 
         var location2 = request.session.data['location2']
@@ -257,6 +441,17 @@ module.exports = router => {
     })
 
 
+
+    router.post('/ur/bfs/meetings-2/log-outcome/did-meeting-happen2-answer', function(request, response) {
+
+        var meeting3 = request.session.data['meeting3']
+        if (meeting3 == "yes"){
+            response.redirect("/ur/bfs/meetings-2/log-outcome/duration")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/log-outcome/reason-why")
+        }
+    })
+
     router.post('/log-outcome/did-meeting-happen2-answer', function(request, response) {
 
         var meeting3 = request.session.data['meeting3']
@@ -277,6 +472,16 @@ module.exports = router => {
         }
     })
 
+     router.post('/ur/bfs/meetings-2/did-victim-request2', function(request, response) {
+
+        var meeting2 = request.session.data['meeting2']
+        if (meeting2 == "yes"){
+            response.redirect("/ur/bfs/meetings-2/meeting-date")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/choose-meeting")
+        }
+    })
+
     router.post('/did-victim-request2', function(request, response) {
 
         var meeting2 = request.session.data['meeting2']
@@ -284,6 +489,16 @@ module.exports = router => {
             response.redirect("/ur/meetings-2/meeting-date")
         } else {
             response.redirect("/ur/meetings-2/choose-meeting")
+        }
+    })
+
+       router.post('/ur/bfs/meetings-2/did-victim-request3', function(request, response) {
+
+        var meeting4 = request.session.data['meeting4']
+        if (meeting4 == "yes"){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/recordaccepted")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/cps-offer/howoffered2")
         }
     })
 
@@ -304,6 +519,16 @@ module.exports = router => {
             response.redirect("/ur/meetings/log-outcome/actions")
         } else {
             response.redirect("/ur/meetings/log-outcome/check-answers")
+        }
+    })
+
+        router.post('/ur/bfs/meetings-2/log-outcome/any-actions-agreed2-answer', function(request, response) {
+
+        var actionsAgreed2 = request.session.data['actionsAgreed2']
+        if (actionsAgreed2 == "yes"){
+            response.redirect("/ur/bfs/meetings-2/log-outcome/check-answers")
+        } else {
+            response.redirect("/ur/bfs/meetings-2/log-outcome/check-answers-no")
         }
     })
 
