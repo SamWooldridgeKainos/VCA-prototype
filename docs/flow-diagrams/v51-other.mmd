@@ -1,0 +1,38 @@
+flowchart LR
+    n_v51_other_email_logged["Email logged<br/><small>/v51/other/email-logged</small>"]
+    n_v51_other_other_logged["Other communication logged<br/><small>/v51/other/other-logged</small>"]
+    n_v51_other_log["Log a communication<br/><small>/v51/other/log</small>"]
+    n_v51_other_other["Log other communication<br/><small>/v51/other/other</small>"]
+    n_v51_other_contacted_by["How did you contact the victim?<br/><small>/v51/other/contacted-by</small>"]
+    n_v51_other_call_logged["Telephone call logged<br/><small>/v51/other/call-logged</small>"]
+    n_v51_other_in_person_logged["In-person meeting logged<br/><small>/v51/other/in-person-logged</small>"]
+    n_v51_other_text_message["Log a text message<br/><small>/v51/other/text-message</small>"]
+    n_v51_other_email_details["Log an email<br/><small>/v51/other/email-details</small>"]
+    n_v51_other_in_person["Log an in-person conversation<br/><small>/v51/other/in-person</small>"]
+    n_v51_other_text_message_logged["Text message logged<br/><small>/v51/other/text-message-logged</small>"]
+    n_v51_other_telephone_call["Log a telephone call<br/><small>/v51/other/telephone-call</small>"]
+    n_v51_other_letter_logged["Letter logged<br/><small>/v51/other/letter-logged</small>"]
+    n_v51_other_letter_details["Log a letter<br/><small>/v51/other/letter-details</small>"]
+    n_v51_victim["Victim<br/><small>/v51/victim</small>"]
+    n_v51_other_call_logged --> n_v51_victim
+    n_v51_other_contacted_by_answer(["/v51/other/contacted-by-answer"])
+    n_v51_other_contacted_by --> n_v51_other_contacted_by_answer
+    n_v51_other_email_details_answer(["/v51/other/email-details-answer"])
+    n_v51_other_email_details --> n_v51_other_email_details_answer
+    n_v51_other_email_logged --> n_v51_victim
+    n_v51_other_in_person_answer(["/v51/other/in-person-answer"])
+    n_v51_other_in_person --> n_v51_other_in_person_answer
+    n_v51_other_in_person_logged --> n_v51_victim
+    n_v51_other_letter_details_answer(["/v51/other/letter-details-answer"])
+    n_v51_other_letter_details --> n_v51_other_letter_details_answer
+    n_v51_other_letter_logged --> n_v51_victim
+    n_v51_other_other_details_answer(["/v51/other/other-details-answer"])
+    n_v51_other_other --> n_v51_other_other_details_answer
+    n_v51_other_other_logged --> n_v51_victim
+    n_v51_other_telephone_call_answer(["/v51/other/telephone-call-answer"])
+    n_v51_other_telephone_call --> n_v51_other_telephone_call_answer
+    n_v51_other_text_message_answer(["/v51/other/text-message-answer"])
+    n_v51_other_text_message --> n_v51_other_text_message_answer
+    n_v51_other_text_message_logged --> n_v51_victim
+    classDef answer fill:#fff2cc,stroke:#d6b656,color:#333;
+    class n_v51_other_letter_details_answer,n_v51_other_telephone_call_answer,n_v51_other_in_person_answer,n_v51_other_contacted_by_answer,n_v51_other_email_details_answer,n_v51_other_other_details_answer,n_v51_other_text_message_answer answer;

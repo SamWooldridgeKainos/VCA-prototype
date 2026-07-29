@@ -1,7 +1,8 @@
 // Victims page pagination
 // Depends on: pagination.js (PaginationCore)
+// Optional global override: VICTIMS_RESULTS_PER_PAGE
 (function() {
-    var RESULTS_PER_PAGE = 10;
+    var RESULTS_PER_PAGE = (typeof window.VICTIMS_RESULTS_PER_PAGE === 'number') ? window.VICTIMS_RESULTS_PER_PAGE : 10;
 
     function recalculatePagination() {
         var victimPages = document.querySelectorAll('.victims-page');

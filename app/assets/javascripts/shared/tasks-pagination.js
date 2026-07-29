@@ -1,8 +1,9 @@
 // Tasks page pagination
 // Depends on: pagination.js (PaginationCore)
 // Depends on globals: searchFormSubmitted
+// Optional global override: TASKS_RESULTS_PER_PAGE
 (function() {
-    var RESULTS_PER_PAGE = 10;
+    var RESULTS_PER_PAGE = (typeof window.TASKS_RESULTS_PER_PAGE === 'number') ? window.TASKS_RESULTS_PER_PAGE : 10;
 
     function recalculatePagination() {
         var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
