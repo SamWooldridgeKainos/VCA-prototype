@@ -1,0 +1,152 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Task selection" %}
+
+{% block header %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+            <form action="next-task-due-date-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+
+      <h1 class="govuk-heading-l">
+      Confirm the due date
+      </h1>
+
+      <p class="govuk-body">
+        The due date is when the pre-trial meeting should be offered.
+      </p>
+
+      {{ govukInsetText({
+        html: '
+          <strong class="govuk-body govuk-!-font-weight-bold">
+            Suggested due date
+          </strong>
+          <p class="govuk-heading-m govuk-!-margin-top-1 govuk-!-margin-bottom-2">
+            20 August 2026
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            This is 14 days after the not guilty plea date
+            (6 August 2026).
+          </p>
+        '
+      }) }}
+
+      {{ govukRadios({
+        name: "dueDateOption",
+        fieldset: {
+          legend: {
+            text: "Select a due date",
+            classes: "govuk-visually-hidden"
+          }
+        },
+        value: data["dueDateOption"],
+        items: [
+          {
+            value: "suggested",
+            text: "Use the suggested due date (20 August 2026)"
+          },
+          {
+            value: "different",
+            text: "Enter a different due date",
+            hint: {
+              text: "Enter a different due date only if the standard 14-day deadline does not apply."
+            },
+            conditional: {
+              html: '
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-label--s" for="next-task-due-date">
+                    Due date
+                  </label>
+
+                  <div class="govuk-hint" id="next-task-due-date-hint">
+                    Use the date picker or enter a date. For example, 20/08/2026
+                  </div>
+
+                  <div
+                    class="moj-datepicker"
+                    id="next-task-due-date-picker"
+                    data-module="moj-date-picker"
+                    data-excluded-days=""
+                  >
+                    <input
+                      type="text"
+                      class="govuk-input moj-js-datepicker-input"
+                      id="next-task-due-date"
+                      name="taskDueDate"
+                      autocomplete="off"
+                      aria-describedby="next-task-due-date-hint"
+                      value="' + (data["taskDueDate"] or "") + '"
+                    >
+                  </div>
+                </div>
+              '
+            }
+          }
+        ]
+      }) }}
+
+      <input
+        type="hidden"
+        name="suggestedTaskDueDate"
+        value="20/08/2026"
+      >
+
+      {{ govukButton({
+        text: "Save and continue"
+      }) }}
+
+ 
+    </form>
+
+  </div>
+</div>
+
+<script>
+    // Calculate today + 5 working days on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        var inputField = document.getElementById('task-due-date');
+        
+        // Only set default if no value is already present
+        if (!inputField.value) {
+            var targetDate = calculateWorkingDaysAhead(5);
+            inputField.value = formatDateForInput(targetDate);
+        }
+    });
+
+    function calculateWorkingDaysAhead(days) {
+        var date = new Date();
+        var count = 0;
+
+        while (count < days) {
+            date.setDate(date.getDate() + 1);
+            var dayOfWeek = date.getDay();
+            // 0 = Sunday, 6 = Saturday
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                count++;
+            }
+        }
+
+        return date;
+    }
+
+    function formatDateForInput(date) {
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return day + '/' + month + '/' + year;
+    }
+</script>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/onb/next-task-due-date.js"></script>
+{% endblock %}
