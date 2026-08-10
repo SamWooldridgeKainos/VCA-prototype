@@ -1,0 +1,125 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <h1 class="govuk-heading-l">
+      When was the pre-trial meeting due?
+    </h1>
+
+    <p class="govuk-body">
+      The pre-trial meeting due date is usually based on the date the defendant pleaded not guilty.
+    </p>
+
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+      Not guilty plea date
+    </h2>
+
+    <p class="govuk-body">
+      10 August 2026
+    </p>
+
+    <p class="govuk-body">
+      CPS are required to offer a pre-trial meeting by the due date.
+    </p>
+
+    <div class="govuk-form-group">
+
+      <fieldset class="govuk-fieldset">
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+          Was the meeting due on 10 August 2026?
+        </legend>
+
+        <div class="govuk-radios" data-module="govuk-radios">
+
+          <div class="govuk-radios__item">
+            <input
+              class="govuk-radios__input"
+              id="meeting-due-yes"
+              name="meetingDueSame"
+              type="radio"
+              value="yes"
+            >
+            <label class="govuk-label govuk-radios__label" for="meeting-due-yes">
+              Yes
+            </label>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input
+              class="govuk-radios__input"
+              id="meeting-due-no"
+              name="meetingDueSame"
+              type="radio"
+              value="no"
+              data-aria-controls="conditional-meeting-due-no"
+            >
+            <label class="govuk-label govuk-radios__label" for="meeting-due-no">
+              No
+            </label>
+          </div>
+
+          <div
+            class="govuk-radios__conditional govuk-radios__conditional--hidden"
+            id="conditional-meeting-due-no"
+          >
+
+            <div class="govuk-form-group">
+
+              <label class="govuk-label govuk-label--s" for="meeting-due-date">
+                When was the meeting due?
+              </label>
+
+              <div class="govuk-hint" id="meeting-due-date-hint">
+                Use the date picker or enter a date. For example, 20/08/2026
+              </div>
+
+              <div
+                class="moj-datepicker"
+                id="meeting-due-date-picker"
+                data-module="moj-date-picker"
+                data-excluded-days=""
+              >
+                <input
+                  type="text"
+                  class="govuk-input moj-js-datepicker-input"
+                  id="meeting-due-date"
+                  name="meetingDueDate"
+                  autocomplete="off"
+                  aria-describedby="meeting-due-date-hint"
+                >
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </fieldset>
+
+    </div>
+
+    <a
+      href="meeting-offered-date"
+      role="button"
+      draggable="false"
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Continue
+    </a>
+
+  
+
+  </div>
+</div>
+{% endblock %}
