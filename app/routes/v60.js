@@ -257,6 +257,11 @@ module.exports = router => {
         response.redirect("/v60/onb/next-task-due-date")
     })
 
+        router.post('/ur/meetings-2/new-task/next-task-due-date-answer', function(request, response) {
+
+        response.redirect("check-task?manualTask=no")
+    })
+
     router.post('/v60/onb/next-task-due-date-answer', function(request, response) {
 
         response.redirect("/v60/onb/check-task?manualTask=no")
@@ -342,7 +347,44 @@ module.exports = router => {
             response.redirect("/ur/bfs/onb/new-task/task-due-date")
         }
     })
+    
 
+    router.post('/ur/meetings-2/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "dtc") {
+            response.redirect("next-task-due-date?pcdType=dtc")
+        } else if (nextTask == "nfa") {
+            response.redirect("next-task-due-date?pcdType=nfa")
+        } else if (nextTask == "stopped-charge") {
+            response.redirect("next-task-due-date?vclType=stopped-charge")
+        } else if (nextTask == "altered-charge") {
+            response.redirect("next-task-due-date?vclType=altered-charge")
+        } else if (nextTask == "other") {
+            response.redirect("manual-task")
+        } else if (nextTask == "no-task") {
+            response.redirect("check-task")
+        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
+            response.redirect("meeting-purpose")
+        } else {
+            response.redirect("task-due-date")
+        }
+    })
+
+   router.post('/ur/meetings-2/new-task/meeting-purpose-answer', function (request, response) {
+
+  const meetingPurpose = request.session.data['meetingPurpose']
+
+  if (meetingPurpose === 'pre-trial') {
+    response.redirect('not-guilty-plea-date')
+  } else {
+    response.redirect('next-task-due-date')
+  }
+
+})
+
+   
     router.post('/v60/victim/new-task/meeting-purpose-answer', function(request, response) {
 
         response.redirect("/v60/victim/new-task/task-due-date")

@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <h1 class="govuk-heading-l">
+      When was the pre-trial meeting offered?
+    </h1>
+
+    <div class="govuk-form-group">
+
+      <div class="govuk-hint" id="meeting-offered-date-hint">
+        Use the date picker or enter a date. For example, 11/08/2026
+      </div>
+
+      <div
+        class="moj-datepicker"
+        id="meeting-offered-date-picker"
+        data-module="moj-date-picker"
+        data-excluded-days=""
+      >
+        <input
+          type="text"
+          class="govuk-input moj-js-datepicker-input"
+          id="meeting-offered-date"
+          name="meetingOfferedDate"
+          autocomplete="off"
+          aria-describedby="meeting-offered-date-hint"
+        >
+      </div>
+
+    </div>
+
+    <a
+      href="meeting-accepted-date"
+      role="button"
+      draggable="false"
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Continue
+    </a>
+
+   
+
+  </div>
+</div>
+{% endblock %}
