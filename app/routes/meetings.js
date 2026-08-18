@@ -101,9 +101,9 @@ module.exports = router => {
 
         var purpose3 = request.session.data['purpose3']
         if (purpose3 == "pre-trial"){
-            response.redirect("/ur/meetings-2/did-victim-request")
+            response.redirect("/ur/meetings-2/due-date")
         } else {
-            response.redirect("/ur/meetings-2/did-victim-request")
+            response.redirect("/ur/meetings-2/due-date")
         }
     })
 

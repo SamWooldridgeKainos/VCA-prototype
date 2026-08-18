@@ -1,0 +1,8 @@
+flowchart LR
+    n_v51_case_locked_self_locked["Case locked<br/><small>/v51/case-locked/self-locked</small>"]
+    n_v51_case_locked_by_someone_else["Case locked<br/><small>/v51/case-locked/by-someone-else</small>"]
+    n_v51_pcd_victim[/"/v51/pcd/victim"/]
+    n_v51_case_locked_by_someone_else --> n_v51_pcd_victim
+    n_v51_case_locked_self_locked --> n_v51_pcd_victim
+    classDef external fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4 3;
+    class n_v51_pcd_victim external;

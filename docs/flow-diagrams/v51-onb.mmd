@@ -1,0 +1,71 @@
+flowchart LR
+    n_v51_onb_check_details_vps_status["VPS status<br/><small>/v51/onb/check-details/vps-status</small>"]
+    n_v51_onb_check_task["Check the task details are correct<br/><small>/v51/onb/check-task</small>"]
+    n_v51_onb_check_details_risk_level["Domestic abuse risk level<br/><small>/v51/onb/check-details/risk-level</small>"]
+    n_v51_onb_next_task["Next task<br/><small>/v51/onb/next-task</small>"]
+    n_v51_onb_check_details_preferred_name["Preferred name<br/><small>/v51/onb/check-details/preferred-name</small>"]
+    n_v51_onb_manual_task["Create a task<br/><small>/v51/onb/manual-task</small>"]
+    n_v51_onb_check_details_pmoc["Preferred method of contact<br/><small>/v51/onb/check-details/pmoc</small>"]
+    n_v51_onb_onboarded["Victim onboarded<br/><small>/v51/onb/onboarded</small>"]
+    n_v51_onb_meeting_purpose["Task selection<br/><small>/v51/onb/meeting-purpose</small>"]
+    n_v51_onb_service_lead["Service lead<br/><small>/v51/onb/service-lead</small>"]
+    n_v51_onb_check_details_preferred_contact_times["Preferred contact times<br/><small>/v51/onb/check-details/preferred-contact-times</small>"]
+    n_v51_onb_check_task_vlo["Victim liaison officer<br/><small>/v51/onb/check-task-vlo</small>"]
+    n_v51_onb_next_task_due_date["Task due date<br/><small>/v51/onb/next-task-due-date</small>"]
+    n_v51_onb_check_details_case_type["Charging type<br/><small>/v51/onb/check-details/case-type</small>"]
+    n_v51_onb_check_details_preferred_correspondence_language["Preferred correspondence language<br/><small>/v51/onb/check-details/preferred-correspondence-language</small>"]
+    n_v51_onb_check_details_translator_needed["Translator needed<br/><small>/v51/onb/check-details/translator-needed</small>"]
+    n_v51_onb_pmoc["Preferred method of contact<br/><small>/v51/onb/pmoc</small>"]
+    n_v51_onb_check_details["Check the details before drafting the letter<br/><small>/v51/onb/check-details</small>"]
+    n_v51_onb_check_details_answer(["/v51/onb/check-details-answer"])
+    n_v51_onb_check_details --> n_v51_onb_check_details_answer
+    n_v51_onb_check_details --> n_v51_onb_check_details_case_type
+    n_v51_onb_check_details --> n_v51_onb_check_details_pmoc
+    n_v51_onb_check_details --> n_v51_onb_check_details_preferred_contact_times
+    n_v51_onb_check_details --> n_v51_onb_check_details_preferred_correspondence_language
+    n_v51_onb_check_details --> n_v51_onb_check_details_preferred_name
+    n_v51_onb_check_details --> n_v51_onb_check_details_risk_level
+    n_v51_onb_check_details --> n_v51_onb_check_details_translator_needed
+    n_v51_onb_check_details --> n_v51_onb_check_details_vps_status
+    n_v51_onb_check_details --> n_v51_onb_check_task_vlo
+    n_v51_onb_check_details --> n_v51_onb_service_lead
+    n_v51_check_details_case_type_answer(["/v51/check-details/case-type-answer"])
+    n_v51_onb_check_details_case_type --> n_v51_check_details_case_type_answer
+    n_v51_check_details_pmoc_answer(["/v51/check-details/pmoc-answer"])
+    n_v51_onb_check_details_pmoc --> n_v51_check_details_pmoc_answer
+    n_v51_check_details_preferred_contact_times_answer(["/v51/check-details/preferred-contact-times-answer"])
+    n_v51_onb_check_details_preferred_contact_times --> n_v51_check_details_preferred_contact_times_answer
+    n_v51_check_details_preferred_correspondence_language_answer(["/v51/check-details/preferred-correspondence-language-answer"])
+    n_v51_onb_check_details_preferred_correspondence_language --> n_v51_check_details_preferred_correspondence_language_answer
+    n_v51_check_details_preferred_name_answer(["/v51/check-details/preferred-name-answer"])
+    n_v51_onb_check_details_preferred_name --> n_v51_check_details_preferred_name_answer
+    n_v51_check_details_risk_level_answer(["/v51/check-details/risk-level-answer"])
+    n_v51_onb_check_details_risk_level --> n_v51_check_details_risk_level_answer
+    n_v51_check_details_translator_needed_answer(["/v51/check-details/translator-needed-answer"])
+    n_v51_onb_check_details_translator_needed --> n_v51_check_details_translator_needed_answer
+    n_v51_check_details_vps_status_answer(["/v51/check-details/vps-status-answer"])
+    n_v51_onb_check_details_vps_status --> n_v51_check_details_vps_status_answer
+    n_v51_onb_check_task_answer(["/v51/onb/check-task-answer"])
+    n_v51_onb_check_task --> n_v51_onb_check_task_answer
+    n_v51_onb_check_task --> n_v51_onb_manual_task
+    n_v51_onb_check_task --> n_v51_onb_meeting_purpose
+    n_v51_onb_check_task --> n_v51_onb_next_task
+    n_v51_onb_check_task --> n_v51_onb_next_task_due_date
+    n_v51_onb_check_task_vlo_answer(["/v51/onb/check-task-vlo-answer"])
+    n_v51_onb_check_task_vlo --> n_v51_onb_check_task_vlo_answer
+    n_v51_onb_manual_task_answer(["/v51/onb/manual-task-answer"])
+    n_v51_onb_manual_task --> n_v51_onb_manual_task_answer
+    n_v51_onb_meeting_purpose_answer(["/v51/onb/meeting-purpose-answer"])
+    n_v51_onb_meeting_purpose --> n_v51_onb_meeting_purpose_answer
+    n_v51_onb_next_task_answer(["/v51/onb/next-task-answer"])
+    n_v51_onb_next_task --> n_v51_onb_next_task_answer
+    n_v51_onb_next_task_due_date_answer(["/v51/onb/next-task-due-date-answer"])
+    n_v51_onb_next_task_due_date --> n_v51_onb_next_task_due_date_answer
+    n_v51_victims["Victims<br/><small>/v51/victims</small>"]
+    n_v51_onb_onboarded --> n_v51_victims
+    n_v51_onb_pmoc_answer(["/v51/onb/pmoc-answer"])
+    n_v51_onb_pmoc --> n_v51_onb_pmoc_answer
+    n_v51_onb_service_lead_answer(["/v51/onb/service-lead-answer"])
+    n_v51_onb_service_lead --> n_v51_onb_service_lead_answer
+    classDef answer fill:#fff2cc,stroke:#d6b656,color:#333;
+    class n_v51_check_details_preferred_contact_times_answer,n_v51_check_details_risk_level_answer,n_v51_onb_manual_task_answer,n_v51_onb_meeting_purpose_answer,n_v51_check_details_pmoc_answer,n_v51_onb_next_task_due_date_answer,n_v51_check_details_translator_needed_answer,n_v51_onb_next_task_answer,n_v51_check_details_preferred_correspondence_language_answer,n_v51_onb_check_details_answer,n_v51_onb_check_task_vlo_answer,n_v51_check_details_preferred_name_answer,n_v51_check_details_vps_status_answer,n_v51_onb_check_task_answer,n_v51_check_details_case_type_answer,n_v51_onb_pmoc_answer,n_v51_onb_service_lead_answer answer;
