@@ -21,46 +21,16 @@
   <div class="govuk-grid-column-one-half">
 
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Success
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-  <h3 class="govuk-notification-banner__heading">CPS pre-trial meeting cancelled</h3>
-
-  </div>
-</div>
-
-    {% if (data['success'] == "yes") %}
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
         <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
           Success
         </h2>
       </div>
       <div class="govuk-notification-banner__content">
-        <h3 class="govuk-notification-banner__heading">
-          {% if (data['successReason'] == "email-address-updated") %}
-          Victim email address updated
-          {% elif (data['successReason'] == "pmoc-updated") %}
-          Victim's preferred method of contact updated
-          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
-          First call attempt logged
-          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
-          Second call attempt logged
-          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
-          Third call attempt logged
-          {% elif (data['successReason'] == "draft-approved-to-send") %}
-          Letter sent to CMS and approved to send
-          {% endif %}
-        </h3>
-        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+      <h3 class="govuk-notification-banner__heading">CPS pre-trial meeting cancelled</h3>
+
       </div>
     </div>
-
-    {% else %}
-    {% endif %}
 
     <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
       {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
@@ -74,7 +44,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+    <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
 
       <ul class="govuk-tabs__list">
@@ -106,17 +76,8 @@
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
         <div class="govuk-grid-row">
-     <div class="govuk-grid-column-two-thirds"><!-- Communication area Starts -->
+     <div class="govuk-grid-column-two-thirds">
       <h2 class="govuk-heading-l">Communications</h2>
-
-      <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-Only share case information with Sarah Phillips if they can correctly answer the security questions.
-  </strong>
-</div>
-
 
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
     <ul class="moj-sub-navigation__list">
@@ -361,7 +322,7 @@ Arranged meetings
 </div>
 
 </div>
-</div><!-- Communication area Ends -->
+</div>
 
       </div>
     </div>

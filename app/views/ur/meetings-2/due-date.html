@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/ur/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -11,7 +15,7 @@
   <div class="govuk-grid-column-one-half">
 
     <h1 class="govuk-heading-l">
-      When was the pre-trial meeting due?
+      CPS pre-trial meeting due date
     </h1>
 
     <p class="govuk-body">
@@ -75,7 +79,7 @@
             <div class="govuk-form-group">
 
               <label class="govuk-label govuk-label--s" for="meeting-due-date">
-                When was the meeting due?
+                Meeting due date
               </label>
 
               <div class="govuk-hint" id="meeting-due-date-hint">
@@ -108,17 +112,9 @@
 
     </div>
 
-    <a
-      href="meeting-offered-date"
-      role="button"
-      draggable="false"
-      class="govuk-button"
-      data-module="govuk-button"
-    >
+    <a href="meeting-offered-date" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-
-  
 
   </div>
 </div>

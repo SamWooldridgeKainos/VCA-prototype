@@ -56,7 +56,6 @@
           Letter sent to CMS and approved to send
           {% endif %}
         </h3>
-        <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
       </div>
     </div>
 
@@ -75,7 +74,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+    <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
 
       <ul class="govuk-tabs__list">
@@ -107,19 +106,10 @@
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
         <div class="govuk-grid-row">
-     <div class="govuk-grid-column-two-thirds"><!-- Communication area Starts -->
+     <div class="govuk-grid-column-two-thirds">
       <h2 class="govuk-heading-l">Communications</h2>
 
-      <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-Only share case information with Sarah Phillips's bereaved family if they can correctly answer the security questions.
-  </strong>
-</div>
-
-
-<nav class="moj-sub-navigation" aria-label="Sub navigation">
+      <nav class="moj-sub-navigation" aria-label="Sub navigation">
     <ul class="moj-sub-navigation__list">
         {% if (data['subTab'] == "ptm") %}
         <li class="moj-sub-navigation__item">
@@ -154,12 +144,8 @@ Only share case information with Sarah Phillips's bereaved family if they can co
         {% endif %}
     </ul>
 </nav>
- <!--<p class="govuk-body">Arranged for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 0
-<br/>
-Offered to {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>-->
 
-
- <a href="../what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="../what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
 </a>
 
@@ -251,7 +237,7 @@ Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-
 </div>
 
 </div>
-</div><!-- Communication area Ends -->
+</div>
 
       </div>
     </div>
