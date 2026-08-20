@@ -2,40 +2,19 @@
 
 {% set pageName="Victim record" %}
 
-{% block beforeContent %}
-<div class="moj-page-header-actions govuk-!-margin-bottom-0">
-  <div class="moj-page-header-actions__title">
-    <p class="govuk-body govuk-!-margin-bottom-0">
-      <a href="#" class="govuk-back-link">Search for another victim</a>
-    </p>
-  </div>
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
 
-  <div class="moj-page-header-actions__actions">
-    <a href="/v21/letter-dashboard" class="govuk-link">Letter dashboard</a>
-  </div>
-</div>
+{% block beforeContent %}
+{% include "/v50/partials/identity-bar/victim-page.html" %}
 {% endblock %}
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-
-
-  
-
-    <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
-      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-    </h1>
-    <p class="govuk-body">
-      Case URN: {{ data['caseUrn'] }}
-    </p>
-  </div>
-</div>
-
-<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-tabs" data-module="govuk-tabs" style="margin-top: govuk-spacing(6);">
+    <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
 
       <ul class="govuk-tabs__list">
@@ -71,17 +50,8 @@
    
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
         <div class="govuk-grid-row">
-     <div class="govuk-grid-column-two-thirds"><!-- Communication area Starts -->
+     <div class="govuk-grid-column-two-thirds">
       <h2 class="govuk-heading-l">Communications</h2>
-
-      <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-Only share case information with Sarah Phillips if they can correctly answer the security questions.
-  </strong>
-</div>
-
 
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
     <ul class="moj-sub-navigation__list">
@@ -118,10 +88,8 @@ Only share case information with Sarah Phillips if they can correctly answer the
         {% endif %}
     </ul>
 </nav>
-  <!--<p class="govuk-body">Arranged for {{ data['victimForename'] }} {{ data['victimSurname'] }}: 1</p>-->
 
-
- <a href="../what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="../what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
 </a>
 
@@ -420,7 +388,7 @@ Arranged meetings
 
 
 </div>
-</div><!-- Communication area Ends -->
+</div>
 
       </div>
 

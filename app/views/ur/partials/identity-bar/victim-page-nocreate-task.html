@@ -1,0 +1,15 @@
+{% block content %}
+<div class="app-identity-bar" style="box-shadow: none">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <h1 class="govuk-heading-m">
+          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </h1>
+        <p class="govuk-body">Case reference: {{ data['caseUrn'] }}</p>
+      </span>
+    </div>
+  
+  </div>
+</div>
+{% endblock %}
