@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/ur/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -10,11 +14,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <h1 class="govuk-heading-l">
-      When was the pre-trial meeting offered?
-    </h1>
-
     <div class="govuk-form-group">
+
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="meeting-offered-date">
+          When was the pre-trial meeting offered?
+        </label>
+      </h1>
 
       <div class="govuk-hint" id="meeting-offered-date-hint">
         Use the date picker or enter a date. For example, 11/08/2026
@@ -38,17 +44,9 @@
 
     </div>
 
-    <a
-      href="meeting-accepted-date"
-      role="button"
-      draggable="false"
-      class="govuk-button"
-      data-module="govuk-button"
-    >
+    <a href="meeting-accepted-date" class="govuk-button" data-module="govuk-button">
       Continue
     </a>
-
-   
 
   </div>
 </div>
