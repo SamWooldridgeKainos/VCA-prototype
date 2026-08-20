@@ -9,5 +9,7 @@ jobs:
     name: Security Scan
     uses: CPS-Innovation/.github/.github/workflows/security-scan.yml@main
     permissions:
+      actions: read
+      contents: read
       security-events: write
       statuses: write
