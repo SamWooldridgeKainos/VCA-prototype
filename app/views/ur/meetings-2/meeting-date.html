@@ -2,6 +2,10 @@
 
 {% set pageName="Telephone call details" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -47,7 +51,7 @@
 
                         <div class="govuk-date-input__item" style="margin-right: 10px;">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-date-input__label" for="call-hou-2">
+                                <label class="govuk-label govuk-date-input__label" for="call-hour-2">
                                     Hour
                                 </label>
                                 <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">

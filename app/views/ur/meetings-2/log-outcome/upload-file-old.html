@@ -2,6 +2,10 @@
 
 {% set pageName="Telephone call details" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -11,11 +15,6 @@
     <div class="govuk-grid-column-one-half">
       <h1 class="govuk-heading-l">Upload meeting notes</h1>
 
-
-
-  <!--<div id="more-detail-hint" class="govuk-hint">
-    Do not include personal or financial information, like your National Insurance number or credit card details
-  </div>-->
   <div class="govuk-form-group">
   <label class="govuk-label" for="file-upload-1">
     Upload a file

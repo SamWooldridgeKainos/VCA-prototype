@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -12,7 +16,6 @@
 
     <form class="form" action="/did-victim-request3" method="post">
 <h1 class="govuk-heading-l">You have sent one meeting offer to Sarah Phillips</h1>
-<!--<p class="govuk-body">You can arrange a meeting after they accept the offer.</p>-->
     {{ govukRadios({
       name: "meeting4",
       value: data['meeting4'],
