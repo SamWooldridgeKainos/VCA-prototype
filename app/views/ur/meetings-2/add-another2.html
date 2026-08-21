@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -11,12 +15,9 @@
   <div class="govuk-grid-column-one-half">
 
     <div data-module="moj-add-another">
-    <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Who will be the Meeting lead?</h2>
+    <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Who will be the meeting lead?</h2>
     <form method="post">
       <fieldset class="govuk-fieldset moj-add-another__item">
-    <!--    <legend class="govuk-fieldset__legend moj-add-another__title govuk-fieldset__legend--m">
-          Person
-        </legend>-->
         <div class="govuk-form-group">
           <label class="govuk-label govuk-!-font-weight-bold" for="person[0][first_name]">
 Name          </label>

@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -10,8 +14,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <h1 class="govuk-heading-l">
-      When did Sarah Phillips accept the meeting offer?
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--l" for="meeting-accepted-date">
+        When did Sarah Phillips accept the meeting offer?
+      </label>
     </h1>
 
     <div class="govuk-form-group">
@@ -40,15 +46,11 @@
 
     <a
       href="./log-outcome/did-meeting-happen.html"
-      role="button"
-      draggable="false"
       class="govuk-button"
       data-module="govuk-button"
     >
       Continue
     </a>
-
-  
 
   </div>
 </div>

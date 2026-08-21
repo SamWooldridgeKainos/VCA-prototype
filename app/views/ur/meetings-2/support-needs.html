@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -29,19 +33,16 @@
       Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need an interpreter?
       </h1>
     </legend>
-  <!--  <div id="changedName-hint" class="govuk-hint">
-      This includes changing your last name or spelling your name differently
-    </div>-->
     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="changedName1" name="changedName" type="radio" value="yes">
-        <label class="govuk-label govuk-radios__label" for="changedName3">
+        <input class="govuk-radios__input" id="changedName-1" name="changedName" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="changedName-1">
           Yes
         </label>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
-        <label class="govuk-label govuk-radios__label" for="changedName-4">
+        <label class="govuk-label govuk-radios__label" for="changedName-2">
           No
         </label>
       </div>
@@ -57,19 +58,16 @@
   Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need someone to attend for support?
   </h1>
 </legend>
-<!--  <div id="changedName-hint" class="govuk-hint">
-  This includes changing your last name or spelling your name differently
-</div>-->
 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
   <div class="govuk-radios__item">
-    <input class="govuk-radios__input" id="changedName3" name="changedName3" type="radio" value="yes">
-    <label class="govuk-label govuk-radios__label" for="changedName">
+    <input class="govuk-radios__input" id="changedName-3" name="attendee" type="radio" value="yes">
+    <label class="govuk-label govuk-radios__label" for="changedName-3">
       Yes
     </label>
   </div>
   <div class="govuk-radios__item">
-    <input class="govuk-radios__input" id="changedName-4" name="changedName4" type="radio" value="no">
-    <label class="govuk-label govuk-radios__label" for="changedName-2">
+    <input class="govuk-radios__input" id="changedName-4" name="attendee" type="radio" value="no">
+    <label class="govuk-label govuk-radios__label" for="changedName-4">
       No
     </label>
   </div>

@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -12,7 +16,6 @@
 
 
     <h1 class="govuk-heading-l">Check your answers before logging the meeting outcome</h1>
-        <!--   <h2 class="govuk-heading-m">Personal details</h2>-->
            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
              <div class="govuk-summary-list__row">
                <dt class="govuk-summary-list__key">
@@ -145,16 +148,7 @@ Actions agreed
                </dd>
 
              </div>
-
-
-
-
            </dl>
-
-          <!-- <h2 class="govuk-heading-m">Send the invite</h2>
-           <p class="govuk-body">This will be sent to {{ data['victimForename'] }} {{ data['victimSurname'] }}'s preferred method of communication: Email </p>
-           <form action="/form-handler" method="post" novalidate>-->
-
 
     <div class="govuk-button-group">
 

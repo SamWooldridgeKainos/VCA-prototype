@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -17,42 +21,41 @@
         Who attended the meeting?
         </h1>
       </legend>
-
-  <!--  <p class="govuk-body">  {{ data['victimForename'] }} {{ data['victimSurname'] }} is automatically included.</p>-->
+      
       <div id="waste-hint" class="govuk-hint">
         Select all that apply
       </div>
 
       <div class="govuk-checkboxes" data-module="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
-          <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          <input class="govuk-checkboxes__input" id="attendee-victim" name="waste" type="checkbox" value="farm">
+          <label class="govuk-label govuk-checkboxes__label" for="attendee-victim">
         Victim (PHILLIPS, Sarah)
           </label>
         </div>
 
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
-          <label class="govuk-label govuk-checkboxes__label" for="waste">
+          <input class="govuk-checkboxes__input" id="attendee-family-liaison-officer" name="waste" type="checkbox" value="carcasses">
+          <label class="govuk-label govuk-checkboxes__label" for="attendee-family-liaison-officer">
           Family liaison officer (BIDWELL, Jane)
           </label>
         </div>
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
-          <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          <input class="govuk-checkboxes__input" id="attendee-idva" name="waste" type="checkbox" value="mines">
+          <label class="govuk-label govuk-checkboxes__label" for="attendee-idva">
           Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
           </label>
         </div>
 
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
-          <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          <input class="govuk-checkboxes__input" id="attendee-advocate" name="waste" type="checkbox" value="mines">
+          <label class="govuk-label govuk-checkboxes__label" for="attendee-advocate">
         High court advocate (SHEAF, Jessica)
           </label>
         </div>
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
-          <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          <input class="govuk-checkboxes__input" id="attendee-police-officer" name="waste" type="checkbox" value="farm">
+          <label class="govuk-label govuk-checkboxes__label" for="attendee-police-officer">
   Police officer in charge (PC FISHER, Jane)
           </label>
         </div>

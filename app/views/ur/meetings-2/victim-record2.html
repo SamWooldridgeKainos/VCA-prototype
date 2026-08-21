@@ -2,18 +2,12 @@
 
 {% set pageName="Victim record" %}
 
-{% block beforeContent %}
-<div class="moj-page-header-actions govuk-!-margin-bottom-0">
-  <div class="moj-page-header-actions__title">
-    <p class="govuk-body govuk-!-margin-bottom-0">
-      <a href="#" class="govuk-back-link">Search for another victim</a>
-    </p>
-  </div>
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
 
-  <div class="moj-page-header-actions__actions">
-    <a href="/v30/letter-dashboard" class="govuk-link">Letter dashboard</a>
-  </div>
-</div>
+{% block beforeContent %}
+{% include "/v50/partials/identity-bar/victim-page.html" %}
 {% endblock %}
 
 {% block content %}
@@ -26,42 +20,6 @@
     {% include "/ur/partials/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
-
-    {% if (data['success'] == "yes") %}
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-      <div class="govuk-notification-banner__header">
-        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-          Success
-        </h2>
-      </div>
-      <div class="govuk-notification-banner__content">
-        <h3 class="govuk-notification-banner__heading">
-          {% if (data['successReason'] == "email-address-updated") %}
-          Victim email address updated
-          {% elif (data['successReason'] == "pmoc-updated") %}
-          Victim's preferred method of contact updated
-          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
-          Telephone call 1 logged
-          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
-          Telephone call 2 logged
-          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
-          Telephone call 3 logged
-          {% elif (data['successReason'] == "draft-approved-to-send") %}
-          Letter sent to CMS and approved to send
-          {% endif %}
-        </h3>
-      </div>
-    </div>
-
-    {% else %}
-    {% endif %}
-
-    <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
-      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-    </h1>
-    <p class="govuk-body">
-      Case URN: {{ data['caseUrn'] }}
-    </p>
 
     <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
