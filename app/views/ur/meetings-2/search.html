@@ -2,18 +2,12 @@
 
 {% set pageName="Search for a victim" %}
 
-{% block beforeContent %}
-<div class="moj-page-header-actions govuk-!-margin-bottom-0">
-  <div class="moj-page-header-actions__title">
-    <!-- <p class="govuk-body govuk-!-margin-bottom-0">
-      <a href="#" class="govuk-back-link">Search for another victim</a>
-    </p> -->
-  </div>
+{% block header %}
+{% include "/v50/partials/header/victims-selected.html" %}
+{% endblock %}
 
-  <div class="moj-page-header-actions__actions">
-    <a href="/v30/letter-dashboard" class="govuk-link">Letter dashboard</a>
-  </div>
-</div>
+{% block beforeContent %}
+{% include "/v50/partials/identity-bar/victim-page.html" %}
 {% endblock %}
 
 {% block content %}

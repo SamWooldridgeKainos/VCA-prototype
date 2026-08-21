@@ -2,24 +2,17 @@
 
 {% set pageName="Victim record" %}
 
-{% block beforeContent %}
-<div class="moj-page-header-actions govuk-!-margin-bottom-0">
-  <div class="moj-page-header-actions__title">
-    <p class="govuk-body govuk-!-margin-bottom-0">
-      <a href="#" class="govuk-back-link">Search for another victim</a>
-    </p>
-  </div>
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
 
-  <div class="moj-page-header-actions__actions">
-    <a href="/v21/letter-dashboard" class="govuk-link">Letter dashboard</a>
-  </div>
-</div>
+{% block beforeContent %}
+{% include "/v50/partials/identity-bar/victim-page-nocreate-task.html" %}
 {% endblock %}
 
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
-
 
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
@@ -28,17 +21,12 @@
         </h2>
       </div>
       <div class="govuk-notification-banner__content">
-      <h3 class="govuk-notification-banner__heading"> CPS pre-trial meeting not offered.</h3>
-
+        <h3 class="govuk-notification-banner__heading">
+          CPS pre-trial meeting not offered.
+        </h3>
       </div>
     </div>
 
-    <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
-      {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
-    </h1>
-    <p class="govuk-body">
-      Case URN: {{ data['caseUrn'] }}
-    </p>
   </div>
 </div>
 

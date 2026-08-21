@@ -2,11 +2,10 @@
 {% set pageName="Task selection" %}
 
 {% block header %}
-{% include "/v60/partials/header/none-selected.html" %}
+{% include "/v51/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -26,7 +25,6 @@
                 </legend>
 
                 <div class="govuk-radios" data-module="govuk-radios" id="radio-group">
-  <div class="govuk-radios" data-module="govuk-radios" id="radio-group">
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="meeting-purpose-pre-trial" name="meetingPurpose" value="pre-trial" {{ checked('meetingPurpose','pre-trial') }}>

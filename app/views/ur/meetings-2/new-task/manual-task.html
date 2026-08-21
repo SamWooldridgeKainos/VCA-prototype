@@ -2,11 +2,10 @@
 {% set pageName="Task selection" %}
 
 {% block header %}
-{% include "/v60/partials/header/none-selected.html" %}
+{% include "/v51/partials/header/none-selected.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/index.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -35,7 +34,7 @@
                 
 
                 <div class="moj-datepicker" id="next-task-due-date-picker" data-module="moj-date-picker" data-excluded-days="">
-                    <input type="text" class="govuk-input moj-js-datepicker-input" id="next-task-due-date"
+                    <input type="text" class="govuk-input moj-js-datepicker-input" id="task-due-date"
                         name="taskDueDate"
                         autocomplete="off"
                         aria-describedby="next-task-due-date-hint"
