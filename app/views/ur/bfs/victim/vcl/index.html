@@ -3,43 +3,6 @@
 
 <div class="govuk-grid-row">
 
-    <!-- {% if (data['pmoc'] == "email") %}
-    {% if (data['vclStatus'] == "email-delivered") %}
-    {% else %}
-    <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">Warning</span>
-            Only send further emails to {{ data['victimForename'] }} {{ data['victimSurname'] }} if they have correctly answered the security questions.
-        </strong>
-    </div>
-    {% endif %}
-    
-    {% elif (data['pmoc'] == "home-phone") or (data['pmoc'] == "mobile") %}
-        {% if (data['vclVictimInformed1'] == "Yes") or (data['vclVictimInformed2'] == "Yes") or (data['vclVictimInformed3'] == "Yes") or (data['vclStatus'] == "after-call-attempt-1") or (data['vclStatus'] == "after-call-attempt-2") or (data['vclStatus'] == "after-call-attempt-3") or (data['vclStatus'] == "draft-approved-to-send") %}
-        {% else %}
-        <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong class="govuk-warning-text__text">
-                <span class="govuk-visually-hidden">Warning</span>
-                Only share case information with {{ data['victimForename'] }} {{ data['victimSurname'] }} if they can correctly answer the security questions.
-            </strong>
-        </div>
-        {% endif %}
-    {% elif (data['pmoc'] == "post") or (data['pmoc'] == "via-police") or (data['pmoc'] == "via-isva") %}
-    {% else %}
-    <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">Warning</span>
-            Preferred method of contact unknown
-            <p class="govuk-body govuk-!-margin-bottom-0">
-                Confirm this before you contact the victim, then <a href="/v60/vcl/victim-details/preferred-method-of-contact.html" class="govuk-link">select a preferred method of contact</a>.
-            </p>
-        </strong>
-    </div>
-    {% endif %} -->
-
     {% if (data['vclType'] == 'stopped-charge') or (data['vclType'] == 'altered-charge') %}
     <div class="govuk-grid-column-one-half">
         <div class="govuk-summary-card">
@@ -57,8 +20,6 @@
             <div class="govuk-summary-card__content">
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-full">
-
-                        <!-- <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Current status and next action</h3> -->
 
                         <!-- Pre-draft -->
                         {% if (data['vclStatus'] == "check-details") %}
@@ -195,9 +156,6 @@
                         {% endif %}
 
                     </div>
-                    <!-- <div class="govuk-grid-column-one-half">
-                        {% include "/v60/victim/vcl/progress-tracker.html" %}
-                    </div> -->
                 </div>
             </div>
         </div>

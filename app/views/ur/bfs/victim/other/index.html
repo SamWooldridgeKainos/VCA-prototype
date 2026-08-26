@@ -15,28 +15,6 @@
             <ul class="govuk-list">
                 {% for communication in data['otherCommunications'] | sort(true, false, 'sortDate') %}
                     <li>
-                        <!-- <div class="govuk-summary-card">
-                            <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">
-                                    Communication logged
-                                </h2>
-                            </div>
-                            <div class="govuk-summary-card__content">
-                                <div class="govuk-grid-row">
-                                    <div class="govuk-grid-column-full">
-
-                                        {% if contactedBy == "call" %}
-                                            {% include "/v60/victim/other/details/call.html" %}
-                                        {% elif contactedBy == "email" %}
-                                            {% include "/v60/victim/other/details/email.html" %}
-                                        {% elif contactedBy == "letter" %}
-                                            {% include "/v60/victim/other/details/letter.html" %}
-                                        {% endif %}
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
                                 <h2 class="govuk-summary-card__title">
