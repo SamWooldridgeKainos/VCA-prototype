@@ -1,13 +1,5 @@
 {% block content %}
 <dl class="govuk-summary-list govuk-!-margin-bottom-4">
-    <!-- <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Call attempt
-        </dt>
-        <dd class="govuk-summary-list__value">
-            2
-        </dd>
-    </div> -->
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             <!-- Call date and time -->
@@ -17,14 +9,6 @@
             {{ "today" | govukDate(showWeekday=true) }} at {{ data['callHour2'] }}:{{ data['callMinutes2'] }}
         </dd>
     </div>
-    <!-- <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Contacted by
-        </dt>
-        <dd class="govuk-summary-list__value">
-            {{ data['pmoc'] | capitalize }}
-        </dd>
-    </div> -->
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             Telephone number
