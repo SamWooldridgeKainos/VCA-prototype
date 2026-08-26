@@ -257,7 +257,7 @@ module.exports = router => {
         response.redirect("/v60/onb/next-task-due-date")
     })
 
-        router.post('/ur/meetings-2/new-task/next-task-due-date-answer', function(request, response) {
+        router.post('/v50/meetings-2/new-task/next-task-due-date-answer', function(request, response) {
 
         response.redirect("check-task?manualTask=no")
     })
@@ -349,7 +349,7 @@ module.exports = router => {
     })
     
 
-    router.post('/ur/meetings-2/new-task/next-task-answer', function(request, response) {
+    router.post('/v50/meetings-2/new-task/next-task-answer', function(request, response) {
 
         var nextTask = request.session.data['nextTask']
 
@@ -372,7 +372,7 @@ module.exports = router => {
         }
     })
 
-   router.post('/ur/meetings-2/new-task/meeting-purpose-answer', function (request, response) {
+   router.post('/v50/meetings-2/new-task/meeting-purpose-answer', function (request, response) {
 
   const meetingPurpose = request.session.data['meetingPurpose']
 

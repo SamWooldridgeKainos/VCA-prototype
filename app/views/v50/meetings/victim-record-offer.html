@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v50/partials/identity-bar/victim-page-nocreate-task.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% if (data['success'] == "yes") %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if (data['successReason'] == "email-address-updated") %}
+          Victim email address updated
+          {% elif (data['successReason'] == "pmoc-updated") %}
+          Victim's preferred method of contact updated
+          {% elif (data['successReason'] == "not-informed-after-call-1") or (data['successReason'] == "informed-after-call-1") %}
+          First call attempt logged
+          {% elif (data['successReason'] == "not-informed-after-call-2") or (data['successReason'] == "informed-after-call-2") %}
+          Second call attempt logged
+          {% elif (data['successReason'] == "not-informed-after-call-3") or (data['successReason'] == "informed-after-call-3") %}
+          Third call attempt logged
+          {% elif (data['successReason'] == "draft-approved-to-send") %}
+          Letter sent to CMS and approved to send
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+
+    {% else %}
+    {% endif %}
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Contents</h2>
+
+      {% include "/ur/partials/tabs/victim-record-tabs.html" %}
+
+      <div class="govuk-tabs__panel" id="summary">
+        {% include "/v50/victim/overview.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+        {% include "/v50/victim/victim-details/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+        {% include "/v50/victim/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+        {% include "/ur/partials/victim-record/communications.html" %}
+
+        <div class="govuk-grid-row comms-panel" id="comms-ptm">
+     <div class="govuk-grid-column-two-thirds">
+<p class="govuk-body">There are no meetings for {{ data['victimForename'] }} {{ data['victimSurname'] }}.</p>
+
+
+<a href="purpose2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Arrange a meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+</a>
+
+
+</div>
+</div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

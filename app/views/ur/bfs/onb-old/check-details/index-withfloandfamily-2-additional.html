@@ -208,135 +208,6 @@
           
   
             </div>
-           <!--
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Preferred method of contact
-                </dt>
-                {% if data['pmoc'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['pmoc'] | capitalize }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/pmoc?successNotification&detailChange=pmoc">
-                            Change<span class="govuk-visually-hidden"> preferred method of contact</span>
-                        </a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v60/onb/check-details/pmoc?successNotification&detailChange=pmoc" class="govuk-link govuk-link--no-visited-state">
-                            Select preferred method of contact
-                        </a>
-                    </dd>
-                {% endif %}
-            </div>
-
-           
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Preferred correspondence language
-                </dt>
-                {% if data['preferredCorrespondenceLanguage'] == "English" or data['preferredCorrespondenceLanguage'] == "Welsh" or data['preferredCorrespondenceLanguage'] == "Other" %}
-                    <dd class="govuk-summary-list__value">
-                        {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language">
-                            Change<span class="govuk-visually-hidden"> preferred correspondence language</span>
-                        </a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v60/onb/check-details/preferred-correspondence-language?successNotification&detailChange=preferred-correspondence-language" class="govuk-link govuk-link--no-visited-state">
-                            Select preferred correspondence language
-                        </a>
-                    </dd>
-                {% endif %}
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Translator needed
-                </dt>
-                {% if data['translatorNeeded'] == "Yes" or data['translatorNeeded'] == "No" %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['translatorNeeded'] }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/translator-needed?successNotification&detailChange=translator-needed">
-                            Change<span class="govuk-visually-hidden"> if translator needed</span>
-                        </a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v60/onb/check-details/translator-needed?successNotification&detailChange=translator-needed" class="govuk-link govuk-link--no-visited-state">
-                            Select if translator needed
-                        </a>
-                    </dd>
-                {% endif %}
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Preferred contact times
-                </dt>
-                {% if data['preferredContactTimes'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['preferredContactTimes'] }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times">
-                            Change<span class="govuk-visually-hidden"> preferred contact times</span>
-                        </a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v60/onb/check-details/preferred-contact-times?successNotification&detailChange=preferred-contact-times" class="govuk-link govuk-link--no-visited-state">
-                            Enter preferred contact times
-                        </a>
-                    </dd>
-                {% endif %}
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Preferred name
-                </dt>
-                {% if data['preferredName'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['preferredName'] }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/preferred-name?successNotification&detailChange=preferred-name">
-                            Change<span class="govuk-visually-hidden"> preferred name</span>
-                        </a>
-                    </dd>
-                {% else %}
-                    <dd class="govuk-summary-list__value">
-                        <a href="/v60/onb/check-details/preferred-name?successNotification&detailChange=preferred-name" class="govuk-link govuk-link--no-visited-state">
-                            Enter preferred name
-                        </a>
-                    </dd>
-                {% endif %}
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Victim Personal Statement status
-                </dt>
-                {% if data['vpsStatus'] %}
-                    <dd class="govuk-summary-list__value">
-                        {{ data['vpsStatus'] }}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/check-details/vps-status?successNotification&detailChange=vps-status">
-                            Change<span class="govuk-visually-hidden"> Victim Personal Statement status</span>
-                        </a>
-                    </dd>
-                {% else %}
-                <dd class="govuk-summary-list__value">
-                    <a href="/v60/onb/check-details/vps-status?successNotification&detailChange=vps-status" class="govuk-link govuk-link--no-visited-state">
-                        Select Victim Personal Statement status
-                    </a>
-                </dd>
-                {% endif %}
-            </div>-->
         </dl>
         <h2 class="govuk-heading-m">
             Now confirm their details
@@ -344,7 +215,7 @@
         <p class="govuk-body">
             After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
         </p>
-        <a href=../next-task.html role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        <a href=../next-task.html class="govuk-button" data-module="govuk-button">
       Continue
     </a>
     </div>
