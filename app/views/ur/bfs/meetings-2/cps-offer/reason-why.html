@@ -8,34 +8,23 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-one-half">
 
+    <form class="form" method="post" action="meeting-not-offered#communications">
 
-
-          <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="more-detail">
-    Why was a meeting not offered?
-    </label>
-  </h1>
-  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint"></textarea>
-</div>
-
-
-            <div class="govuk-button-group">
-
-  <a href="meeting-not-offered#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  </div>
-        </form>
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="not-offered-reason">
+          Why was a meeting not offered?
+        </label>
+      </h1>
+      <textarea class="govuk-textarea" id="not-offered-reason" name="notOfferedReason" rows="5" aria-describedby="not-offered-reason-hint"></textarea>
     </div>
-</div>
-{% endblock %}
 
-{% block pageScripts %}
-<script src="/public/javascripts/shared/record/telephone-call-details.js"></script>
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
 {% endblock %}

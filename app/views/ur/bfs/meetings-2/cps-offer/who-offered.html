@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who was the offer made to?" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set hasError = data['error'] == 'yes' %}
+
+    {% if hasError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Select who the offer was made to",
+          href: "#offer-recipient-1"
+        }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/who-offered-answer" method="post">
+
+      <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}offer-recipient-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Who was the offer made to?</h1>
+          </legend>
+          <div class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if hasError %}
+          <p id="offer-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who the offer was made to
+          </p>
+          {% endif %}
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <input type="hidden" name="offerRecipients" value="_unchecked">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="offer-recipient-1" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret" {{ checked('offerRecipients', (data['victimSurname'] | upper) + ', Margaret') }}>
+              <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-1">
+                {{ data['victimSurname'] | upper }}, Margaret (Mother)
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="offer-recipient-2" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, David" {{ checked('offerRecipients', (data['victimSurname'] | upper) + ', David') }}>
+              <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-2">
+                {{ data['victimSurname'] | upper }}, David (Father)
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="offer-recipient-3" name="offerRecipients" type="checkbox" value="CARTER, Emma" {{ checked('offerRecipients', 'CARTER, Emma') }}>
+              <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-3">
+                CARTER, Emma (Sister)
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

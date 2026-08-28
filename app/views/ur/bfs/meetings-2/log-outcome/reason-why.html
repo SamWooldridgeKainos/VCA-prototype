@@ -8,13 +8,13 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-one-half">
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% set emailHtml %}
-{{ govukInput({
+    {% set emailHtml %}
+    {{ govukInput({
   id: "contact-by-email",
   name: "contactByEmail",
   type: "email",
@@ -25,10 +25,10 @@
     text: "Email address"
   }
 }) }}
-{% endset -%}
+    {% endset -%}
 
-{% set phoneHtml %}
-{{ govukInput({
+    {% set phoneHtml %}
+    {{ govukInput({
   id: "contact-by-phone",
   name: "contactByPhone",
   type: "tel",
@@ -38,10 +38,10 @@
     text: "Phone number"
   }
 }) }}
-{% endset -%}
+    {% endset -%}
 
-{% set textHtml %}
-{{ govukTextarea ({
+    {% set textHtml %}
+    {{ govukTextarea ({
   id: "contact-by-text",
   name: "contactByText",
   type: "tel",
@@ -51,9 +51,9 @@
     text: "Provide details"
   }
 }) }}
-{% endset -%}
+    {% endset -%}
 
-{{ govukRadios({
+    {{ govukRadios({
   name: "contact",
   fieldset: {
     legend: {
@@ -85,17 +85,17 @@
   ]
 }) }}
 
-            <div class="govuk-button-group">
+    <div class="govuk-button-group">
 
-  <a href="outcome-logged2#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  </div>
-        </form>
+      <a href="outcome-logged2#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+      </a>
+      <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+      </a>
     </div>
+    </form>
+  </div>
 </div>
 {% endblock %}
 

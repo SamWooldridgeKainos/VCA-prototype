@@ -12,8 +12,7 @@
 
     <form class="form" action="/ur/bfs/meetings-2/format2-answer" method="post">
 
-
-    {{ govukRadios({
+      {{ govukRadios({
       name: "format2",
       value: data['format2'],
       fieldset: {
@@ -42,16 +41,16 @@
       ]
     }) }}
 
-    <div class="govuk-button-group">
-      {{ govukButton({
+      <div class="govuk-button-group">
+        {{ govukButton({
         text: "Continue"
       }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "Cancel",
         classes: "govuk-button--secondary"
       }) }}
-    </div>
+      </div>
     </form>
 
   </div>

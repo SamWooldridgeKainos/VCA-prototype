@@ -10,10 +10,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form"  action="/ur/bfs/meetings-2/logging-answer" method="post">
+    <form class="form" action="/ur/bfs/meetings-2/logging-answer" method="post">
 
-
-    {{ govukRadios({
+      {{ govukRadios({
       name: "logging",
       value: data['logging'],
       fieldset: {
@@ -39,16 +38,16 @@
       ]
     }) }}
 
-    <div class="govuk-button-group">
-      {{ govukButton({
+      <div class="govuk-button-group">
+        {{ govukButton({
         text: "Continue"
       }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "Cancel",
         classes: "govuk-button--secondary"
       }) }}
-    </div>
+      </div>
     </form>
 
   </div>

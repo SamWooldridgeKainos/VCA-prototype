@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who has declined?" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set recipients = data['offerRecipients'] %}
+    {% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+
+    {% set hasError = data['error'] == 'yes' %}
+
+    {% if hasError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Select who has declined",
+          href: "#decline-recipient-1"
+        }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/who-declined-answer" method="post">
+
+      <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}decline-recipient-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Who has declined?</h1>
+          </legend>
+          <div class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if hasError %}
+          <p id="decline-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who has declined
+          </p>
+          {% endif %}
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <input type="hidden" name="declineRecipients" value="_unchecked">
+            {% for recipient in recipients %}
+            {% if not data['recorddeclined' + loop.index] %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="decline-recipient-{{ loop.index }}" name="declineRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('declineRecipients', loop.index | string) }}>
+              <label class="govuk-label govuk-checkboxes__label" for="decline-recipient-{{ loop.index }}">
+                {{ recipient }}
+              </label>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

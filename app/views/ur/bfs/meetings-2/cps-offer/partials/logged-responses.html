@@ -1,0 +1,171 @@
+{% set methodLabels = {
+  "letter-post": "By post",
+  "letter-email": "By email",
+  "letter-flo": "Via family liaison officer",
+  "letter-police": "Via police",
+  "letter-isva": "Via ISVA",
+  "telephone": "By telephone"
+} %}
+{% set recipients = data['offerRecipients'] %}
+{% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+{# Build a combined list of responses. sortKey orders accepted (0) then declined (1),
+   and within each group shows the latest response first. Awaiting recipients are
+   collected separately so they render together in a single row. #}
+{% set responses = [] %}
+{% set awaiting = [] %}
+{% for recipient in recipients %}
+{% set n = loop.index %}
+{% if data['recordaccepted' + n] %}
+{% set d = data['acceptDate' + n] %}
+{% set dnum = 0 %}
+{% if d %}{% set parts = d.split('/') %}{% set dnum = (parts[2] ~ parts[1] ~ parts[0]) | int %}{% endif %}
+{% set _ = responses.push({ recipient: recipient, status: "accepted", method: data['recordaccepted' + n], date: d, sortKey: 0 - dnum }) %}
+{% elif data['recorddeclined' + n] %}
+{% set d = data['declineDate' + n] %}
+{% set dnum = 0 %}
+{% if d %}{% set parts = d.split('/') %}{% set dnum = (parts[2] ~ parts[1] ~ parts[0]) | int %}{% endif %}
+{% set _ = responses.push({ recipient: recipient, status: "declined", method: data['recorddeclined' + n], date: d, sortKey: 100000000 - dnum }) %}
+{% else %}
+{% set _ = awaiting.push(recipient) %}
+{% endif %}
+{% endfor %}
+{% set responses = responses | sort(false, false, "sortKey") %}
+
+{% if data['responsesRemaining'] == 0 %}
+<p class="govuk-body">All bereaved family members have responded.</p>
+{% else %}
+<p class="govuk-body">Not all bereaved family members have responded yet.</p>
+{% endif %}
+
+<dl class="govuk-summary-list">
+  {% for r in responses %}
+  {% if not loop.first %}
+  <hr class="govuk-section-break govuk-section-break--m">
+  {% endif %}
+  {% if r.status == "accepted" %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Accepted by
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.recipient }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How accepted
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ methodLabels[r.method] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date accepted
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.date | formatDate }}
+    </dd>
+  </div>
+  {% elif r.status == "declined" %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Declined by
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.recipient }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How declined
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ methodLabels[r.method] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date declined
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.date | formatDate }}
+    </dd>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% if awaiting.length %}
+  {% if responses.length %}
+  <hr class="govuk-section-break govuk-section-break--m">
+  {% endif %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Awaiting response from
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {% for recipient in awaiting %}<p class="govuk-body">{{ recipient }}</p>{% endfor %}
+    </dd>
+  </div>
+  {% endif %}
+</dl>
+
+{% if data['responsesRemaining'] == 0 %}
+<hr class="govuk-section-break govuk-section-break--m">
+<div class="govuk-button-group">
+  <a href="../did-victim-request.html" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+  </a>
+</div>
+{% endif %}
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Offered meetings
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <dl class="govuk-summary-list">
+      {% for recipient in recipients %}
+      {% if not loop.first %}
+      <hr class="govuk-section-break govuk-section-break--m">
+      {% endif %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Offered to
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ recipient }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          How offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ methodLabels[data['howoffered' + loop.index]] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['offerDate' + loop.index] | formatDate }}
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
+</details>
+
+{% if data['responsesRemaining'] > 0 %}
+<hr class="govuk-section-break govuk-section-break--m">
+<div class="govuk-button-group">
+  <a href="log-offer-response" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    Log offer response<span class="govuk-visually-hidden"> for a CPS pre-trial meeting</span>
+  </a>
+</div>
+{% endif %}

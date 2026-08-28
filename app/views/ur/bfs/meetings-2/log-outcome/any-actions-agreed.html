@@ -12,7 +12,6 @@
 
     <form class="form" action="/ur/bfs/meetings-2/log-outcome/any-actions-agreed2-answer" method="post">
 
-
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
       {% from "govuk/components/input/macro.njk" import govukInput %}
 
@@ -81,26 +80,16 @@
         ]
       }) }}
 
-
-
-
-
-
-
-
-
-
-
-    <div class="govuk-button-group">
-      {{ govukButton({
+      <div class="govuk-button-group">
+        {{ govukButton({
         text: "Continue"
       }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "Cancel",
         classes: "govuk-button--secondary"
       }) }}
-    </div>
+      </div>
     </form>
 
   </div>

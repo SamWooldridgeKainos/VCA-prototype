@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who has accepted?" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set recipients = data['offerRecipients'] %}
+    {% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+
+    {% set hasError = data['error'] == 'yes' %}
+
+    {% if hasError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Select who has accepted",
+          href: "#accept-recipient-1"
+        }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/who-accepted-answer" method="post">
+
+      <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}accept-recipient-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Who has accepted?</h1>
+          </legend>
+          <div class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if hasError %}
+          <p id="accept-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who has accepted
+          </p>
+          {% endif %}
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <input type="hidden" name="acceptRecipients" value="_unchecked">
+            {% for recipient in recipients %}
+            {% if not data['recordaccepted' + loop.index] and not data['recorddeclined' + loop.index] %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="accept-recipient-{{ loop.index }}" name="acceptRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('acceptRecipients', loop.index | string) }}>
+              <label class="govuk-label govuk-checkboxes__label" for="accept-recipient-{{ loop.index }}">
+                {{ recipient }}
+              </label>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

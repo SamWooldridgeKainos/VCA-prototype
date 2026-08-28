@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Meeting declined details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set offered = data['offerRecipients'] %}
+    {% if offered is string %}{% set offered = [offered] %}{% endif %}
+    {% set decliners = data['declineRecipients'] %}
+    {% if decliners is string %}{% set decliners = [decliners] %}{% endif %}
+    {% set person = (data['person'] | int) or 1 %}
+    {% set idx = decliners[person - 1] %}
+    {% set recipient = offered[(idx | int) - 1] %}
+
+    {% set howError = data['declineHowError'] == 'yes' %}
+    {% set whenError = data['declineWhenError'] == 'yes' %}
+    {% set howErrorMsg = { text: "Select how the meeting was declined" } if howError %}
+
+    {% if howError or whenError %}
+    {% set errorList = [] %}
+    {% if howError %}{% set errorList = errorList.concat({ text: "Select how the meeting was declined", href: "#recorddeclined" + idx }) %}{% endif %}
+    {% if whenError %}{% set errorList = errorList.concat({ text: "Enter the date the meeting was declined", href: "#decline-date-" + idx }) %}{% endif %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorList
+    }) }}
+    {% endif %}
+
+    <span class="govuk-caption-l">Decline {{ person }} of {{ decliners | length }}</span>
+    <h1 class="govuk-heading-l">Meeting declined by {{ recipient | formatName }}</h1>
+
+    <form class="form" action="/ur/bfs/meetings-2/recorddeclined-answer" method="post">
+
+      <input type="hidden" name="person" value="{{ person }}">
+
+      {{ govukRadios({
+              name: "recorddeclined" + idx,
+              value: data['recorddeclined' + idx],
+              errorMessage: howErrorMsg,
+              fieldset: {
+                legend: {
+                  text: "How was it declined?",
+                  classes: "govuk-fieldset__legend--m"
+                }
+              },
+              items: [
+                {
+                  value: "telephone",
+                  text: "By telephone"
+                },
+                {
+                  value: "letter-post",
+                  text: "By post"
+                },
+                {
+                  value: "letter-email",
+                  text: "By email"
+                },
+                {
+                  value: "letter-flo",
+                  text: "Via family liaison officer"
+                },
+                {
+                  value: "letter-police",
+                  text: "Via police"
+                },
+                {
+                  value: "letter-isva",
+                  text: "Via ISVA"
+                }
+              ]
+            }) }}
+
+      <div class="govuk-form-group{% if whenError %} govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="decline-date-{{ idx }}">
+          When was it declined?
+        </label>
+
+        <div class="govuk-hint" id="decline-date-hint-{{ idx }}">
+          Use the date picker or enter a date. For example, 17/05/2025.
+        </div>
+
+        {% if whenError %}
+        <p id="decline-date-error-{{ idx }}" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the date the meeting was declined
+        </p>
+        {% endif %}
+
+        <div class="moj-datepicker" id="decline-date-picker-{{ idx }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="decline-date-{{ idx }}" name="declineDate{{ idx }}" autocomplete="off" aria-describedby="decline-date-hint-{{ idx }}{% if whenError %} decline-date-error-{{ idx }}{% endif %}" value="{{ data['declineDate' + idx] }}" />
+        </div>
+
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/record/telephone-call-details.js"></script>
+{% endblock %}
