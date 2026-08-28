@@ -11,9 +11,9 @@
   <div class="govuk-grid-column-one-half">
 
     <form class="form" action="/did-victim-request3" method="post">
-<h1 class="govuk-heading-l">You have sent one meeting offer to Sarah Phillips's bereaved family</h1>
+      <h1 class="govuk-heading-l">You have sent one meeting offer to Sarah Phillips's bereaved family</h1>
 
-    {{ govukRadios({
+      {{ govukRadios({
       name: "meeting4",
       value: data['meeting4'],
       fieldset: {
@@ -35,16 +35,9 @@
       ]
     }) }}
 
-    <div class="govuk-button-group">
       {{ govukButton({
         text: "Continue"
       }) }}
-
-      {{ govukButton({
-        text: "Cancel",
-        classes: "govuk-button--secondary"
-      }) }}
-    </div>
     </form>
 
   </div>

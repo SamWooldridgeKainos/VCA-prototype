@@ -57,7 +57,7 @@
           <a class="govuk-tabs__tab" href="#summary">Summary</a>
         </li>
         <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+          <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
         </li>
         <li class="govuk-tabs__list-item">
           <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
@@ -81,54 +81,49 @@
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
         <div class="govuk-grid-row">
-     <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-l">Communications</h2>
+          <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l">Communications</h2>
 
-      <nav class="moj-sub-navigation" aria-label="Sub navigation">
-    <ul class="moj-sub-navigation__list">
-        {% if (data['subTab'] == "ptm") %}
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="#">Charging decision</a>
-        </li>
+            <nav class="moj-sub-navigation" aria-label="Sub navigation">
+              <ul class="moj-sub-navigation__list">
+                {% if (data['subTab'] == "ptm") %}
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="#">Charging decision</a>
+                </li>
 
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
-        </li>
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
+                </li>
 
+                {% elif (data['subTab'] == "vcl") %}
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="/v30/victim-record?subTab=charging-decision#communications">Charging decision</a>
+                </li>
 
-        {% elif (data['subTab'] == "vcl") %}
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="/v30/victim-record?subTab=charging-decision#communications">Charging decision</a>
-        </li>
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" aria-current="page" href="#">CPS meetings</a>
+                </li>
 
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page"  href="#">CPS meetings</a>
-        </li>
+                {% else %}
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" href="/v30/victim-record?subTab=charging-decision#communications">Charging decision</a>
+                </li>
 
+                <li class="moj-sub-navigation__item">
+                  <a class="moj-sub-navigation__link" aria-current="page" href="#">Meetings</a>
+                </li>
 
-        {% else %}
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" href="/v30/victim-record?subTab=charging-decision#communications">Charging decision</a>
-        </li>
+                {% endif %}
+              </ul>
+            </nav>
+            <p class="govuk-body">There are no meetings for {{ data['victimForename'] }} {{ data['victimSurname'] }}.</p>
 
-        <li class="moj-sub-navigation__item">
-            <a class="moj-sub-navigation__link" aria-current="page"  href="#">Meetings</a>
-        </li>
+            <a href="what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+              Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+            </a>
 
-
-        {% endif %}
-    </ul>
-</nav>
-<p class="govuk-body">There are no meetings for {{ data['victimForename'] }} {{ data['victimSurname'] }}.</p>
-
-
- <a href="what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-
-
-</div>
-</div>
+          </div>
+        </div>
 
       </div>
     </div>

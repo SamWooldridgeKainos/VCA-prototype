@@ -50,7 +50,6 @@
     {% else %}
     {% endif %}
 
-
     <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
 
@@ -59,7 +58,7 @@
           <a class="govuk-tabs__tab" href="#summary">Summary</a>
         </li>
         <li class="govuk-tabs__list-item">
-            <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+          <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
         </li>
         <li class="govuk-tabs__list-item">
           <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
@@ -83,7 +82,7 @@
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
-        {% include "/v50/meetings/communications.html" %}
+        {% include "/ur/partials/victim-record/communications.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pcd">

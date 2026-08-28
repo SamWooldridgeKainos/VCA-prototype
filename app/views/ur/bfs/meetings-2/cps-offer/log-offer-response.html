@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Log offer response" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/ur/bfs/meetings-2/log-offer-response-answer" method="post">
+
+      {{ govukRadios({
+      name: "offerResponse",
+      value: data['offerResponse'],
+      fieldset: {
+        legend: {
+          text: "What is the response to the meeting offer?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "accepted",
+          text: "Offer accepted"
+        },
+        {
+          value: "declined",
+          text: "Offer declined"
+        },
+        {
+          value: "no-response",
+          text: "No response"
+        }
+      ]
+    }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

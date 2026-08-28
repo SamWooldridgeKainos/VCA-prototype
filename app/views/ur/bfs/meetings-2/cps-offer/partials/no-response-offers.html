@@ -1,0 +1,63 @@
+{% set methodLabels = {
+  "letter-post": "By post",
+  "letter-email": "By email",
+  "letter-flo": "Via family liaison officer",
+  "letter-police": "Via police",
+  "letter-isva": "Via ISVA",
+  "telephone": "By telephone"
+} %}
+{% if data['noResponseOffers'] and data['noResponseOffers'].length %}
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Offers with no response
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {% for round in data['noResponseOffers'] %}
+    {% if not loop.first %}
+    <hr class="govuk-section-break govuk-section-break--l">
+    {% endif %}
+    <dl class="govuk-summary-list">
+      {% for offer in round %}
+      {% if not loop.first %}
+      <hr class="govuk-section-break govuk-section-break--m">
+      {% endif %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Offered to
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ offer.offeredTo }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          How offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ methodLabels[offer.howOffered] }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ offer.offerDate | formatDate }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          No response logged
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ offer.loggedDate | formatDate }}
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+    {% endfor %}
+  </div>
+</details>
+{% endif %}
