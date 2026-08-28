@@ -291,7 +291,7 @@ module.exports = router => {
         // Move on to the next recipient until every offer has been recorded.
         var data = request.session.data
         var recipients = [].concat(data['offerRecipients'] || [])
-        var person = parseInt(data['person'], 10) || 1
+        var person = Number.parseInt(data['person'], 10) || 1
 
         // Both "how" and "when" are mandatory. Re-display the page with errors if either is missing.
         var howMissing = !data['howoffered' + person]
@@ -389,7 +389,7 @@ module.exports = router => {
         // Move on to the next selected recipient until this batch is recorded.
         var data = request.session.data
         var accepters = [].concat(data['acceptRecipients'] || [])
-        var person = parseInt(data['person'], 10) || 1
+        var person = Number.parseInt(data['person'], 10) || 1
         var acceptIdx = accepters[person - 1]
 
         // Both "how" and "when" are mandatory. Re-display the page with errors if either is missing.
@@ -451,7 +451,7 @@ module.exports = router => {
         // Move on to the next selected recipient until this batch is recorded.
         var data = request.session.data
         var decliners = [].concat(data['declineRecipients'] || [])
-        var person = parseInt(data['person'], 10) || 1
+        var person = Number.parseInt(data['person'], 10) || 1
         var declineIdx = decliners[person - 1]
 
         // Both "how" and "when" are mandatory. Re-display the page with errors if either is missing.
