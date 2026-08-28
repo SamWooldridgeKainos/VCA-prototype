@@ -1,0 +1,45 @@
+{% set methodLabels = {
+  "letter-post": "By post",
+  "letter-email": "By email",
+  "letter-flo": "Via family liaison officer",
+  "letter-police": "Via police",
+  "letter-isva": "Via ISVA",
+  "telephone": "By telephone"
+} %}
+{% set recipients = data['offerRecipients'] %}
+{% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+<dl class="govuk-summary-list">
+  {% for recipient in recipients %}
+  {% if not loop.first %}
+  <hr class="govuk-section-break govuk-section-break--m">
+  {% endif %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Offered to
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ recipient }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How offered
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ methodLabels[data['howoffered' + loop.index]] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date offered
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['offerDate' + loop.index] | formatDate }}
+    </dd>
+  </div>
+  {% endfor %}
+</dl>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+{% include "/ur/bfs/meetings-2/cps-offer/partials/no-response-offers.html" %}

@@ -1,0 +1,122 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Telephone call details" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set recipients = data['offerRecipients'] %}
+    {% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+    {% set person = (data['person'] | int) or 1 %}
+    {% set recipient = recipients[person - 1] %}
+
+    {% set howError = data['offerHowError'] == 'yes' %}
+    {% set whenError = data['offerWhenError'] == 'yes' %}
+
+    {% if howError or whenError %}
+    {% set errorList = [] %}
+    {% if howError %}{% set errorList = errorList.concat({ text: "Select how the meeting was offered", href: "#howoffered-" + person + "-1" }) %}{% endif %}
+    {% if whenError %}{% set errorList = errorList.concat({ text: "Enter the date the meeting was offered", href: "#offer-date-" + person }) %}{% endif %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorList
+    }) }}
+    {% endif %}
+
+    <span class="govuk-caption-l">Offer {{ person }} of {{ recipients | length }}</span>
+    <h1 class="govuk-heading-l">Meeting offered to {{ recipient | formatName }}</h1>
+
+    <form class="form" action="/ur/bfs/meetings-2/howoffered-answer" method="post">
+
+      <input type="hidden" name="person" value="{{ person }}">
+
+      <div class="govuk-form-group{% if howError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset"{% if howError %} aria-describedby="howoffered-error"{% endif %}>
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            How was it offered?
+          </legend>
+          {% if howError %}
+          <p id="howoffered-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select how the meeting was offered
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-1" name="howoffered{{ person }}" type="radio" value="telephone" {{ checked('howoffered' + person, 'telephone') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-1">
+                By telephone
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-2" name="howoffered{{ person }}" type="radio" value="letter-post" {{ checked('howoffered' + person, 'letter-post') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-2">
+                By post
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-3" name="howoffered{{ person }}" type="radio" value="letter-email" {{ checked('howoffered' + person, 'letter-email') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-3">
+                By email
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-4" name="howoffered{{ person }}" type="radio" value="letter-flo" {{ checked('howoffered' + person, 'letter-flo') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-4">
+                Via family liaison officer
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-5" name="howoffered{{ person }}" type="radio" value="letter-police" {{ checked('howoffered' + person, 'letter-police') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-5">
+                Via police
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-6" name="howoffered{{ person }}" type="radio" value="letter-isva" {{ checked('howoffered' + person, 'letter-isva') }}>
+              <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-6">
+                Via ISVA
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group{% if whenError %} govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="offer-date-{{ person }}">
+          When was it offered?
+        </label>
+
+        <div class="govuk-hint" id="offer-date-hint-{{ person }}">
+          Use the date picker or enter a date. For example, 17/05/2025.
+        </div>
+
+        {% if whenError %}
+        <p id="offer-date-error-{{ person }}" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the date the meeting was offered
+        </p>
+        {% endif %}
+
+        <div class="moj-datepicker" id="offer-date-picker-{{ person }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="offer-date-{{ person }}" name="offerDate{{ person }}" autocomplete="off" aria-describedby="offer-date-hint-{{ person }}{% if whenError %} offer-date-error-{{ person }}{% endif %}" value="{{ data['offerDate' + person] }}" />
+        </div>
+
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/record/telephone-call-details.js"></script>
+{% endblock %}

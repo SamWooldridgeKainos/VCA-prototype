@@ -12,8 +12,7 @@
 
     <form class="form" action="/logging2" method="post">
 
-
-    {{ govukRadios({
+      {{ govukRadios({
       name: "logging2",
       value: data['logging2'],
       fieldset: {
@@ -35,16 +34,9 @@
       ]
     }) }}
 
-    <div class="govuk-button-group">
       {{ govukButton({
         text: "Continue"
       }) }}
-
-      {{ govukButton({
-        text: "Cancel",
-        classes: "govuk-button--secondary"
-      }) }}
-    </div>
     </form>
 
   </div>

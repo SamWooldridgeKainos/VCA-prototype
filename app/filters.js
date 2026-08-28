@@ -12,6 +12,21 @@ addFilter('formatNumber', number => {
   return Number(number).toLocaleString('en-GB')
 })
 
+// Convert "SURNAME, Firstname" to "Firstname Surname" with proper capitalisation
+addFilter('formatName', name => {
+  if (!name) return ''
+  const toTitleCase = str => str
+    .toLowerCase()
+    .replace(/\b\w/g, char => char.toUpperCase())
+  const parts = name.split(',')
+  if (parts.length === 2) {
+    const surname = toTitleCase(parts[0].trim())
+    const firstName = toTitleCase(parts[1].trim())
+    return `${firstName} ${surname}`
+  }
+  return toTitleCase(name.trim())
+})
+
 addFilter('formatDate', dateString => {
   if (!dateString) return ''
   

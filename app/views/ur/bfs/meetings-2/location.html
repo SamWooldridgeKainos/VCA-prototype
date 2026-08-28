@@ -10,13 +10,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-  <form class="form" action="/ur/bfs/meetings-2/location2-answer" method="post">
+    <form class="form" action="/ur/bfs/meetings-2/location2-answer" method="post">
 
-    {% from "govuk/components/radios/macro.njk" import govukRadios %}
-    {% from "govuk/components/input/macro.njk" import govukInput %}
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
 
-    {% set emailHtml %}
-    {{ govukInput({
+      {% set emailHtml %}
+      {{ govukInput({
       id: "contact-by-email",
       name: "contactByEmail",
       type: "text",
@@ -27,10 +27,10 @@
         text: "Which CPS location will the meeting be held?"
       }
     }) }}
-    {% endset -%}
+      {% endset -%}
 
-    {% set phoneHtml %}
-    {{ govukInput({
+      {% set phoneHtml %}
+      {{ govukInput({
       id: "contact-by-phone",
       name: "contactByPhone",
       type: "text",
@@ -40,10 +40,10 @@
         text: "Which magistrates' court will the meeting be held?"
       }
     }) }}
-    {% endset -%}
+      {% endset -%}
 
-    {% set textHtml %}
-    {{ govukInput({
+      {% set textHtml %}
+      {{ govukInput({
       id: "contact-by-text",
       name: "contactByText",
       type: "text",
@@ -53,10 +53,10 @@
         text: "Which crown court will the meeting be held?"
       }
     }) }}
-    {% endset -%}
+      {% endset -%}
 
-    {% set text2Html %}
-    {{ govukInput({
+      {% set text2Html %}
+      {{ govukInput({
       id: "contact-by-text2",
       name: "contactByText2",
       type: "text",
@@ -66,10 +66,10 @@
         text: "Which police station will the meeting be held?"
       }
     }) }}
-    {% endset -%}
+      {% endset -%}
 
-    {% set text3Html %}
-    {{ govukTextarea({
+      {% set text3Html %}
+      {{ govukTextarea({
       id: "contact-by-text2",
       name: "contactByText2",
       type: "text",
@@ -79,10 +79,9 @@
         text: "Where will the meeting be held?"
       }
     }) }}
-    {% endset -%}
+      {% endset -%}
 
-
-    {{ govukRadios({
+      {{ govukRadios({
       name: "location2",
       value: data['location2'],
       fieldset: {
@@ -134,18 +133,16 @@
       ]
     }) }}
 
-
-
-    <div class="govuk-button-group">
-      {{ govukButton({
+      <div class="govuk-button-group">
+        {{ govukButton({
         text: "Continue"
       }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "Cancel",
         classes: "govuk-button--secondary"
       }) }}
-    </div>
+      </div>
     </form>
 
   </div>

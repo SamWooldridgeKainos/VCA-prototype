@@ -2,6 +2,10 @@
 
 {% set pageName="Purpose of meeting" %}
 
+{% block header %}
+{% include "/ur/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
@@ -12,43 +16,35 @@
 
     <form class="form" action="/ur/bfs/meetings-2/did-victim-request2" method="post">
 
-
-    {{ govukRadios({
+      {{ govukRadios({
       name: "meeting2",
       value: data['meeting2'],
       fieldset: {
         legend: {
-          text: "How was the meeting arranged?",
+          text: "Who requested the meeting?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }
       },
       items: [
         {
-          value: "yes",
-          text: "Sarah Phillips's bereaved family requested it"
+          value: "family",
+          text: "A bereaved family member requested it"
         },
         {
-          value: "no",
-          text: "CPS offered and Sarah Phillips's bereaved family accepted"
+          value: "cps",
+          text: "CPS offered and the bereaved family accepted"
         },
         {
-          value: "yes",
+          value: "third-party",
           text: "Requested by a third party"
         }
       ]
     }) }}
 
-    <div class="govuk-button-group">
-      {{ govukButton({
+    {{ govukButton({
         text: "Continue"
       }) }}
-
-      {{ govukButton({
-        text: "Cancel",
-        classes: "govuk-button--secondary"
-      }) }}
-    </div>
     </form>
 
   </div>
