@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="How will the meeting take place?" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set formatError = data['meetingFormatError'] == 'yes' %}
+
+    {% if formatError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        { text: "Select how the meeting will take place", href: "#meetingFormat" }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/confirm-arrangements/meeting-format-answer" method="post">
+
+      {{ govukRadios({
+      name: "meetingFormat",
+      errorMessage: { text: "Select how the meeting will take place" } if formatError else undefined,
+      fieldset: {
+        legend: {
+          text: "How will the meeting take place?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "in-person",
+          text: "In person",
+          checked: checked("meetingFormat", "in-person")
+        },
+        {
+          value: "virtual",
+          text: "Virtual call",
+          checked: checked("meetingFormat", "virtual")
+        },
+        {
+          value: "hybrid",
+          text: "Hybrid",
+          checked: checked("meetingFormat", "hybrid"),
+          hint: {
+            text: "Some people will attend in person and others will join virtually"
+          }
+        }
+      ]
+    }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

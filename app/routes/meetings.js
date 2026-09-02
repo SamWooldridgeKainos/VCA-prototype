@@ -91,9 +91,9 @@ module.exports = router => {
 
         var purpose3 = request.session.data['purpose3']
         if (purpose3 == "pre-trial"){
-            response.redirect("/ur/bfs/meetings-2/did-victim-request")
+            response.redirect("/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         } else {
-            response.redirect("/ur/bfs/meetings-2/did-victim-request")
+            response.redirect("/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         }
     })
 
@@ -606,10 +606,101 @@ module.exports = router => {
         }
     })
 
-     router.post('/ur/bfs/meetings-2/did-victim-request2', function(request, response) {
+    // --- Confirm meeting arrangements flow (shared: ur/bfs, v50, v51) ---
+    function registerConfirmArrangements(caBase) {
 
-        response.redirect("/ur/bfs/meetings-2/meeting-date")
+    router.post(caBase + 'who-requested-meeting-answer', function(request, response) {
+        var data = request.session.data
+        if (!data['meetingRequestedBy']){
+            return response.redirect(caBase + 'who-requested-meeting?meetingRequestedByError=yes')
+        }
+        data['meetingRequestedByError'] = ''
+        response.redirect(caBase + 'meeting-date')
     })
+
+    router.post(caBase + 'meeting-date-answer', function(request, response) {
+        var data = request.session.data
+        var dateMissing = !data['meetingDate']
+        var timeMissing = !data['meetingHour'] || !data['meetingMinutes']
+        if (dateMissing || timeMissing){
+            return response.redirect(caBase + 'meeting-date?meetingDateError=' + (dateMissing ? 'yes' : 'no')
+                + '&meetingTimeError=' + (timeMissing ? 'yes' : 'no'))
+        }
+        data['meetingDateError'] = ''
+        data['meetingTimeError'] = ''
+        response.redirect(caBase + 'meeting-format')
+    })
+
+    router.post(caBase + 'meeting-format-answer', function(request, response) {
+        var data = request.session.data
+        if (!data['meetingFormat']){
+            return response.redirect(caBase + 'meeting-format?meetingFormatError=yes')
+        }
+        data['meetingFormatError'] = ''
+        if (data['meetingFormat'] == 'virtual'){
+            response.redirect(caBase + 'attendees')
+        } else {
+            response.redirect(caBase + 'meeting-location')
+        }
+    })
+
+    router.post(caBase + 'meeting-location-answer', function(request, response) {
+        var data = request.session.data
+        var type = data['meetingLocationType']
+        if (!type){
+            return response.redirect(caBase + 'meeting-location?meetingLocationTypeError=yes')
+        }
+        var detailKeys = { cps: 'cpsLocation', magistrates: 'magistratesLocation', crown: 'crownLocation', police: 'policeStationLocation', other: 'otherLocation' }
+        var detailMissing = !data[detailKeys[type]]
+        if (detailMissing){
+            return response.redirect(caBase + 'meeting-location?meetingLocationDetailError=yes')
+        }
+        data['meetingLocationTypeError'] = ''
+        data['meetingLocationDetailError'] = ''
+        response.redirect(caBase + 'attendees')
+    })
+
+    router.post(caBase + 'attendees-answer', function(request, response) {
+        var data = request.session.data
+        var attendees = [].concat(data['attendees'] || []).filter(function(a){ return a && a !== '_unchecked' })
+        if (attendees.length === 0){
+            return response.redirect(caBase + 'attendees?attendeesError=yes')
+        }
+        data['attendeesError'] = ''
+        response.redirect(caBase + 'meeting-lead')
+    })
+
+    router.post(caBase + 'meeting-lead-answer', function(request, response) {
+        var data = request.session.data
+        if (!data['meetingLead']){
+            return response.redirect(caBase + 'meeting-lead?meetingLeadError=yes')
+        }
+        data['meetingLeadError'] = ''
+        response.redirect(caBase + 'support-needs')
+    })
+
+    router.post(caBase + 'support-needs-answer', function(request, response) {
+        var data = request.session.data
+        var interpreterMissing = !data['interpreterNeeded']
+        var supportMissing = !data['supportPersonNeeded']
+        if (interpreterMissing || supportMissing){
+            return response.redirect(caBase + 'support-needs?interpreterNeededError=' + (interpreterMissing ? 'yes' : 'no')
+                + '&supportPersonNeededError=' + (supportMissing ? 'yes' : 'no'))
+        }
+        data['interpreterNeededError'] = ''
+        data['supportPersonNeededError'] = ''
+        response.redirect(caBase + 'check-answers')
+    })
+
+    router.post(caBase + 'check-answers-answer', function(request, response) {
+        response.redirect(caBase + 'meeting-confirmed#communications')
+    })
+
+    }
+
+    registerConfirmArrangements('/ur/bfs/meetings-2/confirm-arrangements/')
+    registerConfirmArrangements('/v50/meetings-2/confirm-arrangements/')
+    registerConfirmArrangements('/v51/meetings-2/confirm-arrangements/')
 
     router.post('/did-victim-request2', function(request, response) {
 

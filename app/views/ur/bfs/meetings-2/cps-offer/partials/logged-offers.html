@@ -40,6 +40,8 @@
   {% endfor %}
 </dl>
 
+{% if not hideNoResponseOffers %}
 <hr class="govuk-section-break govuk-section-break--m">
 
 {% include "/ur/bfs/meetings-2/cps-offer/partials/no-response-offers.html" %}
+{% endif %}

@@ -109,10 +109,11 @@
   {% endif %}
 </dl>
 
+{% if not hideResponseActions %}
 {% if data['responsesRemaining'] == 0 %}
 <hr class="govuk-section-break govuk-section-break--m">
 <div class="govuk-button-group">
-  <a href="../did-victim-request.html" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  <a href="../confirm-arrangements/who-requested-meeting" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
     Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
   </a>
 </div>
@@ -168,4 +169,5 @@
     Log offer response<span class="govuk-visually-hidden"> for a CPS pre-trial meeting</span>
   </a>
 </div>
+{% endif %}
 {% endif %}

@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who will lead the meeting?" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set leadError = data['meetingLeadError'] == 'yes' %}
+
+    {% if leadError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        { text: "Select who will lead the meeting", href: "#meetingLead" }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/confirm-arrangements/meeting-lead-answer" method="post">
+
+    <div class="govuk-form-group{% if leadError %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" aria-describedby="{% if leadError %}meetingLead-error{% endif %}">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Who will lead the meeting?
+          </h1>
+        </legend>
+        {% if leadError %}
+        <p id="meetingLead-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Select who will lead the meeting
+        </p>
+        {% endif %}
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="meetingLead" name="meetingLead" type="radio" value="SHEAF, Jessica (High court advocate)" {{ checked("meetingLead", "SHEAF, Jessica (High court advocate)") }}>
+            <label class="govuk-label govuk-radios__label" for="meetingLead">
+              SHEAF, Jessica (High court advocate)
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="meetingLead-2" name="meetingLead" type="radio" value="BIDWELL, Jane (Family liaison officer)" {{ checked("meetingLead", "BIDWELL, Jane (Family liaison officer)") }}>
+            <label class="govuk-label govuk-radios__label" for="meetingLead-2">
+              BIDWELL, Jane (Family liaison officer)
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="meetingLead-3" name="meetingLead" type="radio" value="SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))" {{ checked("meetingLead", "SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))") }}>
+            <label class="govuk-label govuk-radios__label" for="meetingLead-3">
+              SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="meetingLead-4" name="meetingLead" type="radio" value="PC FISHER, Jane (Police officer in charge)" {{ checked("meetingLead", "PC FISHER, Jane (Police officer in charge)") }}>
+            <label class="govuk-label govuk-radios__label" for="meetingLead-4">
+              PC FISHER, Jane (Police officer in charge)
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <a href="add-meeting-lead" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+      Add another person <span class="govuk-visually-hidden"> </span>
+    </a>
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

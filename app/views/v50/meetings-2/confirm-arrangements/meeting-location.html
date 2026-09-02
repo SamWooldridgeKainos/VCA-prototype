@@ -1,0 +1,157 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Where will the meeting take place?" %}
+
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+    {% set typeError = data['meetingLocationTypeError'] == 'yes' %}
+    {% set detailError = data['meetingLocationDetailError'] == 'yes' %}
+    {% set selectedType = data['meetingLocationType'] %}
+
+    {% if typeError or detailError %}
+    {% set errorList = [] %}
+    {% if typeError %}{% set errorList = errorList.concat({ text: "Select where the meeting will take place", href: "#meetingLocationType" }) %}{% endif %}
+    {% if detailError %}{% set errorList = errorList.concat({ text: "Enter where the meeting will be held", href: "#meetingLocationType" }) %}{% endif %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorList
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/v50/meetings-2/confirm-arrangements/meeting-location-answer" method="post">
+
+      {% set cpsHtml %}
+      {{ govukInput({
+      id: "cps-location",
+      name: "cpsLocation",
+      type: "text",
+      classes: "govuk-input--width-20",
+      value: data['cpsLocation'],
+      errorMessage: { text: "Enter which CPS location the meeting will be held" } if (detailError and selectedType == "cps") else undefined,
+      label: {
+        text: "Which CPS location will the meeting be held?"
+      }
+    }) }}
+      {% endset -%}
+
+      {% set magistratesHtml %}
+      {{ govukInput({
+      id: "magistrates-location",
+      name: "magistratesLocation",
+      type: "text",
+      classes: "govuk-input--width-20",
+      value: data['magistratesLocation'],
+      errorMessage: { text: "Enter which magistrates' court the meeting will be held" } if (detailError and selectedType == "magistrates") else undefined,
+      label: {
+        text: "Which magistrates' court will the meeting be held?"
+      }
+    }) }}
+      {% endset -%}
+
+      {% set crownHtml %}
+      {{ govukInput({
+      id: "crown-location",
+      name: "crownLocation",
+      type: "text",
+      classes: "govuk-input--width-20",
+      value: data['crownLocation'],
+      errorMessage: { text: "Enter which crown court the meeting will be held" } if (detailError and selectedType == "crown") else undefined,
+      label: {
+        text: "Which crown court will the meeting be held?"
+      }
+    }) }}
+      {% endset -%}
+
+      {% set policeHtml %}
+      {{ govukInput({
+      id: "police-station-location",
+      name: "policeStationLocation",
+      type: "text",
+      classes: "govuk-input--width-20",
+      value: data['policeStationLocation'],
+      errorMessage: { text: "Enter which police station the meeting will be held" } if (detailError and selectedType == "police") else undefined,
+      label: {
+        text: "Which police station will the meeting be held?"
+      }
+    }) }}
+      {% endset -%}
+
+      {% set otherHtml %}
+      {{ govukTextarea({
+      id: "other-location",
+      name: "otherLocation",
+      classes: "govuk-input--width-20",
+      value: data['otherLocation'],
+      errorMessage: { text: "Enter where the meeting will be held" } if (detailError and selectedType == "other") else undefined,
+      label: {
+        text: "Where will the meeting be held?"
+      }
+    }) }}
+      {% endset -%}
+
+      {{ govukRadios({
+      name: "meetingLocationType",
+      errorMessage: { text: "Select where the meeting will take place" } if typeError else undefined,
+      fieldset: {
+        legend: {
+          text: "Where will the meeting take place?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "cps",
+          text: "CPS location",
+          checked: checked("meetingLocationType", "cps"),
+          conditional: { html: cpsHtml }
+        },
+        {
+          value: "magistrates",
+          text: "Magistrates' court",
+          checked: checked("meetingLocationType", "magistrates"),
+          conditional: { html: magistratesHtml }
+        },
+        {
+          value: "crown",
+          text: "Crown court",
+          checked: checked("meetingLocationType", "crown"),
+          conditional: { html: crownHtml }
+        },
+        {
+          value: "police",
+          text: "Police station",
+          checked: checked("meetingLocationType", "police"),
+          conditional: { html: policeHtml }
+        },
+        {
+          value: "other",
+          text: "Other",
+          checked: checked("meetingLocationType", "other"),
+          conditional: { html: otherHtml }
+        }
+      ]
+    }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
