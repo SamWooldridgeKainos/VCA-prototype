@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Support needs" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set interpreterError = data['interpreterNeededError'] == 'yes' %}
+    {% set supportPersonError = data['supportPersonNeededError'] == 'yes' %}
+
+    {% if interpreterError or supportPersonError %}
+    {% set errorList = [] %}
+    {% if interpreterError %}{% set errorList = errorList.concat({ text: "Select whether anyone will need an interpreter", href: "#interpreterNeeded" }) %}{% endif %}
+    {% if supportPersonError %}{% set errorList = errorList.concat({ text: "Select whether anyone will need someone to attend for support", href: "#supportPersonNeeded" }) %}{% endif %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorList
+    }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">
+      Support needs
+    </h1>
+
+    <form class="form" action="/ur/bfs/meetings-2/confirm-arrangements/support-needs-answer" method="post">
+
+    <div class="govuk-form-group{% if interpreterError %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" aria-describedby="{% if interpreterError %}interpreterNeeded-error{% endif %}">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+          Will anyone from {{ data['victimForename'] }} {{ data['victimSurname'] }}'s bereaved family need an interpreter?
+        </legend>
+        {% if interpreterError %}
+        <p id="interpreterNeeded-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Select whether anyone will need an interpreter
+        </p>
+        {% endif %}
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="interpreterNeeded" name="interpreterNeeded" type="radio" value="yes" data-aria-controls="conditional-interpreter" {{ checked("interpreterNeeded", "yes") }}>
+            <label class="govuk-label govuk-radios__label" for="interpreterNeeded">
+              Yes
+            </label>
+          </div>
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-interpreter">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="interpreter-details">
+                Details
+              </label>
+              <textarea class="govuk-textarea" id="interpreter-details" name="interpreterDetails" rows="4" spellcheck="false" autocomplete="off">{{ data['interpreterDetails'] }}</textarea>
+            </div>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="interpreterNeeded-2" name="interpreterNeeded" type="radio" value="no" {{ checked("interpreterNeeded", "no") }}>
+            <label class="govuk-label govuk-radios__label" for="interpreterNeeded-2">
+              No
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="govuk-form-group{% if supportPersonError %} govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset" aria-describedby="{% if supportPersonError %}supportPersonNeeded-error{% endif %}">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+          Will anyone from {{ data['victimForename'] }} {{ data['victimSurname'] }}'s bereaved family need someone to attend for support?
+        </legend>
+        {% if supportPersonError %}
+        <p id="supportPersonNeeded-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Select whether anyone will need someone to attend for support
+        </p>
+        {% endif %}
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="supportPersonNeeded" name="supportPersonNeeded" type="radio" value="yes" data-aria-controls="conditional-support" {{ checked("supportPersonNeeded", "yes") }}>
+            <label class="govuk-label govuk-radios__label" for="supportPersonNeeded">
+              Yes
+            </label>
+          </div>
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-support">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="support-person-details">
+                Details
+              </label>
+              <textarea class="govuk-textarea" id="support-person-details" name="supportPersonDetails" rows="4" spellcheck="false" autocomplete="off">{{ data['supportPersonDetails'] }}</textarea>
+            </div>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="supportPersonNeeded-2" name="supportPersonNeeded" type="radio" value="no" {{ checked("supportPersonNeeded", "no") }}>
+            <label class="govuk-label govuk-radios__label" for="supportPersonNeeded-2">
+              No
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="govuk-form-group">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--s" for="other-support-needs">
+          Disability support or adjustment needs (optional)
+        </label>
+      </h2>
+      <div id="other-support-needs-hint" class="govuk-hint">
+        To access, understand information and communicate with CPS. For example, alternative formats, step-free access, a quiet room or a longer appointment. </div>
+      <textarea class="govuk-textarea" id="other-support-needs" name="otherSupportNeeds" rows="8" aria-describedby="other-support-needs-hint">{{ data['otherSupportNeeds'] }}</textarea>
+    </div>
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

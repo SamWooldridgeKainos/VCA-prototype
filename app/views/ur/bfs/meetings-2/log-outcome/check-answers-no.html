@@ -1,6 +1,10 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="Check your answers" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -29,10 +33,10 @@
         </dt>
         <dd class="govuk-summary-list__value">
           <p class="govuk-body">Sarah Phillips's bereaved family</p>
-          <p class="govuk-body">High court advocate (SHEAF, Jessica)</p>
-          <p class="govuk-body">Family liaison officer (BIDWELL, Jane)</p>
-          <p class="govuk-body">Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)</p>
-          <p class="govuk-body">Police officer in charge (PC FISHER, Jane)</p>
+          <p class="govuk-body">SHEAF, Jessica (High court advocate)</p>
+          <p class="govuk-body">BIDWELL, Jane (Family liaison officer)</p>
+          <p class="govuk-body">SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))</p>
+          <p class="govuk-body">PC FISHER, Jane (Police officer in charge)</p>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
@@ -45,7 +49,7 @@
           Meeting lead
         </dt>
         <dd class="govuk-summary-list__value">
-          High court advocate (SHEAF, Jessica)
+          SHEAF, Jessica (High court advocate)
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>

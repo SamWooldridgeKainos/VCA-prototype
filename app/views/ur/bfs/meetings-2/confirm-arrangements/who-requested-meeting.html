@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who requested the meeting?" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set requestedByError = data['meetingRequestedByError'] == 'yes' %}
+
+    {% if requestedByError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        { text: "Select who requested the meeting", href: "#meetingRequestedBy" }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting-answer" method="post">
+
+      {{ govukRadios({
+      name: "meetingRequestedBy",
+      errorMessage: { text: "Select who requested the meeting" } if requestedByError else undefined,
+      fieldset: {
+        legend: {
+          text: "Who requested the meeting?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "family",
+          text: "A bereaved family member requested it",
+          checked: checked("meetingRequestedBy", "family")
+        },
+        {
+          value: "cps",
+          text: "CPS offered and the bereaved family accepted",
+          checked: checked("meetingRequestedBy", "cps")
+        },
+        {
+          value: "third-party",
+          text: "Requested by a third party",
+          checked: checked("meetingRequestedBy", "third-party"),
+          hint: {
+            "text": "For example, a family liaison officer or another representative"
+          }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

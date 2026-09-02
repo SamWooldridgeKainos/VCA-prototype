@@ -1,0 +1,240 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim record" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v51/partials/identity-bar/victim-page.html" %}
+{% endblock %}
+
+{% block content %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + "'s bereaved family requested it" %}{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}{% elif data['meetingRequestedBy'] == "third-party" %}{% set arrangedText = "Requested by a third party" %}{% else %}{% set arrangedText = "" %}{% endif %}
+{% if data['meetingFormat'] == "in-person" %}{% set formatText = "In person" %}{% elif data['meetingFormat'] == "virtual" %}{% set formatText = "Virtual call" %}{% elif data['meetingFormat'] == "hybrid" %}{% set formatText = "Hybrid" %}{% else %}{% set formatText = "" %}{% endif %}
+{% if data['meetingLocationType'] == "cps" %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == "magistrates" %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == "crown" %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == "police" %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == "other" %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = "" %}{% endif %}
+{% set attendeesList = data['attendees'] %}
+{% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Contents</h2>
+
+      {% include "/ur/partials/tabs/victim-record-tabs.html" %}
+
+      <div class="govuk-tabs__panel" id="summary">
+        {% include "/v51/victim/overview.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
+        {% include "/v51/victim/victim-details/index.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
+        {% include "/v51/victim/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
+        
+        {% include "/ur/partials/victim-record/communications.html" %}
+
+        <div id="comms-ptm" class="comms-panel">
+
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Success
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+              CPS pre-trial meeting arranged.
+            </h3>
+          </div>
+        </div>
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+
+            <p class="govuk-body">
+              <a href="../what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+                Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+              </a>
+            </p>
+
+            <div class="govuk-summary-card">
+              <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                  CPS pre-trial meeting arranged
+                </h2>
+              </div>
+              <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                  Date and time
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
+                    </dd>
+
+                  </div><div class="govuk-summary-list__row">
+                          <dt class="govuk-summary-list__key">
+                        How meeting was arranged
+                          </dt>
+                          <dd class="govuk-summary-list__value">
+                          {{ arrangedText }}
+                          </dd>
+                          
+                        </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                    How meeting will take place
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                    {{ formatText }}
+                    </dd>
+
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                    Location
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+              {{ locationText }}
+                    </dd>
+
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                  Attendees
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                    <p class="govuk-body">{{ victimName }}'s bereaved family</p>
+                    <p class="govuk-body">Meeting lead: {{ data['meetingLead'] }}</p>
+                    {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
+                    </dd>
+
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+            Support needs
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}
+            <br>
+                  Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
+                    </dd>
+
+                  </div>
+
+                </dl>
+            <br/>
+            <br/>
+                <div class="govuk-button-group">
+
+            <a href="../log-outcome/did-meeting-happen" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+            Log meeting outcome<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+            </a>
+            <a href="../rescheduled/check-answers" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+            Change meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+            </a>
+            <a href="../cancelled/meeting-date" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+            Cancel meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+            </a>
+            </div>
+
+            <details class="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                Offered meeting
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                <div class="govuk-summary-card">
+                  <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                      CPS pre-trial meeting offer accepted
+                    </h2>
+                  </div>
+                  <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                    How meeting offer was accepted
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                    Letter by post
+                        </dd>
+
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                  Date meeting was accepted
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        11 April 2025
+                        </dd>
+
+                      </div>
+
+
+                    </dl>
+
+
+
+
+
+
+                  </div>
+                </div>
+                  <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                      <h2 class="govuk-summary-card__title">
+                        CPS pre-trial meeting offered
+                      </h2>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                      <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                          <dt class="govuk-summary-list__key">
+                      How was meeting offered
+                          </dt>
+                          <dd class="govuk-summary-list__value">
+                      Letter by post
+                          </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                          <dt class="govuk-summary-list__key">
+                    Date meeting was offered
+                          </dt>
+                          <dd class="govuk-summary-list__value">
+                          11 April 2025
+                          </dd>
+
+                        </div>
+
+
+                      </dl>
+            </details>
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

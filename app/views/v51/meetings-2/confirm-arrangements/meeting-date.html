@@ -1,0 +1,104 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="When will the meeting take place?" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set dateError = data['meetingDateError'] == 'yes' %}
+    {% set timeError = data['meetingTimeError'] == 'yes' %}
+
+    {% if dateError or timeError %}
+    {% set errorList = [] %}
+    {% if dateError %}{% set errorList = errorList.concat({ text: "Enter the date the meeting will take place", href: "#meeting-date" }) %}{% endif %}
+    {% if timeError %}{% set errorList = errorList.concat({ text: "Enter the time the meeting will take place", href: "#meeting-hour" }) %}{% endif %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorList
+    }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">When will the meeting take place?</h1>
+
+    <form action="/v51/meetings-2/confirm-arrangements/meeting-date-answer" method="post" accept-charset="UTF-8">
+
+      <div class="govuk-form-group{% if dateError %} govuk-form-group--error{% endif %}">
+        <label class="govuk-label govuk-label--m" for="meeting-date">
+          Date
+        </label>
+
+        <div class="govuk-hint" id="meeting-date-hint">
+          Use the date picker or enter a date. For example, 17/05/2025
+        </div>
+
+        {% if dateError %}
+        <p id="meeting-date-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the date the meeting will take place
+        </p>
+        {% endif %}
+
+        <div class="moj-datepicker" id="meeting-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
+
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if dateError %} govuk-input--error{% endif %}" id="meeting-date" name="meetingDate" autocomplete="off" aria-describedby="meeting-date-hint{% if dateError %} meeting-date-error{% endif %}" value="{{ data['meetingDate'] }}" />
+        </div>
+      </div>
+
+      <div class="govuk-form-group{% if timeError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="meeting-time-hint{% if timeError %} meeting-time-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Time
+          </legend>
+
+          <div id="meeting-time-hint" class="govuk-hint">
+            Enter a time in 24-hour format. For example, 14:15
+          </div>
+
+          {% if timeError %}
+          <p id="meeting-time-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Enter the time the meeting will take place
+          </p>
+          {% endif %}
+
+          <div class="govuk-date-input" id="meeting-time">
+
+            <div class="govuk-date-input__item" style="margin-right: 10px;">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="meeting-hour">
+                  Hour
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-hour" name="meetingHour" type="text" inputmode="numeric" value="{{ data['meetingHour'] }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item" style="margin-right: 10px;">
+              <span class="govuk-body">:</span>
+            </div>
+
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="meeting-minutes">
+                  Minutes
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-minutes" name="meetingMinutes" type="text" inputmode="numeric" value="{{ data['meetingMinutes'] }}">
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,10 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="Purpose of the meeting" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -69,16 +73,9 @@
       ]
     }) }}
 
-      <div class="govuk-button-group">
-        {{ govukButton({
+    {{ govukButton({
         text: "Continue"
       }) }}
-
-        {{ govukButton({
-        text: "Cancel",
-        classes: "govuk-button--secondary"
-      }) }}
-      </div>
     </form>
 
   </div>

@@ -1,6 +1,10 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="Who attended the meeting?" %}
+
+{% block header %}
+{% include "/ur/partials/header/none-selected-bfs.html" %}
+{% endblock %}
 
 {% block beforeContent %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -23,38 +27,35 @@
         </div>
 
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="farm">
-            <label class="govuk-label govuk-checkboxes__label" for="waste">
-              Victim (PHILLIPS, Sarah)
-            </label>
-          </div>
 
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="carcasses">
             <label class="govuk-label govuk-checkboxes__label" for="waste-1">
-              Family liaison officer (BIDWELL, Jane)
+              BIDWELL, Jane (Family liaison officer)
             </label>
           </div>
+
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
             <label class="govuk-label govuk-checkboxes__label" for="waste-2">
-              Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+              SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
             </label>
           </div>
 
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="mines">
             <label class="govuk-label govuk-checkboxes__label" for="waste-3">
-              High court advocate (SHEAF, Jessica)
+              SHEAF, Jessica (High court advocate)
             </label>
           </div>
+
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="farm">
             <label class="govuk-label govuk-checkboxes__label" for="waste-4">
-              Police officer in charge (PC FISHER, Jane)
+              PC FISHER, Jane (Police officer in charge)
             </label>
           </div>
+          
         </div>
       </fieldset>
     </div>
@@ -63,9 +64,8 @@
       Add another person <span class="govuk-visually-hidden"> </span>
     </a>
 
-    <br />
-    <br />
-    <br />
+    <hr class="govuk-section-break govuk-section-break--m">
+
     <div class="govuk-button-group">
 
       <a href="chair-person.html" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
