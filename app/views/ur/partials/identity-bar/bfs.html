@@ -1,0 +1,19 @@
+{% block content %}
+<div class="app-identity-bar govuk-!-padding-bottom-0" style="box-shadow: none;">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <h1 class="govuk-heading-m govuk-!-margin-right-2 govuk-!-margin-bottom-0" style="display: inline-block" aria-describedby="deceased-tag">
+          {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
+        </h1>
+        <strong class="govuk-tag govuk-tag--grey govuk-!-margin-right-2" id="deceased-tag">
+          Deceased
+        </strong>
+        <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
