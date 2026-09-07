@@ -1,23 +1,4 @@
-{% extends "layouts/meetings-2-communications.html" %}
-
-{% block communicationsNotification %}
-<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Success
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-    <h3 class="govuk-notification-banner__heading">
-      CPS pre-trial meeting not offered.
-    </h3>
-  </div>
-</div>
-{% endblock %}
-
-{% block communicationsContent %}
-
-<a href="../purpose2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+<a href="/ur/bfs/meetings-2/purpose2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
 </a>
 
@@ -37,7 +18,6 @@
         <dd class="govuk-summary-list__value">
           No
         </dd>
-
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -54,5 +34,3 @@
   </div>
 
 </div>
-
-{% endblock %}

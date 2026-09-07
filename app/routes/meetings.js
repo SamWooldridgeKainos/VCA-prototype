@@ -186,7 +186,7 @@ module.exports = router => {
         var offered = [].concat(data['offerRecipients'] || [])
         var remaining = []
         offered.forEach(function(recipient, i){
-            if (!data['recordaccepted' + (i + 1)] && !data['recorddeclined' + (i + 1)]) remaining.push(String(i + 1))
+            if (!data['recordaccepted' + (i + 1)] && !data['recorddeclined' + (i + 1)] && !data['recordnoresponse' + (i + 1)]) remaining.push(String(i + 1))
         })
 
         // With only one person left to respond, skip the "who accepted" question.
@@ -206,7 +206,7 @@ module.exports = router => {
         var offered = [].concat(data['offerRecipients'] || [])
         var remaining = []
         offered.forEach(function(recipient, i){
-            if (!data['recorddeclined' + (i + 1)]) remaining.push(String(i + 1))
+            if (!data['recordaccepted' + (i + 1)] && !data['recorddeclined' + (i + 1)] && !data['recordnoresponse' + (i + 1)]) remaining.push(String(i + 1))
         })
 
         // With only one person left to respond, skip the "who declined" question.
@@ -221,28 +221,84 @@ module.exports = router => {
 
     router.get('/ur/bfs/meetings-2/cps-offer/log-no-response', function(request, response) {
 
+        // Work out which offered recipients are still to respond
+        // (not yet accepted, declined, or logged as no response).
         var data = request.session.data
+        var offered = [].concat(data['offerRecipients'] || [])
+        var remaining = []
+        offered.forEach(function(recipient, i){
+            if (!data['recordaccepted' + (i + 1)] && !data['recorddeclined' + (i + 1)] && !data['recordnoresponse' + (i + 1)]) remaining.push(String(i + 1))
+        })
 
-        // Snapshot the current offer details as a "no response" round so they are
-        // retained (and can be shown in a Details component).
-        var recipients = [].concat(data['offerRecipients'] || [])
-        var now = new Date()
-        var loggedDate = String(now.getDate()).padStart(2, '0') + '/' +
-            String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear()
+        // With only one person left to respond, skip the "who did not respond" question.
+        if (remaining.length === 1){
+            data['noResponseRecipients'] = remaining
+            response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=1")
+        } else {
+            data['error'] = ''
+            response.redirect("/ur/bfs/meetings-2/cps-offer/who-no-response#communications")
+        }
+    })
+
+    router.post('/ur/bfs/meetings-2/who-no-response-answer', function(request, response) {
+        var selected = [].concat(request.session.data['noResponseRecipients'] || [])
+        if (selected.length === 0){
+            return response.redirect("/ur/bfs/meetings-2/cps-offer/who-no-response?error=yes")
+        }
+        request.session.data['error'] = ''
+        response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=1")
+    })
+
+    router.post('/ur/bfs/meetings-2/recordnoresponse-answer', function(request, response) {
+
+        // "No response" details are captured one selected recipient per page (person=1, 2, ...).
+        var data = request.session.data
+        var recipients = [].concat(data['noResponseRecipients'] || [])
+        var person = Number.parseInt(data['person'], 10) || 1
+        var idx = recipients[person - 1]
+
+        // The logged date is mandatory. Re-display the page with an error if it is missing.
+        if (!data['noResponseDate' + idx]){
+            return response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=" + person
+                + "&noResponseWhenError=yes")
+        }
+        data['noResponseWhenError'] = ''
+
+        // Mark this recipient as accounted for.
+        data['recordnoresponse' + idx] = 'yes'
+
+        if (person < recipients.length){
+            response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=" + (person + 1))
+            return
+        }
+
+        // Snapshot the selected recipients as a "no response" round so they are
+        // retained and can be redisplayed on the meeting page.
+        var offered = [].concat(data['offerRecipients'] || [])
         var round = []
-        recipients.forEach(function(recipient, i){
+        recipients.forEach(function(sel){
+            var i = Number.parseInt(sel, 10)
             round.push({
-                offeredTo: recipient,
-                howOffered: data['howoffered' + (i + 1)],
-                offerDate: data['offerDate' + (i + 1)],
-                loggedDate: loggedDate
+                offeredTo: offered[i - 1],
+                howOffered: data['howoffered' + i],
+                offerDate: data['offerDate' + i],
+                loggedDate: data['noResponseDate' + i]
             })
         })
         var rounds = data['noResponseOffers'] || []
         rounds.push(round)
         data['noResponseOffers'] = rounds
 
-        response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-no-response#communications")
+        // Track how many offered recipients are still to be accounted for
+        // (accepted, declined, or logged as no response).
+        var accountedCount = 0
+        offered.forEach(function(recipient, i){
+            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
+        })
+        data['responsesRemaining'] = offered.length - accountedCount
+        data['lastResponseType'] = 'no-response'
+
+        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
     router.post('/has-meeting-been-offered', function(request, response) {
 
@@ -317,7 +373,7 @@ module.exports = router => {
                 howoffered = howoffered.concat(data[key])
             }
         })
-        response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered#communications")
+        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
     })
 
 
@@ -351,9 +407,9 @@ module.exports = router => {
 
         var howoffered2 = request.session.data['howoffered2']
         if (howoffered2 == "letter-post"){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered-post-2#communications")
+            response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered-multi&meetingSuccess=yes#communications")
         } else {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-offered#communications")
+            response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
         }
     })
 
@@ -413,12 +469,12 @@ module.exports = router => {
         var offered = [].concat(data['offerRecipients'] || [])
         var accountedCount = 0
         offered.forEach(function(recipient, i){
-            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)]) accountedCount++
+            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
         })
         data['responsesRemaining'] = offered.length - accountedCount
         data['lastResponseType'] = 'accepted'
 
-        response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-responses#communications")
+        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
 
 
@@ -475,12 +531,12 @@ module.exports = router => {
         var offered = [].concat(data['offerRecipients'] || [])
         var accountedCount = 0
         offered.forEach(function(recipient, i){
-            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)]) accountedCount++
+            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
         })
         data['responsesRemaining'] = offered.length - accountedCount
         data['lastResponseType'] = 'declined'
 
-        response.redirect("/ur/bfs/meetings-2/cps-offer/meeting-responses#communications")
+        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
 
 
@@ -693,7 +749,11 @@ module.exports = router => {
     })
 
     router.post(caBase + 'check-answers-answer', function(request, response) {
-        response.redirect(caBase + 'meeting-confirmed#communications')
+        if (caBase.indexOf('/ur/bfs') === 0) {
+            response.redirect('/ur/bfs/victim/index?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications')
+        } else {
+            response.redirect(caBase + 'meeting-confirmed#communications')
+        }
     })
 
     }
