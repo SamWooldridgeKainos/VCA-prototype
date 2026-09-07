@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% include "/ur/partials/identity-bar/bfs-question.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -84,16 +85,9 @@
         ]
       }) }}
 
-      <div class="govuk-button-group">
-        {{ govukButton({
+      {{ govukButton({
         text: "Continue"
       }) }}
-
-        {{ govukButton({
-        text: "Cancel",
-        classes: "govuk-button--secondary"
-      }) }}
-      </div>
     </form>
 
   </div>
