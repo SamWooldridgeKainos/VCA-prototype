@@ -25,6 +25,11 @@
 {% set dnum = 0 %}
 {% if d %}{% set parts = d.split('/') %}{% set dnum = (parts[2] ~ parts[1] ~ parts[0]) | int %}{% endif %}
 {% set _ = responses.push({ recipient: recipient, status: "declined", method: data['recorddeclined' + n], date: d, sortKey: 100000000 - dnum }) %}
+{% elif data['recordnoresponse' + n] %}
+{% set d = data['noResponseDate' + n] %}
+{% set dnum = 0 %}
+{% if d %}{% set parts = d.split('/') %}{% set dnum = (parts[2] ~ parts[1] ~ parts[0]) | int %}{% endif %}
+{% set _ = responses.push({ recipient: recipient, status: "no-response", date: d, sortKey: 200000000 - dnum }) %}
 {% else %}
 {% set _ = awaiting.push(recipient) %}
 {% endif %}
@@ -92,6 +97,23 @@
       {{ r.date | formatDate }}
     </dd>
   </div>
+  {% elif r.status == "no-response" %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      No response from
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.recipient }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date logged
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ r.date | formatDate }}
+    </dd>
+  </div>
   {% endif %}
   {% endfor %}
   {% if awaiting.length %}
@@ -113,7 +135,7 @@
 {% if data['responsesRemaining'] == 0 %}
 <hr class="govuk-section-break govuk-section-break--m">
 <div class="govuk-button-group">
-  <a href="../confirm-arrangements/who-requested-meeting" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  <a href="/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
     Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
   </a>
 </div>
@@ -165,7 +187,7 @@
 {% if data['responsesRemaining'] > 0 %}
 <hr class="govuk-section-break govuk-section-break--m">
 <div class="govuk-button-group">
-  <a href="log-offer-response" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  <a href="/ur/bfs/meetings-2/cps-offer/log-offer-response" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
     Log offer response<span class="govuk-visually-hidden"> for a CPS pre-trial meeting</span>
   </a>
 </div>

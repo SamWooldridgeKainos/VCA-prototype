@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Who has accepted?" %}
+{% set pageName="Who did not respond?" %}
 
 {% block header %}
 {% include "/ur/partials/header/none-selected-bfs.html" %}
@@ -25,35 +25,35 @@
       titleText: "There is a problem",
       errorList: [
         {
-          text: "Select who has accepted",
-          href: "#accept-recipient-1"
+          text: "Select who did not respond",
+          href: "#no-response-recipient-1"
         }
       ]
     }) }}
     {% endif %}
 
-    <form class="form" action="/ur/bfs/meetings-2/who-accepted-answer" method="post">
+    <form class="form" action="/ur/bfs/meetings-2/who-no-response-answer" method="post">
 
       <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
-        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}accept-recipient-error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}no-response-recipient-error{% endif %}">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">Who has accepted?</h1>
+            <h1 class="govuk-fieldset__heading">Who did not respond?</h1>
           </legend>
           <div class="govuk-hint">
             Select all that apply.
           </div>
           {% if hasError %}
-          <p id="accept-recipient-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> Select who has accepted
+          <p id="no-response-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who did not respond
           </p>
           {% endif %}
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <input type="hidden" name="acceptRecipients" value="_unchecked">
+            <input type="hidden" name="noResponseRecipients" value="_unchecked">
             {% for recipient in recipients %}
             {% if not data['recordaccepted' + loop.index] and not data['recorddeclined' + loop.index] and not data['recordnoresponse' + loop.index] %}
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="accept-recipient-{{ loop.index }}" name="acceptRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('acceptRecipients', loop.index | string) }}>
-              <label class="govuk-label govuk-checkboxes__label" for="accept-recipient-{{ loop.index }}">
+              <input class="govuk-checkboxes__input" id="no-response-recipient-{{ loop.index }}" name="noResponseRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('noResponseRecipients', loop.index | string) }}>
+              <label class="govuk-label govuk-checkboxes__label" for="no-response-recipient-{{ loop.index }}">
                 {{ recipient }}
               </label>
             </div>
