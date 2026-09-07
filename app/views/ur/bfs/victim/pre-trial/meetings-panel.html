@@ -1,0 +1,68 @@
+{# Single Meetings sub-tab panel. State driven by data['meetingState'] + data['meetingSuccess']. #}
+{% set meetingState = data['meetingState'] %}
+{% set knownMeetingStates = ['arranged', 'offered', 'offered-multi', 'no-response', 'not-offered', 'responses', 'outcome', 'outcome-no', 'rescheduled', 'cancelled'] %}
+
+{% if data['meetingSuccess'] == 'yes' and meetingState in knownMeetingStates %}
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      {% if meetingState == 'arranged' %}
+        CPS pre-trial meeting arranged.
+      {% elif meetingState == 'offered' or meetingState == 'offered-multi' %}
+        CPS pre-trial meeting offer logged.
+      {% elif meetingState == 'no-response' %}
+        No response was logged for the CPS pre-trial meeting offer.
+      {% elif meetingState == 'not-offered' %}
+        CPS pre-trial meeting not offered.
+      {% elif meetingState == 'responses' %}
+        {% if data['lastResponseType'] == 'declined' %}
+          CPS pre-trial meeting offer declined.
+        {% elif data['lastResponseType'] == 'no-response' %}
+          No response to the CPS pre-trial meeting offer was logged.
+        {% else %}
+          CPS pre-trial meeting offer accepted.
+        {% endif %}
+      {% elif meetingState == 'outcome' or meetingState == 'outcome-no' %}
+        CPS pre-trial meeting outcome logged.
+      {% elif meetingState == 'rescheduled' %}
+        CPS pre-trial meeting details changed.
+      {% elif meetingState == 'cancelled' %}
+        CPS pre-trial meeting cancelled.
+      {% endif %}
+    </h3>
+  </div>
+</div>
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+{% if meetingState == 'arranged' %}
+  {% include "/ur/bfs/victim/pre-trial/states/arranged.html" %}
+{% elif meetingState == 'offered' %}
+  {% include "/ur/bfs/victim/pre-trial/states/offered.html" %}
+{% elif meetingState == 'offered-multi' %}
+  {% include "/ur/bfs/victim/pre-trial/states/offered-multi.html" %}
+{% elif meetingState == 'no-response' %}
+  {% include "/ur/bfs/victim/pre-trial/states/no-response.html" %}
+{% elif meetingState == 'not-offered' %}
+  {% include "/ur/bfs/victim/pre-trial/states/not-offered.html" %}
+{% elif meetingState == 'responses' %}
+  {% include "/ur/bfs/victim/pre-trial/states/responses.html" %}
+{% elif meetingState == 'outcome' %}
+  {% include "/ur/bfs/victim/pre-trial/states/outcome.html" %}
+{% elif meetingState == 'outcome-no' %}
+  {% include "/ur/bfs/victim/pre-trial/states/outcome-no.html" %}
+{% elif meetingState == 'rescheduled' %}
+  {% include "/ur/bfs/victim/pre-trial/states/rescheduled.html" %}
+{% elif meetingState == 'cancelled' %}
+  {% include "/ur/bfs/victim/pre-trial/states/cancelled.html" %}
+{% else %}
+  {% include "/ur/bfs/victim/pre-trial/states/none.html" %}
+{% endif %}
+  </div>
+</div>

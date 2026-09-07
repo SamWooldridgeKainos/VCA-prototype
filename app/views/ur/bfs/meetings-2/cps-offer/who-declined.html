@@ -50,7 +50,7 @@
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <input type="hidden" name="declineRecipients" value="_unchecked">
             {% for recipient in recipients %}
-            {% if not data['recorddeclined' + loop.index] %}
+            {% if not data['recordaccepted' + loop.index] and not data['recorddeclined' + loop.index] and not data['recordnoresponse' + loop.index] %}
             <div class="govuk-checkboxes__item">
               <input class="govuk-checkboxes__input" id="decline-recipient-{{ loop.index }}" name="declineRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('declineRecipients', loop.index | string) }}>
               <label class="govuk-label govuk-checkboxes__label" for="decline-recipient-{{ loop.index }}">
