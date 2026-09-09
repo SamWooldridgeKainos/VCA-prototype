@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who did not respond?" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set recipients = data['offerRecipients'] %}
+    {% if recipients is string %}{% set recipients = [recipients] %}{% endif %}
+
+    {% set hasError = data['error'] == 'yes' %}
+
+    {% if hasError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Select who did not respond",
+          href: "#no-response-recipient-1"
+        }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/bfs/meetings-2/who-no-response-answer" method="post">
+
+      <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}no-response-recipient-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Who did not respond?</h1>
+          </legend>
+          <div class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if hasError %}
+          <p id="no-response-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who did not respond
+          </p>
+          {% endif %}
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <input type="hidden" name="noResponseRecipients" value="_unchecked">
+            {% for recipient in recipients %}
+            {% if not data['recordaccepted' + loop.index] and not data['recorddeclined' + loop.index] and not data['recordnoresponse' + loop.index] %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="no-response-recipient-{{ loop.index }}" name="noResponseRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('noResponseRecipients', loop.index | string) }}>
+              <label class="govuk-label govuk-checkboxes__label" for="no-response-recipient-{{ loop.index }}">
+                {{ recipient }}
+              </label>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -15,16 +15,16 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-    {% include "/ur/partials/case-locked/banner/by-someone-else.html" %}
+    {% include "/bfs/partials/case-locked/banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-    {% include "/ur/partials/case-locked/banner/self-locked.html" %}
+    {% include "/bfs/partials/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
 
     <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
 
-      {% include "/ur/partials/tabs/victim-record-tabs.html" %}
+      {% include "/bfs/partials/tabs/victim-record-tabs.html" %}
 
       <div class="govuk-tabs__panel" id="summary">
         {% include "/v50/victim/overview.html" %}
@@ -43,11 +43,11 @@
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pcd">
-        {% include "/ur/partials/victim-record/pcd/index.html" %}
+        {% include "/bfs/partials/victim-record/pcd/index.html" %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="pre-trial">
-        {% include "/ur/partials/victim-record/pre-trial/index.html" %}
+        {% include "/bfs/partials/victim-record/pre-trial/index.html" %}
       </div>
       
     </div>

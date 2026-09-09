@@ -1,0 +1,270 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+        <h1 class="govuk-heading-l">
+          Check your answers before adding this Bereaved family member
+        </h1>
+
+        <h2 class="govuk-heading-m">
+          Personal details
+        </h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['fmLastName'] | upper }}, {{ data['fmFirstName'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> name</span></a>
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Preferred name
+            </dt>
+            {% if data['fmPreferredName'] %}
+              <dd class="govuk-summary-list__value">
+                {{ data['fmPreferredName'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="prefered-name">Change<span class="govuk-visually-hidden"> preferred name</span></a>
+              </dd>
+            {% else %}
+              <dd class="govuk-summary-list__value">
+                <a class="govuk-link" href="prefered-name">Enter preferred name</a>
+              </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Relationship to the victim
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['fmRelationship'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="relationship">Change<span class="govuk-visually-hidden"> relationship to the victim</span></a>
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Representative
+            </dt>
+            {% if data['fmRepresentative'] %}
+              <dd class="govuk-summary-list__value">
+                {{ data['fmRepresentative'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="representative">Change<span class="govuk-visually-hidden"> representative</span></a>
+              </dd>
+            {% else %}
+              <dd class="govuk-summary-list__value">
+                <a class="govuk-link" href="representative">Select representative</a>
+              </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Email address
+            </dt>
+            {% if data['fmEmail'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmEmail'] }}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="email-address">Change<span class="govuk-visually-hidden"> email address</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="email-address">Enter email address</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Telephone number
+            </dt>
+            {% if data['fmMobile'] or data['fmHome'] or data['fmWork'] %}
+            <dd class="govuk-summary-list__value">
+              {% if data['fmMobile'] %}Mobile {{ data['fmMobile'] }}<br>{% endif %}
+              {% if data['fmHome'] %}Home {{ data['fmHome'] }}<br>{% endif %}
+              {% if data['fmWork'] %}Work {{ data['fmWork'] }}{% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="telephone">Change<span class="govuk-visually-hidden"> telephone number</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="telephone">Enter telephone number</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Address
+            </dt>
+            {% if data['fmAddressLine1'] or data['fmPostCode'] %}
+            <dd class="govuk-summary-list__value">
+              {% if data['fmAddressLine1'] %}{{ data['fmAddressLine1'] }}<br>{% endif %}
+              {% if data['fmAddressLine2'] %}{{ data['fmAddressLine2'] }}<br>{% endif %}
+              {% if data['fmAddressLine3'] %}{{ data['fmAddressLine3'] }}<br>{% endif %}
+              {% if data['fmTownOrCity'] %}{{ data['fmTownOrCity'] }}<br>{% endif %}
+              {% if data['fmPostCode'] %}{{ data['fmPostCode'] }}{% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> address</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="address">Enter address</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Preferred method of contact
+            </dt>
+            {% if data['fmPmoc'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmPmoc'] }}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="pmoc">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="pmoc">Select preferred method of contact</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Preferred correspondence language
+            </dt>
+            {% if data['fmLanguage'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmLanguage'] }}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="language">Select preferred correspondence language</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Translator needed
+            </dt>
+            {% if data['fmTranslator'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmTranslator'] }}{% if data['fmTranslatorDetails'] %}<br>{{ data['fmTranslatorDetails'] }}{% endif %}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="translator-needed">Change<span class="govuk-visually-hidden"> translator needed</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="translator-needed">Select translator needed</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Disability or access needs
+            </dt>
+            {% if data['fmDisability'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmDisability'] }}{% if data['fmDisabilityDetails'] %}<br>{{ data['fmDisabilityDetails'] }}{% endif %}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="disability">Change<span class="govuk-visually-hidden"> disability or access needs</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="disability">Select disability or access needs</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Reasonable adjustments
+            </dt>
+            {% if data['fmReasonableAdjustments'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmReasonableAdjustments'] }}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="reasonable-adjustments">Change<span class="govuk-visually-hidden"> reasonable adjustments</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="reasonable-adjustments">Enter reasonable adjustments</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Preferred contact times
+            </dt>
+            {% if data['fmContactTimes'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmContactTimes'] }}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="contact-times">Change<span class="govuk-visually-hidden"> preferred contact times</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="contact-times">Enter preferred contact times</a>
+            </dd>
+            {% endif %}
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Power of attorney
+            </dt>
+            {% if data['fmPoaName'] %}
+            <dd class="govuk-summary-list__value">{{ data['fmPoaName'] }}{% if data['fmPoaPhone'] %}<br>{{ data['fmPoaPhone'] }}{% endif %}{% if data['fmPoaEmail'] %}<br>{{ data['fmPoaEmail'] }}{% endif %}</dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="power-of-attorney">Change<span class="govuk-visually-hidden"> power of attorney</span></a>
+            </dd>
+            {% else %}
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="power-of-attorney">Enter power of attorney</a>
+            </dd>
+            {% endif %}
+          </div>
+          </dl>
+          
+<a href="/bfs/check-details/family-members/save" class="govuk-link">
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+</a>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}

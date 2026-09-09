@@ -1,0 +1,86 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+  
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+         What is their address?
+          </label>
+        </h1>
+
+       <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine1">
+                    Address line 1
+                </label>
+                <input class="govuk-input" id="victimAddressLine1" name="victimAddressLine1" type="text" value="" autocomplete="">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine2">
+                    Address line 2 (optional)
+                </label>
+                <input class="govuk-input" id="victimAddressLine2" name="victimAddressLine2" type="text" value="" autocomplete="">
+            </div>
+             <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine3">
+                    Address line 3 (optional)
+                </label>
+                <input class="govuk-input" id="victimAddressLine3" name="victimAddressLine3" type="text" value="" autocomplete="">
+            </div>
+             <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine4">
+                    Address line 4 (optional)
+                </label>
+                <input class="govuk-input" id="victimAddressLine4" name="victimAddressLine4" type="text" value="" autocomplete="">
+            </div>
+             <div class="govuk-form-group">
+                <label class="govuk-label" for="victimAddressLine5">
+                    Address line 5 (optional)
+                </label>
+                <input class="govuk-input" id="victimAddressLine5" name="victimAddressLine5" type="text" value="" autocomplete="">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimTownOrCity">
+                    Town or city
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="victimTownOrCity" name="victimTownOrCity" type="text" value="">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="victimPostCode">
+                    Postcode
+                </label>
+                <input class="govuk-input govuk-input--width-10" id="victimPostCode" name="victimPostCode" type="text" value="" autocomplete="">
+            </div>
+            </div>
+
+<a href="check-answers" class="govuk-link">
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+</a>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}
