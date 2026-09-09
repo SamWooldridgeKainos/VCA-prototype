@@ -1,5 +1,5 @@
 {% extends "layouts/main.html" %}
-{% set pageName = "Family Liaison Officer" %}
+{% set pageName = "Family liaison officer" %}
 {% set isExisting = (data['familyLiaisonOfficerDeleted'] != 'yes') and data['familyLiaisonOfficerName'] and (data['familyLiaisonOfficerEmailAddress'] or data['familyLiaisonOfficerPhoneNumber']) %}
 
 {% block header %}
@@ -17,7 +17,7 @@
         <form action="/v50/victim/case-contacts/family-liaison-officer-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
             <h1 class="govuk-heading-l">
-                {% if isExisting %}Change{% else %}Add a{% endif %} Family Liaison Officer
+                {% if isExisting %}Change{% else %}Add a{% endif %} Family liaison officer
             </h1>
 
             <div class="govuk-form-group" id="error-form-group-name">

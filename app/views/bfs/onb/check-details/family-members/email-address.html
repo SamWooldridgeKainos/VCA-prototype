@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+  <form method="post" action="/bfs/check-details/family-members/detail-answer">
+
+  
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+          Enter their email address
+          </label>
+        </h1>
+
+        <div class="govuk-form-group">
+  <label class="govuk-label" for="email">
+    Email address
+  </label>
+
+  <input class="govuk-input" id="email" name="fmEmail" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" value="{{ data['fmEmail'] }}">
+</div>
+
+
+  </div>
+  
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+      </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}

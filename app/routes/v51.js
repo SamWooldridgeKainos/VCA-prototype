@@ -826,8 +826,10 @@ module.exports = router => {
     }
 
     // Entry point from a pending VCL task on the Charging decision tab. The
-    // charge type is already known from the task (vclType), so seed vdType and
-    // jump straight to the reason page, skipping the vcl-type question.
+    // charge type is already known from the task, so seed vdType and jump
+    // straight to the reason page, skipping the vcl-type question. The onboarding
+    // journey records the charge in nextTask, while the victim new-task journey
+    // records it in vclType, so fall back to nextTask when vclType is unset.
     router.get('/v51/vcl/start-task', function(request, response) {
         var data = request.session.data
 
@@ -835,7 +837,9 @@ module.exports = router => {
             delete data[field]
         })
 
-        if (data['vclType'] == "stopped-charge") {
+        var chargeType = data['vclType'] || data['nextTask']
+
+        if (chargeType == "stopped-charge") {
             data['vdType'] = "stopped-charge"
             response.redirect("/v51/vcl/draft/stopped-charge")
         } else {
@@ -1295,7 +1299,7 @@ module.exports = router => {
     })
 
     // -----------------------------------------------------------------------
-    // Case contacts — Family Liaison Officer
+    // Case contacts — Family liaison officer
     // -----------------------------------------------------------------------
 
     router.post('/v51/victim/case-contacts/family-liaison-officer-answer', function (req, res) {

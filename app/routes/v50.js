@@ -950,7 +950,7 @@ module.exports = router => {
     })
 
     // -----------------------------------------------------------------------
-    // Case contacts — Family Liaison Officer
+    // Case contacts — Family liaison officer
     // -----------------------------------------------------------------------
 
     router.post('/v50/victim/case-contacts/family-liaison-officer-answer', function (req, res) {

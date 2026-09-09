@@ -4,11 +4,11 @@
 {% set pageName="Victim" %}
 
 {% block header %}
-{% include "/v50/partials/header/none-selected.html" %}
+{% include "/ur/bfs/partials/header/none-selected-bfs.html" %}
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/victim-page-bfs.html" %}
+{% include "/ur/bfs/partials/identity-bar/bfs.html" %}
 {% endblock %}
 
 {% block content %}
@@ -16,9 +16,9 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-      {% include "/v50/case-locked/banner/by-someone-else.html" %}
+      {% include "/bfs/partials/case-locked/banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-      {% include "/v50/case-locked/banner/self-locked.html" %}
+      {% include "/bfs/partials/case-locked/banner/self-locked.html" %}
     {% else %}
     {% endif %}
 

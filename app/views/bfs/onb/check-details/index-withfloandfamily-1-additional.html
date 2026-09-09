@@ -1,0 +1,225 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Check the details before drafting the letter" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        {% if (data['successNotification'] == "yes") and (data['onboardedStatus'] == "No")  %}
+            <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                        Success
+                    </h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    {% if data['detailChange'] == "no" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        {% if data['serviceLead'] == 'Not aligned' %}
+                            You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} but did not align them to a service.
+                        {% else %}
+                            You onboarded {{ data['victimForename'] }} {{ data['victimSurname'] }} and aligned them to the {{ data['serviceLead'] }} service.
+                        {% endif %}
+                    </h3>
+                    {% elif data['detailChange'] == "service-lead" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the service lead for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['serviceLead'] == "Not aligned" %}Not aligned to a service{% else %}the {{ data['serviceLead'] }} service{% endif %}.
+                    </h3>
+                    {% elif data['detailChange'] == "case-type" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the charging type for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['caseType'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "risk-level" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the domestic abuse risk level for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['riskLevel'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "pmoc" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred method of contact for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['pmoc'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-correspondence-language" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred correspondence language for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {% if data['preferredCorrespondenceLanguage'] == "Other" %}{{ data['preferredCorrespondenceLanguageOther'] }}{% else %}{{ data['preferredCorrespondenceLanguage'] }}{% endif %}.
+                    </h3>
+                    {% elif data['detailChange'] == "translator-needed" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the translator needed status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['translatorNeeded'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-contact-times" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred contact times for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredContactTimes'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "preferred-name" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the preferred name for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['preferredName'] }}.
+                    </h3>
+                    {% elif data['detailChange'] == "vps-status" %}
+                    <h3 class="govuk-notification-banner__heading">
+                        You changed the Victim Personal Statement status for {{ data['victimForename'] }} {{ data['victimSurname'] }} to {{ data['vpsStatus'] }}.
+                    </h3>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <h1 class="govuk-heading-l">
+            Check the details for {{ data['victimForename'] }} {{ data['victimSurname'] }}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Service lead
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Bereaved Family Scheme
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/v60/onb/service-lead?successNotification&detailChange=service-lead">
+                        Change<span class="govuk-visually-hidden"> service lead</span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Charging type
+                </dt>
+            <dd class="govuk-summary-list__value">
+     Red
+                    </dd>
+                  
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/bfs/onb/check-details/case-type?successNotification&detailChange=case-type">
+                            Change<span class="govuk-visually-hidden"> charging type</span>
+                        </a>
+                    </dd>
+      
+                   
+          
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Family liaison officer 
+                </dt>
+            
+                    <dd class="govuk-summary-list__value">
+   Full name: ROSS, Jonathan<br/>
+          Email: jonathan.ross@cps.gov.uk<br/>
+            Telephone number: 07712345678<br/>
+
+                    </dd>
+            
+              
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="#">
+                        Change<span class="govuk-visually-hidden"> service lead</span>
+                    </a>
+                </dd>
+  
+            </div>
+
+   <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Preferred case contact  
+                </dt>
+            
+                    <dd class="govuk-summary-list__value">
+                       Family liaison officer (FLO)
+                    </dd>
+            
+                 <dd class="govuk-summary-list__actions">
+                             <ul class="govuk-summary-list__actions-list">
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+        </ul>
+                </dd>
+          
+  
+            </div>
+                <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Bereaved family representative - Primary contact
+                </dt>
+            
+                    <dd class="govuk-summary-list__value">
+                           Full name: PAIN, Sydney<br/>
+          Email: sydney-pain@gmail.com<br/>
+            Telephone number: +447712345678<br/>
+             Relationship to victim: Sister<br/>
+        
+               Prefered method of contact: Telephone<br/>
+            Prefered Language: English<br/>
+          
+              
+
+
+                    </dd>
+            
+                <dd class="govuk-summary-list__actions">
+                             <ul class="govuk-summary-list__actions-list">
+          <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Elizabeth Kean</span></a></li>
+        </ul>
+                </dd>
+
+         
+          
+  
+            </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+
+                  Additional contacts
+                </dt>
+            
+                    <dd class="govuk-summary-list__value">
+                
+
+      Full name: STARK, Tony<br/>
+          Email: tony-stark@gmail.com<br/>
+            Telephone number: +447712345448<br/>
+             Relationship to victim: Brother<br/>
+                <br/>
+                
+                        <a href="family-contact3" class="govuk-link govuk-link--no-visited-state">Add additional contacts</a>
+                    </dd>
+            
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="family-contact2-completed">
+                        Change<span class="govuk-visually-hidden"> Additional contact</span>
+                    </a>
+                </dd>
+          
+  
+            </div>
+        </dl>
+        <h2 class="govuk-heading-m">
+            Now confirm their details
+        </h2>
+        <p class="govuk-body">
+            After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
+        </p>
+
+     
+
+           <div class="govuk-button-group">
+
+  <a href="../next-task" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Confirm details<span class="govuk-visually-hidden">  Confirm details</span>
+  </a>
+  </div>
+           
+
+   
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+  <form method="post" action="/bfs/check-details/family-members/detail-answer">
+
+  
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+     What is their preferred correspondence language?
+          </label>
+        </h1>
+        
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive" name="fmLanguage" type="radio" value="English" {{ checked('fmLanguage','English') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+          English
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-2" name="fmLanguage" type="radio" value="Welsh" {{ checked('fmLanguage','Welsh') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+       Welsh
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-3" name="fmLanguage" type="radio" value="Other" {{ checked('fmLanguage','Other') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+          Other
+        </label>
+      </div>
+      
+    </div>
+     </div>
+
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+      </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}

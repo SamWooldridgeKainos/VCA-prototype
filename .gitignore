@@ -138,7 +138,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Old prototype versions (dependencies copied to shared/ and ur/partials/)
+# Old prototype versions (dependencies copied to shared/ and ur/bfs/partials/)
 app/routes/v10.js
 app/routes/v11.js
 app/routes/v12.js

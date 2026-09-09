@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Reason why a meeting was not offered" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" method="post" action="/bfs/victim/index?secondaryNav=ptm&meetingState=not-offered&meetingSuccess=yes#communications">
+
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="not-offered-reason">
+          Why was a meeting not offered?
+        </label>
+      </h1>
+      <textarea class="govuk-textarea" id="not-offered-reason" name="notOfferedReason" rows="5" aria-describedby="not-offered-reason-hint"></textarea>
+    </div>
+
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
