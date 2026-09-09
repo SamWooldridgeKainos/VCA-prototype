@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+  <form method="post" action="/bfs/check-details/family-members/detail-answer">
+
+  
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+     What is their preferred method of contact?
+          </label>
+        </h1>
+
+<div class="govuk-form-group">
+  
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive" name="fmPmoc" type="radio" value="Home phone" {{ checked('fmPmoc','Home phone') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+      Home phone
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-2" name="fmPmoc" type="radio" value="Mobile" {{ checked('fmPmoc','Mobile') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+     Mobile
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-3" name="fmPmoc" type="radio" value="Email" {{ checked('fmPmoc','Email') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+    
+Email
+        </label>
+      </div>
+
+         <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-4" name="fmPmoc" type="radio" value="Post" {{ checked('fmPmoc','Post') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
+    
+Post
+        </label>
+      </div>
+
+         <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-5" name="fmPmoc" type="radio" value="Via police" {{ checked('fmPmoc','Via police') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-5">
+    
+Via police
+        </label>
+      </div>
+         <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="whereDoYouLive-6" name="fmPmoc" type="radio" value="Via Family liaison officer (FLO)" {{ checked('fmPmoc','Via Family liaison officer (FLO)') }}>
+        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-6">
+    
+Via Family liaison officer (FLO)
+        </label>
+      </div>
+      
+    </div>
+
+</div>
+</div>
+
+
+      
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+      </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}

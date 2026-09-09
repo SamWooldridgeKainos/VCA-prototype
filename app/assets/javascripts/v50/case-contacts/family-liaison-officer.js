@@ -1,4 +1,4 @@
-// Validation for Family Liaison Officer contact form
+// Validation for Family liaison officer contact form
 function validateForm() {
   // Allow delete submissions to bypass required field validation.
   if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('govuk-button--warning')) {

@@ -325,26 +325,26 @@ module.exports = router => {
     })
 
 
-    router.post('/ur/bfs/onb/next-task-answer', function(request, response) {
+    router.post('/bfs/onb/next-task-answer', function(request, response) {
 
         var nextTask = request.session.data['nextTask']
 
         if (nextTask == "dtc") {
-            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?pcdType=dtc")
+            response.redirect("/bfs/onb/new-task/next-task-due-date?pcdType=dtc")
         } else if (nextTask == "nfa") {
-            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?pcdType=nfa")
+            response.redirect("/bfs/onb/new-task/next-task-due-date?pcdType=nfa")
         } else if (nextTask == "stopped-charge") {
-            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?vclType=stopped-charge")
+            response.redirect("/bfs/onb/new-task/next-task-due-date?vclType=stopped-charge")
         } else if (nextTask == "altered-charge") {
-            response.redirect("/ur/bfs/onb/new-task/next-task-due-date?vclType=altered-charge")
+            response.redirect("/bfs/onb/new-task/next-task-due-date?vclType=altered-charge")
         } else if (nextTask == "other") {
-            response.redirect("/ur/bfs/onb/new-task/manual-task")
+            response.redirect("/bfs/onb/new-task/manual-task")
         } else if (nextTask == "no-task") {
-            response.redirect("/ur/bfs/onb/new-task/check-task")
+            response.redirect("/bfs/onb/new-task/check-task")
         } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
-            response.redirect("/ur/bfs/onb/new-task/meeting-purpose")
+            response.redirect("/bfs/onb/new-task/meeting-purpose")
         } else {
-            response.redirect("/ur/bfs/onb/new-task/task-due-date")
+            response.redirect("/bfs/onb/new-task/task-due-date")
         }
     })
     
@@ -409,9 +409,9 @@ module.exports = router => {
     })
 
 
-       router.post('/ur/bfs/onb/new-task/manual-task-answer', function(request, response) {
+       router.post('/bfs/onb/new-task/manual-task-answer', function(request, response) {
 
-        response.redirect("/ur/bfs/onb/new-task/check-task?manualTask=yes")
+        response.redirect("/bfs/onb/new-task/check-task?manualTask=yes")
     })
 
     router.post('/v60/victim/new-task/check-task-answer', function(request, response) {
@@ -641,7 +641,9 @@ module.exports = router => {
 
     router.get('/v60/vcl/pre-draft/check-details-answer', function(request, response) {
 
-        var vclType = request.session.data['vclType']
+        // The onboarding journey records the charge in nextTask, while the victim
+        // new-task journey records it in vclType, so fall back to nextTask.
+        var vclType = request.session.data['vclType'] || request.session.data['nextTask']
 
         if (vclType == "stopped-charge") {
             response.redirect("/v60/vcl/draft/stopped-charge")

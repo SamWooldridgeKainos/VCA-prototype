@@ -17,6 +17,8 @@ module.exports = {
   'existingTask': '',
   'existingMeetingPurpose': '',
 
+  'familyMembers': [],
+
   'victimSurname': 'Phillips',
   'victimForename': 'Sarah',
   'victimTitle': 'Ms',

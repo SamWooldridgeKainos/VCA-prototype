@@ -1,0 +1,194 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+
+        <h1 class="govuk-heading-l">Check your answers before adding this Bereaved family member</h1>
+        <h2 class="govuk-heading-m">Personal details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Name
+            </dt>
+            <dd class="govuk-summary-list__value">
+            {{ data['fm2FirstName'] }} {{ data['fm2LastName'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> name</span></a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+          Preferred name
+            </dt>
+            <dd class="govuk-summary-list__value">
+            
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="prefered-name">Change<span class="govuk-visually-hidden"> preferred name</span></a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+             Relationship to the victim
+            </dt>
+            <dd class="govuk-summary-list__value">
+           {{ data['fm2Relationship'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="relationship">Change<span class="govuk-visually-hidden"> relationship to the victim</span></a>
+            </dd>
+          </div>
+           <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+           Representative
+            </dt>
+            <dd class="govuk-summary-list__value">
+           No
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="representative">Change<span class="govuk-visually-hidden"> representative</span></a>
+            </dd>
+          </div>
+           <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+             Email address
+            </dt>
+            <dd class="govuk-summary-list__value">
+            angelina@gmail.com
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="email-address">Change<span class="govuk-visually-hidden"> email address</span></a>
+            </dd>
+          </div>
+           <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+             Telephone number
+            </dt>
+            <dd class="govuk-summary-list__value">
+            Mobile +44 (0)771234555443
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="telephone">Change<span class="govuk-visually-hidden"> telephone number</span></a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              72 Guild Street<br>London<br>SE23 6FH
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> address</span></a>
+            </dd>
+          </div>
+              <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+             Preferred method of contact
+            </dt>
+            <dd class="govuk-summary-list__value">
+            Email
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="pmoc">Change<span class="govuk-visually-hidden"> preferred method of contact</span></a>
+            </dd>
+          </div>
+
+             <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+             Preferred correspondence language
+            </dt>
+            <dd class="govuk-summary-list__value">
+            Welsh
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="language">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a>
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+            Translator needed
+            </dt>
+            <dd class="govuk-summary-list__value">
+           No
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="translator-needed">Change<span class="govuk-visually-hidden"> translator needed</span></a>
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+            Disability or access needs
+            </dt>
+            <dd class="govuk-summary-list__value">
+           No
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="disability">Change<span class="govuk-visually-hidden"> disability or access needs</span></a>
+            </dd>
+          </div>
+
+           <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+            Reasonable adjustments
+            </dt>
+            <dd class="govuk-summary-list__value">
+         
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="reasonable-adjustments">Change<span class="govuk-visually-hidden"> reasonable adjustments</span></a>
+            </dd>
+          </div>
+             <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+            Prefered contact times
+            </dt>
+            <dd class="govuk-summary-list__value">
+         
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="contact-times">Change<span class="govuk-visually-hidden"> preferred contact times</span></a>
+            </dd>
+          </div>
+          
+            <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+           Power of attorney
+            </dt>
+            <dd class="govuk-summary-list__value">
+         
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="power-of-attorney">Change<span class="govuk-visually-hidden"> power of attorney</span></a>
+            </dd>
+          </div>
+          </dl>
+          
+<a href="/bfs/check-details/family-members2/save" class="govuk-link">
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save
+      </button>
+</a>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}

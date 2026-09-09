@@ -33,13 +33,13 @@ module.exports = router => {
     })
 
 
-          router.post('/ur/bfs/meetings-2//meetings-2/logging-answer', function(request, response) {
+          router.post('/bfs/meetings-2//meetings-2/logging-answer', function(request, response) {
 
         var logging = request.session.data['logging']
         if (logging == "yes"){
-            response.redirect("/ur/bfs/meetings-2/purpose2")
+            response.redirect("/bfs/meetings-2/purpose2")
         } else {
-            response.redirect("/ur/bfs/meetings-2/purpose")
+            response.redirect("/bfs/meetings-2/purpose")
         }
     })
 
@@ -68,9 +68,9 @@ module.exports = router => {
 
         var purpose = request.session.data['purpose2']
         if (purpose == "pre-trial"){
-            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+            response.redirect("/bfs/meetings-2/has-meeting-been-offered")
         } else {
-            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+            response.redirect("/bfs/meetings-2/has-meeting-been-offered")
         }
     })
 
@@ -87,13 +87,13 @@ module.exports = router => {
 
 
 
-    router.post('/ur/bfs/meetings-2/purpose3-answer', function(request, response) {
+    router.post('/bfs/meetings-2/purpose3-answer', function(request, response) {
 
         var purpose3 = request.session.data['purpose3']
         if (purpose3 == "pre-trial"){
-            response.redirect("/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
+            response.redirect("/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         } else {
-            response.redirect("/ur/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
+            response.redirect("/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         }
     })
 
@@ -108,13 +108,13 @@ module.exports = router => {
     })
 
 
-      router.post('/ur/bfs/meetings-2/purpose4-answer', function(request, response) {
+      router.post('/bfs/meetings-2/purpose4-answer', function(request, response) {
 
         var purpose4 = request.session.data['purpose4']
         if (purpose4 == "pre-trial"){
-            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+            response.redirect("/bfs/meetings-2/has-meeting-been-offered")
         } else {
-            response.redirect("/ur/bfs/meetings-2/has-meeting-been-offered")
+            response.redirect("/bfs/meetings-2/has-meeting-been-offered")
         }
     })
 
@@ -130,56 +130,56 @@ module.exports = router => {
 
     
 
-      router.post('/ur/bfs/meetings-2/has-meeting-been-offered', function(request, response) {
+      router.post('/bfs/meetings-2/has-meeting-been-offered', function(request, response) {
 
         var offered = request.session.data['offered']
         if (offered == "yes"){
             request.session.data['error'] = ''
-            response.redirect("/ur/bfs/meetings-2/cps-offer/who-offered")
+            response.redirect("/bfs/meetings-2/cps-offer/who-offered")
         } else {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/reason-why")
+            response.redirect("/bfs/meetings-2/cps-offer/reason-why")
         }
     })
-    router.post('/ur/bfs/meetings-2/who-offered-answer', function(request, response) {
+    router.post('/bfs/meetings-2/who-offered-answer', function(request, response) {
         var selected = [].concat(request.session.data['offerRecipients'] || [])
         if (selected.length === 0){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/who-offered?error=yes")
+            return response.redirect("/bfs/meetings-2/cps-offer/who-offered?error=yes")
         }
         request.session.data['error'] = ''
-        response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-offered?person=1")
+        response.redirect("/bfs/meetings-2/cps-offer/how-when-offered?person=1")
     })
 
-    router.post('/ur/bfs/meetings-2/who-declined-answer', function(request, response) {
+    router.post('/bfs/meetings-2/who-declined-answer', function(request, response) {
         var selected = [].concat(request.session.data['declineRecipients'] || [])
         if (selected.length === 0){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/who-declined?error=yes")
+            return response.redirect("/bfs/meetings-2/cps-offer/who-declined?error=yes")
         }
         request.session.data['error'] = ''
-        response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-declined?person=1")
+        response.redirect("/bfs/meetings-2/cps-offer/how-when-declined?person=1")
     })
 
-    router.post('/ur/bfs/meetings-2/who-accepted-answer', function(request, response) {
+    router.post('/bfs/meetings-2/who-accepted-answer', function(request, response) {
         var selected = [].concat(request.session.data['acceptRecipients'] || [])
         if (selected.length === 0){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/who-accepted?error=yes")
+            return response.redirect("/bfs/meetings-2/cps-offer/who-accepted?error=yes")
         }
         request.session.data['error'] = ''
-        response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-accepted?person=1")
+        response.redirect("/bfs/meetings-2/cps-offer/how-when-accepted?person=1")
     })
 
-    router.post('/ur/bfs/meetings-2/log-offer-response-answer', function(request, response) {
+    router.post('/bfs/meetings-2/log-offer-response-answer', function(request, response) {
 
         var offerResponse = request.session.data['offerResponse']
         if (offerResponse == "accepted") {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/log-accepted")
+            response.redirect("/bfs/meetings-2/cps-offer/log-accepted")
         } else if (offerResponse == "declined") {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/log-declined")
+            response.redirect("/bfs/meetings-2/cps-offer/log-declined")
         } else {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/log-no-response")
+            response.redirect("/bfs/meetings-2/cps-offer/log-no-response")
         }
     })
 
-    router.get('/ur/bfs/meetings-2/cps-offer/log-accepted', function(request, response) {
+    router.get('/bfs/meetings-2/cps-offer/log-accepted', function(request, response) {
 
         // Work out which offered recipients are still to respond (not yet accepted or declined).
         var data = request.session.data
@@ -192,14 +192,14 @@ module.exports = router => {
         // With only one person left to respond, skip the "who accepted" question.
         if (remaining.length === 1){
             data['acceptRecipients'] = remaining
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-accepted?person=1")
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-accepted?person=1")
         } else {
             data['error'] = ''
-            response.redirect("/ur/bfs/meetings-2/cps-offer/who-accepted#communications")
+            response.redirect("/bfs/meetings-2/cps-offer/who-accepted#communications")
         }
     })
 
-    router.get('/ur/bfs/meetings-2/cps-offer/log-declined', function(request, response) {
+    router.get('/bfs/meetings-2/cps-offer/log-declined', function(request, response) {
 
         // Work out which offered recipients are still to respond (not yet declined).
         var data = request.session.data
@@ -212,14 +212,14 @@ module.exports = router => {
         // With only one person left to respond, skip the "who declined" question.
         if (remaining.length === 1){
             data['declineRecipients'] = remaining
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-declined?person=1")
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-declined?person=1")
         } else {
             data['error'] = ''
-            response.redirect("/ur/bfs/meetings-2/cps-offer/who-declined#communications")
+            response.redirect("/bfs/meetings-2/cps-offer/who-declined#communications")
         }
     })
 
-    router.get('/ur/bfs/meetings-2/cps-offer/log-no-response', function(request, response) {
+    router.get('/bfs/meetings-2/cps-offer/log-no-response', function(request, response) {
 
         // Work out which offered recipients are still to respond
         // (not yet accepted, declined, or logged as no response).
@@ -233,23 +233,23 @@ module.exports = router => {
         // With only one person left to respond, skip the "who did not respond" question.
         if (remaining.length === 1){
             data['noResponseRecipients'] = remaining
-            response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=1")
+            response.redirect("/bfs/meetings-2/cps-offer/when-no-response?person=1")
         } else {
             data['error'] = ''
-            response.redirect("/ur/bfs/meetings-2/cps-offer/who-no-response#communications")
+            response.redirect("/bfs/meetings-2/cps-offer/who-no-response#communications")
         }
     })
 
-    router.post('/ur/bfs/meetings-2/who-no-response-answer', function(request, response) {
+    router.post('/bfs/meetings-2/who-no-response-answer', function(request, response) {
         var selected = [].concat(request.session.data['noResponseRecipients'] || [])
         if (selected.length === 0){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/who-no-response?error=yes")
+            return response.redirect("/bfs/meetings-2/cps-offer/who-no-response?error=yes")
         }
         request.session.data['error'] = ''
-        response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=1")
+        response.redirect("/bfs/meetings-2/cps-offer/when-no-response?person=1")
     })
 
-    router.post('/ur/bfs/meetings-2/recordnoresponse-answer', function(request, response) {
+    router.post('/bfs/meetings-2/recordnoresponse-answer', function(request, response) {
 
         // "No response" details are captured one selected recipient per page (person=1, 2, ...).
         var data = request.session.data
@@ -259,7 +259,7 @@ module.exports = router => {
 
         // The logged date is mandatory. Re-display the page with an error if it is missing.
         if (!data['noResponseDate' + idx]){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=" + person
+            return response.redirect("/bfs/meetings-2/cps-offer/when-no-response?person=" + person
                 + "&noResponseWhenError=yes")
         }
         data['noResponseWhenError'] = ''
@@ -268,7 +268,7 @@ module.exports = router => {
         data['recordnoresponse' + idx] = 'yes'
 
         if (person < recipients.length){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/when-no-response?person=" + (person + 1))
+            response.redirect("/bfs/meetings-2/cps-offer/when-no-response?person=" + (person + 1))
             return
         }
 
@@ -298,7 +298,7 @@ module.exports = router => {
         data['responsesRemaining'] = offered.length - accountedCount
         data['lastResponseType'] = 'no-response'
 
-        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
+        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
     router.post('/has-meeting-been-offered', function(request, response) {
 
@@ -322,13 +322,13 @@ module.exports = router => {
 
 
 
-    router.post('/ur/bfs/meetings-2/format2-answer', function(request, response) {
+    router.post('/bfs/meetings-2/format2-answer', function(request, response) {
 
         var format2 = request.session.data['format2']
         if (format2 == "face-to-face"){
-            response.redirect("/ur/bfs/meetings-2/location")
+            response.redirect("/bfs/meetings-2/location")
         } else {
-            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+            response.redirect("/bfs/meetings-2/who-is-attending")
         }
     })
     router.post('/format2-answer', function(request, response) {
@@ -341,7 +341,7 @@ module.exports = router => {
         }
     })
 
-    router.post('/ur/bfs/meetings-2/howoffered-answer', function(request, response) {
+    router.post('/bfs/meetings-2/howoffered-answer', function(request, response) {
 
         // Meeting offer details are captured one recipient per page (person=1, 2, ...).
         // Move on to the next recipient until every offer has been recorded.
@@ -353,7 +353,7 @@ module.exports = router => {
         var howMissing = !data['howoffered' + person]
         var whenMissing = !data['offerDate' + person]
         if (howMissing || whenMissing){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-offered?person=" + person
+            return response.redirect("/bfs/meetings-2/cps-offer/how-when-offered?person=" + person
                 + "&offerHowError=" + (howMissing ? "yes" : "no")
                 + "&offerWhenError=" + (whenMissing ? "yes" : "no"))
         }
@@ -361,7 +361,7 @@ module.exports = router => {
         data['offerWhenError'] = ''
 
         if (person < recipients.length){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-offered?person=" + (person + 1))
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-offered?person=" + (person + 1))
             return
         }
 
@@ -373,7 +373,7 @@ module.exports = router => {
                 howoffered = howoffered.concat(data[key])
             }
         })
-        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
+        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
     })
 
 
@@ -403,13 +403,13 @@ module.exports = router => {
 
      
     
-    router.post('/ur/bfs/meetings-2/howoffered2-answer', function(request, response) {
+    router.post('/bfs/meetings-2/howoffered2-answer', function(request, response) {
 
         var howoffered2 = request.session.data['howoffered2']
         if (howoffered2 == "letter-post"){
-            response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered-multi&meetingSuccess=yes#communications")
+            response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=offered-multi&meetingSuccess=yes#communications")
         } else {
-            response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
+            response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
         }
     })
 
@@ -439,7 +439,7 @@ module.exports = router => {
 
 
 
-    router.post('/ur/bfs/meetings-2/recordaccepted-answer', function(request, response) {
+    router.post('/bfs/meetings-2/recordaccepted-answer', function(request, response) {
 
         // Acceptance details are captured one selected recipient per page (person=1, 2, ...).
         // Move on to the next selected recipient until this batch is recorded.
@@ -452,7 +452,7 @@ module.exports = router => {
         var howMissing = !data['recordaccepted' + acceptIdx]
         var whenMissing = !data['acceptDate' + acceptIdx]
         if (howMissing || whenMissing){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-accepted?person=" + person
+            return response.redirect("/bfs/meetings-2/cps-offer/how-when-accepted?person=" + person
                 + "&acceptHowError=" + (howMissing ? "yes" : "no")
                 + "&acceptWhenError=" + (whenMissing ? "yes" : "no"))
         }
@@ -460,7 +460,7 @@ module.exports = router => {
         data['acceptWhenError'] = ''
 
         if (person < accepters.length){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-accepted?person=" + (person + 1))
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-accepted?person=" + (person + 1))
             return
         }
 
@@ -474,7 +474,7 @@ module.exports = router => {
         data['responsesRemaining'] = offered.length - accountedCount
         data['lastResponseType'] = 'accepted'
 
-        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
+        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
 
 
@@ -501,7 +501,7 @@ module.exports = router => {
         }
     })
 
-       router.post('/ur/bfs/meetings-2/recorddeclined-answer', function(request, response) {
+       router.post('/bfs/meetings-2/recorddeclined-answer', function(request, response) {
 
         // Decline details are captured one selected recipient per page (person=1, 2, ...).
         // Move on to the next selected recipient until this batch is recorded.
@@ -514,7 +514,7 @@ module.exports = router => {
         var howMissing = !data['recorddeclined' + declineIdx]
         var whenMissing = !data['declineDate' + declineIdx]
         if (howMissing || whenMissing){
-            return response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-declined?person=" + person
+            return response.redirect("/bfs/meetings-2/cps-offer/how-when-declined?person=" + person
                 + "&declineHowError=" + (howMissing ? "yes" : "no")
                 + "&declineWhenError=" + (whenMissing ? "yes" : "no"))
         }
@@ -522,7 +522,7 @@ module.exports = router => {
         data['declineWhenError'] = ''
 
         if (person < decliners.length){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-declined?person=" + (person + 1))
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-declined?person=" + (person + 1))
             return
         }
 
@@ -536,7 +536,7 @@ module.exports = router => {
         data['responsesRemaining'] = offered.length - accountedCount
         data['lastResponseType'] = 'declined'
 
-        response.redirect("/ur/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
+        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
 
 
@@ -583,21 +583,21 @@ module.exports = router => {
     })
 
 
-    router.post('/ur/bfs/meetings-2/location2-answer', function(request, response) {
+    router.post('/bfs/meetings-2/location2-answer', function(request, response) {
 
         var location2 = request.session.data['location2']
         if (location2 == "cps"){
-            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+            response.redirect("/bfs/meetings-2/who-is-attending")
     }
     else if (location2 == "magistrate"){
-            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+            response.redirect("/bfs/meetings-2/who-is-attending")
         }
 
     else if (location2 == "crown"){
-    response.redirect("/ur/bfs/meetings-2/who-is-attending")
+    response.redirect("/bfs/meetings-2/who-is-attending")
 
         } else {
-            response.redirect("/ur/bfs/meetings-2/who-is-attending")
+            response.redirect("/bfs/meetings-2/who-is-attending")
         }
     })
 
@@ -632,13 +632,13 @@ module.exports = router => {
 
 
 
-    router.post('/ur/bfs/meetings-2/log-outcome/did-meeting-happen2-answer', function(request, response) {
+    router.post('/bfs/meetings-2/log-outcome/did-meeting-happen2-answer', function(request, response) {
 
         var meeting3 = request.session.data['meeting3']
         if (meeting3 == "yes"){
-            response.redirect("/ur/bfs/meetings-2/log-outcome/duration")
+            response.redirect("/bfs/meetings-2/log-outcome/duration")
         } else {
-            response.redirect("/ur/bfs/meetings-2/log-outcome/reason-why")
+            response.redirect("/bfs/meetings-2/log-outcome/reason-why")
         }
     })
 
@@ -662,7 +662,7 @@ module.exports = router => {
         }
     })
 
-    // --- Confirm meeting arrangements flow (shared: ur/bfs, v50, v51) ---
+    // --- Confirm meeting arrangements flow (shared: bfs, v50, v51) ---
     function registerConfirmArrangements(caBase) {
 
     router.post(caBase + 'who-requested-meeting-answer', function(request, response) {
@@ -749,8 +749,8 @@ module.exports = router => {
     })
 
     router.post(caBase + 'check-answers-answer', function(request, response) {
-        if (caBase.indexOf('/ur/bfs') === 0) {
-            response.redirect('/ur/bfs/victim/index?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications')
+        if (caBase.indexOf('/bfs') === 0) {
+            response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications')
         } else {
             response.redirect(caBase + 'meeting-confirmed#communications')
         }
@@ -758,7 +758,7 @@ module.exports = router => {
 
     }
 
-    registerConfirmArrangements('/ur/bfs/meetings-2/confirm-arrangements/')
+    registerConfirmArrangements('/bfs/meetings-2/confirm-arrangements/')
     registerConfirmArrangements('/v50/meetings-2/confirm-arrangements/')
     registerConfirmArrangements('/v51/meetings-2/confirm-arrangements/')
 
@@ -772,13 +772,13 @@ module.exports = router => {
         }
     })
 
-       router.post('/ur/bfs/meetings-2/did-victim-request3', function(request, response) {
+       router.post('/bfs/meetings-2/did-victim-request3', function(request, response) {
 
         var meeting4 = request.session.data['meeting4']
         if (meeting4 == "yes"){
-            response.redirect("/ur/bfs/meetings-2/cps-offer/log-accepted")
+            response.redirect("/bfs/meetings-2/cps-offer/log-accepted")
         } else {
-            response.redirect("/ur/bfs/meetings-2/cps-offer/how-when-offered-2")
+            response.redirect("/bfs/meetings-2/cps-offer/how-when-offered-2")
         }
     })
 
@@ -802,13 +802,13 @@ module.exports = router => {
         }
     })
 
-        router.post('/ur/bfs/meetings-2/log-outcome/any-actions-agreed2-answer', function(request, response) {
+        router.post('/bfs/meetings-2/log-outcome/any-actions-agreed2-answer', function(request, response) {
 
         var actionsAgreed2 = request.session.data['actionsAgreed2']
         if (actionsAgreed2 == "yes"){
-            response.redirect("/ur/bfs/meetings-2/log-outcome/check-answers")
+            response.redirect("/bfs/meetings-2/log-outcome/check-answers")
         } else {
-            response.redirect("/ur/bfs/meetings-2/log-outcome/check-answers-no")
+            response.redirect("/bfs/meetings-2/log-outcome/check-answers-no")
         }
     })
 

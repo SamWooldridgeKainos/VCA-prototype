@@ -1,0 +1,68 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Preferred name" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/bfs/check-details/flo-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+           	Family liaison officer
+          </label>
+        </h1>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="first-name">
+          First name
+        </label>
+        <input class="govuk-input" id="first-name" name="floFirstName" type="text" spellcheck="false" autocomplete="given-name" value="{{ data['floFirstName'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="last-name">
+          Last name
+        </label>
+        <input class="govuk-input" id="last-name" name="floLastName" type="text" spellcheck="false" autocomplete="family-name" value="{{ data['floLastName'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="email">
+          Email address
+        </label>
+        <input class="govuk-input" id="email" name="floEmail" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" value="{{ data['floEmail'] }}">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="phone-number">
+          Telephone number
+        </label>
+        <input class="govuk-input govuk-input--width-20" id="phone-number" name="floPhone" type="tel" autocomplete="tel" value="{{ data['floPhone'] }}">
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+{% endblock %}
