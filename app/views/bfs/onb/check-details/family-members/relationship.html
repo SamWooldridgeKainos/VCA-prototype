@@ -14,29 +14,27 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    
-   
+      <form method="post" action="/bfs/check-details/family-members/relationship-answer" id="myForm" name="myForm" onsubmit="return validateForm()">
 
-      <form method="post" action="/bfs/check-details/family-members/relationship-answer">
-       <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="event-name">
-      What is their relationship to the victim?
-    </label>
-  </h1>
-  <input class="govuk-input" id="event-name" name="fmRelationship" type="text" value="{{ data['fmRelationship'] }}">
-</div>
+        <div class="govuk-form-group" id="error-form-group">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+              What is {{ data['fmFirstName'] }} {{ data['fmLastName'] }}'s relationship to the victim?
+            </label>
+          </h1>
 
-      <button type="submit" class="govuk-button" data-module="govuk-button">
-        Save and continue
-      </button>
+          <input class="govuk-input" id="event-name" name="fmRelationship" type="text" value="{{ data['fmRelationship'] }}">
+        </div>
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
       </form>
-
 
   </div>
 </div>
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+<script src="/public/javascripts/shared/check-details/family-member-relationship.js"></script>
 {% endblock %}

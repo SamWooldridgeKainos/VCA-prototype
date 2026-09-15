@@ -132,7 +132,9 @@
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/bfs/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">Select charging type</a>
+                        <a href="/bfs/onb/check-details/case-type?successNotification&detailChange=case-type" class="govuk-link govuk-link--no-visited-state">
+                            Select charging type
+                        </a>
                     </dd>
                 {% endif %}
             </div>
@@ -158,50 +160,87 @@
                     </dd>
                 {% endif %}
             </div>
-
-            
-            </dl>
-
-            <h2 class="govuk-heading-m">Bereaved family members</h2>
-
-        {% if data['familyMembers'] and data['familyMembers'].length > 0 %}
-      <dl class="govuk-summary-list govuk-!-margin-bottom-4">
-        {% for member in data['familyMembers'] %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ member.lastName | upper }}, {{ member.firstName }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ member.relationship }}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                <li class="govuk-summary-list__actions-list-item">
-                  <a class="govuk-link" href="/bfs/check-details/family-members/view?index={{ loop.index0 }}">View<span class="govuk-visually-hidden"> {{ member.firstName }} {{ member.lastName }}'s contact details</span></a>
-                </li>
-                <li class="govuk-summary-list__actions-list-item">
-                  <a class="govuk-link" href="/bfs/check-details/family-members/remove?index={{ loop.index0 }}">Remove<span class="govuk-visually-hidden"> {{ member.firstName }} {{ member.lastName }}</span></a>
-                </li>
-              </ul>
-            </dd>
-          </div>
-        {% endfor %}
         </dl>
 
-        <a href="/bfs/check-details/family-members/add" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" data-module="govuk-button">Add another person</a>
+        <h2 class="govuk-heading-m">
+            Bereaved family members
+        </h2>
+
+        {% if data['familyMembers'] and data['familyMembers'].length > 0 %}
+            <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+                {% for member in data['familyMembers'] %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                        {{ member.lastName | upper }}, {{ member.firstName }}
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                        {{ member.relationship }}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                            <li class="govuk-summary-list__actions-list-item">
+                            <a class="govuk-link" href="/bfs/check-details/family-members/view?index={{ loop.index0 }}">
+                                View<span class="govuk-visually-hidden"> {{ member.firstName }} {{ member.lastName }}'s contact details</span>
+                            </a>
+                            </li>
+                            <li class="govuk-summary-list__actions-list-item">
+                            <a class="govuk-link" href="/bfs/check-details/family-members/remove?index={{ loop.index0 }}">
+                                Remove<span class="govuk-visually-hidden"> {{ member.firstName }} {{ member.lastName }}</span>
+                            </a>
+                            </li>
+                        </ul>
+                        </dd>
+                    </div>
+                {% endfor %}
+            </dl>
+            
+            <a href="/bfs/check-details/family-members/add" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" data-module="govuk-button">
+                Add another person
+            </a>
+
+            {% if data['familyMembers'].length > 1 %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Representative
+                        </dt>
+                        {% if data['familyRepresentative'] %}
+                            <dd class="govuk-summary-list__value">
+                                {{ data['familyRepresentative'] }}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="/bfs/onb/check-details/family-members/select-representative">Change<span class="govuk-visually-hidden"> representative</span></a>
+                            </dd>
+                        {% else %}
+                            <dd class="govuk-summary-list__value">
+                                <a class="govuk-link" href="/bfs/onb/check-details/family-members/select-representative">Select representative</a>
+                            </dd>
+                        {% endif %}
+                    </div>
+                </dl>
+            {% endif %}
+
         {% else %}
-        <p class="govuk-body">No bereaved family members family members have been added yet.</p>
-        <a href="/bfs/check-details/family-members/add" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" data-module="govuk-button">Add a family member</a>
+            <p class="govuk-body">
+                No bereaved family members family members have been added yet.
+            </p>
+
+            <a href="/bfs/check-details/family-members/add" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" data-module="govuk-button">
+                Add a family member
+            </a>
         {% endif %}
+
         <h2 class="govuk-heading-m">
             Now confirm their details
         </h2>
+
         <p class="govuk-body">
             After you confirm the details, you can create a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}'s family.
         </p>
+
         <a href="/bfs/onb/next-task" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
+            Continue
+        </a>
     </div>
 </div>
 {% endblock %}

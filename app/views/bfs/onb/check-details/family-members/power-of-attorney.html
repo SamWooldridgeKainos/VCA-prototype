@@ -2,7 +2,7 @@
 
 
 {% extends "layouts/main.html" %}
-{% set pageName="Preferred name" %}
+{% set pageName="Power of attorney details" %}
 
 {% block header %}
 {% include "/bfs/partials/header/none-selected-bfs.html" %}
@@ -21,7 +21,7 @@
   
 
    <div class="govuk-form-group">
-  <h1 class="govuk-heading-l">Power of attorney details</h1>
+  <h1 class="govuk-heading-l">Power of attorney details for {{ data['fmFirstName'] }} {{ data['fmLastName'] }}</h1>
 
         <div class="govuk-form-group" id="error-form-group-1">
           <label class="govuk-label" for="power-of-attorney-name">Name</label>
@@ -49,5 +49,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+<script src="/public/javascripts/shared/check-details/power-of-attorney.js"></script>
 {% endblock %}

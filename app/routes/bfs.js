@@ -68,6 +68,52 @@ module.exports = router => {
         response.redirect("/bfs/onb/new-task/task-created")
     })
 
+    // Victim page: create a task (mirrors the onboarding new-task flow, kept within /bfs/victim/new-task)
+    router.post('/bfs/victim/new-task/next-task-answer', function(request, response) {
+
+        var nextTask = request.session.data['nextTask']
+
+        if (nextTask == "dtc") {
+            response.redirect("/bfs/victim/new-task/task-due-date?pcdType=dtc")
+        } else if (nextTask == "nfa") {
+            response.redirect("/bfs/victim/new-task/task-due-date?pcdType=nfa")
+        } else if (nextTask == "stopped-charge") {
+            response.redirect("/bfs/victim/new-task/task-due-date?vclType=stopped-charge")
+        } else if (nextTask == "altered-charge") {
+            response.redirect("/bfs/victim/new-task/task-due-date?vclType=altered-charge")
+        } else if (nextTask == "other") {
+            response.redirect("/bfs/victim/new-task/manual-task")
+        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
+            response.redirect("/bfs/victim/new-task/meeting-purpose")
+        } else {
+            response.redirect("/bfs/victim/new-task/task-due-date")
+        }
+    })
+
+    router.post('/bfs/victim/new-task/meeting-purpose-answer', function(request, response) {
+
+        response.redirect("/bfs/victim/new-task/task-due-date")
+    })
+
+    router.post('/bfs/victim/new-task/manual-task-answer', function(request, response) {
+
+        response.redirect("/bfs/victim/new-task/check-task?manualTask=yes")
+    })
+
+    router.post('/bfs/victim/new-task/task-due-date-answer', function(request, response) {
+
+        response.redirect("/bfs/victim/new-task/check-task?manualTask=no")
+    })
+
+    router.post('/bfs/victim/new-task/check-task-answer', function(request, response) {
+
+        // Update existing task tracking when a task is confirmed
+        request.session.data['existingTask'] = request.session.data['nextTask'] || ''
+        request.session.data['existingMeetingPurpose'] = request.session.data['meetingPurpose'] || ''
+
+        response.redirect("/bfs/victim/new-task/task-created")
+    })
+
     router.post('/bfs/check-details/flo-answer', function(request, response) {
 
         request.session.data['floAdded'] = 'yes'
@@ -147,7 +193,9 @@ module.exports = router => {
 
         Object.keys(request.body).forEach(function(key) {
             if (key.indexOf('fm') === 0) {
-                request.session.data[key] = request.body[key]
+                var value = request.body[key]
+                // Trim so whitespace-only entries count as blank and keep the Enter/Select link
+                request.session.data[key] = (typeof value === 'string') ? value.trim() : value
             }
         })
         response.redirect("/bfs/onb/check-details/family-members/check-answers")
@@ -186,6 +234,26 @@ module.exports = router => {
         request.session.data['familyMembers'] = members
         clearInProgressFamilyMember(request.session.data)
         response.redirect("/bfs/onb/check-details")
+    })
+
+    // Capture the selected bereaved family representative, then return to the check answers page
+    router.post('/bfs/check-details/family-members/representative-answer', function(request, response) {
+
+        if (!request.body.familyRepresentative) {
+            response.redirect("/bfs/onb/check-details/family-members/select-representative?error=yes")
+            return
+        }
+        request.session.data['familyRepresentative'] = request.body.familyRepresentative
+        response.redirect("/bfs/onb/check-details")
+    })
+
+    // Render the select representative page, clearing any stale error flag unless one was just raised
+    router.get('/bfs/onb/check-details/family-members/select-representative', function(request, response) {
+
+        if (request.query.error !== 'yes') {
+            delete request.session.data['error']
+        }
+        response.render('bfs/onb/check-details/family-members/select-representative')
     })
 
     // Remove a family member

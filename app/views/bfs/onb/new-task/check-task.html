@@ -72,7 +72,7 @@
                             {% elif data['meetingPurpose'] == "pre-charge" %}
                                 Pre-charge meeting
                             {% elif data['meetingPurpose'] == "charging-decision-family" %}
-                                Inform Bereaved family about charging decision
+                                Inform bereaved family about charging decision
                            {% elif data['meetingPurpose'] == "conviction" %}
                                Conviction meeting
                             {% elif data['meetingPurpose'] == "sentencing" %}
@@ -98,6 +98,25 @@
                                 Change<span class="govuk-visually-hidden"> meeting purpose</span>
                             </a>
                         </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Due date
+                        </dt>
+                        {% if data['taskDueDate'] %}
+                            <dd class="govuk-summary-list__value">
+                                {{ data['taskDueDate'] | formatDate }}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link govuk-link--no-visited-state" href="/bfs/onb/new-task/next-task-due-date">
+                                    Change<span class="govuk-visually-hidden"> next task due date</span>
+                                </a>
+                            </dd>
+                        {% else %}
+                            <dd class="govuk-summary-list__value">
+                                <a href="/bfs/onb/new-task/next-task-due-date" class="govuk-link govuk-link--no-visited-state">Select next task due date</a>
+                            </dd>
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if data['manualTask'] == "yes" %}
@@ -158,7 +177,6 @@
                             </dd>
                         {% endif %}
                     </div>
-                {% else %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Due date

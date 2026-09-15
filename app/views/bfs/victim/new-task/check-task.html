@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/index.html" %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
 {% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
@@ -47,13 +47,13 @@
                         {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/task-selection?fromCheck=yes">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/task-selection?fromCheck=yes">
                             Change<span class="govuk-visually-hidden"> next task</span>
                         </a>
                     </dd>
                 {% else %}
                     <dd class="govuk-summary-list__value">
-                        <a href="/v60/victim/new-task/task-selection" class="govuk-link govuk-link--no-visited-state">Select next task</a>
+                        <a href="/bfs/victim/new-task/task-selection" class="govuk-link govuk-link--no-visited-state">Select next task</a>
                     </dd>
                 {% endif %}
             </div>
@@ -65,20 +65,32 @@
                     <dd class="govuk-summary-list__value">
                         {% if data['meetingPurpose'] == "pre-trial" %}
                             CPS pre-trial meeting
-                        {% elif data['meetingPurpose'] == "charging-decision" %}
-                            Inform victim about charging decision
+                        {% elif data['meetingPurpose'] == "pre-charge" %}
+                            Pre-charge meeting
+                        {% elif data['meetingPurpose'] == "charging-decision-family" %}
+                            Inform bereaved family about charging decision
+                        {% elif data['meetingPurpose'] == "conviction" %}
+                            Conviction meeting
+                        {% elif data['meetingPurpose'] == "sentencing" %}
+                            Sentencing meeting
+                        {% elif data['meetingPurpose'] == "acquittal" %}
+                            Acquittal meeting
                         {% elif data['meetingPurpose'] == "stopped-altered" %}
                             Stopped or substantially altered charge (VCL Scheme)
                         {% elif data['meetingPurpose'] == "vrr" %}
                             Victims' Right to Review (VRR)
+                        {% elif data['meetingPurpose'] == "joint" %}
+                            Joint CPS and Police meeting
+                        {% elif data['meetingPurpose'] == "lesser-offence" %}
+                            Lesser offence meeting
                         {% elif data['meetingPurpose'] == "complaint" %}
-                            Victim complaint
+                            Bereaved family complaint
                         {% else %}
                             {{ data['meetingPurposeDetails'] }}
                         {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/meeting-purpose">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/meeting-purpose">
                             Change<span class="govuk-visually-hidden"> meeting purpose</span>
                         </a>
                     </dd>
@@ -94,13 +106,13 @@
                             {{ data['manualTaskName'] }}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/manual-task">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/manual-task">
                                 Change<span class="govuk-visually-hidden"> task name</span>
                             </a>
                         </dd>
                     {% else %}
                         <dd class="govuk-summary-list__value">
-                            <a href="/v60/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter task name</a>
+                            <a href="/bfs/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter task name</a>
                         </dd>
                     {% endif %}
                 </div>
@@ -113,13 +125,13 @@
                             {{ data['taskDueDate'] | formatDate }}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/manual-task">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/manual-task">
                                 Change<span class="govuk-visually-hidden"> task due date</span>
                             </a>
                         </dd>
                     {% else %}
                         <dd class="govuk-summary-list__value">
-                            <a href="/v60/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
+                            <a href="/bfs/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter due date</a>
                         </dd>
                     {% endif %}
                 </div>
@@ -129,14 +141,14 @@
                     </dt>
                     {% if data['taskNote'] == "" %}
                         <dd class="govuk-summary-list__value">
-                            <a href="/v60/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter note</a>
+                            <a href="/bfs/victim/new-task/manual-task" class="govuk-link govuk-link--no-visited-state">Enter note</a>
                         </dd>
                     {% else %}
                         <dd class="govuk-summary-list__value">
                             {{ data['taskNote'] | nl2br }}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/manual-task">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/manual-task">
                                 Change<span class="govuk-visually-hidden"> task note</span>
                             </a>
                         </dd>
@@ -152,13 +164,13 @@
                             {{ data['taskDueDate'] | formatDate }}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link govuk-link--no-visited-state" href="/v60/victim/new-task/task-due-date?fromCheck=yes">
+                            <a class="govuk-link govuk-link--no-visited-state" href="/bfs/victim/new-task/task-due-date?fromCheck=yes">
                                 Change<span class="govuk-visually-hidden"> task due date</span>
                             </a>
                         </dd>
                     {% else %}
                         <dd class="govuk-summary-list__value">
-                            <a href="/v60/victim/new-task/task-due-date" class="govuk-link govuk-link--no-visited-state">Select task due date</a>
+                            <a href="/bfs/victim/new-task/task-due-date" class="govuk-link govuk-link--no-visited-state">Select task due date</a>
                         </dd>
                     {% endif %}
                 </div>
@@ -170,7 +182,7 @@
         <p class="govuk-body">
             After you confirm the details, a task for {{ data['victimForename'] }} {{ data['victimSurname'] }} will be created.
         </p>
-        <form action="/v60/victim/new-task/check-task-answer" method="post" novalidate>
+        <form action="/bfs/victim/new-task/check-task-answer" method="post" novalidate>
             <input type="hidden" name="answers-checked" value="true">
             <button type="submit" class="govuk-button" data-module="govuk-button">
                 Confirm and create

@@ -13,22 +13,21 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
-  <form method="post" action="/bfs/check-details/family-members/detail-answer">
-
+    <form method="post" action="/bfs/check-details/family-members/detail-answer">
   
-<div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--l" for="victimPreferredName">
-                        What is their preferred name?
-                    </label>
-                </h1>
-                <input class="govuk-input govuk-!-width-two-thirds" id="victimPreferredName" name="fmPreferredName" type="text" value="{{ data['fmPreferredName'] }}">
-            </div>
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="victimPreferredName">
+                What is {{ data['fmFirstName'] }} {{ data['fmLastName'] }}'s preferred name?
+            </label>
+        </h1>
+        <input class="govuk-input govuk-!-width-two-thirds" id="victimPreferredName" name="fmPreferredName" type="text" value="{{ data['fmPreferredName'] }}">
+      </div>
             
       <button type="submit" class="govuk-button" data-module="govuk-button">
         Save and continue
       </button>
-      </form>
+    </form>
 
   </div>
 </div>

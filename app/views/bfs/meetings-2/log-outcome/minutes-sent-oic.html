@@ -15,9 +15,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+    <form class="form" action="/bfs/meetings-2/log-outcome/minutes-sent-oic-answer" method="post">
+
     {{ govukRadios({
-      name: "meeting2",
-      value: data['meeting2'],
+      name: "meetingNotesToOic",
+      value: data['meetingNotesToOic'],
       fieldset: {
         legend: {
           text: "Have the meeting notes been sent to the Officer in Charge (OIC)?",
@@ -39,9 +41,9 @@
 
     <div class="govuk-button-group">
 
-      <a href="minutes-sent" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
         Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
+      </button>
     </div>
     </form>
   </div>

@@ -17,7 +17,7 @@
 
     <h1 class="govuk-heading-l">How long did the meeting last?</h1>
 
-    <form action="/v20/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+    <form action="/bfs/meetings-2/log-outcome/duration-answer" method="post" accept-charset="UTF-8">
 
       <div class="govuk-form-group" id="error-form-group-2">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="call-time-hint-2">
@@ -30,10 +30,10 @@
 
             <div class="govuk-date-input__item" style="margin-right: 10px;">
               <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="call-hour-2">
+                <label class="govuk-label govuk-date-input__label" for="meeting-duration-hours">
                   Hours
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-hours" name="meetingDurationHours" type="text" inputmode="numeric" value="{{ data['meetingDurationHours'] }}">
               </div>
             </div>
             <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -42,10 +42,10 @@
 
             <div class="govuk-date-input__item">
               <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label" for="call-minutes-2">
+                <label class="govuk-label govuk-date-input__label" for="meeting-duration-minutes">
                   Minutes
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="callMinutes2" type="text" inputmode="numeric">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-minutes" name="meetingDurationMinutes" type="text" inputmode="numeric" value="{{ data['meetingDurationMinutes'] }}">
               </div>
             </div>
 
@@ -55,15 +55,11 @@
 
       <div class="govuk-button-group">
 
-        <a href="who-attended" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
           Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-        </a>
+        </button>
       </div>
     </form>
   </div>
 </div>
-{% endblock %}
-
-{% block pageScripts %}
-<script src="/public/javascripts/shared/record/telephone-call-details.js"></script>
 {% endblock %}

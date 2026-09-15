@@ -536,7 +536,7 @@
       <div class="govuk-!-margin-bottom-9" id="manual-task-container">
         <dl class="govuk-summary-list">
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            <a href="/v60/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
+            <a href="/bfs/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] | capitalize }}</a>
             <strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>
           </h2>
           
@@ -576,14 +576,26 @@
             <dd class="govuk-summary-list__value">
               {% if data['meetingPurpose'] == "pre-trial" %}
                 CPS pre-trial meeting
-              {% elif data['meetingPurpose'] == "charging-decision" %}
-                Inform victim about charging decision
+              {% elif data['meetingPurpose'] == "pre-charge" %}
+                Pre-charge meeting
+              {% elif data['meetingPurpose'] == "charging-decision-family" %}
+                Inform Bereaved family about charging decision
+              {% elif data['meetingPurpose'] == "conviction" %}
+                Conviction meeting
+              {% elif data['meetingPurpose'] == "sentencing" %}
+                Sentencing meeting
+              {% elif data['meetingPurpose'] == "acquittal" %}
+                Acquittal meeting
               {% elif data['meetingPurpose'] == "stopped-altered" %}
                 Stopped or substantially altered charge (VCL Scheme)
               {% elif data['meetingPurpose'] == "vrr" %}
                 Victims' Right to Review (VRR)
+              {% elif data['meetingPurpose'] == "joint" %}
+                Joint CPS and Police meeting
+              {% elif data['meetingPurpose'] == "lesser-offence" %}
+                Lesser offence meeting
               {% elif data['meetingPurpose'] == "complaint" %}
-                Complaint about victim care
+                Bereaved family complaint
               {% else %}
                 {{ data['meetingPurposeDetails'] }}
               {% endif %}
@@ -674,10 +686,14 @@
                 {% elif (data['vclStatus'] == "informed-after-call-1") or (data['vclStatus'] == "informed-after-call-2") or (data['vclStatus'] == "informed-after-call-3") %}
                   {% if (data['vclFumoc'] == "email") %}
                     <a href="/v60/vcl/send/email-details" class="govuk-link govuk-link--no-visited-state">Log email details</a>
-                  {% elif (data['vclFumoc'] == "post") %}
-                    <a href="/v60/vcl/send/letter-details" class="govuk-link govuk-link--no-visited-state">Log letter details</a>
                   {% endif %}
                 {% endif %}
+              {% elif (data['nextTask'] == "meeting-offer") %}
+                <a href="/bfs/meetings-2/has-meeting-been-offered" class="govuk-link govuk-link--no-visited-state">Log offer</a>
+              {% elif (data['nextTask'] == "meeting-arranged") %}
+                <a href="/bfs/meetings-2/confirm-arrangements/who-requested-meeting" class="govuk-link govuk-link--no-visited-state">Confirm arranged meeting</a>
+              {% elif (data['nextTask'] == "meeting-outcome") %}
+                <a href="/bfs/meetings-2/log-outcome/did-meeting-happen" class="govuk-link govuk-link--no-visited-state">Log outcome</a>
               {% elif (data['nextTask'] == "other") %}
                 <a href="/v60/update-manual-task" class="govuk-link govuk-link--no-visited-state">Update task</a>
               {% endif %}
@@ -687,9 +703,10 @@
       </div>
     {% endif %}
     {% endif %}
+    {% if not (record.surname == 'PHILLIPS' and record.forename == 'Sarah') %}
     <div class="govuk-!-margin-bottom-9">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-        <a href="{{ '#' if loop.index != 1 else '/v60/victim?success=no' }}" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
+        <a href="{{ '#' if loop.index != 1 else '/bfs/victim?success=no' }}" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
         {% if record.surname == 'PHILLIPS' and record.forename == 'Sarah' %}<strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>{% endif %}
       </h2>
       <dl class="govuk-summary-list">
@@ -759,6 +776,7 @@
         </div>
       </dl>
     </div>
+    {% endif %}
     {% endfor %}
 
     <nav class="govuk-pagination" aria-label="Pagination">
