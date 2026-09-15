@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Select representative" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+  {% if data['error'] == 'yes' %}
+  <div class="govuk-error-summary" data-module="govuk-error-summary">
+    <div role="alert">
+      <h2 class="govuk-error-summary__title">
+        There is a problem
+      </h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          <li>
+            <a href="#family-representative-1">Select who is the representative for the bereaved family</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <form method="post" action="/bfs/check-details/family-members/representative-answer">
+
+      <div class="govuk-form-group{% if data['error'] == 'yes' %} govuk-form-group--error{% endif %}">
+
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Who is the representative for the bereaved family?
+            </h1>
+          </legend>
+
+          {% if data['error'] == 'yes' %}
+          <p id="family-representative-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who is the representative for the bereaved family
+          </p>
+          {% endif %}
+
+          <div class="govuk-radios" data-module="govuk-radios">
+            {% for member in data['familyMembers'] %}
+            {% set memberName = (member.lastName | upper) + ", " + member.firstName %}
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="family-representative-{{ loop.index }}" name="familyRepresentative" type="radio" value="{{ memberName }}" {{ checked('familyRepresentative', memberName) }}>
+              <label class="govuk-label govuk-radios__label" for="family-representative-{{ loop.index }}">
+                {{ memberName }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+
+        </fieldset>
+      </div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+      </form>
+
+  </div>
+</div>
+{% endblock %}

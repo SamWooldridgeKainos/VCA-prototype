@@ -2,6 +2,15 @@
 {% set meetingState = data['meetingState'] %}
 {% set knownMeetingStates = ['arranged', 'offered', 'offered-multi', 'no-response', 'not-offered', 'responses', 'outcome', 'outcome-no', 'rescheduled', 'cancelled'] %}
 
+{# Summary card title = purpose of this meeting (set in the onboarding / task creation journey via meetingPurpose). #}
+{% if data['meetingPurpose'] == "pre-trial" %}{% set meetingPurposeTitle = "CPS pre-trial meeting" %}
+{% elif data['meetingPurpose'] == "charging-decision" %}{% set meetingPurposeTitle = "Inform victim about charging decision" %}
+{% elif data['meetingPurpose'] == "stopped-altered" %}{% set meetingPurposeTitle = "Stopped or substantially altered charge (VCL Scheme)" %}
+{% elif data['meetingPurpose'] == "vrr" %}{% set meetingPurposeTitle = "Victims' Right to Review (VRR)" %}
+{% elif data['meetingPurpose'] == "complaint" %}{% set meetingPurposeTitle = "Victim complaint" %}
+{% elif data['meetingPurpose'] == "other" %}{% set meetingPurposeTitle = data['meetingPurposeDetails'] %}
+{% else %}{% set meetingPurposeTitle = "CPS pre-trial meeting" %}{% endif %}
+
 {% if data['meetingSuccess'] == 'yes' and meetingState in knownMeetingStates %}
 <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
   <div class="govuk-notification-banner__header">

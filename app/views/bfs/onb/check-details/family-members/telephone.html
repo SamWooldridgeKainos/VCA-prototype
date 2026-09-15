@@ -1,5 +1,5 @@
 {% extends "layouts/main.html" %}
-{% set pageName="Preferred name" %}
+{% set pageName="Telephone number" %}
 
 {% block header %}
 {% include "/bfs/partials/header/none-selected-bfs.html" %}
@@ -12,55 +12,49 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-  <form method="post" action="/bfs/check-details/family-members/detail-answer">
+    <div class="govuk-grid-column-one-half">
+        <form method="post" action="/bfs/check-details/family-members/detail-answer">
 
-  
+            <div class="govuk-form-group" id="error-form-group">
 
-      <div class="govuk-form-group" id="error-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="preferred-name">
+                        What is {{ data['fmFirstName'] }} {{ data['fmLastName'] }}'s telephone number?
+                    </label>
+                </h1>
 
-        <h1 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--l" for="preferred-name">
-          Enter their telephone number
-          </label>
-        </h1>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="victimMobileNumber">
+                        Mobile
+                    </label>
+                    <input class="govuk-input govuk-!-width-two-thirds" id="victimMobileNumber" name="fmMobile" type="tel" value="{{ data['fmMobile'] }}">
+                </div>
 
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="victimHomeNumber">
+                        Home
+                    </label>
+                    <input class="govuk-input govuk-!-width-two-thirds" id="victimHomeNumber" name="fmHome" type="tel" value="{{ data['fmHome'] }}">
+                </div>
 
-
-    
-
-
-         <div class="govuk-form-group">
-                <label class="govuk-label" for="victimMobileNumber">
-                    Mobile
-                </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="victimMobileNumber" name="fmMobile" type="tel" value="{{ data['fmMobile'] }}">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="victimWorkNumber">
+                        Work
+                    </label>
+                    <input class="govuk-input govuk-!-width-two-thirds" id="victimWorkNumber" name="fmWork" type="tel" value="{{ data['fmWork'] }}">
+                </div>
             </div>
 
-            <div class="govuk-form-group">
-                <label class="govuk-label" for="victimHomeNumber">
-                    Home
-                </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="victimHomeNumber" name="fmHome" type="tel" value="{{ data['fmHome'] }}">
-            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
 
-            <div class="govuk-form-group">
-                <label class="govuk-label" for="victimWorkNumber">
-                    Work
-                </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="victimWorkNumber" name="fmWork" type="tel" value="{{ data['fmWork'] }}">
-            </div>
+        </form>
 
-  </div>
-      <button type="submit" class="govuk-button" data-module="govuk-button">
-        Save and continue
-      </button>
-      </form>
-
-  </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block pageScripts %}
-<script src="/public/javascripts/shared/check-details/preferred-name.js"></script>
+<script src="/public/javascripts/shared/check-details/telephone.js"></script>
 {% endblock %}

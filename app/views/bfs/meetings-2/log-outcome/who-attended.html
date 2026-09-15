@@ -15,48 +15,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+    <form class="form" action="/bfs/meetings-2/log-outcome/who-attended-answer" method="post">
     <div class="govuk-form-group">
-      <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+      <fieldset class="govuk-fieldset" aria-describedby="attended-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-fieldset__heading">
             Who attended the meeting?
           </h1>
         </legend>
 
-        <div id="waste-hint" class="govuk-hint">
+        <div id="attended-hint" class="govuk-hint">
           Select all that apply
         </div>
 
+        <input type="hidden" name="attended" value="_unchecked">
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
 
+          {% set attendedIndex = 0 %}
+          {% for attendee in data['attendees'] %}
+            {% if attendee != '_unchecked' %}
+            {% set attendedIndex = attendedIndex + 1 %}
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="carcasses">
-            <label class="govuk-label govuk-checkboxes__label" for="waste-1">
-              BIDWELL, Jane (Family liaison officer)
+            <input class="govuk-checkboxes__input" id="attended-{{ attendedIndex }}" name="attended" type="checkbox" value="{{ attendee }}" {{ checked("attended", attendee) }}>
+            <label class="govuk-label govuk-checkboxes__label" for="attended-{{ attendedIndex }}">
+              {{ attendee }}
             </label>
           </div>
+            {% endif %}
+          {% endfor %}
+          {% for added in data['addedAttended'] %}
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="attended-added-{{ loop.index }}" name="attended" type="checkbox" value="{{ added }}" {{ checked("attended", added) }}>
+            <label class="govuk-label govuk-checkboxes__label" for="attended-added-{{ loop.index }}">
+              {{ added }}
+            </label>
+          </div>
+          {% endfor %}
 
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
-            <label class="govuk-label govuk-checkboxes__label" for="waste-2">
-              SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
-            </label>
-          </div>
-
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="mines">
-            <label class="govuk-label govuk-checkboxes__label" for="waste-3">
-              SHEAF, Jessica (High court advocate)
-            </label>
-          </div>
-
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="farm">
-            <label class="govuk-label govuk-checkboxes__label" for="waste-4">
-              PC FISHER, Jane (Police officer in charge)
-            </label>
-          </div>
-          
         </div>
       </fieldset>
     </div>
@@ -69,10 +64,11 @@
 
     <div class="govuk-button-group">
 
-      <a href="chair-person.html" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
         Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
+      </button>
     </div>
+    </form>
   </div>
 </div>
 {% endblock %}

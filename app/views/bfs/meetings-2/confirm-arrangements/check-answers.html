@@ -113,7 +113,6 @@
           Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">{{ victimName }}'s bereaved family</p>
           {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">

@@ -632,14 +632,80 @@ module.exports = router => {
 
 
 
+    // When a "Change" link on check-answers is used, ?changeMode=true is stored in the
+    // session; each answer route returns to check-answers instead of advancing the flow.
+    function logOutcomeNext(request, response, nextUrl) {
+        var data = request.session.data
+        if (data['changeMode'] === 'true') {
+            data['changeMode'] = ''
+            return response.redirect('/bfs/meetings-2/log-outcome/check-answers')
+        }
+        response.redirect(nextUrl)
+    }
+
     router.post('/bfs/meetings-2/log-outcome/did-meeting-happen2-answer', function(request, response) {
 
+        // Entry point of the flow — reset any stale change flag.
+        request.session.data['changeMode'] = ''
         var meeting3 = request.session.data['meeting3']
         if (meeting3 == "yes"){
             response.redirect("/bfs/meetings-2/log-outcome/duration")
         } else {
             response.redirect("/bfs/meetings-2/log-outcome/reason-why")
         }
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/duration-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/who-attended")
+    })
+
+    // Who attended -> chair person (options carried through session)
+    router.post('/bfs/meetings-2/log-outcome/who-attended-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/chair-person")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/chair-person-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/did-counsel-attend")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/did-counsel-attend-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/eligible-for-expenses")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/eligible-for-expenses-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/agree-to-research")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/agree-to-research-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/upload-file")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/upload-file-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/minutes-sent-oic")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/minutes-sent-oic-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/minutes-sent")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/minutes-sent-answer', function(request, response) {
+        logOutcomeNext(request, response, "/bfs/meetings-2/log-outcome/any-actions-agreed")
+    })
+
+    router.post('/bfs/meetings-2/log-outcome/reason-why-answer', function(request, response) {
+        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=outcome-no&meetingSuccess=yes#communications")
+    })
+
+    // Custom person added on who-attended -> becomes a selected attendee
+    router.post('/bfs/meetings-2/log-outcome/add-another-answer', function(request, response) {
+        appendAddedPeople(request, 'addedAttended', 'attended')
+        response.redirect("/bfs/meetings-2/log-outcome/who-attended")
+    })
+
+    // Custom person added on chair-person -> becomes a selectable chair (attended)
+    router.post('/bfs/meetings-2/log-outcome/add-another2-answer', function(request, response) {
+        appendAddedPeople(request, 'addedAttended', 'attended')
+        response.redirect("/bfs/meetings-2/log-outcome/chair-person")
     })
 
     router.post('/log-outcome/did-meeting-happen2-answer', function(request, response) {
@@ -661,6 +727,26 @@ module.exports = router => {
             response.redirect("/v50/meetings/meeting-date")
         }
     })
+
+    // Append custom "Name (Role)" people from an moj-add-another form to a pool array
+    // and mark them selected so they render checked/available on the originating page
+    function appendAddedPeople(request, poolKey, selectedKey) {
+        var data = request.session.data
+        var persons = [].concat(request.body.person || [])
+        var pool = [].concat(data[poolKey] || []).filter(function(p){ return p && p !== '_unchecked' })
+        var selected = [].concat(data[selectedKey] || []).filter(function(p){ return p && p !== '_unchecked' })
+        persons.forEach(function(p){
+            if (!p) return
+            var name = (p.first_name || '').trim()
+            var role = (p.last_name || '').trim()
+            if (!name && !role) return
+            var label = role ? (name + ' (' + role + ')') : name
+            if (pool.indexOf(label) === -1) pool.push(label)
+            if (selected.indexOf(label) === -1) selected.push(label)
+        })
+        data[poolKey] = pool
+        data[selectedKey] = selected
+    }
 
     // --- Confirm meeting arrangements flow (shared: bfs, v50, v51) ---
     function registerConfirmArrangements(caBase) {
@@ -735,6 +821,18 @@ module.exports = router => {
         response.redirect(caBase + 'support-needs')
     })
 
+    // Custom attendee added on the attendees page -> becomes a selected attendee
+    router.post(caBase + 'add-attendee-answer', function(request, response) {
+        appendAddedPeople(request, 'addedAttendees', 'attendees')
+        response.redirect(caBase + 'attendees')
+    })
+
+    // Custom person added on the meeting-lead page -> becomes a selectable lead (attendee)
+    router.post(caBase + 'add-meeting-lead-answer', function(request, response) {
+        appendAddedPeople(request, 'addedAttendees', 'attendees')
+        response.redirect(caBase + 'meeting-lead')
+    })
+
     router.post(caBase + 'support-needs-answer', function(request, response) {
         var data = request.session.data
         var interpreterMissing = !data['interpreterNeeded']
@@ -804,12 +902,7 @@ module.exports = router => {
 
         router.post('/bfs/meetings-2/log-outcome/any-actions-agreed2-answer', function(request, response) {
 
-        var actionsAgreed2 = request.session.data['actionsAgreed2']
-        if (actionsAgreed2 == "yes"){
-            response.redirect("/bfs/meetings-2/log-outcome/check-answers")
-        } else {
-            response.redirect("/bfs/meetings-2/log-outcome/check-answers-no")
-        }
+        response.redirect("/bfs/meetings-2/log-outcome/check-answers")
     })
 
 

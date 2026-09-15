@@ -15,11 +15,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/did-victim-request2" method="post">
+    <form class="form" action="/bfs/meetings-2/log-outcome/eligible-for-expenses-answer" method="post">
 
       {{ govukRadios({
-      name: "meeting2",
-      value: data['meeting2'],
+      name: "eligibleForExpenses",
+      value: data['eligibleForExpenses'],
       fieldset: {
         legend: {
           text: "Is Sarah Phillips's bereaved family eligible for expenses?",
@@ -41,9 +41,9 @@
 
       <div class="govuk-button-group">
 
-        <a href="agree-to-research.html" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
           Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-        </a>
+        </button>
       </div>
 
     </form>

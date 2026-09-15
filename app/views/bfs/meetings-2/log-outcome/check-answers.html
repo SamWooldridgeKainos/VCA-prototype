@@ -21,10 +21,11 @@
         <dt class="govuk-summary-list__key">
           Duration of the meeting
         </dt>
-        3 hours 30 minutes
+        <dd class="govuk-summary-list__value">
+          {{ data['meetingDurationHours'] or 0 }} hours {{ data['meetingDurationMinutes'] or 0 }} minutes
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
+          <a class="govuk-link" href="duration?changeMode=true">Change<span class="govuk-visually-hidden"> duration of the meeting</span></a>
         </dd>
       </div>
 
@@ -33,14 +34,14 @@
           Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">Sarah Phillips's bereaved family</p>
-          <p class="govuk-body">SHEAF, Jessica (High court advocate)</p>
-          <p class="govuk-body">BIDWELL, Jane (Family liaison officer)</p>
-          <p class="govuk-body">SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))</p>
-          <p class="govuk-body">PC FISHER, Jane (Police officer in charge)</p>
+          {% for attendee in data['attended'] %}
+            {% if attendee != '_unchecked' %}
+          <p class="govuk-body">{{ attendee }}</p>
+            {% endif %}
+          {% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="who-attended?changeMode=true">Change<span class="govuk-visually-hidden"> attendees</span></a>
         </dd>
 
       </div>
@@ -50,10 +51,10 @@
           Meeting lead
         </dt>
         <dd class="govuk-summary-list__value">
-          SHEAF, Jessica (High court advocate)
+          {{ data['chairPerson'] }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="chair-person?changeMode=true">Change<span class="govuk-visually-hidden"> meeting lead</span></a>
         </dd>
 
       </div>
@@ -63,10 +64,10 @@
           Counsel attended
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes
+          {{ "Yes" if data['counselAttended'] == "yes" else "No" }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="did-counsel-attend?changeMode=true">Change<span class="govuk-visually-hidden"> counsel attended</span></a>
         </dd>
 
       </div>
@@ -76,10 +77,10 @@
           Eligible for expenses
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes
+          {{ "Yes" if data['eligibleForExpenses'] == "yes" else "No" }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="eligible-for-expenses?changeMode=true">Change<span class="govuk-visually-hidden"> eligible for expenses</span></a>
         </dd>
 
       </div>
@@ -89,10 +90,10 @@
           Agreed to research
         </dt>
         <dd class="govuk-summary-list__value">
-          No
+          {% if data['agreedToResearch'] == "yes" %}Yes{% elif data['agreedToResearch'] == "not-asked" %}The question was not asked{% else %}No{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="agree-to-research?changeMode=true">Change<span class="govuk-visually-hidden"> agreed to research</span></a>
         </dd>
 
       </div>
@@ -102,9 +103,9 @@
           Meeting notes
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesSaved'] == "yes" else "No" }} </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="upload-file?changeMode=true">Change<span class="govuk-visually-hidden"> meeting notes saved</span></a>
         </dd>
 
       </div>
@@ -113,9 +114,9 @@
           Meeting notes to OIC
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesToOic'] == "yes" else "No" }} </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="minutes-sent-oic?changeMode=true">Change<span class="govuk-visually-hidden"> meeting notes to OIC</span></a>
         </dd>
 
       </div>
@@ -125,9 +126,9 @@
           Meeting notes to victim
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesToVictim'] == "yes" else "No" }} </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="minutes-sent?changeMode=true">Change<span class="govuk-visually-hidden"> meeting notes to victim</span></a>
         </dd>
 
       </div>
@@ -136,33 +137,35 @@
           Actions agreed
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes
+          {{ "Yes" if data['actionsAgreed2'] == "yes" else "No" }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="any-actions-agreed?changeMode=true">Change<span class="govuk-visually-hidden"> actions agreed</span></a>
         </dd>
 
       </div>
 
+      {% if data['actionsAgreed2'] == "yes" %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           What was agreed
         </dt>
         <dd class="govuk-summary-list__value">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum.
+          {{ data['actionsAgreedDetail'] }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="any-actions-agreed?changeMode=true">Change<span class="govuk-visually-hidden"> what was agreed</span></a>
         </dd>
 
       </div>
+      {% endif %}
 
     </dl>
 
     <div class="govuk-button-group">
 
       <a href="/bfs/victim/index?secondaryNav=ptm&meetingState=outcome&meetingSuccess=yes#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-        Log meeting outcome<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+        Confirm details
       </a>
     </div>
 

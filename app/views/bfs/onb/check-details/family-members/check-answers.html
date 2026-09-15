@@ -64,24 +64,6 @@
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Representative
-            </dt>
-            {% if data['fmRepresentative'] %}
-              <dd class="govuk-summary-list__value">
-                {{ data['fmRepresentative'] }}
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="representative">Change<span class="govuk-visually-hidden"> representative</span></a>
-              </dd>
-            {% else %}
-              <dd class="govuk-summary-list__value">
-                <a class="govuk-link" href="representative">Select representative</a>
-              </dd>
-            {% endif %}
-          </div>
-
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
               Email address
             </dt>
             {% if data['fmEmail'] %}
@@ -101,18 +83,18 @@
               Telephone number
             </dt>
             {% if data['fmMobile'] or data['fmHome'] or data['fmWork'] %}
-            <dd class="govuk-summary-list__value">
-              {% if data['fmMobile'] %}Mobile {{ data['fmMobile'] }}<br>{% endif %}
-              {% if data['fmHome'] %}Home {{ data['fmHome'] }}<br>{% endif %}
-              {% if data['fmWork'] %}Work {{ data['fmWork'] }}{% endif %}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="telephone">Change<span class="govuk-visually-hidden"> telephone number</span></a>
-            </dd>
+              <dd class="govuk-summary-list__value">
+                {% if data['fmMobile'] %}<p class="govuk-body">Mobile: {{ data['fmMobile'] }}</p>{% endif %}
+                {% if data['fmHome'] %}<p class="govuk-body">Home: {{ data['fmHome'] }}</p>{% endif %}
+                {% if data['fmWork'] %}<p class="govuk-body">Work: {{ data['fmWork'] }}</p>{% endif %}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="telephone">Change<span class="govuk-visually-hidden"> telephone number</span></a>
+              </dd>
             {% else %}
-            <dd class="govuk-summary-list__value">
-              <a class="govuk-link" href="telephone">Enter telephone number</a>
-            </dd>
+              <dd class="govuk-summary-list__value">
+                <a class="govuk-link" href="telephone">Enter telephone number</a>
+              </dd>
             {% endif %}
           </div>
 
