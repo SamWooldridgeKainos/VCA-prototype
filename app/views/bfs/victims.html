@@ -424,7 +424,7 @@
         <div class="govuk-!-margin-bottom-9">
           {% if data['onboardedStatus'] == 'Yes' %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            <a href="/v60/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
+            <a href="/bfs/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
             <strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>
           </h2>
           {% else %}

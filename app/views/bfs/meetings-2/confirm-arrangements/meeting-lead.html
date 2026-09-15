@@ -41,30 +41,18 @@
         </p>
         {% endif %}
         <div class="govuk-radios" data-module="govuk-radios">
+          {% set radioIndex = 0 %}
+          {% for attendee in data['attendees'] %}
+            {% if attendee != '_unchecked' %}
+            {% set radioIndex = radioIndex + 1 %}
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="meetingLead" name="meetingLead" type="radio" value="SHEAF, Jessica (High court advocate)" {{ checked("meetingLead", "SHEAF, Jessica (High court advocate)") }}>
-            <label class="govuk-label govuk-radios__label" for="meetingLead">
-              SHEAF, Jessica (High court advocate)
+            <input class="govuk-radios__input" id="meetingLead{% if radioIndex > 1 %}-{{ radioIndex }}{% endif %}" name="meetingLead" type="radio" value="{{ attendee }}" {{ checked("meetingLead", attendee) }}>
+            <label class="govuk-label govuk-radios__label" for="meetingLead{% if radioIndex > 1 %}-{{ radioIndex }}{% endif %}">
+              {{ attendee }}
             </label>
           </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="meetingLead-2" name="meetingLead" type="radio" value="BIDWELL, Jane (Family liaison officer)" {{ checked("meetingLead", "BIDWELL, Jane (Family liaison officer)") }}>
-            <label class="govuk-label govuk-radios__label" for="meetingLead-2">
-              BIDWELL, Jane (Family liaison officer)
-            </label>
-          </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="meetingLead-3" name="meetingLead" type="radio" value="SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))" {{ checked("meetingLead", "SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))") }}>
-            <label class="govuk-label govuk-radios__label" for="meetingLead-3">
-              SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
-            </label>
-          </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="meetingLead-4" name="meetingLead" type="radio" value="PC FISHER, Jane (Police officer in charge)" {{ checked("meetingLead", "PC FISHER, Jane (Police officer in charge)") }}>
-            <label class="govuk-label govuk-radios__label" for="meetingLead-4">
-              PC FISHER, Jane (Police officer in charge)
-            </label>
-          </div>
+            {% endif %}
+          {% endfor %}
         </div>
       </fieldset>
     </div>

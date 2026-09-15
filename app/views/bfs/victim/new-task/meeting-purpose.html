@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/index.html" %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -14,7 +14,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/v60/victim/new-task/meeting-purpose-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()" data-existing-task="{{ data['existingTask'] }}" data-existing-purpose="{{ data['existingMeetingPurpose'] }}" data-current-task="{{ data['nextTask'] }}">
+    <form class="form" action="/bfs/victim/new-task/meeting-purpose-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()" data-existing-task="{{ data['existingTask'] }}" data-existing-purpose="{{ data['existingMeetingPurpose'] }}" data-current-task="{{ data['nextTask'] }}">
 
         <div class="govuk-form-group" id="error-form-group">
             <fieldset class="govuk-fieldset">
@@ -35,30 +35,72 @@
                     </div>
 
                     <div class="govuk-radios__item">
-                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-charging-decision" name="meetingPurpose" value="charging-decision" {{ checked('meetingPurpose','charging-decision') }}>
-                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-charging-decision">
-                            Inform victim about charging decision
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-pre-charge" name="meetingPurpose" value="pre-charge" {{ checked('meetingPurpose','pre-charge') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-pre-charge">
+                          Pre-charge meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-charging-decision-family" name="meetingPurpose" value="charging-decision-family" {{ checked('meetingPurpose','charging-decision-family') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-charging-decision-family">
+                            Inform bereaved family about charging decision
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-conviction" name="meetingPurpose" value="conviction" {{ checked('meetingPurpose','conviction') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-conviction">
+                Conviction meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-sentencing" name="meetingPurpose" value="sentencing" {{ checked('meetingPurpose','sentencing') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-sentencing">
+                      Sentencing meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-acquittal" name="meetingPurpose" value="acquittal" {{ checked('meetingPurpose','acquittal') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-acquittal">
+                    Acquittal meeting
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="meeting-purpose-stopped-altered" name="meetingPurpose" value="stopped-altered" {{ checked('meetingPurpose','stopped-altered') }}>
                         <label class="govuk-label govuk-radios__label" for="meeting-purpose-stopped-altered">
-                            Stopped or substantially altered charge (VCL Scheme)
+                             Stopped or substantially altered charge (VCL Scheme)
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="meeting-purpose-vrr" name="meetingPurpose" value="vrr" {{ checked('meetingPurpose','vrr') }}>
                         <label class="govuk-label govuk-radios__label" for="meeting-purpose-vrr">
-                            Victims' Right to Review (VRR)
+                            Victims' Right to Review (VRR) meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-joint" name="meetingPurpose" value="joint" {{ checked('meetingPurpose','joint') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-joint">
+                Joint CPS and Police meeting
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input type="radio" class="govuk-radios__input" id="meeting-purpose-lesser-offence" name="meetingPurpose" value="lesser-offence" {{ checked('meetingPurpose','lesser-offence') }}>
+                        <label class="govuk-label govuk-radios__label" for="meeting-purpose-lesser-offence">
+                       Lesser offence meeting
                         </label>
                     </div>
 
                     <div class="govuk-radios__item">
                         <input type="radio" class="govuk-radios__input" id="meeting-purpose-complaint" name="meetingPurpose" value="complaint" {{ checked('meetingPurpose','complaint') }}>
                         <label class="govuk-label govuk-radios__label" for="meeting-purpose-complaint">
-                            Victim complaint
+                           Bereaved family complaint meeting
                         </label>
                     </div>
 

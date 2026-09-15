@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/index.html" %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
 {% endblock %}
 
@@ -16,7 +16,7 @@
 
         <h1 class="govuk-heading-l">Set a task for {{ data['victimForename'] }} {{ data['victimSurname'] }}</h1>
 
-        <form action="/v60/victim/new-task/manual-task-answer" method="post">
+        <form action="/bfs/victim/new-task/manual-task-answer" method="post">
             
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-label--m" for="manual-task-name">

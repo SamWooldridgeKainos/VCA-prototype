@@ -1,5 +1,5 @@
-<a href="/bfs/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Log new meeting details<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+<a href="/bfs/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Log new meeting details
 </a>
 
 <hr class="govuk-section-break govuk-section-break--m">
@@ -7,7 +7,7 @@
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-      CPS pre-trial meeting
+      {{ meetingPurpose or "CPS pre-trial meeting" }}
     </h2>
   </div>
   <div class="govuk-summary-card__content">
@@ -17,7 +17,7 @@
           Duration of the meeting
         </dt>
         <dd class="govuk-summary-list__value">
-          3 hours 30 minutes
+          {{ data['meetingDurationHours'] or 0 }} hours {{ data['meetingDurationMinutes'] or 0 }} minutes
         </dd>
 
       </div>
@@ -26,7 +26,17 @@
           Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          PC FISHER, Jane (Police officer in charge), Sarah Phillips's bereaved family, SHEAF, Jessica (High court advocate), BIDWELL, Jane (Family liaison officer), SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
+          {% for attendee in data['attended'] %}{% if attendee != '_unchecked' %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
+        </dd>
+
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Meeting lead
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['chairPerson'] }}
         </dd>
 
       </div>
@@ -36,7 +46,7 @@
           Counsel attended
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes
+          {{ "Yes" if data['counselAttended'] == "yes" else "No" }}
         </dd>
 
       </div>
@@ -46,7 +56,7 @@
           Eligible for expenses
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes
+          {{ "Yes" if data['eligibleForExpenses'] == "yes" else "No" }}
         </dd>
 
       </div>
@@ -56,7 +66,7 @@
           Agreed to research
         </dt>
         <dd class="govuk-summary-list__value">
-          No
+          {% if data['agreedToResearch'] == "yes" %}Yes{% elif data['agreedToResearch'] == "not-asked" %}The question was not asked{% else %}No{% endif %}
         </dd>
 
       </div>
@@ -65,7 +75,7 @@
           Meeting notes
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesSaved'] == "yes" else "No" }} </dd>
 
       </div>
       <div class="govuk-summary-list__row">
@@ -73,7 +83,7 @@
           Meeting notes to OIC
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesToOic'] == "yes" else "No" }} </dd>
 
       </div>
       <div class="govuk-summary-list__row">
@@ -81,7 +91,7 @@
           Meeting notes to victim
         </dt>
         <dd class="govuk-summary-list__value">
-          Yes </dd>
+          {{ "Yes" if data['meetingNotesToVictim'] == "yes" else "No" }} </dd>
 
       </div>
       <div class="govuk-summary-list__row">
@@ -89,7 +99,7 @@
           Actions agreed
         </dt>
         <dd class="govuk-summary-list__value">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum.
+          {% if data['actionsAgreed2'] == "yes" %}{{ data['actionsAgreedDetail'] }}{% else %}No{% endif %}
         </dd>
 
       </div>
@@ -105,60 +115,22 @@
         </span>
       </summary>
       <div class="govuk-details__text">
+        {% include "/bfs/meetings-2/cps-offer/partials/logged-arranged.html" %}
+      </div>
+    </details>
 
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Offer reponses
+        </span>
+      </summary>
+      <div class="govuk-details__text">
 
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Date and time
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  11 April 2025 at 11:45am
-                </dd>
-
-              </div>
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  How meeting will take place
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  In person
-                </dd>
-
-              </div>
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Location
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  Birmingham Magistrates’ Court
-                </dd>
-
-              </div>
-
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Attendees
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  (Meeting lead) PC FISHER, Jane (Police officer in charge), Sarah Phillips's bereaved family, SHEAF, Jessica (High court advocate), BIDWELL, Jane (Family liaison officer), SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))
-                </dd>
-
-              </div>
-
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Support needs
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  Interpreter needed: No, Person for support: Yes
-                  <br>
-                  Other support: Victim will need a room with step free access
-                </dd>
-
-              </div>
-
-            </dl>
+        {% set hideResponseActions = true %}
+        {% include "/bfs/meetings-2/cps-offer/partials/logged-responses.html" %}
+        {% set hideResponseActions = false %}
+      </div>
     </details>
 
     <details class="govuk-details">
@@ -168,53 +140,10 @@
         </span>
       </summary>
       <div class="govuk-details__text">
-        <h3 class="govuk-heading-s">CPS pre-trial meeting offer accepted</h3>
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  How meeting offer was accepted
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  Letter by post
-                </dd>
-
-              </div>
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Date accepted
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  11 April 2025
-                </dd>
-
-              </div>
-
-            </dl>
-
-        <hr class="govuk-section-break govuk-section-break--m">
-
-        <h3 class="govuk-heading-s">CPS pre-trial meeting offered</h3>
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  How offered
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  Letter by post
-                </dd>
-
-              </div>
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Date offered
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  11 April 2025
-                </dd>
-
-              </div>
-
-            </dl>
+        {% set hideNoResponseOffers = true %}
+        {% include "/bfs/meetings-2/cps-offer/partials/logged-offers.html" %}
+        {% set hideNoResponseOffers = false %}
+      </div>
     </details>
   </div>
 

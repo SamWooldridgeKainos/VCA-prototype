@@ -111,6 +111,14 @@
               Victim liaison officer (VLO)
             </label>
           </div>
+          {% for added in data['addedAttendees'] %}
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="attendees-added-{{ loop.index }}" name="attendees" type="checkbox" value="{{ added }}" {{ checked("attendees", added) }}>
+            <label class="govuk-label govuk-checkboxes__label" for="attendees-added-{{ loop.index }}">
+              {{ added }}
+            </label>
+          </div>
+          {% endfor %}
         </div>
       </fieldset>
     </div>

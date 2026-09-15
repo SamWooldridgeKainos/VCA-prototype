@@ -17,7 +17,7 @@
 
     <div data-module="moj-add-another">
       <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Who attended the meeting?</h2>
-      <form method="post">
+      <form method="post" action="/bfs/meetings-2/log-outcome/add-another-answer">
         <fieldset class="govuk-fieldset moj-add-another__item">
           <div class="govuk-form-group">
             <label class="govuk-label govuk-!-font-weight-bold" for="person[0][first_name]">
@@ -37,9 +37,9 @@
 
     <div class="govuk-button-group">
 
-      <a href="who-attended" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
         Add <span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
+      </button>
     </div>
   </div>
   </form>
