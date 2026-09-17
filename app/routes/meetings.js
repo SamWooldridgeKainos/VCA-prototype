@@ -44,13 +44,7 @@ module.exports = router => {
     })
 
     router.post('/logging-answer', function(request, response) {
-
-        var logging = request.session.data['logging']
-        if (logging == "yes"){
-            response.redirect("/v50/meetings-2/purpose2")
-        } else {
-            response.redirect("/v50/meetings-2/purpose")
-        }
+        response.redirect("/v50/meetings-2/purpose")
     })
 
   
@@ -920,12 +914,7 @@ module.exports = router => {
     // v51 meetings — mirror of the v50 flows, redirecting to /v51 pages.
 
     router.post('/v51/logging-answer', function(request, response) {
-        var logging = request.session.data['logging']
-        if (logging == "yes"){
-            response.redirect("/v51/meetings-2/purpose2")
-        } else {
-            response.redirect("/v51/meetings-2/purpose")
-        }
+        response.redirect("/v51/meetings-2/purpose")
     })
 
     router.post('/v51/purpose-answer', function(request, response) {
