@@ -49,7 +49,7 @@
 
         <div class="moj-datepicker" id="meeting-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input{% if dateError %} govuk-input--error{% endif %}" id="meeting-date" name="meetingDate" autocomplete="off" aria-describedby="meeting-date-hint{% if dateError %} meeting-date-error{% endif %}" value="{{ data['meetingDate'] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if dateError %} govuk-input--error{% endif %}" id="meeting-date" name="meetingDate" autocomplete="off" aria-describedby="meeting-date-hint{% if dateError %} meeting-date-error{% endif %}" value="{% if data['changeMode'] == 'true' %}{{ data['meetingDate'] }}{% endif %}" />
         </div>
       </div>
 
@@ -76,7 +76,7 @@
                 <label class="govuk-label govuk-date-input__label" for="meeting-hour">
                   Hour
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-hour" name="meetingHour" type="text" inputmode="numeric" value="{{ data['meetingHour'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-hour" name="meetingHour" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['meetingHour'] }}{% endif %}">
               </div>
             </div>
             <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -88,7 +88,7 @@
                 <label class="govuk-label govuk-date-input__label" for="meeting-minutes">
                   Minutes
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-minutes" name="meetingMinutes" type="text" inputmode="numeric" value="{{ data['meetingMinutes'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if timeError %} govuk-input--error{% endif %}" id="meeting-minutes" name="meetingMinutes" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['meetingMinutes'] }}{% endif %}">
               </div>
             </div>
 

@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "meeting3",
-      value: data['meeting3'],
+      value: data['meeting3'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Did the meeting take place?",

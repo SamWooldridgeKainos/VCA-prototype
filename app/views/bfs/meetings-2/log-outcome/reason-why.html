@@ -24,7 +24,7 @@
     {{ govukTextarea ({
   id: "contact-by-text",
   name: "meetingNotHappenReasonOther",
-  value: data['meetingNotHappenReasonOther'],
+  value: data['meetingNotHappenReasonOther'] if data['changeMode'] == 'true',
   type: "tel",
   autocomplete: "tel",
   classes: "govuk-input--width-20",
@@ -36,7 +36,7 @@
 
     {{ govukRadios({
   name: "meetingNotHappenReason",
-  value: data['meetingNotHappenReason'],
+  value: data['meetingNotHappenReason'] if data['changeMode'] == 'true',
   fieldset: {
     legend: {
       text: "Why did the meeting not take place?",

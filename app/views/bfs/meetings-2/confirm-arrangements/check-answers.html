@@ -57,7 +57,7 @@
           Purpose of meeting
         </dt>
         <dd class="govuk-summary-list__value">
-          CPS pre-trial meeting
+          {{ data['meetingPurpose'] | meetingPurposeLabel(data['meetingPurposeDetails']) }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -68,7 +68,7 @@
           {{ arrangedText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="who-requested-meeting">Change<span class="govuk-visually-hidden"> how the meeting was arranged</span></a>
+          <a class="govuk-link" href="who-requested-meeting?changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting was arranged</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -79,7 +79,7 @@
           {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-date">Change<span class="govuk-visually-hidden"> date and time</span></a>
+          <a class="govuk-link" href="meeting-date?changeMode=true">Change<span class="govuk-visually-hidden"> date and time</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -90,7 +90,7 @@
           {{ formatText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-format">Change<span class="govuk-visually-hidden"> how the meeting will take place</span></a>
+          <a class="govuk-link" href="meeting-format?changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting will take place</span></a>
         </dd>
       </div>
 
@@ -103,7 +103,7 @@
           {{ locationText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-location">Change<span class="govuk-visually-hidden"> where the meeting will be held</span></a>
+          <a class="govuk-link" href="meeting-location?changeMode=true">Change<span class="govuk-visually-hidden"> where the meeting will be held</span></a>
         </dd>
       </div>
       {% endif %}
@@ -116,7 +116,7 @@
           {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="attendees">Change<span class="govuk-visually-hidden"> attendees</span></a>
+          <a class="govuk-link" href="attendees?changeMode=true">Change<span class="govuk-visually-hidden"> attendees</span></a>
         </dd>
       </div>
 
@@ -128,7 +128,7 @@
           {{ data['meetingLead'] }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-lead">Change<span class="govuk-visually-hidden"> meeting lead</span></a>
+          <a class="govuk-link" href="meeting-lead?changeMode=true">Change<span class="govuk-visually-hidden"> meeting lead</span></a>
         </dd>
       </div>
 
@@ -141,7 +141,7 @@
           {% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}<br>{{ data['interpreterDetails'] }}{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="support-needs">Change<span class="govuk-visually-hidden"> interpreter needed</span></a>
+          <a class="govuk-link" href="support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> interpreter needed</span></a>
         </dd>
       </div>
 
@@ -154,7 +154,7 @@
           {% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}<br>{{ data['supportPersonDetails'] }}{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="support-needs">Change<span class="govuk-visually-hidden"> person for support</span></a>
+          <a class="govuk-link" href="support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> person for support</span></a>
         </dd>
       </div>
 
@@ -166,7 +166,7 @@
           {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="support-needs">Change<span class="govuk-visually-hidden"> other support</span></a>
+          <a class="govuk-link" href="support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> other support</span></a>
         </dd>
       </div>
 

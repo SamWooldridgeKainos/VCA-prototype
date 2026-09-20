@@ -2,6 +2,18 @@
 
 module.exports = router => {
 
+    // Pre-population across /bfs/meetings-2 flows is only wanted when the user
+    // arrives via a "Change" link (which carries ?changeMode=true). On every
+    // other GET into the flow we clear the flag so forms render blank.
+    // The kit copies session.data into res.locals.data BEFORE this handler runs,
+    // so both must be updated for templates on this request to see the value.
+    router.get('/bfs/meetings-2/*', function(request, response, next) {
+        var val = request.query.changeMode === 'true' ? 'true' : ''
+        request.session.data['changeMode'] = val
+        response.locals.data.changeMode = val
+        next()
+    })
+
     // meetings
 
     router.post('/v60/wft-meetings/new-task/next-task-answer', function(request, response) {
@@ -33,7 +45,7 @@ module.exports = router => {
     })
 
 
-          router.post('/bfs/meetings-2//meetings-2/logging-answer', function(request, response) {
+          router.post('/bfs/meetings-2/logging-answer', function(request, response) {
 
         var logging = request.session.data['logging']
         if (logging == "yes"){
@@ -743,6 +755,18 @@ module.exports = router => {
     }
 
     // --- Confirm meeting arrangements flow (shared: bfs, v50, v51) ---
+
+    // When a "Change" link on check-answers is used, ?changeMode=true is stored
+    // in the session; each answer route returns to check-answers instead of
+    // advancing the flow.
+    function caChangeReturn(request, response, caBase, nextUrl) {
+        if (request.session.data['changeMode'] === 'true') {
+            request.session.data['changeMode'] = ''
+            return response.redirect(caBase + 'check-answers')
+        }
+        response.redirect(nextUrl)
+    }
+
     function registerConfirmArrangements(caBase) {
 
     router.post(caBase + 'who-requested-meeting-answer', function(request, response) {
@@ -751,7 +775,7 @@ module.exports = router => {
             return response.redirect(caBase + 'who-requested-meeting?meetingRequestedByError=yes')
         }
         data['meetingRequestedByError'] = ''
-        response.redirect(caBase + 'meeting-date')
+        caChangeReturn(request, response, caBase, caBase + 'meeting-date')
     })
 
     router.post(caBase + 'meeting-date-answer', function(request, response) {
@@ -764,7 +788,7 @@ module.exports = router => {
         }
         data['meetingDateError'] = ''
         data['meetingTimeError'] = ''
-        response.redirect(caBase + 'meeting-format')
+        caChangeReturn(request, response, caBase, caBase + 'meeting-format')
     })
 
     router.post(caBase + 'meeting-format-answer', function(request, response) {
@@ -773,10 +797,19 @@ module.exports = router => {
             return response.redirect(caBase + 'meeting-format?meetingFormatError=yes')
         }
         data['meetingFormatError'] = ''
-        if (data['meetingFormat'] == 'virtual'){
-            response.redirect(caBase + 'attendees')
-        } else {
+        var needsLocation = data['meetingFormat'] != 'virtual'
+        if (data['changeMode'] === 'true'){
+            // Changing the format may require a (new) location before returning.
+            if (needsLocation && !data['meetingLocationType']){
+                return response.redirect(caBase + 'meeting-location?changeMode=true')
+            }
+            data['changeMode'] = ''
+            return response.redirect(caBase + 'check-answers')
+        }
+        if (needsLocation){
             response.redirect(caBase + 'meeting-location')
+        } else {
+            response.redirect(caBase + 'attendees')
         }
     })
 
@@ -793,7 +826,7 @@ module.exports = router => {
         }
         data['meetingLocationTypeError'] = ''
         data['meetingLocationDetailError'] = ''
-        response.redirect(caBase + 'attendees')
+        caChangeReturn(request, response, caBase, caBase + 'attendees')
     })
 
     router.post(caBase + 'attendees-answer', function(request, response) {
@@ -803,7 +836,7 @@ module.exports = router => {
             return response.redirect(caBase + 'attendees?attendeesError=yes')
         }
         data['attendeesError'] = ''
-        response.redirect(caBase + 'meeting-lead')
+        caChangeReturn(request, response, caBase, caBase + 'meeting-lead')
     })
 
     router.post(caBase + 'meeting-lead-answer', function(request, response) {
@@ -812,7 +845,7 @@ module.exports = router => {
             return response.redirect(caBase + 'meeting-lead?meetingLeadError=yes')
         }
         data['meetingLeadError'] = ''
-        response.redirect(caBase + 'support-needs')
+        caChangeReturn(request, response, caBase, caBase + 'support-needs')
     })
 
     // Custom attendee added on the attendees page -> becomes a selected attendee
@@ -837,6 +870,7 @@ module.exports = router => {
         }
         data['interpreterNeededError'] = ''
         data['supportPersonNeededError'] = ''
+        data['changeMode'] = ''
         response.redirect(caBase + 'check-answers')
     })
 

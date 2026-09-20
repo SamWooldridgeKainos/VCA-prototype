@@ -12,7 +12,7 @@
   </div>
   <div class="govuk-summary-card__content">
     <p class="govuk-body">
-      No response to the CPS pre-trial meeting offer has been received.
+      No response to the {{ meetingPurpose or "CPS pre-trial meeting" }} offer has been received.
     </p>
 
     {% include "/bfs/meetings-2/cps-offer/partials/no-response-offers.html" %}

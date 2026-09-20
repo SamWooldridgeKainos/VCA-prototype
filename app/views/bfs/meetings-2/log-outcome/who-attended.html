@@ -36,7 +36,7 @@
             {% if attendee != '_unchecked' %}
             {% set attendedIndex = attendedIndex + 1 %}
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="attended-{{ attendedIndex }}" name="attended" type="checkbox" value="{{ attendee }}" {{ checked("attended", attendee) }}>
+            <input class="govuk-checkboxes__input" id="attended-{{ attendedIndex }}" name="attended" type="checkbox" value="{{ attendee }}" {% if data['changeMode'] == 'true' %}{{ checked("attended", attendee) }}{% endif %}>
             <label class="govuk-label govuk-checkboxes__label" for="attended-{{ attendedIndex }}">
               {{ attendee }}
             </label>
@@ -45,7 +45,7 @@
           {% endfor %}
           {% for added in data['addedAttended'] %}
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="attended-added-{{ loop.index }}" name="attended" type="checkbox" value="{{ added }}" {{ checked("attended", added) }}>
+            <input class="govuk-checkboxes__input" id="attended-added-{{ loop.index }}" name="attended" type="checkbox" value="{{ added }}" {% if data['changeMode'] == 'true' %}{{ checked("attended", added) }}{% endif %}>
             <label class="govuk-label govuk-checkboxes__label" for="attended-added-{{ loop.index }}">
               {{ added }}
             </label>

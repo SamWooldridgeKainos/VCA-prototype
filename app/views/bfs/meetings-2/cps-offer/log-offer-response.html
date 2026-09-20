@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "offerResponse",
-      value: data['offerResponse'],
+      value: data['offerResponse'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "What is the response to the meeting offer?",

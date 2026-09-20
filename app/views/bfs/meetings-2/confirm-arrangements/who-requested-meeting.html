@@ -42,17 +42,17 @@
         {
           value: "family",
           text: "A bereaved family member requested it",
-          checked: checked("meetingRequestedBy", "family")
+          checked: checked("meetingRequestedBy", "family") if data['changeMode'] == 'true' else false
         },
         {
           value: "cps",
           text: "CPS offered and the bereaved family accepted",
-          checked: checked("meetingRequestedBy", "cps")
+          checked: checked("meetingRequestedBy", "cps") if data['changeMode'] == 'true' else false
         },
         {
           value: "third-party",
           text: "Requested by a third party",
-          checked: checked("meetingRequestedBy", "third-party"),
+          checked: checked("meetingRequestedBy", "third-party") if data['changeMode'] == 'true' else false,
           hint: {
             "text": "For example, a family liaison officer or another representative"
           }

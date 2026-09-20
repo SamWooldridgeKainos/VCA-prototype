@@ -19,7 +19,7 @@
 
     {{ govukRadios({
       name: "meetingNotesToOic",
-      value: data['meetingNotesToOic'],
+      value: data['meetingNotesToOic'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Have the meeting notes been sent to the Officer in Charge (OIC)?",

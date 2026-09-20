@@ -19,7 +19,7 @@
 
     {{ govukRadios({
       name: "meetingNotesToVictim",
-      value: data['meetingNotesToVictim'],
+      value: data['meetingNotesToVictim'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Have the meeting notes been sent to Sarah Phillips's bereaved family?",

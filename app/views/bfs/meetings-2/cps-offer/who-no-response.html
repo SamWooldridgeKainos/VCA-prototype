@@ -52,7 +52,7 @@
             {% for recipient in recipients %}
             {% if not data['recordaccepted' + loop.index] and not data['recorddeclined' + loop.index] and not data['recordnoresponse' + loop.index] %}
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="no-response-recipient-{{ loop.index }}" name="noResponseRecipients" type="checkbox" value="{{ loop.index }}" {{ checked('noResponseRecipients', loop.index | string) }}>
+              <input class="govuk-checkboxes__input" id="no-response-recipient-{{ loop.index }}" name="noResponseRecipients" type="checkbox" value="{{ loop.index }}" {% if data['changeMode'] == 'true' %}{{ checked('noResponseRecipients', loop.index | string) }}{% endif %}>
               <label class="govuk-label govuk-checkboxes__label" for="no-response-recipient-{{ loop.index }}">
                 {{ recipient }}
               </label>

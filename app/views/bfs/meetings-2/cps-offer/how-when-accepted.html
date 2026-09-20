@@ -46,7 +46,7 @@
 
       {{ govukRadios({
               name: "recordaccepted" + idx,
-              value: data['recordaccepted' + idx],
+              value: data['recordaccepted' + idx] if data['changeMode'] == 'true',
               errorMessage: howErrorMsg,
               fieldset: {
                 legend: {
@@ -99,7 +99,7 @@
 
         <div class="moj-datepicker" id="accept-date-picker-{{ idx }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="accept-date-{{ idx }}" name="acceptDate{{ idx }}" autocomplete="off" aria-describedby="accept-date-hint-{{ idx }}{% if whenError %} accept-date-error-{{ idx }}{% endif %}" value="{{ data['acceptDate' + idx] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="accept-date-{{ idx }}" name="acceptDate{{ idx }}" autocomplete="off" aria-describedby="accept-date-hint-{{ idx }}{% if whenError %} accept-date-error-{{ idx }}{% endif %}" value="{% if data['changeMode'] == 'true' %}{{ data['acceptDate' + idx] }}{% endif %}" />
         </div>
 
       </div>
