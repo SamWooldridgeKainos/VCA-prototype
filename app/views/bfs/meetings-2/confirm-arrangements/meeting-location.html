@@ -41,7 +41,7 @@
       name: "cpsLocation",
       type: "text",
       classes: "govuk-input--width-20",
-      value: data['cpsLocation'],
+      value: data['cpsLocation'] if data['changeMode'] == 'true',
       errorMessage: { text: "Enter which CPS location the meeting will be held" } if (detailError and selectedType == "cps") else undefined,
       label: {
         text: "Which CPS location will the meeting be held?"
@@ -55,7 +55,7 @@
       name: "magistratesLocation",
       type: "text",
       classes: "govuk-input--width-20",
-      value: data['magistratesLocation'],
+      value: data['magistratesLocation'] if data['changeMode'] == 'true',
       errorMessage: { text: "Enter which magistrates' court the meeting will be held" } if (detailError and selectedType == "magistrates") else undefined,
       label: {
         text: "Which magistrates' court will the meeting be held?"
@@ -69,7 +69,7 @@
       name: "crownLocation",
       type: "text",
       classes: "govuk-input--width-20",
-      value: data['crownLocation'],
+      value: data['crownLocation'] if data['changeMode'] == 'true',
       errorMessage: { text: "Enter which crown court the meeting will be held" } if (detailError and selectedType == "crown") else undefined,
       label: {
         text: "Which crown court will the meeting be held?"
@@ -83,7 +83,7 @@
       name: "policeStationLocation",
       type: "text",
       classes: "govuk-input--width-20",
-      value: data['policeStationLocation'],
+      value: data['policeStationLocation'] if data['changeMode'] == 'true',
       errorMessage: { text: "Enter which police station the meeting will be held" } if (detailError and selectedType == "police") else undefined,
       label: {
         text: "Which police station will the meeting be held?"
@@ -96,7 +96,7 @@
       id: "other-location",
       name: "otherLocation",
       classes: "govuk-input--width-20",
-      value: data['otherLocation'],
+      value: data['otherLocation'] if data['changeMode'] == 'true',
       errorMessage: { text: "Enter where the meeting will be held" } if (detailError and selectedType == "other") else undefined,
       label: {
         text: "Where will the meeting be held?"
@@ -118,31 +118,31 @@
         {
           value: "cps",
           text: "CPS location",
-          checked: checked("meetingLocationType", "cps"),
+          checked: checked("meetingLocationType", "cps") if data['changeMode'] == 'true' else false,
           conditional: { html: cpsHtml }
         },
         {
           value: "magistrates",
           text: "Magistrates' court",
-          checked: checked("meetingLocationType", "magistrates"),
+          checked: checked("meetingLocationType", "magistrates") if data['changeMode'] == 'true' else false,
           conditional: { html: magistratesHtml }
         },
         {
           value: "crown",
           text: "Crown court",
-          checked: checked("meetingLocationType", "crown"),
+          checked: checked("meetingLocationType", "crown") if data['changeMode'] == 'true' else false,
           conditional: { html: crownHtml }
         },
         {
           value: "police",
           text: "Police station",
-          checked: checked("meetingLocationType", "police"),
+          checked: checked("meetingLocationType", "police") if data['changeMode'] == 'true' else false,
           conditional: { html: policeHtml }
         },
         {
           value: "other",
           text: "Other",
-          checked: checked("meetingLocationType", "other"),
+          checked: checked("meetingLocationType", "other") if data['changeMode'] == 'true' else false,
           conditional: { html: otherHtml }
         }
       ]

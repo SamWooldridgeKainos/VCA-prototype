@@ -28,21 +28,21 @@
           <div class="govuk-radios" id="radio-group">
 
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-phone" name="attemptToContactAgain" value="Call" {{ checked('attemptToContactAgain','Phone') }}>
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-phone" name="attemptToContactAgain" value="Call" {% if data['changeMode'] == 'true' %}{{ checked('attemptToContactAgain','Phone') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-phone">
                 CPS pre trial meeting
               </label>
             </div>
 
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-email" name="attemptToContactAgain" value="Email" {{ checked('attemptToContactAgain','Email') }} aria-describedby="attempt-to-contact-again-email-hint">
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-email" name="attemptToContactAgain" value="Email" {% if data['changeMode'] == 'true' %}{{ checked('attemptToContactAgain','Email') }}{% endif %} aria-describedby="attempt-to-contact-again-email-hint">
               <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-email">
                 Inform victim about charging decision
               </label>
             </div>
 
             <div class="govuk-radios__item">
-              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-post" name="attemptToContactAgain" value="Post" {{ checked('attemptToContactAgain','Post') }} aria-describedby="attempt-to-contact-again-post-hint">
+              <input type="radio" class="govuk-radios__input" id="attempt-to-contact-again-post" name="attemptToContactAgain" value="Post" {% if data['changeMode'] == 'true' %}{{ checked('attemptToContactAgain','Post') }}{% endif %} aria-describedby="attempt-to-contact-again-post-hint">
               <label class="govuk-label govuk-radios__label" for="attempt-to-contact-again-post">
                 Bereavement meeting
               </label>

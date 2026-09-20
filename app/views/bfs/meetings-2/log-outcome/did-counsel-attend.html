@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "counselAttended",
-      value: data['counselAttended'],
+      value: data['counselAttended'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Did counsel attend the meeting?",

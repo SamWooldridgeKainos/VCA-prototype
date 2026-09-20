@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "eligibleForExpenses",
-      value: data['eligibleForExpenses'],
+      value: data['eligibleForExpenses'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Is Sarah Phillips's bereaved family eligible for expenses?",

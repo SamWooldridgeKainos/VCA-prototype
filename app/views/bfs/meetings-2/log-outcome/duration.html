@@ -33,7 +33,7 @@
                 <label class="govuk-label govuk-date-input__label" for="meeting-duration-hours">
                   Hours
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-hours" name="meetingDurationHours" type="text" inputmode="numeric" value="{{ data['meetingDurationHours'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-hours" name="meetingDurationHours" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['meetingDurationHours'] }}{% endif %}">
               </div>
             </div>
             <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -45,7 +45,7 @@
                 <label class="govuk-label govuk-date-input__label" for="meeting-duration-minutes">
                   Minutes
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-minutes" name="meetingDurationMinutes" type="text" inputmode="numeric" value="{{ data['meetingDurationMinutes'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="meeting-duration-minutes" name="meetingDurationMinutes" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['meetingDurationMinutes'] }}{% endif %}">
               </div>
             </div>
 

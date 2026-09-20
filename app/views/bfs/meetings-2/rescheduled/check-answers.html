@@ -32,7 +32,7 @@
           Purpose of meeting
         </dt>
         <dd class="govuk-summary-list__value">
-          CPS pre-trial meeting
+          {{ data['meetingPurpose'] | meetingPurposeLabel(data['meetingPurposeDetails']) }}
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of birth</span></a>
@@ -57,7 +57,7 @@
           Friday, 11 April 2025 at 11:45am
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-date">Change<span class="govuk-visually-hidden"> customer reference</span></a>
+          <a class="govuk-link" href="meeting-date?changeMode=true">Change<span class="govuk-visually-hidden"> customer reference</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">

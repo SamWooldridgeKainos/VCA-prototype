@@ -42,17 +42,17 @@
         {
           value: "in-person",
           text: "In person",
-          checked: checked("meetingFormat", "in-person")
+          checked: checked("meetingFormat", "in-person") if data['changeMode'] == 'true' else false
         },
         {
           value: "virtual",
           text: "Virtual call",
-          checked: checked("meetingFormat", "virtual")
+          checked: checked("meetingFormat", "virtual") if data['changeMode'] == 'true' else false
         },
         {
           value: "hybrid",
           text: "Hybrid",
-          checked: checked("meetingFormat", "hybrid"),
+          checked: checked("meetingFormat", "hybrid") if data['changeMode'] == 'true' else false,
           hint: {
             text: "Some people will attend in person and others will join virtually"
           }

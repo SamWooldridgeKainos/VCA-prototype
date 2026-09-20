@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "agreedToResearch",
-      value: data['agreedToResearch'],
+      value: data['agreedToResearch'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Did Sarah Phillips's bereaved family agree to be contacted for research?",

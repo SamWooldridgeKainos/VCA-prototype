@@ -24,7 +24,7 @@
       {{ govukTextarea({
         id: "contact-by-email",
         name: "actionsAgreedDetail",
-        value: data['actionsAgreedDetail'],
+        value: data['actionsAgreedDetail'] if data['changeMode'] == 'true',
         type: "text",
         autocomplete: "email",
         spellcheck: false,
@@ -63,7 +63,7 @@
 
       {{ govukRadios({
         name: "actionsAgreed2",
-        value: data['actionsAgreed2'],
+        value: data['actionsAgreed2'] if data['changeMode'] == 'true',
         fieldset: {
           legend: {
             text: "Were any actions agreed?",

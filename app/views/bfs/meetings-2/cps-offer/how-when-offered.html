@@ -52,37 +52,37 @@
           {% endif %}
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-1" name="howoffered{{ person }}" type="radio" value="telephone" {{ checked('howoffered' + person, 'telephone') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-1" name="howoffered{{ person }}" type="radio" value="telephone" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'telephone') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-1">
                 By telephone
               </label>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-2" name="howoffered{{ person }}" type="radio" value="letter-post" {{ checked('howoffered' + person, 'letter-post') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-2" name="howoffered{{ person }}" type="radio" value="letter-post" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'letter-post') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-2">
                 By post
               </label>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-3" name="howoffered{{ person }}" type="radio" value="letter-email" {{ checked('howoffered' + person, 'letter-email') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-3" name="howoffered{{ person }}" type="radio" value="letter-email" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'letter-email') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-3">
                 By email
               </label>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-4" name="howoffered{{ person }}" type="radio" value="letter-flo" {{ checked('howoffered' + person, 'letter-flo') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-4" name="howoffered{{ person }}" type="radio" value="letter-flo" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'letter-flo') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-4">
                 Via family liaison officer
               </label>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-5" name="howoffered{{ person }}" type="radio" value="letter-police" {{ checked('howoffered' + person, 'letter-police') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-5" name="howoffered{{ person }}" type="radio" value="letter-police" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'letter-police') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-5">
                 Via police
               </label>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="howoffered-{{ person }}-6" name="howoffered{{ person }}" type="radio" value="letter-isva" {{ checked('howoffered' + person, 'letter-isva') }}>
+              <input class="govuk-radios__input" id="howoffered-{{ person }}-6" name="howoffered{{ person }}" type="radio" value="letter-isva" {% if data['changeMode'] == 'true' %}{{ checked('howoffered' + person, 'letter-isva') }}{% endif %}>
               <label class="govuk-label govuk-radios__label" for="howoffered-{{ person }}-6">
                 Via ISVA
               </label>
@@ -108,7 +108,7 @@
 
         <div class="moj-datepicker" id="offer-date-picker-{{ person }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="offer-date-{{ person }}" name="offerDate{{ person }}" autocomplete="off" aria-describedby="offer-date-hint-{{ person }}{% if whenError %} offer-date-error-{{ person }}{% endif %}" value="{{ data['offerDate' + person] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="offer-date-{{ person }}" name="offerDate{{ person }}" autocomplete="off" aria-describedby="offer-date-hint-{{ person }}{% if whenError %} offer-date-error-{{ person }}{% endif %}" value="{% if data['changeMode'] == 'true' %}{{ data['offerDate' + person] }}{% endif %}" />
         </div>
 
       </div>

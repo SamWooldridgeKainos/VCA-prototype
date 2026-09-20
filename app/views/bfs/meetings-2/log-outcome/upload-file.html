@@ -19,7 +19,7 @@
 
     {{ govukRadios({
       name: "meetingNotesSaved",
-      value: data['meetingNotesSaved'],
+      value: data['meetingNotesSaved'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Have meeting notes been saved in CMS?",
