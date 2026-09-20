@@ -61,7 +61,7 @@
 
         <div class="moj-datepicker" id="no-response-date-picker-{{ idx }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="no-response-date-{{ idx }}" name="noResponseDate{{ idx }}" autocomplete="off" aria-describedby="no-response-date-hint-{{ idx }}{% if whenError %} no-response-date-error-{{ idx }}{% endif %}" value="{{ data['noResponseDate' + idx] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="no-response-date-{{ idx }}" name="noResponseDate{{ idx }}" autocomplete="off" aria-describedby="no-response-date-hint-{{ idx }}{% if whenError %} no-response-date-error-{{ idx }}{% endif %}" value="{% if data['changeMode'] == 'true' %}{{ data['noResponseDate' + idx] }}{% endif %}" />
         </div>
 
       </div>

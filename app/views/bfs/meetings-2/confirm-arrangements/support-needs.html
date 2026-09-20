@@ -46,7 +46,7 @@
         {% endif %}
         <div class="govuk-radios" data-module="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="interpreterNeeded" name="interpreterNeeded" type="radio" value="yes" data-aria-controls="conditional-interpreter" {{ checked("interpreterNeeded", "yes") }}>
+            <input class="govuk-radios__input" id="interpreterNeeded" name="interpreterNeeded" type="radio" value="yes" data-aria-controls="conditional-interpreter" {% if data['changeMode'] == 'true' %}{{ checked("interpreterNeeded", "yes") }}{% endif %}>
             <label class="govuk-label govuk-radios__label" for="interpreterNeeded">
               Yes
             </label>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="interpreterNeeded-2" name="interpreterNeeded" type="radio" value="no" {{ checked("interpreterNeeded", "no") }}>
+            <input class="govuk-radios__input" id="interpreterNeeded-2" name="interpreterNeeded" type="radio" value="no" {% if data['changeMode'] == 'true' %}{{ checked("interpreterNeeded", "no") }}{% endif %}>
             <label class="govuk-label govuk-radios__label" for="interpreterNeeded-2">
               No
             </label>
@@ -81,7 +81,7 @@
         {% endif %}
         <div class="govuk-radios" data-module="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="supportPersonNeeded" name="supportPersonNeeded" type="radio" value="yes" data-aria-controls="conditional-support" {{ checked("supportPersonNeeded", "yes") }}>
+            <input class="govuk-radios__input" id="supportPersonNeeded" name="supportPersonNeeded" type="radio" value="yes" data-aria-controls="conditional-support" {% if data['changeMode'] == 'true' %}{{ checked("supportPersonNeeded", "yes") }}{% endif %}>
             <label class="govuk-label govuk-radios__label" for="supportPersonNeeded">
               Yes
             </label>
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="supportPersonNeeded-2" name="supportPersonNeeded" type="radio" value="no" {{ checked("supportPersonNeeded", "no") }}>
+            <input class="govuk-radios__input" id="supportPersonNeeded-2" name="supportPersonNeeded" type="radio" value="no" {% if data['changeMode'] == 'true' %}{{ checked("supportPersonNeeded", "no") }}{% endif %}>
             <label class="govuk-label govuk-radios__label" for="supportPersonNeeded-2">
               No
             </label>

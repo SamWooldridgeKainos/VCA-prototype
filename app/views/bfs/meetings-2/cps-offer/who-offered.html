@@ -47,19 +47,19 @@
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <input type="hidden" name="offerRecipients" value="_unchecked">
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="offer-recipient-1" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret" {{ checked('offerRecipients', (data['victimSurname'] | upper) + ', Margaret') }}>
+              <input class="govuk-checkboxes__input" id="offer-recipient-1" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', (data['victimSurname'] | upper) + ', Margaret') }}{% endif %}>
               <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-1">
                 {{ data['victimSurname'] | upper }}, Margaret (Mother)
               </label>
             </div>
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="offer-recipient-2" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, David" {{ checked('offerRecipients', (data['victimSurname'] | upper) + ', David') }}>
+              <input class="govuk-checkboxes__input" id="offer-recipient-2" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, David" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', (data['victimSurname'] | upper) + ', David') }}{% endif %}>
               <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-2">
                 {{ data['victimSurname'] | upper }}, David (Father)
               </label>
             </div>
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="offer-recipient-3" name="offerRecipients" type="checkbox" value="CARTER, Emma" {{ checked('offerRecipients', 'CARTER, Emma') }}>
+              <input class="govuk-checkboxes__input" id="offer-recipient-3" name="offerRecipients" type="checkbox" value="CARTER, Emma" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', 'CARTER, Emma') }}{% endif %}>
               <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-3">
                 CARTER, Emma (Sister)
               </label>

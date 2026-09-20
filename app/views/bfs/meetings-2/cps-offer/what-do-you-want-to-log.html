@@ -18,7 +18,7 @@
 
       {{ govukRadios({
       name: "logging2",
-      value: data['logging2'],
+      value: data['logging2'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "What do you want to log?",

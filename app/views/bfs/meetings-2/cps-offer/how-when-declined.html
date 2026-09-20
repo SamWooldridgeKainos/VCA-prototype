@@ -46,7 +46,7 @@
 
       {{ govukRadios({
               name: "recorddeclined" + idx,
-              value: data['recorddeclined' + idx],
+              value: data['recorddeclined' + idx] if data['changeMode'] == 'true',
               errorMessage: howErrorMsg,
               fieldset: {
                 legend: {
@@ -99,7 +99,7 @@
 
         <div class="moj-datepicker" id="decline-date-picker-{{ idx }}" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="decline-date-{{ idx }}" name="declineDate{{ idx }}" autocomplete="off" aria-describedby="decline-date-hint-{{ idx }}{% if whenError %} decline-date-error-{{ idx }}{% endif %}" value="{{ data['declineDate' + idx] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input{% if whenError %} govuk-input--error{% endif %}" id="decline-date-{{ idx }}" name="declineDate{{ idx }}" autocomplete="off" aria-describedby="decline-date-hint-{{ idx }}{% if whenError %} decline-date-error-{{ idx }}{% endif %}" value="{% if data['changeMode'] == 'true' %}{{ data['declineDate' + idx] }}{% endif %}" />
         </div>
 
       </div>

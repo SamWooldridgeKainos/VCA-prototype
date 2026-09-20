@@ -1,0 +1,35 @@
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose or "CPS pre-trial meeting" }}
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Not yet logged
+        </dd>
+      </div>
+      {% if data['taskDueDate'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Due date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['taskDueDate'] | formatDate }}
+        </dd>
+      </div>
+      {% endif %}
+    </dl>
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    <a href="/bfs/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+        Log meeting details<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+    </a>
+  </div>
+</div>

@@ -28,7 +28,7 @@
             {% if attendee != '_unchecked' %}
             {% set chairIndex = chairIndex + 1 %}
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="chairPerson{% if chairIndex > 1 %}-{{ chairIndex }}{% endif %}" name="chairPerson" type="radio" value="{{ attendee }}" {{ checked("chairPerson", attendee) }}>
+            <input class="govuk-radios__input" id="chairPerson{% if chairIndex > 1 %}-{{ chairIndex }}{% endif %}" name="chairPerson" type="radio" value="{{ attendee }}" {% if data['changeMode'] == 'true' %}{{ checked("chairPerson", attendee) }}{% endif %}>
             <label class="govuk-label govuk-radios__label" for="chairPerson{% if chairIndex > 1 %}-{{ chairIndex }}{% endif %}">
               {{ attendee }}
             </label>

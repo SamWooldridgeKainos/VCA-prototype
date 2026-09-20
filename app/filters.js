@@ -121,3 +121,24 @@ addFilter('sortPcdDecisions', decisions => {
     return (b.loggedAt || 0) - (a.loggedAt || 0)
   })
 })
+
+// Map a meetingPurpose code to its display label. Pass meetingPurposeDetails as
+// the second argument so "other" resolves to the free-text description.
+addFilter('meetingPurposeLabel', (purpose, details) => {
+  const labels = {
+    'pre-trial': 'CPS pre-trial meeting',
+    'pre-charge': 'Pre-charge meeting',
+    'charging-decision': 'Inform victim about charging decision',
+    'charging-decision-family': 'Inform bereaved family about charging decision',
+    'conviction': 'Conviction meeting',
+    'sentencing': 'Sentencing meeting',
+    'acquittal': 'Acquittal meeting',
+    'stopped-altered': 'Stopped or substantially altered charge (VCL Scheme)',
+    'vrr': "Victims' Right to Review (VRR)",
+    'joint': 'Joint CPS and Police meeting',
+    'lesser-offence': 'Lesser offence meeting',
+    'complaint': 'Bereaved family complaint',
+    'other': details || 'Other'
+  }
+  return labels[purpose] || 'CPS pre-trial meeting'
+})

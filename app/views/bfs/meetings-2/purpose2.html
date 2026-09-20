@@ -23,7 +23,7 @@
       {{ govukTextarea({
         id: "meeting-purpose-details",
         name: "meetingPurposeDetails",
-        value: data['meetingPurposeDetails'],
+        value: data['meetingPurposeDetails'] if data['changeMode'] == 'true',
         type: "text",
         spellcheck: false,
         classes: "govuk-input--width-20",
@@ -35,7 +35,7 @@
 
       {{ govukRadios({
       name: "meetingPurpose",
-      value: data['meetingPurpose'],
+      value: data['meetingPurpose'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "What is the purpose of the meeting?",

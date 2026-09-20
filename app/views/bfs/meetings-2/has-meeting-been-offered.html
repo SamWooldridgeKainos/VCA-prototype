@@ -19,7 +19,7 @@
 
       {{ govukRadios({
       name: "offered",
-      value: data['offered'],
+      value: data['offered'] if data['changeMode'] == 'true',
       fieldset: {
         legend: {
           text: "Has Sarah Phillips's bereaved family been offered a meeting?",

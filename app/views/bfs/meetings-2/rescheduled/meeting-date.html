@@ -29,7 +29,7 @@
 
         <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date-2" name="telephoneCallDate2" autocomplete="off" aria-describedby="telephone-call-date-hint-2" value="{{ data['telephoneCallDate2'] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date-2" name="telephoneCallDate2" autocomplete="off" aria-describedby="telephone-call-date-hint-2" value="{% if data['changeMode'] == 'true' %}{{ data['telephoneCallDate2'] }}{% endif %}" />
         </div>
       </div>
 

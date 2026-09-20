@@ -2,14 +2,11 @@
 {% set meetingState = data['meetingState'] %}
 {% set knownMeetingStates = ['arranged', 'offered', 'offered-multi', 'no-response', 'not-offered', 'responses', 'outcome', 'outcome-no', 'rescheduled', 'cancelled'] %}
 
-{# Summary card title = purpose of this meeting (set in the onboarding / task creation journey via meetingPurpose). #}
-{% if data['meetingPurpose'] == "pre-trial" %}{% set meetingPurposeTitle = "CPS pre-trial meeting" %}
-{% elif data['meetingPurpose'] == "charging-decision" %}{% set meetingPurposeTitle = "Inform victim about charging decision" %}
-{% elif data['meetingPurpose'] == "stopped-altered" %}{% set meetingPurposeTitle = "Stopped or substantially altered charge (VCL Scheme)" %}
-{% elif data['meetingPurpose'] == "vrr" %}{% set meetingPurposeTitle = "Victims' Right to Review (VRR)" %}
-{% elif data['meetingPurpose'] == "complaint" %}{% set meetingPurposeTitle = "Victim complaint" %}
-{% elif data['meetingPurpose'] == "other" %}{% set meetingPurposeTitle = data['meetingPurposeDetails'] %}
-{% else %}{% set meetingPurposeTitle = "CPS pre-trial meeting" %}{% endif %}
+{# A meeting task created during onboarding / task creation that has not been logged yet. #}
+{% set hasPendingMeetingTask = data['existingTask'] in ['meeting-offer', 'meeting-arranged', 'meeting-outcome'] %}
+
+{# Summary card title = purpose of this meeting (set in the onboarding / task creation journey via data['meetingPurpose']). #}
+{% set meetingPurpose = data['meetingPurpose'] | meetingPurposeLabel(data['meetingPurposeDetails']) %}
 
 {% if data['meetingSuccess'] == 'yes' and meetingState in knownMeetingStates %}
 <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -21,27 +18,27 @@
   <div class="govuk-notification-banner__content">
     <h3 class="govuk-notification-banner__heading">
       {% if meetingState == 'arranged' %}
-        CPS pre-trial meeting arranged.
+        {{ meetingPurpose }} arranged.
       {% elif meetingState == 'offered' or meetingState == 'offered-multi' %}
-        CPS pre-trial meeting offer logged.
+        {{ meetingPurpose }} offer logged.
       {% elif meetingState == 'no-response' %}
-        No response was logged for the CPS pre-trial meeting offer.
+        No response was logged for the {{ meetingPurpose }} offer.
       {% elif meetingState == 'not-offered' %}
-        CPS pre-trial meeting not offered.
+        {{ meetingPurpose }} not offered.
       {% elif meetingState == 'responses' %}
         {% if data['lastResponseType'] == 'declined' %}
-          CPS pre-trial meeting offer declined.
+          {{ meetingPurpose }} offer declined.
         {% elif data['lastResponseType'] == 'no-response' %}
-          No response to the CPS pre-trial meeting offer was logged.
+          No response to the {{ meetingPurpose }} offer was logged.
         {% else %}
-          CPS pre-trial meeting offer accepted.
+          {{ meetingPurpose }} offer accepted.
         {% endif %}
       {% elif meetingState == 'outcome' or meetingState == 'outcome-no' %}
-        CPS pre-trial meeting outcome logged.
+        {{ meetingPurpose }} outcome logged.
       {% elif meetingState == 'rescheduled' %}
-        CPS pre-trial meeting details changed.
+        {{ meetingPurpose }} details changed.
       {% elif meetingState == 'cancelled' %}
-        CPS pre-trial meeting cancelled.
+        {{ meetingPurpose }} cancelled.
       {% endif %}
     </h3>
   </div>
@@ -70,6 +67,8 @@
   {% include "/bfs/victim/pre-trial/states/rescheduled.html" %}
 {% elif meetingState == 'cancelled' %}
   {% include "/bfs/victim/pre-trial/states/cancelled.html" %}
+{% elif hasPendingMeetingTask %}
+  {% include "/bfs/victim/pre-trial/states/pending.html" %}
 {% else %}
   {% include "/bfs/victim/pre-trial/states/none.html" %}
 {% endif %}
