@@ -46,7 +46,7 @@
             {% if attendee != '_unchecked' %}
             {% set radioIndex = radioIndex + 1 %}
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="meetingLead{% if radioIndex > 1 %}-{{ radioIndex }}{% endif %}" name="meetingLead" type="radio" value="{{ attendee }}" {% if data['changeMode'] == 'true' %}{{ checked("meetingLead", attendee) }}{% endif %}>
+            <input class="govuk-radios__input" id="meetingLead{% if radioIndex > 1 %}-{{ radioIndex }}{% endif %}" name="meetingLead" type="radio" value="{{ attendee }}" {{ checked("meetingLead", attendee) }}>
             <label class="govuk-label govuk-radios__label" for="meetingLead{% if radioIndex > 1 %}-{{ radioIndex }}{% endif %}">
               {{ attendee }}
             </label>
@@ -57,9 +57,9 @@
       </fieldset>
     </div>
 
-    <a href="add-meeting-lead" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+    <button type="submit" formaction="/bfs/meetings-2/confirm-arrangements/meeting-lead-add-another" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
       Add another person <span class="govuk-visually-hidden"> </span>
-    </a>
+    </button>
 
     <hr class="govuk-section-break govuk-section-break--m">
 

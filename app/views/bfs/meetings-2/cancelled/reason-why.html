@@ -14,94 +14,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    {% from "govuk/components/radios/macro.njk" import govukRadios %}
-    {% from "govuk/components/input/macro.njk" import govukInput %}
-
-    {% set emailHtml %}
-    {{ govukInput({
-  id: "contact-by-email",
-  name: "contactByEmail",
-  type: "email",
-  autocomplete: "email",
-  spellcheck: false,
-  classes: "govuk-!-width-one-third",
-  label: {
-    text: "Email address"
-  }
-}) }}
+    {% set otherHtml %}
+    {{ govukTextarea({
+      id: "cancel-reason-other",
+      name: "cancelReasonOther",
+      label: { text: "Provide details" }
+    }) }}
     {% endset -%}
 
-    {% set phoneHtml %}
-    {{ govukInput({
-  id: "contact-by-phone",
-  name: "contactByPhone",
-  type: "tel",
-  autocomplete: "tel",
-  classes: "govuk-!-width-one-third",
-  label: {
-    text: "Phone number"
-  }
-}) }}
-    {% endset -%}
+    <form action="/bfs/meetings-2/cancelled/reason-why-answer" method="post" accept-charset="UTF-8">
 
-    {% set textHtml %}
-    {{ govukTextarea ({
-  id: "contact-by-text",
-  name: "contactByText",
-  type: "tel",
-  autocomplete: "tel",
-  classes: "govuk-input--width-20",
-  label: {
-    text: "Provide details"
-  }
-}) }}
-    {% endset -%}
+      {{ govukRadios({
+        name: "cancelReason",
+        fieldset: {
+          legend: {
+            text: "What is the reason for cancelling the meeting?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          { value: "Sarah Phillips's bereaved family withdrew", text: "Sarah Phillips's bereaved family withdrew" },
+          { value: "Meeting created in error", text: "Meeting created in error" },
+          { value: "Change of court date", text: "Change of court date" },
+          { value: "No longer required", text: "No longer required" },
+          {
+            value: "Other",
+            text: "Other",
+            conditional: {
+              html: otherHtml
+            }
+          }
+        ]
+      }) }}
 
-    {{ govukRadios({
-  name: "contact",
-  fieldset: {
-    legend: {
-      text: "What is the reason for cancelling the meeting?",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-
-  items: [
-    {
-      value: "email",
-      text: "Sarah Phillips's bereaved family withdrew"
-
-
-    },
-    {
-      value: "phone",
-      text: "Meeting created in error"
-    },
-     {
-      value: "phone",
-      text: "Change of court date"
-    },
-    {
-      value: "phone",
-      text: "No longer required"
-    },
-    {
-      value: "text",
-      text: "Other",
-      conditional: {
-        html: textHtml
-      }
-    }
-  ]
-}) }}
-
-    <div class="govuk-button-group">
-
-      <a href="/bfs/victim/index?secondaryNav=ptm&meetingState=cancelled&meetingSuccess=yes#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-        Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
-    </div>
+      <div class="govuk-button-group">
+        {{ govukButton({ text: "Continue" }) }}
+      </div>
     </form>
   </div>
 </div>

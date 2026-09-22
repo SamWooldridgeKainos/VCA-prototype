@@ -14,90 +14,42 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    {% from "govuk/components/radios/macro.njk" import govukRadios %}
-    {% from "govuk/components/input/macro.njk" import govukInput %}
-
-    {% set emailHtml %}
-    {{ govukInput({
-  id: "contact-by-email",
-  name: "contactByEmail",
-  type: "email",
-  autocomplete: "email",
-  spellcheck: false,
-  classes: "govuk-!-width-one-third",
-  label: {
-    text: "Email address"
-  }
-}) }}
+    {% set otherHtml %}
+    {{ govukTextarea({
+      id: "reschedule-reason-other",
+      name: "rescheduleReasonOther",
+      label: { text: "Provide details" }
+    }) }}
     {% endset -%}
 
-    {% set phoneHtml %}
-    {{ govukInput({
-  id: "contact-by-phone",
-  name: "contactByPhone",
-  type: "tel",
-  autocomplete: "tel",
-  classes: "govuk-!-width-one-third",
-  label: {
-    text: "Phone number"
-  }
-}) }}
-    {% endset -%}
+    <form action="/bfs/meetings-2/rescheduled/reason-why-answer" method="post" accept-charset="UTF-8">
 
-    {% set textHtml %}
-    {{ govukTextarea ({
-  id: "contact-by-text",
-  name: "contactByText",
-  type: "tel",
-  autocomplete: "tel",
-  classes: "govuk-input--width-20",
-  label: {
-    text: "Provide details"
-  }
-}) }}
-    {% endset -%}
+      {{ govukRadios({
+        name: "rescheduleReason",
+        fieldset: {
+          legend: {
+            text: "What is the reason for changing the date and time?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          { value: "Sarah Phillips's bereaved family not available", text: "Sarah Phillips's bereaved family not available" },
+          { value: "Attendee not available", text: "Attendee not available" },
+          { value: "Incorrect meeting date", text: "Incorrect meeting date" },
+          {
+            value: "Other",
+            text: "Other",
+            conditional: {
+              html: otherHtml
+            }
+          }
+        ]
+      }) }}
 
-    {{ govukRadios({
-  name: "contact",
-  fieldset: {
-    legend: {
-      text: "What is the reason for changing the date and time?",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-
-  items: [
-    {
-      value: "email",
-      text: "Sarah Phillips's bereaved family not available"
-
-
-    },
-    {
-      value: "phone",
-      text: "Attendee not available"
-    },
-    {
-      value: "phone",
-      text: "Incorrect meeting date"
-    },
-    {
-      value: "text",
-      text: "Other",
-      conditional: {
-        html: textHtml
-      }
-    }
-  ]
-}) }}
-
-    <div class="govuk-button-group">
-
-      <a href="check-answers2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-        Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
-    </div>
+      <div class="govuk-button-group">
+        {{ govukButton({ text: "Continue" }) }}
+      </div>
     </form>
   </div>
 </div>

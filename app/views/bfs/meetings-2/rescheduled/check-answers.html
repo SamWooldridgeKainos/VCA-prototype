@@ -14,17 +14,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <h1 class="govuk-heading-l">Check your answers before changing</h1>
+    {% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+
+    {% if data['meetingRequestedBy'] == "family" %}
+      {% set arrangedText = victimName + "'s bereaved family requested it" %}
+    {% elif data['meetingRequestedBy'] == "cps" %}
+      {% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}
+    {% elif data['meetingRequestedBy'] == "third-party" %}
+      {% set arrangedText = "Requested by a third party" %}
+    {% else %}
+      {% set arrangedText = "" %}
+    {% endif %}
+
+    {% if data['meetingFormat'] == "in-person" %}{% set formatText = "In person" %}
+    {% elif data['meetingFormat'] == "virtual" %}{% set formatText = "Virtual call" %}
+    {% elif data['meetingFormat'] == "hybrid" %}{% set formatText = "Hybrid" %}
+    {% else %}{% set formatText = "" %}{% endif %}
+
+    {% if data['meetingLocationType'] == "cps" %}{% set locationText = data['cpsLocation'] %}
+    {% elif data['meetingLocationType'] == "magistrates" %}{% set locationText = data['magistratesLocation'] %}
+    {% elif data['meetingLocationType'] == "crown" %}{% set locationText = data['crownLocation'] %}
+    {% elif data['meetingLocationType'] == "police" %}{% set locationText = data['policeStationLocation'] %}
+    {% elif data['meetingLocationType'] == "other" %}{% set locationText = data['otherLocation'] %}
+    {% else %}{% set locationText = "" %}{% endif %}
+
+    {% set attendeesList = data['attendees'] %}
+    {% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+
+    {% set caBase = "/bfs/meetings-2/confirm-arrangements/" %}
+
+    <h1 class="govuk-heading-l">Check your answers before changing the meeting</h1>
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Victim
         </dt>
         <dd class="govuk-summary-list__value">
-          Sarah Phillips (Deceased)
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
+          {{ victimName }} (Deceased)
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -34,19 +60,16 @@
         <dd class="govuk-summary-list__value">
           {{ data['meetingPurpose'] | meetingPurposeLabel(data['meetingPurposeDetails']) }}
         </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of birth</span></a>
-        </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           How meeting was arranged
         </dt>
         <dd class="govuk-summary-list__value">
-          CPS offered and Sarah Phillips's bereaved family accepted
+          {{ arrangedText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of birth</span></a>
+          <a class="govuk-link" href="{{ caBase }}who-requested-meeting?changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting was arranged</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -54,10 +77,10 @@
           Date and time
         </dt>
         <dd class="govuk-summary-list__value">
-          Friday, 11 April 2025 at 11:45am
+          {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="meeting-date?changeMode=true">Change<span class="govuk-visually-hidden"> customer reference</span></a>
+          <a class="govuk-link" href="{{ caBase }}meeting-date?changeMode=true">Change<span class="govuk-visually-hidden"> date and time</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -65,41 +88,37 @@
           How meeting will take place
         </dt>
         <dd class="govuk-summary-list__value">
-          In person
+          {{ formatText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> address</span></a>
+          <a class="govuk-link" href="{{ caBase }}meeting-format?changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting will take place</span></a>
         </dd>
       </div>
 
+      {% if locationText %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Where meetng will be held
+          Where meeting will be held
         </dt>
         <dd class="govuk-summary-list__value">
-          Birmingham Magistrates’ Court
+          {{ locationText }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="{{ caBase }}meeting-location?changeMode=true">Change<span class="govuk-visually-hidden"> where the meeting will be held</span></a>
         </dd>
-
       </div>
+      {% endif %}
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">Sarah Phillips's bereaved family</p>
-          <p class="govuk-body">SHEAF, Jessica (High court advocate)</p>
-          <p class="govuk-body">BIDWELL, Jane (Family liaison officer)</p>
-          <p class="govuk-body">SAKAMOTO, Hadji (Independent domestic violence adviser (IDVA))</p>
-          <p class="govuk-body">PC FISHER, Jane (Police officer in charge)</p>
+          {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="{{ caBase }}attendees?changeMode=true">Change<span class="govuk-visually-hidden"> attendees</span></a>
         </dd>
-
       </div>
 
       <div class="govuk-summary-list__row">
@@ -107,38 +126,58 @@
           Meeting lead
         </dt>
         <dd class="govuk-summary-list__value">
-          PC FISHER, Jane (Police officer in charge)
+          {{ data['meetingLead'] }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="{{ caBase }}meeting-lead?changeMode=true">Change<span class="govuk-visually-hidden"> meeting lead</span></a>
         </dd>
-
       </div>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Support needs
+          Interpreter needed
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">Interpreter needed: No</p>
-          <p class="govuk-body">Person for support: Yes</p>
-          <p class="govuk-body">Other support: Victim's family will need a room with step free access</p>
-
+          {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}
+          {% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}<br>{{ data['interpreterDetails'] }}{% endif %}
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
+          <a class="govuk-link" href="{{ caBase }}support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> interpreter needed</span></a>
         </dd>
+      </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Person for support
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}
+          {% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}<br>{{ data['supportPersonDetails'] }}{% endif %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ caBase }}support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> person for support</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Other support
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ caBase }}support-needs?changeMode=true">Change<span class="govuk-visually-hidden"> other support</span></a>
+        </dd>
       </div>
 
     </dl>
 
-    <div class="govuk-button-group">
-
-      <a href="/bfs/victim/index?secondaryNav=ptm&meetingState=rescheduled&meetingSuccess=yes#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-        Confirm details <span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-      </a>
-    </div>
+    <form class="form" action="/bfs/meetings-2/rescheduled/check-answers-answer" method="post">
+      {{ govukButton({
+        text: "Confirm details"
+      }) }}
+    </form>
 
   </div>
 </div>
