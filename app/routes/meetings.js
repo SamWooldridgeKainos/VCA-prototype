@@ -743,9 +743,12 @@ module.exports = router => {
         var selected = [].concat(data[selectedKey] || []).filter(function(p){ return p && p !== '_unchecked' })
         persons.forEach(function(p){
             if (!p) return
-            var name = (p.first_name || '').trim()
-            var role = (p.last_name || '').trim()
-            if (!name && !role) return
+            var first = (p.first_name || '').trim()
+            var last = (p.last_name || '').trim()
+            var role = (p.role || '').trim()
+            if (!first && !last && !role) return
+            // Display as "LASTNAME, Firstname" to match the predefined options.
+            var name = last ? (last.toUpperCase() + (first ? ', ' + first : '')) : first
             var label = role ? (name + ' (' + role + ')') : name
             if (pool.indexOf(label) === -1) pool.push(label)
             if (selected.indexOf(label) === -1) selected.push(label)
@@ -756,18 +759,89 @@ module.exports = router => {
 
     // --- Confirm meeting arrangements flow (shared: bfs, v50, v51) ---
 
+    // The reschedule flow reuses the confirm-arrangements edit pages. When the
+    // user is rescheduling, changeMode edits must return to the reschedule
+    // check-answers page (not confirm-arrangements) and mark that a change was made.
+    var rescheduleCheckAnswers = '/bfs/meetings-2/rescheduled/check-answers'
+
+    // Arriving on the reschedule check-answers page. ?start=true means a fresh
+    // entry from the arranged/rescheduled state, so reset the "changed" flag and
+    // snapshot the current arrangement into previous_* keys so the rescheduled
+    // view can show what was previously arranged.
+    var rescheduleSnapshotKeys = ['meetingDate','meetingHour','meetingMinutes','meetingRequestedBy','meetingFormat','meetingLocationType','cpsLocation','magistratesLocation','crownLocation','policeStationLocation','otherLocation','attendees','meetingLead','interpreterNeeded','interpreterDetails','supportPersonNeeded','supportPersonDetails','otherSupportNeeds']
+    router.get(rescheduleCheckAnswers, function(request, response, next) {
+        var data = request.session.data
+        if (request.query.start === 'true') {
+            data['rescheduleChanged'] = ''
+            rescheduleSnapshotKeys.forEach(function(key){
+                data['previous_' + key] = data[key]
+            })
+        }
+        data['rescheduleMode'] = 'true'
+        next()
+    })
+
+    // Confirm the (possibly unchanged) reschedule details. Only when a change
+    // was made do we ask for a reason before returning to the Meetings sub-tab.
+    router.post('/bfs/meetings-2/rescheduled/check-answers-answer', function(request, response) {
+        var data = request.session.data
+        var changed = data['rescheduleChanged'] === 'true'
+        data['rescheduleMode'] = ''
+        if (changed) {
+            return response.redirect('/bfs/meetings-2/rescheduled/reason-why')
+        }
+        data['rescheduleChanged'] = ''
+        response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=arranged#communications')
+    })
+
+    // After capturing the reason for change, return to the Meetings sub-tab in
+    // the rescheduled state.
+    router.post('/bfs/meetings-2/rescheduled/reason-why-answer', function(request, response) {
+        request.session.data['rescheduleChanged'] = ''
+        request.session.data['meetingRescheduled'] = 'true'
+        response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=rescheduled&meetingSuccess=yes#communications')
+    })
+
+    // Cancel flow: capture when the meeting was cancelled, then ask for a reason.
+    router.post('/bfs/meetings-2/cancelled/meeting-date-answer', function(request, response) {
+        response.redirect('/bfs/meetings-2/cancelled/reason-why')
+    })
+
+    // Cancel flow: after capturing the reason, return to the Meetings sub-tab in
+    // the cancelled state.
+    router.post('/bfs/meetings-2/cancelled/reason-why-answer', function(request, response) {
+        response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=cancelled&meetingSuccess=yes#communications')
+    })
+
+    // Where a confirm-arrangements answer route should return after a Change.
+    // In reschedule mode it returns to the reschedule check-answers and records
+    // that a change was made.
+    function caCheckAnswersTarget(request, caBase) {
+        if (request.session.data['rescheduleMode'] === 'true') {
+            request.session.data['rescheduleChanged'] = 'true'
+            return rescheduleCheckAnswers
+        }
+        return caBase + 'check-answers'
+    }
+
     // When a "Change" link on check-answers is used, ?changeMode=true is stored
     // in the session; each answer route returns to check-answers instead of
     // advancing the flow.
     function caChangeReturn(request, response, caBase, nextUrl) {
         if (request.session.data['changeMode'] === 'true') {
             request.session.data['changeMode'] = ''
-            return response.redirect(caBase + 'check-answers')
+            return response.redirect(caCheckAnswersTarget(request, caBase))
         }
         response.redirect(nextUrl)
     }
 
     function registerConfirmArrangements(caBase) {
+
+    // Loading the normal arrange check-answers means we are not rescheduling.
+    router.get(caBase + 'check-answers', function(request, response, next) {
+        request.session.data['rescheduleMode'] = ''
+        next()
+    })
 
     router.post(caBase + 'who-requested-meeting-answer', function(request, response) {
         var data = request.session.data
@@ -804,7 +878,7 @@ module.exports = router => {
                 return response.redirect(caBase + 'meeting-location?changeMode=true')
             }
             data['changeMode'] = ''
-            return response.redirect(caBase + 'check-answers')
+            return response.redirect(caCheckAnswersTarget(request, caBase))
         }
         if (needsLocation){
             response.redirect(caBase + 'meeting-location')
@@ -848,6 +922,18 @@ module.exports = router => {
         caChangeReturn(request, response, caBase, caBase + 'support-needs')
     })
 
+    // "Add another person" submits the attendees form so the current checkbox
+    // selections are saved to the session before navigating to the add page.
+    router.post(caBase + 'attendees-add-another', function(request, response) {
+        response.redirect(caBase + 'add-attendee')
+    })
+
+    // "Add another person" submits the meeting-lead form so the current lead
+    // selection is saved to the session before navigating to the add page.
+    router.post(caBase + 'meeting-lead-add-another', function(request, response) {
+        response.redirect(caBase + 'add-meeting-lead')
+    })
+
     // Custom attendee added on the attendees page -> becomes a selected attendee
     router.post(caBase + 'add-attendee-answer', function(request, response) {
         appendAddedPeople(request, 'addedAttendees', 'attendees')
@@ -871,10 +957,12 @@ module.exports = router => {
         data['interpreterNeededError'] = ''
         data['supportPersonNeededError'] = ''
         data['changeMode'] = ''
-        response.redirect(caBase + 'check-answers')
+        response.redirect(caCheckAnswersTarget(request, caBase))
     })
 
     router.post(caBase + 'check-answers-answer', function(request, response) {
+        // A freshly arranged meeting has no prior arrangement to show as previous.
+        request.session.data['meetingRescheduled'] = ''
         if (caBase.indexOf('/bfs') === 0) {
             response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications')
         } else {
