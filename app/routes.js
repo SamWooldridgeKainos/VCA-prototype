@@ -11,6 +11,10 @@ const taskRecords = require('./data/task-records')
 const taskAssignees = require('./data/task-assignees')
 const vloOfficers = require('./data/vlo-officers')
 const cpsAreas = require('./data/cps-areas')
+const cpsLocations = require('./data/cps-locations.json')
+const magistratesCourts = require('./data/magistrates-courts.json')
+const crownCourts = require('./data/crown-courts.json')
+const policeForces = require('./data/police-forces.json')
 
 router.use(function (req, res, next) {
   res.locals.victimRecords = victimRecords
@@ -18,6 +22,10 @@ router.use(function (req, res, next) {
   res.locals.taskAssignees = taskAssignees
   res.locals.vloOfficers = vloOfficers
   res.locals.cpsAreas = cpsAreas
+  res.locals.cpsLocations = cpsLocations
+  res.locals.magistratesCourts = magistratesCourts
+  res.locals.crownCourts = crownCourts
+  res.locals.policeForces = policeForces
   next()
 })
 
