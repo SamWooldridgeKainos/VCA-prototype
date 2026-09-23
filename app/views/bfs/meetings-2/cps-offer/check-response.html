@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check your answers" %}
+
+{% block header %}
+{% include "/bfs/partials/header/none-selected-bfs.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/bfs/partials/identity-bar/bfs-question.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set methodLabels = {
+      "letter-post": "By post",
+      "letter-email": "By email",
+      "letter-flo": "Via family liaison officer",
+      "letter-police": "Via police",
+      "letter-isva": "Via ISVA",
+      "telephone": "By telephone"
+    } %}
+
+    {% set offered = data['offerRecipients'] %}
+    {% if offered is string %}{% set offered = [offered] %}{% endif %}
+
+    {% set type = data['offerResponse'] %}
+    {% if type == "accepted" %}
+      {% set selected = data['acceptRecipients'] %}
+      {% set changePage = "how-when-accepted" %}
+    {% elif type == "declined" %}
+      {% set selected = data['declineRecipients'] %}
+      {% set changePage = "how-when-declined" %}
+    {% else %}
+      {% set selected = data['noResponseRecipients'] %}
+      {% set changePage = "when-no-response" %}
+    {% endif %}
+    {% if selected is string %}{% set selected = [selected] %}{% endif %}
+
+    <h1 class="govuk-heading-l">Check your answers before logging the response</h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      {% for sel in selected %}
+      {% set person = loop.index %}
+      {% set idx = sel %}
+      {% set recipient = offered[(idx | int) - 1] %}
+      {% if not loop.first %}
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-border">
+        <dt class="govuk-summary-list__key"><hr class="govuk-section-break govuk-section-break--m"></dt>
+        <dd class="govuk-summary-list__value"></dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      {% endif %}
+
+      {% if type == "accepted" %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Accepted by</dt>
+        <dd class="govuk-summary-list__value">{{ recipient }}</dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">How accepted</dt>
+        <dd class="govuk-summary-list__value">{{ methodLabels[data['recordaccepted' + idx]] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ changePage }}?person={{ person }}&changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting was accepted by {{ recipient }}</span></a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date accepted</dt>
+        <dd class="govuk-summary-list__value">{{ data['acceptDate' + idx] | formatDate }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ changePage }}?person={{ person }}&changeMode=true">Change<span class="govuk-visually-hidden"> date the meeting was accepted by {{ recipient }}</span></a>
+        </dd>
+      </div>
+
+      {% elif type == "declined" %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Declined by</dt>
+        <dd class="govuk-summary-list__value">{{ recipient }}</dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">How declined</dt>
+        <dd class="govuk-summary-list__value">{{ methodLabels[data['recorddeclined' + idx]] }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ changePage }}?person={{ person }}&changeMode=true">Change<span class="govuk-visually-hidden"> how the meeting was declined by {{ recipient }}</span></a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date declined</dt>
+        <dd class="govuk-summary-list__value">{{ data['declineDate' + idx] | formatDate }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ changePage }}?person={{ person }}&changeMode=true">Change<span class="govuk-visually-hidden"> date the meeting was declined by {{ recipient }}</span></a>
+        </dd>
+      </div>
+
+      {% else %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">No response from</dt>
+        <dd class="govuk-summary-list__value">{{ recipient }}</dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Date logged</dt>
+        <dd class="govuk-summary-list__value">{{ data['noResponseDate' + idx] | formatDate }}</dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{ changePage }}?person={{ person }}&changeMode=true">Change<span class="govuk-visually-hidden"> date the no response was logged for {{ recipient }}</span></a>
+        </dd>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </dl>
+
+    <form class="form" action="/bfs/meetings-2/cps-offer/check-response-answer" method="post">
+      {{ govukButton({
+        text: "Confirm details"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

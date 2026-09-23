@@ -45,24 +45,36 @@
         {% endif %}
         <input type="hidden" name="attendees" value="_unchecked">
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="attendees-1" name="attendees" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret (Mother)" {{ checked("attendees", data['victimSurname'] | upper + ", Margaret (Mother)") }}>
-            <label class="govuk-label govuk-checkboxes__label" for="attendees-1">
-              {{ data['victimSurname'] | upper }}, Margaret (Mother)
-            </label>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="attendees-2" name="attendees" type="checkbox" value="{{ data['victimSurname'] | upper }}, David (Father)" {{ checked("attendees", data['victimSurname'] | upper + ", David (Father)") }}>
-            <label class="govuk-label govuk-checkboxes__label" for="attendees-2">
-              {{ data['victimSurname'] | upper }}, David (Father)
-            </label>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="attendees-3" name="attendees" type="checkbox" value="CARTER, Emma (Sister)" {{ checked("attendees", "CARTER, Emma (Sister)") }}>
-            <label class="govuk-label govuk-checkboxes__label" for="attendees-3">
-              CARTER, Emma (Sister)
-            </label>
-          </div>
+          {% if data['familyMembers'] and data['familyMembers'].length > 0 %}
+            {% for member in data['familyMembers'] %}
+              {% set attendeeValue = (member.lastName | upper) + ", " + member.firstName + (" (" + member.relationship + ")" if member.relationship else "") %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="attendees-family-{{ loop.index }}" name="attendees" type="checkbox" value="{{ attendeeValue }}" {{ checked("attendees", attendeeValue) }}>
+                <label class="govuk-label govuk-checkboxes__label" for="attendees-family-{{ loop.index }}">
+                  {{ attendeeValue }}
+                </label>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="attendees-1" name="attendees" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret (Mother)" {{ checked("attendees", data['victimSurname'] | upper + ", Margaret (Mother)") }}>
+              <label class="govuk-label govuk-checkboxes__label" for="attendees-1">
+                {{ data['victimSurname'] | upper }}, Margaret (Mother)
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="attendees-2" name="attendees" type="checkbox" value="{{ data['victimSurname'] | upper }}, David (Father)" {{ checked("attendees", data['victimSurname'] | upper + ", David (Father)") }}>
+              <label class="govuk-label govuk-checkboxes__label" for="attendees-2">
+                {{ data['victimSurname'] | upper }}, David (Father)
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="attendees-3" name="attendees" type="checkbox" value="CARTER, Emma (Sister)" {{ checked("attendees", "CARTER, Emma (Sister)") }}>
+              <label class="govuk-label govuk-checkboxes__label" for="attendees-3">
+                CARTER, Emma (Sister)
+              </label>
+            </div>
+          {% endif %}
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="attendees-4" name="attendees" type="checkbox" value="BIDWELL, Jane (Family liaison officer)" {{ checked("attendees", "BIDWELL, Jane (Family liaison officer)") }}>
             <label class="govuk-label govuk-checkboxes__label" for="attendees-4">

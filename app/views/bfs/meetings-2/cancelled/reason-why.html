@@ -18,6 +18,7 @@
     {{ govukTextarea({
       id: "cancel-reason-other",
       name: "cancelReasonOther",
+      value: data['cancelReasonOther'] if data['changeMode'] == 'true',
       label: { text: "Provide details" }
     }) }}
     {% endset -%}
@@ -26,6 +27,7 @@
 
       {{ govukRadios({
         name: "cancelReason",
+        value: data['cancelReason'] if data['changeMode'] == 'true',
         fieldset: {
           legend: {
             text: "What is the reason for cancelling the meeting?",
