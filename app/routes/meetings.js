@@ -273,36 +273,53 @@ module.exports = router => {
         // Mark this recipient as accounted for.
         data['recordnoresponse' + idx] = 'yes'
 
+        // Returning from a "Change" link edits a single response then goes back to check answers.
+        if (data['changeMode'] === 'true'){
+            data['changeMode'] = ''
+            return response.redirect("/bfs/meetings-2/cps-offer/check-response")
+        }
+
         if (person < recipients.length){
             response.redirect("/bfs/meetings-2/cps-offer/when-no-response?person=" + (person + 1))
             return
         }
 
-        // Snapshot the selected recipients as a "no response" round so they are
-        // retained and can be redisplayed on the meeting page.
-        var offered = [].concat(data['offerRecipients'] || [])
-        var round = []
-        recipients.forEach(function(sel){
-            var i = Number.parseInt(sel, 10)
-            round.push({
-                offeredTo: offered[i - 1],
-                howOffered: data['howoffered' + i],
-                offerDate: data['offerDate' + i],
-                loggedDate: data['noResponseDate' + i]
-            })
-        })
-        var rounds = data['noResponseOffers'] || []
-        rounds.push(round)
-        data['noResponseOffers'] = rounds
+        response.redirect("/bfs/meetings-2/cps-offer/check-response")
+    })
 
-        // Track how many offered recipients are still to be accounted for
-        // (accepted, declined, or logged as no response).
+    // Confirm the offer responses (accepted, declined, or no response). This finalises
+    // the batch: it snapshots any "no response" round, updates how many recipients are
+    // still to respond, and records the response type for the confirmation banner.
+    router.post('/bfs/meetings-2/cps-offer/check-response-answer', function(request, response) {
+        var data = request.session.data
+        var offered = [].concat(data['offerRecipients'] || [])
+        var type = data['offerResponse']
+
+        if (type === 'no-response'){
+            var recipients = [].concat(data['noResponseRecipients'] || [])
+            var round = []
+            recipients.forEach(function(sel){
+                var i = Number.parseInt(sel, 10)
+                round.push({
+                    offeredTo: offered[i - 1],
+                    howOffered: data['howoffered' + i],
+                    offerDate: data['offerDate' + i],
+                    loggedDate: data['noResponseDate' + i]
+                })
+            })
+            var rounds = data['noResponseOffers'] || []
+            rounds.push(round)
+            data['noResponseOffers'] = rounds
+            data['lastResponseType'] = 'no-response'
+        } else {
+            data['lastResponseType'] = type
+        }
+
         var accountedCount = 0
         offered.forEach(function(recipient, i){
             if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
         })
         data['responsesRemaining'] = offered.length - accountedCount
-        data['lastResponseType'] = 'no-response'
 
         response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
     })
@@ -366,19 +383,22 @@ module.exports = router => {
         data['offerHowError'] = ''
         data['offerWhenError'] = ''
 
+        // Returning from a "Change" link edits a single offer then goes back to check answers.
+        if (data['changeMode'] === 'true'){
+            data['changeMode'] = ''
+            return response.redirect("/bfs/meetings-2/cps-offer/check-offer")
+        }
+
         if (person < recipients.length){
             response.redirect("/bfs/meetings-2/cps-offer/how-when-offered?person=" + (person + 1))
             return
         }
 
-        // All offers recorded: route to the confirmation page for the first matching
-        // method by priority, aggregating every recipient's selected method.
-        var howoffered = []
-        Object.keys(data).forEach(function(key){
-            if (key.indexOf('howoffered') === 0){
-                howoffered = howoffered.concat(data[key])
-            }
-        })
+        // All offers recorded: review them on the check answers page before confirming.
+        response.redirect("/bfs/meetings-2/cps-offer/check-offer")
+    })
+
+    router.post('/bfs/meetings-2/cps-offer/check-offer-answer', function(request, response) {
         response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=offered&meetingSuccess=yes#communications")
     })
 
@@ -465,22 +485,18 @@ module.exports = router => {
         data['acceptHowError'] = ''
         data['acceptWhenError'] = ''
 
+        // Returning from a "Change" link edits a single response then goes back to check answers.
+        if (data['changeMode'] === 'true'){
+            data['changeMode'] = ''
+            return response.redirect("/bfs/meetings-2/cps-offer/check-response")
+        }
+
         if (person < accepters.length){
             response.redirect("/bfs/meetings-2/cps-offer/how-when-accepted?person=" + (person + 1))
             return
         }
 
-        // Track how many offered recipients are still to be accounted for
-        // (either accepted or declined).
-        var offered = [].concat(data['offerRecipients'] || [])
-        var accountedCount = 0
-        offered.forEach(function(recipient, i){
-            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
-        })
-        data['responsesRemaining'] = offered.length - accountedCount
-        data['lastResponseType'] = 'accepted'
-
-        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
+        response.redirect("/bfs/meetings-2/cps-offer/check-response")
     })
 
 
@@ -527,22 +543,18 @@ module.exports = router => {
         data['declineHowError'] = ''
         data['declineWhenError'] = ''
 
+        // Returning from a "Change" link edits a single response then goes back to check answers.
+        if (data['changeMode'] === 'true'){
+            data['changeMode'] = ''
+            return response.redirect("/bfs/meetings-2/cps-offer/check-response")
+        }
+
         if (person < decliners.length){
             response.redirect("/bfs/meetings-2/cps-offer/how-when-declined?person=" + (person + 1))
             return
         }
 
-        // Track how many offered recipients are still to be accounted for
-        // (either accepted or declined).
-        var offered = [].concat(data['offerRecipients'] || [])
-        var accountedCount = 0
-        offered.forEach(function(recipient, i){
-            if (data['recordaccepted' + (i + 1)] || data['recorddeclined' + (i + 1)] || data['recordnoresponse' + (i + 1)]) accountedCount++
-        })
-        data['responsesRemaining'] = offered.length - accountedCount
-        data['lastResponseType'] = 'declined'
-
-        response.redirect("/bfs/victim/index?secondaryNav=ptm&meetingState=responses&meetingSuccess=yes#communications")
+        response.redirect("/bfs/meetings-2/cps-offer/check-response")
     })
 
 
@@ -804,12 +816,24 @@ module.exports = router => {
 
     // Cancel flow: capture when the meeting was cancelled, then ask for a reason.
     router.post('/bfs/meetings-2/cancelled/meeting-date-answer', function(request, response) {
+        // Returning from a "Change" link goes straight back to check answers.
+        if (request.session.data['changeMode'] === 'true') {
+            request.session.data['changeMode'] = ''
+            return response.redirect('/bfs/meetings-2/cancelled/check-answers')
+        }
         response.redirect('/bfs/meetings-2/cancelled/reason-why')
     })
 
-    // Cancel flow: after capturing the reason, return to the Meetings sub-tab in
-    // the cancelled state.
+    // Cancel flow: the reason is the final question, so both the normal flow and
+    // a "Change" edit end on the check answers page.
     router.post('/bfs/meetings-2/cancelled/reason-why-answer', function(request, response) {
+        request.session.data['changeMode'] = ''
+        response.redirect('/bfs/meetings-2/cancelled/check-answers')
+    })
+
+    // Cancel flow: confirm the details and return to the Meetings sub-tab in the
+    // cancelled state.
+    router.post('/bfs/meetings-2/cancelled/check-answers-answer', function(request, response) {
         response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=cancelled&meetingSuccess=yes#communications')
     })
 

@@ -28,8 +28,22 @@
 
     <hr class="govuk-section-break govuk-section-break--m">
 
-    <a href="/bfs/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
-        Log meeting details<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
-    </a>
+    {% if data['nextTask'] == "meeting-offer" %}
+      <a href="/bfs/meetings-2/has-meeting-been-offered" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log offer<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% elif data['nextTask'] == "meeting-arranged" %}
+      <a href="/bfs/meetings-2/confirm-arrangements/who-requested-meeting" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Confirm arranged meeting<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% elif data['nextTask'] == "meeting-outcome" %}
+      <a href="/bfs/meetings-2/log-outcome/did-meeting-happen" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log outcome<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% else %}
+      <a href="/bfs/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log meeting details<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% endif %}
   </div>
 </div>

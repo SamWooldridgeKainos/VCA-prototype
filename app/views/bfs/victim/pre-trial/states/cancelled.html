@@ -252,9 +252,13 @@
         </span>
       </summary>
       <div class="govuk-details__text">
+        {% if data['offerRecipients'] %}
         {% set hideResponseActions = true %}
         {% include "/bfs/meetings-2/cps-offer/partials/logged-responses.html" %}
         {% set hideResponseActions = false %}
+        {% else %}
+        <p class="govuk-body">No details were entered for meeting offer response.</p>
+        {% endif %}
       </div>
     </details>
 
@@ -265,9 +269,13 @@
         </span>
       </summary>
       <div class="govuk-details__text">
+        {% if data['offerRecipients'] %}
         {% set hideNoResponseOffers = true %}
         {% include "/bfs/meetings-2/cps-offer/partials/logged-offers.html" %}
         {% set hideNoResponseOffers = false %}
+        {% else %}
+        <p class="govuk-body">No details were entered for meeting offer.</p>
+        {% endif %}
       </div>
     </details>
 

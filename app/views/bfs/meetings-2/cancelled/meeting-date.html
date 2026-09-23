@@ -29,7 +29,7 @@
 
         <div class="moj-datepicker" id="cancel-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
-          <input type="text" class="govuk-input moj-js-datepicker-input" id="cancel-date" name="cancelDate" autocomplete="off" aria-describedby="cancel-date-hint" value="{{ data['cancelDate'] }}" />
+          <input type="text" class="govuk-input moj-js-datepicker-input" id="cancel-date" name="cancelDate" autocomplete="off" aria-describedby="cancel-date-hint" value="{% if data['changeMode'] == 'true' %}{{ data['cancelDate'] }}{% endif %}" />
         </div>
       </div>
 
@@ -50,7 +50,7 @@
                 <label class="govuk-label govuk-date-input__label" for="cancel-hour">
                   Hour
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="cancel-hour" name="cancelHour" type="text" inputmode="numeric" value="{{ data['cancelHour'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="cancel-hour" name="cancelHour" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['cancelHour'] }}{% endif %}">
               </div>
             </div>
             <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -62,7 +62,7 @@
                 <label class="govuk-label govuk-date-input__label" for="cancel-minutes">
                   Minutes
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="cancel-minutes" name="cancelMinutes" type="text" inputmode="numeric" value="{{ data['cancelMinutes'] }}">
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="cancel-minutes" name="cancelMinutes" type="text" inputmode="numeric" value="{% if data['changeMode'] == 'true' %}{{ data['cancelMinutes'] }}{% endif %}">
               </div>
             </div>
 
