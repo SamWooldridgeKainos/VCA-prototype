@@ -16,6 +16,7 @@
 
     {% from "govuk/components/radios/macro.njk" import govukRadios %}
     {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/select/macro.njk" import govukSelect %}
     {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
     {% set typeError = data['meetingLocationTypeError'] == 'yes' %}
@@ -34,59 +35,71 @@
 
     <form class="form" action="/v50/meetings-2/confirm-arrangements/meeting-location-answer" method="post">
 
+      {% set cpsItems = [{ value: "", text: "Select a CPS location" }] %}
+      {% for loc in cpsLocations %}
+      {% set cpsItems = cpsItems.concat({ value: loc, text: loc, selected: data['cpsLocation'] == loc }) %}
+      {% endfor %}
       {% set cpsHtml %}
-      {{ govukInput({
+      {{ govukSelect({
       id: "cps-location",
       name: "cpsLocation",
-      type: "text",
       classes: "govuk-input--width-20",
-      value: data['cpsLocation'],
-      errorMessage: { text: "Enter which CPS location the meeting will be held" } if (detailError and selectedType == "cps") else undefined,
+      errorMessage: { text: "Select which CPS location the meeting will be held" } if (detailError and selectedType == "cps") else undefined,
       label: {
         text: "Which CPS location will the meeting be held?"
-      }
+      },
+      items: cpsItems
     }) }}
       {% endset -%}
 
+      {% set magistratesItems = [{ value: "", text: "Select a magistrates' court" }] %}
+      {% for loc in magistratesCourts %}
+      {% set magistratesItems = magistratesItems.concat({ value: loc, text: loc, selected: data['magistratesLocation'] == loc }) %}
+      {% endfor %}
       {% set magistratesHtml %}
-      {{ govukInput({
+      {{ govukSelect({
       id: "magistrates-location",
       name: "magistratesLocation",
-      type: "text",
       classes: "govuk-input--width-20",
-      value: data['magistratesLocation'],
-      errorMessage: { text: "Enter which magistrates' court the meeting will be held" } if (detailError and selectedType == "magistrates") else undefined,
+      errorMessage: { text: "Select which magistrates' court the meeting will be held" } if (detailError and selectedType == "magistrates") else undefined,
       label: {
         text: "Which magistrates' court will the meeting be held?"
-      }
+      },
+      items: magistratesItems
     }) }}
       {% endset -%}
 
+      {% set crownItems = [{ value: "", text: "Select a crown court" }] %}
+      {% for loc in crownCourts %}
+      {% set crownItems = crownItems.concat({ value: loc, text: loc, selected: data['crownLocation'] == loc }) %}
+      {% endfor %}
       {% set crownHtml %}
-      {{ govukInput({
+      {{ govukSelect({
       id: "crown-location",
       name: "crownLocation",
-      type: "text",
       classes: "govuk-input--width-20",
-      value: data['crownLocation'],
-      errorMessage: { text: "Enter which crown court the meeting will be held" } if (detailError and selectedType == "crown") else undefined,
+      errorMessage: { text: "Select which crown court the meeting will be held" } if (detailError and selectedType == "crown") else undefined,
       label: {
         text: "Which crown court will the meeting be held?"
-      }
+      },
+      items: crownItems
     }) }}
       {% endset -%}
 
+      {% set policeItems = [{ value: "", text: "Select a police force" }] %}
+      {% for loc in policeForces %}
+      {% set policeItems = policeItems.concat({ value: loc, text: loc, selected: data['policeStationLocation'] == loc }) %}
+      {% endfor %}
       {% set policeHtml %}
-      {{ govukInput({
+      {{ govukSelect({
       id: "police-station-location",
       name: "policeStationLocation",
-      type: "text",
       classes: "govuk-input--width-20",
-      value: data['policeStationLocation'],
-      errorMessage: { text: "Enter which police station the meeting will be held" } if (detailError and selectedType == "police") else undefined,
+      errorMessage: { text: "Select which police station the meeting will be held" } if (detailError and selectedType == "police") else undefined,
       label: {
         text: "Which police station will the meeting be held?"
-      }
+      },
+      items: policeItems
     }) }}
       {% endset -%}
 
@@ -154,4 +167,26 @@
 
   </div>
 </div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    if (typeof accessibleAutocomplete === 'undefined') {
+      console.error('accessibleAutocomplete library not loaded');
+      return;
+    }
+    ['cps-location', 'magistrates-location', 'crown-location', 'police-station-location'].forEach(function (id) {
+      var selectEl = document.getElementById(id);
+      if (selectEl) {
+        accessibleAutocomplete.enhanceSelectElement({
+          selectElement: selectEl,
+          showAllValues: true,
+          defaultValue: selectEl.value || ''
+        });
+      }
+    });
+  });
+</script>
 {% endblock %}
