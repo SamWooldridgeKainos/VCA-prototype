@@ -728,7 +728,7 @@ module.exports = router => {
 
     router.post('/log-outcome/did-meeting-happen2-answer', function(request, response) {
 
-        var meeting3 = request.session.data['meeting3']
+        var meeting3 = request.session.data['logMeetingHappened']
         if (meeting3 == "yes"){
             response.redirect("/v50/meetings-2/log-outcome/duration")
         } else {
@@ -1052,7 +1052,7 @@ module.exports = router => {
         if (actionsAgreed2 == "yes"){
             response.redirect("/v50/meetings-2/log-outcome/check-answers")
         } else {
-            response.redirect("/v50/meetings-2/log-outcome/check-answers-no")
+            response.redirect("/v50/meetings-2/log-outcome/check-answers")
         }
     })
 

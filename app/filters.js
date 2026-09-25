@@ -65,6 +65,23 @@ addFilter('formatDate', dateString => {
   return `${dayOfWeek}, ${dayOfMonth} ${month} ${year}`
 })
 
+// Add N days to a dd/mm/yyyy date and return dd/mm/yyyy. Pipe to formatDate for display.
+addFilter('addDays', (dateString, days) => {
+  if (!dateString || !dateString.includes('/')) return dateString
+  const parts = dateString.split('/')
+  if (parts.length !== 3) return dateString
+  const day = parseInt(parts[0], 10)
+  const month = parseInt(parts[1], 10) - 1
+  const year = parseInt(parts[2], 10)
+  const date = new Date(year, month, day)
+  if (isNaN(date.getTime())) return dateString
+  date.setDate(date.getDate() + Number(days || 0))
+  const dd = String(date.getDate()).padStart(2, '0')
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const yyyy = date.getFullYear()
+  return `${dd}/${mm}/${yyyy}`
+})
+
 addFilter('ageFromDob', dobString => {
   if (!dobString) return ''
   const parts = dobString.split('/')

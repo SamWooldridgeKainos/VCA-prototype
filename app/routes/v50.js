@@ -37,6 +37,16 @@ module.exports = router => {
         response.redirect("/v50/tasks")
     })
 
+    router.post('/v50/meetings-2/due-date-answer', function(request, response) {
+
+        response.redirect("/v50/meetings-2/meeting-due-date")
+    })
+
+    router.post('/v50/meetings-2/meeting-due-date-answer', function(request, response) {
+
+        response.redirect("/v50/meetings-2/meeting-offered-date")
+    })
+
     router.post('/v50/onb/service-lead-answer', function(request, response) {
 
         response.redirect("/v50/onb/check-details?successNotification=yes&onboardedStatus=Yes")

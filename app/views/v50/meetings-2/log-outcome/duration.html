@@ -16,7 +16,7 @@
 
         <h1 class="govuk-heading-l">How long did the meeting last?</h1>
 
-        <form action="/v20/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+        <form action="who-attended" method="post" accept-charset="UTF-8" id="myForm" name="myForm">
 
 
 
@@ -36,7 +36,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-hour-2">
                                     Hours
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="logDurationHours" value="{{ data['logDurationHours'] }}" type="text" inputmode="numeric">
                             </div>
                         </div>
                         <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -48,7 +48,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-minutes-2">
                                     Minutes
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="callMinutes2" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="logDurationMinutes" value="{{ data['logDurationMinutes'] }}" type="text" inputmode="numeric">
                             </div>
                         </div>
 
@@ -59,14 +59,14 @@
 
 
             <div class="govuk-button-group">
-
-  <a href="who-attended" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-  Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
-  </div>
+              {{ govukButton({
+                text: "Continue"
+              }) }}
+              {{ govukButton({
+                text: "Cancel",
+                classes: "govuk-button--secondary"
+              }) }}
+            </div>
         </form>
     </div>
 </div>

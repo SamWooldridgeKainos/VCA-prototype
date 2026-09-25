@@ -2,6 +2,10 @@
 
 {% set pageName="Case locked" %}
 
+{% block header %}
+{% include "/v50/partials/header/none-selected.html" %}
+{% endblock %}
+
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
 {% block content %}
@@ -13,11 +17,11 @@
         <p class="govuk-body">
             We could not save the information you entered. To make an update, exit the case on CMS.
         </p>
-        <p class="govuk-body">
+        <!-- <p class="govuk-body">
             To view the victim's information, search for the URN and select the victim's name again.
-        </p>
-        <a href="/v50/pcd/victim" class="govuk-button" data-module="govuk-button">
-            Continue
+        </p> -->
+        <a href="javascript:window.history.back()" class="govuk-button" data-module="govuk-button">
+            Go back
         </a>
     </div>
 </div>

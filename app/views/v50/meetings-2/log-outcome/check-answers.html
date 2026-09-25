@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="Check your answers" %}
 
 {% block header %}
 {% include "/v50/partials/header/none-selected.html" %}
@@ -14,166 +14,207 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+    {# --- Derive display values from session data, with sensible defaults --- #}
+
+    {% if data['logMeetingHappened'] == "no" %}{% set meetingHappenedText = "No" %}{% else %}{% set meetingHappenedText = "Yes" %}{% endif %}
+
+    {% if data['logDurationHours'] or data['logDurationMinutes'] %}
+      {% set durationText = (data['logDurationHours'] or "0") + " hours " + (data['logDurationMinutes'] or "0") + " minutes" %}
+    {% else %}
+      {% set durationText = "3 hours 30 minutes" %}
+    {% endif %}
+
+    {% set attendeesList = data['logAttended'] %}
+    {% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+
+    {% set meetingLeadText = data['logMeetingLead'] if data['logMeetingLead'] else "High court advocate (SHEAF, Jessica)" %}
+
+    {% if data['logCounselAttended'] == "no" %}{% set counselText = "No" %}{% else %}{% set counselText = "Yes" %}{% endif %}
+
+    {% if data['logEligibleExpenses'] == "no" %}{% set expensesText = "No" %}{% else %}{% set expensesText = "Yes" %}{% endif %}
+
+    {% if data['logAgreedResearch'] == "yes" %}{% set researchText = "Yes" %}
+    {% elif data['logAgreedResearch'] == "not-asked" %}{% set researchText = "The question was not asked" %}
+    {% else %}{% set researchText = "No" %}{% endif %}
+
+    {% if data['logNotesInCms'] == "no" %}{% set notesCmsText = "No" %}{% else %}{% set notesCmsText = "Yes" %}{% endif %}
+
+    {% if data['logNotesToOic'] == "no" %}{% set notesOicText = "No" %}{% else %}{% set notesOicText = "Yes" %}{% endif %}
+
+    {% if data['logNotesToVictim'] == "no" %}{% set notesVictimText = "No" %}{% else %}{% set notesVictimText = "Yes" %}{% endif %}
+
+    {% if data['actionsAgreed2'] == "no" %}{% set actionsText = "No" %}{% else %}{% set actionsText = "Yes" %}{% endif %}
+
+    {% set whatAgreedText = data['contactByEmail'] if data['contactByEmail'] else "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum." %}
 
     <h1 class="govuk-heading-l">Check your answers before logging the meeting outcome</h1>
-           <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-             <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-            Duration of the meeting
-               </dt>
-          3 hours 30 minutes
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
-               </dd>
-             </div>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Did the meeting take place?
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ meetingHappenedText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="did-meeting-happen">Change<span class="govuk-visually-hidden"> whether the meeting took place</span></a>
+        </dd>
+      </div>
 
-             <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-        Attendees
-               </dt>
-               <dd class="govuk-summary-list__value">
-                 <p class="govuk-body">Victim (PHILLIPS Sarah)</p>
-                 <p class="govuk-body">High court advocate (SHEAF, Jessica)</p>
-                    <p class="govuk-body">Family liaison officer (BIDWELL, Jane)</p>
-                        <p class="govuk-body">Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)</p>
-                            <p class="govuk-body">Police officer in charge (PC FISHER, Jane)</p>
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Duration of the meeting
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ durationText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="duration">Change<span class="govuk-visually-hidden"> duration of the meeting</span></a>
+        </dd>
+      </div>
 
-             </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Attendees
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if attendeesList and attendeesList | length %}
+            {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
+          {% else %}
+            <p class="govuk-body">Victim (PHILLIPS, Sarah)</p>
+            <p class="govuk-body">High court advocate (SHEAF, Jessica)</p>
+            <p class="govuk-body">Family liaison officer (BIDWELL, Jane)</p>
+            <p class="govuk-body">Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)</p>
+            <p class="govuk-body">Police officer in charge (PC FISHER, Jane)</p>
+          {% endif %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="who-attended">Change<span class="govuk-visually-hidden"> attendees</span></a>
+        </dd>
+      </div>
 
-                          <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Meeting lead
-               </dt>
-               <dd class="govuk-summary-list__value">
-High court advocate (SHEAF, Jessica)
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Meeting lead
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ meetingLeadText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="chair-person">Change<span class="govuk-visually-hidden"> meeting lead</span></a>
+        </dd>
+      </div>
 
-             </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Counsel attended
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ counselText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="did-counsel-attend">Change<span class="govuk-visually-hidden"> whether counsel attended</span></a>
+        </dd>
+      </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Eligible for expenses
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ expensesText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="eligible-for-expenses">Change<span class="govuk-visually-hidden"> eligibility for expenses</span></a>
+        </dd>
+      </div>
 
-                          <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Counsel attended
-               </dt>
-               <dd class="govuk-summary-list__value">
-Yes
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Agreed to research
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ researchText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="agree-to-research">Change<span class="govuk-visually-hidden"> whether they agreed to research</span></a>
+        </dd>
+      </div>
 
-             </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Meeting notes saved in CMS
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ notesCmsText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="upload-file">Change<span class="govuk-visually-hidden"> whether meeting notes are saved in CMS</span></a>
+        </dd>
+      </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Meeting notes sent to OIC
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ notesOicText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="minutes-sent-oic">Change<span class="govuk-visually-hidden"> whether meeting notes were sent to OIC</span></a>
+        </dd>
+      </div>
 
-                                       <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Eligible for expenses
-               </dt>
-               <dd class="govuk-summary-list__value">
-Yes
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Meeting notes sent to victim
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ notesVictimText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="minutes-sent">Change<span class="govuk-visually-hidden"> whether meeting notes were sent to the victim</span></a>
+        </dd>
+      </div>
 
-             </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Actions agreed
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ actionsText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="any-actions-agreed">Change<span class="govuk-visually-hidden"> whether actions were agreed</span></a>
+        </dd>
+      </div>
 
-                                  
+      {% if actionsText == "Yes" %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          What was agreed
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ whatAgreedText }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="any-actions-agreed">Change<span class="govuk-visually-hidden"> what was agreed</span></a>
+        </dd>
+      </div>
+      {% endif %}
 
-                                          <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Agreed to research
-               </dt>
-               <dd class="govuk-summary-list__value">
-No
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
-
-             </div>
-    
-                     <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-           Meeting notes
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-Yes                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-                            </dd>
-
-                          </div>
-                                <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-           Meeting notes to OIC
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-Yes                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-                            </dd>
-
-                          </div>
-
-                                <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-           Meeting notes to victim
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-Yes                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-                            </dd>
-
-                          </div>
-             <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Actions agreed
-               </dt>
-               <dd class="govuk-summary-list__value">
-    Yes
-               </dd>
-               <dd class="govuk-summary-list__actions">
-                 <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-               </dd>
-
-             </div>
-
-
-                          <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-            What was agreed
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum.
-                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> contact details</span></a>
-                            </dd>
-
-                          </div>
-           </dl>
+    </dl>
 
     <div class="govuk-button-group">
 
-<a href="outcome-logged#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
-Log meeting outcome<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-<a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-</a>
-</div>
-
+      <a href="outcome-logged#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Log meeting outcome<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+      </a>
+      <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+      </a>
+    </div>
 
   </div>
 </div>
