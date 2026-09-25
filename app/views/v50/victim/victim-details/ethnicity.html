@@ -13,6 +13,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+    {% if (data['case-locked'] == "by-someone-else") %}
+      {% include "/v50/partials/case-locked-banner/by-someone-else.html" %}
+    {% elif (data['case-locked'] == "self-locked") %}
+      {% include "/v50/partials/case-locked-banner/self-locked.html" %}
+    {% else %}
+    {% endif %}
+
     <form action="/v50/victim/victim-details/ethnicity-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
       <div class="govuk-form-group" id="error-form-group">
