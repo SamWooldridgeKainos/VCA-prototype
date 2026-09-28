@@ -1,6 +1,6 @@
 {% block content %}
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
+    <!-- <div class="govuk-grid-column-one-half">
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
@@ -235,7 +235,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
     <div class="govuk-grid-column-one-half">
 
         <div class="govuk-summary-card">
@@ -310,7 +310,22 @@
                             </p>
                         </dd>
                     </div>
-                    
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Other victims
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p class="govuk-body">
+                                John Doe (<a href="#">onboard</a>)
+                            </p>
+                            <p class="govuk-body">
+                                <a href="/v51/victim/jane-smith">Jane Smith</a>
+                            </p>
+                            <p class="govuk-body">
+                                <a href="#">Alice Johnson</a>
+                            </p>
+                        </dd>
+                    </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Next hearing
@@ -323,7 +338,8 @@
                 </dl>
             </div>
         </div>
-
+    </div>
+    <div class="govuk-grid-column-one-half">
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">
@@ -392,7 +408,7 @@
                     </div>
                 </dl>
             </div>
-        </div>
+        </div>       
     </div>
 </div>
 {% endblock %}
