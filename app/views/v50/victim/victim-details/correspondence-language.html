@@ -14,9 +14,9 @@
   <div class="govuk-grid-column-one-half">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-      {% include "/v50/partials/case-locked-banner/by-someone-else.html" %}
+      {% include "/v50/partials/case-locked-banner/by-someone-else-language.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-      {% include "/v50/partials/case-locked-banner/self-locked.html" %}
+      {% include "/v50/partials/case-locked-banner/self-locked-language.html" %}
     {% else %}
     {% endif %}
 
