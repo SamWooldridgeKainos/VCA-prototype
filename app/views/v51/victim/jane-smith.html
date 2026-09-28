@@ -1,0 +1,429 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Victim" %}
+
+{% block header %}
+{% include "/v51/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="app-identity-bar" style="box-shadow: none">
+  <div class="app-identity-bar__container">
+    <div class="app-identity-bar__details">
+      <span class="app-identity-bar__title">
+        <h1 class="govuk-heading-m">
+          SMITH, Jane
+        </h1>
+        <p class="govuk-body">Case reference: {{ data['caseUrn'] }}</p>
+      </span>
+    </div>
+    <div class="app-identity-bar__actions">
+      <div class="app-identity-bar__menu govuk-!-margin-top-2">
+        <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-module="govuk-button" data-govuk-button-init="">
+          Create task
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Contents</h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#overview">Summary</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#case-contacts">Case contacts</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="overview">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Summary</h2>
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+
+            <div class="govuk-summary-card">
+              <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                  Case information
+                </h2>
+              </div>
+
+              <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">CPS area</dt>
+                    <dd class="govuk-summary-list__value">{{ data['area'] }}</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Police force</dt>
+                    <dd class="govuk-summary-list__value">{{ data['policeForce'] or 'Metropolitan Police' }}</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Case status</dt>
+                    <dd class="govuk-summary-list__value">{{ data['caseStatus'] or 'Pending' }}</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Charging type</dt>
+                    <dd class="govuk-summary-list__value">{{ data['caseType'] or 'Green' }}</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Monitoring codes</dt>
+                    <dd class="govuk-summary-list__value">
+                      <p class="govuk-body">Mental health</p>
+                      <p class="govuk-body">Domestic violence</p>
+                      <p class="govuk-body">Prohibited weapons</p>
+                      <p class="govuk-body">Human trafficking</p>
+                      <p class="govuk-body">Media interest</p>
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Other victims</dt>
+                    <dd class="govuk-summary-list__value">
+                      <p class="govuk-body">John Doe (not onboarded yet)</p>
+                      <p class="govuk-body"><a href="/v51/victim">Sarah Phillips</a></p>
+                      <p class="govuk-body"><a href="#">Alice Johnson</a></p>
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Next hearing</dt>
+                    <dd class="govuk-summary-list__value">
+                      <p class="govuk-body">First hearing</p>
+                      <p class="govuk-body">Westminster Magistrates' Court</p>
+                      <p class="govuk-body">Thursday, 25 June 2026 at 10:30am</p>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <div class="govuk-grid-column-one-half">
+            <div class="govuk-summary-card">
+              <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                  Defendants
+                </h2>
+              </div>
+
+              <div class="govuk-summary-card__content">
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">DAVIES, Bella</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Age</dt>
+                    <dd class="govuk-summary-list__value">34 (15/9/1990)</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Charge</dt>
+                    <dd class="govuk-summary-list__value">Grievous bodily harm</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody</dt>
+                    <dd class="govuk-summary-list__value">In police custody, 15 days</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody time limit</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                  </div>
+                </dl>
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">SIMPSON, Bart</h3>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Age</dt>
+                    <dd class="govuk-summary-list__value">15 (8/8/2010)</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Charge</dt>
+                    <dd class="govuk-summary-list__value">Actual bodily harm</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody</dt>
+                    <dd class="govuk-summary-list__value">On police bail, 6 days</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody time limit</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                  </div>
+                </dl>
+
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-1">JONES, Vince</h3>
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Age</dt>
+                    <dd class="govuk-summary-list__value">45 (15/9/1979)</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Charge</dt>
+                    <dd class="govuk-summary-list__value">Actual bodily harm</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody</dt>
+                    <dd class="govuk-summary-list__value">On police bail, 5 days</dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Custody time limit</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="govuk-tabs__panel" id="victim-details">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Victim details</h2>
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+
+            <h3 class="govuk-heading-m">Victim or witness details</h3>
+
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Name and title</dt>
+                <dd class="govuk-summary-list__value">SMITH, Ms Jane</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> name and title</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Preferred name</dt>
+                <dd class="govuk-summary-list__value">Janey</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> preferred name</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Date of birth</dt>
+                <dd class="govuk-summary-list__value">3/2/1997 (29 years old)</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> date of birth</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Categories</dt>
+                <dd class="govuk-summary-list__value">Victim of crime</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> category</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Gender</dt>
+                <dd class="govuk-summary-list__value">Female</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> gender</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Ethnicity</dt>
+                <dd class="govuk-summary-list__value">White British</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> ethnicity</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Disability or access needs</dt>
+                <dd class="govuk-summary-list__value">No</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> disability or access needs status</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Religion or belief</dt>
+                <dd class="govuk-summary-list__value">Christian</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> religion or belief</span></a></dd>
+              </div>
+            </dl>
+
+            <h3 class="govuk-heading-m">Victim service details</h3>
+
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Service lead</dt>
+                <dd class="govuk-summary-list__value">Not aligned</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> service lead</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Domestic abuse risk level</dt>
+                <dd class="govuk-summary-list__value">Standard</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> domestic abuse risk level</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Translator needed</dt>
+                <dd class="govuk-summary-list__value">No</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> translator needed</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Victim Personal Statement status</dt>
+                <dd class="govuk-summary-list__value">Not started</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> Victim Personal Statement status</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Reasonable adjustments</dt>
+                <dd class="govuk-summary-list__value">None</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> reasonable adjustments</span></a></dd>
+              </div>
+            </dl>
+
+            <h3 class="govuk-heading-m">Contact details</h3>
+
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Address</dt>
+                <dd class="govuk-summary-list__value">14 Elm Grove<br>London<br>SW1A 2BB</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> address</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Telephone number</dt>
+                <dd class="govuk-summary-list__value">Home: <br>Mobile: 07700 900456<br>Work: </dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> telephone number</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Email address</dt>
+                <dd class="govuk-summary-list__value">jane.smith@example.com</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> email address</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Preferred correspondence language</dt>
+                <dd class="govuk-summary-list__value">English</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> preferred correspondence language</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Do they want to be contacted?</dt>
+                <dd class="govuk-summary-list__value">Yes</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> if they want to be contacted</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Preferred method of contact for CPS</dt>
+                <dd class="govuk-summary-list__value">Email</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> preferred method of contact for CPS</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Preferred method of contact for police</dt>
+                <dd class="govuk-summary-list__value">Telephone</dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Preferred contact times</dt>
+                <dd class="govuk-summary-list__value">Weekday evenings</dd>
+                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-link--no-visited-state" href="#">Change<span class="govuk-visually-hidden"> preferred contact times</span></a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Victim representative details</dt>
+                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link govuk-link--no-visited-state">Enter victim representative details</a></dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Power of attorney details</dt>
+                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link govuk-link--no-visited-state">Enter power of attorney details</a></dd>
+              </div>
+            </dl>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="govuk-tabs__panel" id="case-contacts">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Case contacts</h2>
+
+        {% include "/v51/victim/case-contacts.html" %}
+      </div>
+
+      <div class="govuk-tabs__panel" id="communications">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Communications</h2>
+
+        <nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-label="Communications">
+          <ul class="x-govuk-secondary-navigation__list">
+            <li class="x-govuk-secondary-navigation__list-item x-govuk-secondary-navigation__list-item--current">
+              <a class="x-govuk-secondary-navigation__link" aria-current="page" href="#comms-pcd" data-comms-tab="comms-pcd">Charging decision</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="#comms-ptm" data-comms-tab="comms-ptm">Meetings</a>
+            </li>
+            <li class="x-govuk-secondary-navigation__list-item">
+              <a class="x-govuk-secondary-navigation__link" href="#comms-other" data-comms-tab="comms-other">Other communication</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div id="comms-pcd" class="comms-panel">
+          {% include "/v51/victim/pcd/index.html" %}
+        </div>
+
+        <div id="comms-ptm" class="comms-panel" hidden>
+          {% include "/v51/victim/pre-trial/pre-trial-meeting/index.html" %}
+        </div>
+
+        <div id="comms-other" class="comms-panel" hidden>
+          {% include "/v51/victim/other/index.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/victim-record.js"></script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-comms-tab]');
+    var panels = document.querySelectorAll('.comms-panel');
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = link.getAttribute('data-comms-tab');
+
+        links.forEach(function (l) {
+          var li = l.closest('.x-govuk-secondary-navigation__list-item');
+          li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+          l.removeAttribute('aria-current');
+        });
+        var activeLi = link.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        link.setAttribute('aria-current', 'page');
+
+        panels.forEach(function (panel) {
+          panel.hidden = (panel.id !== targetId);
+        });
+      });
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-case-contacts-tab]');
+    var panels = document.querySelectorAll('.case-contacts-panel');
+
+    if (!links.length || !panels.length) {
+      return;
+    }
+
+    function activateCaseContactsTab(targetId) {
+      links.forEach(function (link) {
+        var li = link.closest('.x-govuk-secondary-navigation__list-item');
+        li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+        link.removeAttribute('aria-current');
+      });
+
+      var activeLink = document.querySelector('[data-case-contacts-tab="' + targetId + '"]');
+      if (activeLink) {
+        var activeLi = activeLink.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        activeLink.setAttribute('aria-current', 'page');
+      }
+
+      panels.forEach(function (panel) {
+        panel.hidden = (panel.id !== targetId);
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        activateCaseContactsTab(link.getAttribute('data-case-contacts-tab'));
+      });
+    });
+  })();
+</script>
+{% endblock %}
