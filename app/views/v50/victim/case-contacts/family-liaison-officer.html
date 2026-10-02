@@ -2,7 +2,7 @@
 {% set pageName = "Family liaison officer" %}
 {% set isExisting = (data['familyLiaisonOfficerDeleted'] != 'yes') and data['familyLiaisonOfficerName'] and (data['familyLiaisonOfficerEmailAddress'] or data['familyLiaisonOfficerPhoneNumber']) %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -23,17 +23,17 @@
             <div class="govuk-form-group" id="error-form-group-name">
                 <label class="govuk-label" for="flo-name">Name</label>
                 <div id="flo-name-hint" class="govuk-hint">Enter a name in the correct format, like BLOGGS, Joe</div>
-                <input type="text" class="govuk-input" id="flo-name" name="familyLiaisonOfficerName" autocomplete="name" aria-describedby="flo-name-hint" value="{{ data['familyLiaisonOfficerName'] }}">
+                <input type="text" class="govuk-input" id="flo-name" name="familyLiaisonOfficerName" autocomplete="off" aria-describedby="flo-name-hint" value="{{ data['familyLiaisonOfficerName'] }}">
             </div>
 
             <div class="govuk-form-group" id="error-form-group-email">
                 <label class="govuk-label" for="flo-email">Email address</label>
-                <input type="text" class="govuk-input" id="flo-email" name="familyLiaisonOfficerEmailAddress" autocomplete="email" value="{{ data['familyLiaisonOfficerEmailAddress'] }}">
+                <input type="text" class="govuk-input" id="flo-email" name="familyLiaisonOfficerEmailAddress" autocomplete="off" value="{{ data['familyLiaisonOfficerEmailAddress'] }}">
             </div>
 
             <div class="govuk-form-group" id="error-form-group-telephone">
                 <label class="govuk-label" for="flo-telephone">Telephone number</label>
-                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="flo-telephone" name="familyLiaisonOfficerPhoneNumber" autocomplete="tel" value="{{ data['familyLiaisonOfficerPhoneNumber'] }}">
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="flo-telephone" name="familyLiaisonOfficerPhoneNumber" autocomplete="off" value="{{ data['familyLiaisonOfficerPhoneNumber'] }}">
             </div>
 
             <div class="govuk-button-group">

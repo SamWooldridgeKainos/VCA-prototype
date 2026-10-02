@@ -2,7 +2,7 @@
 
 {% set pageName="Purpose of meeting" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v51/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -14,16 +14,16 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
-    <form class="form" action="/v51/purpose3-answer" method="post">
+    <form class="form" action="/v51/meetingPurpose-answer" method="post">
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
       {% from "govuk/components/input/macro.njk" import govukInput %}
 
           {% set emailHtml %}
       {{ govukTextarea({
-        id: "contact-by-email",
-        name: "contactByEmail",
+        id: "meeting-purpose-details",
+        name: "meetingPurposeOther",
+        value: data['meetingPurposeOther'],
         type: "text",
-        autocomplete: "email",
         spellcheck: false,
         classes: "govuk-input--width-20",
         label: {
@@ -33,8 +33,8 @@
       {% endset -%}
 
     {{ govukRadios({
-      name: "purpose3",
-      value: data['purpose3'],
+      name: "meetingPurpose",
+      value: data['meetingPurpose'],
       fieldset: {
         legend: {
           text: "What is the purpose of the meeting?",
@@ -44,27 +44,27 @@
       },
       items: [
         {
-          value: "pre-trial",
+          value: "ptm",
           text: "CPS pre-trial meeting"
         },
         {
-          value: "inform-victim",
+          value: "charging-decision",
           text: "Inform victim about charging decision"
         },
         {
-          value: "inform-victim",
+          value: "vcl",
           text: "Stopped or substantially altered charge (VCL Scheme)"
         },
          {
-          value: "inform-victim",
+          value: "vrr",
           text: "Victims' Right to Review (VRR)"
         },
         {
-          value: "inform-victim",
+          value: "complaint",
           text: "Victim complaint"
         },
         {
-          value: "bereavement",
+          value: "other",
           text: "Other",
             conditional: {
               html: emailHtml

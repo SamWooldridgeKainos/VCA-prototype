@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="CPS pre-trial meeting offer due date" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form action="/v50/meetings-2/change-meeting-due-date-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()">
+
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="meeting-due-date">
+                CPS pre&#8209;trial meeting offer due date
+            </label>
+        </h1>
+
+        <p class="govuk-body">
+            The defendant pleaded not guilty on {{ data['ngpDate'] | formatDate }}.
+        </p>
+
+        <div class="govuk-form-group" id="error-form-group-1">
+
+            <label class="govuk-label govuk-label--m" for="meeting-due-date">
+                Due date
+            </label>
+
+            <div class="govuk-hint" id="meeting-due-date-hint">
+                For example, 20/08/2026
+            </div>
+
+            <div class="moj-datepicker" id="meeting-due-date-picker" data-module="moj-date-picker" data-excluded-days="">
+                <input
+                type="text"
+                class="govuk-input moj-js-datepicker-input"
+                id="meeting-due-date"
+                name="meetingDueDate"
+                autocomplete="off"
+                aria-describedby="meeting-due-date-hint"
+                >
+            </div>
+        </div>
+
+        <div class="govuk-form-group" id="error-form-group-2">
+            <label class="govuk-label govuk-label--m" for="reason-for-change">
+                Reason for change
+            </label>
+            <textarea
+                class="govuk-textarea"
+                id="reason-for-change"
+                name="reasonForChange"
+                rows="3"
+            ></textarea>
+        </div>
+
+        <div class="govuk-button-group">
+        <button class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+        <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            Cancel
+        </a>
+        </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/meetings-2/change-meeting-due-date.js"></script>
+{% endblock %}

@@ -18,7 +18,7 @@ function validateForm() {
 
     // The radio question is mandatory
     if (!selectedOption) {
-        optionError = 'Select when the offer is due for the CPS pre-trial meeting';
+        optionError = 'Select when the offer is due for the CPS pre&#8209;trial meeting';
     } else if (selectedOption === 'other-date' && dueDateValue.trim() === '') {
         // Conditional date field is mandatory when "By another date" is chosen
         dateError = 'Enter the meeting offer due date';

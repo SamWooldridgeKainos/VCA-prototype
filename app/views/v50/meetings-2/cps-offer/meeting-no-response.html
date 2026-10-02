@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -103,7 +103,7 @@ No
       How meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-        Letter by post
+        {{ data['meetingOfferMethod'] }}
             </dd>
 
           </div>
@@ -112,7 +112,7 @@ No
       Date meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-            11 April 2025
+            {{ data['meetingOfferDate'] | formatDate }}
             </dd>
 
           </div>

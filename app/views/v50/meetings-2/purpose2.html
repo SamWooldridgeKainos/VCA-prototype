@@ -2,7 +2,7 @@
 
 {% set pageName="Purpose of meeting" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -21,10 +21,10 @@
 
           {% set emailHtml %}
       {{ govukTextarea({
-        id: "contact-by-email",
-        name: "contactByEmail",
+        id: "meeting-purpose-details",
+        name: "meetingPurposeOther",
+        value: data['meetingPurposeOther'],
         type: "text",
-        autocomplete: "email",
         spellcheck: false,
         classes: "govuk-input--width-20",
         label: {
@@ -34,8 +34,8 @@
       {% endset -%}
 
     {{ govukRadios({
-      name: "purpose2",
-      value: data['purpose2'],
+      name: "meetingPurpose",
+      value: data['meetingPurpose'],
       fieldset: {
         legend: {
           text: "What is the purpose of the meeting?",
@@ -45,27 +45,27 @@
       },
       items: [
         {
-          value: "pre-trial",
+          value: "ptm",
           text: "CPS pre-trial meeting"
         },
         {
-          value: "inform-victim",
+          value: "charging-decision",
           text: "Inform victim about charging decision"
         },
         {
-          value: "inform-victim",
+          value: "vcl",
           text: "Stopped or substantially altered charge (VCL Scheme)"
         },
          {
-          value: "inform-victim",
+          value: "vrr",
           text: "Victims' Right to Review (VRR)"
         },
         {
-          value: "inform-victim",
+          value: "complaint",
           text: "Victim complaint"
         },
         {
-          value: "bereavement",
+          value: "other",
           text: "Other",
             conditional: {
               html: emailHtml

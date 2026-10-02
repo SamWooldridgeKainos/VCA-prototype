@@ -1,10 +1,6 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Preferred name" %}
 
-{% block header %}
-{% include "/v60/partials/header/none-selected.html" %}
-{% endblock %}
-
 {% block beforeContent %}
 {% include "/v60/partials/identity-bar/victim-page-bfs-nocreatetask.html" %}
 <a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
@@ -33,35 +29,35 @@
   <label class="govuk-label" for="full-name">
     First name
   </label>
-  <input class="govuk-input" id="full-name" name="fullName" type="text" spellcheck="false" autocomplete="name">
+  <input class="govuk-input" id="full-name" name="fullName" type="text" spellcheck="false" autocomplete="off">
 </div>
 
       <div class="govuk-form-group">
   <label class="govuk-label" for="last-name">
     Last name
   </label>
-  <input class="govuk-input" id="last-name" name="lastName" type="text" spellcheck="false" autocomplete="name">
+  <input class="govuk-input" id="last-name" name="lastName" type="text" spellcheck="false" autocomplete="off">
 </div>
         <div class="govuk-form-group">
   <label class="govuk-label" for="email">
     Email address
   </label>
 
-  <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="email">
+  <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="off">
 </div>
 
 <div class="govuk-form-group">
   <label class="govuk-label" for="home-phone-number">
    Home telephone number
   </label>
-  <input class="govuk-input govuk-input--width-20" id="home-phone-number" name="homePhoneNumber" type="tel" autocomplete="tel">
+  <input class="govuk-input govuk-input--width-20" id="home-phone-number" name="homePhoneNumber" type="tel" autocomplete="off">
 </div>
 
 <div class="govuk-form-group">
   <label class="govuk-label" for="mobile-phone-number">
    Mobile telephone number
   </label>
-  <input class="govuk-input govuk-input--width-20" id="mobile-phone-number" name="mobilePhoneNumber" type="tel" autocomplete="tel">
+  <input class="govuk-input govuk-input--width-20" id="mobile-phone-number" name="mobilePhoneNumber" type="tel" autocomplete="off">
 </div>
 
 

@@ -1,0 +1,137 @@
+{# Single Meetings sub-tab panel. State driven by data['meetingState'] + data['meetingSuccess']. #}
+{% set meetingState = data['meetingState'] %}
+{% set knownMeetingStates = ['offered', 'offered-multi', 'accepted', 'declined', 'no-response', 'not-offered', 'arranged', 'outcome', 'outcome-no', 'cancelled', 'rescheduled'] %}
+
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+
+{% set purposeLabels = {
+  'ptm': 'CPS pre-trial meeting',
+  'pre-trial': 'CPS pre-trial meeting',
+  'charging-decision': 'Inform victim about charging decision',
+  'stopped-altered': 'Stopped or substantially altered charge (VCL Scheme)',
+  'vrr': "Victims' Right to Review (VRR)",
+  'complaint': 'Victim complaint'
+} %}
+{% if data['meetingPurpose'] == 'other' and data['meetingPurposeDetails'] %}
+  {% set meetingPurpose = data['meetingPurposeDetails'] %}
+{% else %}
+  {% set meetingPurpose = purposeLabels[data['meetingPurpose']] or "CPS pre-trial meeting" %}
+{% endif %}
+
+{# Current arrangement (confirm-arrangements answers). #}
+{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + "'s bereaved family requested it" %}
+{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}
+{% elif data['meetingRequestedBy'] == "third-party" %}{% set arrangedText = "Requested by a third party" %}
+{% else %}{% set arrangedText = "" %}{% endif %}
+
+{% if data['meetingFormat'] == "in-person" %}{% set formatText = "In person" %}
+{% elif data['meetingFormat'] == "virtual" %}{% set formatText = "Virtual call" %}
+{% elif data['meetingFormat'] == "hybrid" %}{% set formatText = "Hybrid" %}
+{% else %}{% set formatText = "" %}{% endif %}
+
+{% if data['meetingLocationType'] == "cps" %}{% set locationText = data['cpsLocation'] %}
+{% elif data['meetingLocationType'] == "magistrates" %}{% set locationText = data['magistratesLocation'] %}
+{% elif data['meetingLocationType'] == "crown" %}{% set locationText = data['crownLocation'] %}
+{% elif data['meetingLocationType'] == "police" %}{% set locationText = data['policeStationLocation'] %}
+{% elif data['meetingLocationType'] == "other" %}{% set locationText = data['otherLocation'] %}
+{% else %}{% set locationText = "" %}{% endif %}
+
+{% set attendeesList = data['attendees'] %}
+{% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+
+{# Arrangement as it stood before a reschedule (snapshot taken in meetings.js). #}
+{% if data['previousMeetingFormat'] == "in-person" %}{% set prevFormatText = "In person" %}
+{% elif data['previousMeetingFormat'] == "virtual" %}{% set prevFormatText = "Virtual call" %}
+{% elif data['previousMeetingFormat'] == "hybrid" %}{% set prevFormatText = "Hybrid" %}
+{% else %}{% set prevFormatText = "" %}{% endif %}
+
+{% if data['previousMeetingLocationType'] == "cps" %}{% set prevLocationText = data['previousCpsLocation'] %}
+{% elif data['previousMeetingLocationType'] == "magistrates" %}{% set prevLocationText = data['previousMagistratesLocation'] %}
+{% elif data['previousMeetingLocationType'] == "crown" %}{% set prevLocationText = data['previousCrownLocation'] %}
+{% elif data['previousMeetingLocationType'] == "police" %}{% set prevLocationText = data['previousPoliceStationLocation'] %}
+{% elif data['previousMeetingLocationType'] == "other" %}{% set prevLocationText = data['previousOtherLocation'] %}
+{% else %}{% set prevLocationText = "" %}{% endif %}
+
+{% set prevAttendeesList = data['previousAttendees'] %}
+{% if prevAttendeesList is string %}{% set prevAttendeesList = [prevAttendeesList] %}{% endif %}
+
+{% if data['meetingCancelReason'] == 'victim-withdrew' %}{% set cancelReasonText = victimName + " withdrew" %}
+{% elif data['meetingCancelReason'] == 'meeting-created-in-error' %}{% set cancelReasonText = "Meeting created in error" %}
+{% elif data['meetingCancelReason'] == 'court-date-changed' %}{% set cancelReasonText = "Change of court date" %}
+{% elif data['meetingCancelReason'] == 'no-longer-required' %}{% set cancelReasonText = "No longer required" %}
+{% elif data['meetingCancelReason'] == 'other' %}{% set cancelReasonText = data['meetingCancelReasonOther'] %}
+{% else %}{% set cancelReasonText = "" %}{% endif %}
+
+{% if data['meetingRescheduleReason'] == 'victim-unavailable' %}{% set rescheduleReasonText = victimName + " not available" %}
+{% elif data['meetingRescheduleReason'] == 'attendee-unavailable' %}{% set rescheduleReasonText = "Attendee not available" %}
+{% elif data['meetingRescheduleReason'] == 'incorrect-meeting-date' %}{% set rescheduleReasonText = "Incorrect meeting date" %}
+{% elif data['meetingRescheduleReason'] == 'other' %}{% set rescheduleReasonText = data['meetingRescheduleReasonOther'] %}
+{% else %}{% set rescheduleReasonText = "" %}{% endif %}
+
+{% if data['meetingNotHappenReason'] == 'victim-did-not-attend' %}{% set notHappenReasonText = victimName + " did not attend" %}
+{% elif data['meetingNotHappenReason'] == 'key-attendee-did-not-attend' %}{% set notHappenReasonText = "Key attendee did not attend" %}
+{% elif data['meetingNotHappenReason'] == 'other' %}{% set notHappenReasonText = data['meetingNotHappenReasonOther'] %}
+{% else %}{% set notHappenReasonText = "" %}{% endif %}
+
+{% if data['meetingSuccess'] == 'yes' and meetingState in knownMeetingStates %}
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      {% if meetingState == 'offered' or meetingState == 'offered-multi' %}
+        {{ meetingPurpose }} offered.
+      {% elif meetingState == 'accepted' %}
+        {{ meetingPurpose }} offer accepted.
+      {% elif meetingState == 'declined' %}
+        {{ meetingPurpose }} offer declined.
+      {% elif meetingState == 'no-response' %}
+        No response was logged for the {{ meetingPurpose }} offer.
+      {% elif meetingState == 'not-offered' %}
+        {{ meetingPurpose }} not offered.
+      {% elif meetingState == 'arranged' %}
+        {{ meetingPurpose }} arranged.
+      {% elif meetingState == 'outcome' or meetingState == 'outcome-no' %}
+        {{ meetingPurpose }} outcome logged.
+      {% elif meetingState == 'cancelled' %}
+        {{ meetingPurpose }} cancelled.
+      {% elif meetingState == 'rescheduled' %}
+        {{ meetingPurpose }} details changed.
+      {% endif %}
+    </h3>
+  </div>
+</div>
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        {% if meetingState == 'offered' %}
+        {% include "/v50/meetings-2/states/offered.html" %}
+        {% elif meetingState == 'offered-multi' %}
+        {% include "/v50/meetings-2/states/offered-multi.html" %}
+        {% elif meetingState == 'accepted' %}
+        {% include "/v50/meetings-2/states/accepted.html" %}
+        {% elif meetingState == 'declined' %}
+        {% include "/v50/meetings-2/states/declined.html" %}
+        {% elif meetingState == 'no-response' %}
+        {% include "/v50/meetings-2/states/no-response.html" %}
+        {% elif meetingState == 'not-offered' %}
+        {% include "/v50/meetings-2/states/not-offered.html" %}
+        {% elif meetingState == 'arranged' %}
+        {% include "/v50/meetings-2/states/arranged.html" %}
+        {% elif meetingState == 'outcome' %}
+        {% include "/v50/meetings-2/states/outcome.html" %}
+        {% elif meetingState == 'outcome-no' %}
+        {% include "/v50/meetings-2/states/outcome-no.html" %}
+        {% elif meetingState == 'cancelled' %}
+        {% include "/v50/meetings-2/states/cancelled.html" %}
+        {% elif meetingState == 'rescheduled' %}
+        {% include "/v50/meetings-2/states/rescheduled.html" %}
+        {% else %}
+        {% include "/v50/meetings-2/states/none.html" %}
+        {% endif %}
+    </div>
+</div>

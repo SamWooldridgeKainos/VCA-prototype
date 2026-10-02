@@ -2,7 +2,7 @@
 
 {% set pageName="Telephone call details" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -47,7 +47,8 @@
 {% set textHtml %}
 {{ govukTextarea ({
   id: "contact-by-text",
-  name: "contactByText",
+  name: "meetingCancelReasonOther",
+  value: data['meetingCancelReasonOther'],
   type: "tel",
   autocomplete: "tel",
   classes: "govuk-input--width-20",
@@ -57,8 +58,10 @@
 }) }}
 {% endset -%}
 
+<form action="/v50/meetings-2/cancelled/reason-why-answer" method="post">
 {{ govukRadios({
-  name: "contact",
+  name: "meetingCancelReason",
+  value: data['meetingCancelReason'],
   fieldset: {
     legend: {
       text: "What is the reason for cancelling the meeting?",
@@ -69,25 +72,25 @@
 
   items: [
     {
-      value: "email",
+      value: "victim-withdrew",
       text: "Sarah Phillips withdrew"
 
 
     },
     {
-      value: "phone",
+      value: "meeting-created-in-error",
       text: "Meeting created in error"
     },
      {
-      value: "phone",
+      value: "court-date-changed",
       text: "Change of court date"
     },
     {
-      value: "phone",
+      value: "no-longer-required",
       text: "No longer required"
     },
     {
-      value: "text",
+      value: "other",
       text: "Other",
       conditional: {
         html: textHtml
@@ -98,9 +101,9 @@
 
             <div class="govuk-button-group">
 
-  <a href="meeting-cancelled#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
+  </button>
   <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
   Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
   </a>

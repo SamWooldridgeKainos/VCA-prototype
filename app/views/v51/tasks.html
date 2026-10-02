@@ -1,13 +1,25 @@
-{% extends "layouts/main.html" %} {% set pageName="Tasks" %} {% block header %}
-{% include "/v51/partials/header/tasks-selected.html" %} {% endblock
-%} {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %} {% block
-content %} {% set assigneeName = data['taskAssignee'] | default('') %} {% set
-assigneeNameParts = assigneeName.split(', ') %} {% if assigneeNameParts | length
-== 2 %} {% set assigneeLastname = assigneeNameParts[0] | capitalize %} {% set
-assigneeFirstnameRaw = assigneeNameParts[1] %} {% set assigneeFirstname =
-assigneeFirstnameRaw.split(' (')[0] %} {% set assigneeFormatted =
-assigneeFirstname + ' ' + assigneeLastname %} {% else %} {% set
-assigneeFormatted = assigneeName %} {% endif %}
+{% extends "layouts/main.html" %}
+
+{% set pageName="Tasks" %}
+
+{% block govukServiceNavigation %}
+{% include "/v51/partials/header/tasks-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+{% set assigneeName = data['taskAssignee'] | default('') %}
+{% set assigneeNameParts = assigneeName.split(', ') %}
+
+{% if assigneeNameParts | length == 2 %}
+  {% set assigneeLastname = assigneeNameParts[0] | capitalize %}
+  {% set assigneeFirstnameRaw = assigneeNameParts[1] %}
+  {% set assigneeFirstname = assigneeFirstnameRaw.split(' (')[0] %}
+  {% set assigneeFormatted = assigneeFirstname + ' ' + assigneeLastname %}
+{% else %}
+  {% set assigneeFormatted = assigneeName %}
+{% endif %}
 
 <div
   id="due-date-success-banner"

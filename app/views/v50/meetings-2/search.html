@@ -2,7 +2,7 @@
 
 {% set pageName="Search for a victim" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/victims-selected.html" %}
 {% endblock %}
 
@@ -24,7 +24,7 @@
             Enter a case URN
           </div>
 
-          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">
+          <input type="search" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="on" aria-describedby="search-urn-hint" value="{{ data['searchUrn'] }}">
         </div>
 
         <button type="submit" class="govuk-button moj-search__button" data-module="govuk-button">

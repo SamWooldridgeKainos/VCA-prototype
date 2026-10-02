@@ -1,8 +1,8 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="CPS pre-trial meeting offer date" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -18,12 +18,12 @@
 
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="meeting-offered-date">
-          When was the pre-trial meeting offered?
+          When was the CPS pre&#8209;trial meeting offered?
         </label>
       </h1>
 
       <div class="govuk-hint" id="meeting-offered-date-hint">
-        Use the date picker or enter a date. For example, 11/08/2026
+        For example, 11/08/2026
       </div>
 
       <div
@@ -44,9 +44,14 @@
 
     </div>
 
-    <a href="meeting-accepted-date" class="govuk-button" data-module="govuk-button">
-      Continue
-    </a>
+    <div class="govuk-button-group">
+      <a href="meeting-accepted-date" class="govuk-button" data-module="govuk-button">
+        Continue
+      </a>
+      <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Cancel
+      </a>
+    </div>
 
   </div>
 </div>

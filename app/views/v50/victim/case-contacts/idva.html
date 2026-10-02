@@ -2,7 +2,7 @@
 {% set pageName = "Independent Domestic Violence Advisor (IDVA)" %}
 {% set isExisting = data['idvaName'] %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -22,22 +22,22 @@
 
             <div class="govuk-form-group" id="error-form-group-name">
                 <label class="govuk-label" for="idva-name">Name</label>
-                <input type="text" class="govuk-input" id="idva-name" name="idvaName" autocomplete="name" value="{{ data['idvaName'] }}">
+                <input type="text" class="govuk-input" id="idva-name" name="idvaName" autocomplete="off" value="{{ data['idvaName'] }}">
             </div>
 
             <div class="govuk-form-group" id="error-form-group-line1">
                 <label class="govuk-label" for="idva-address-line-1">Address line 1</label>
-                <input type="text" class="govuk-input" id="idva-address-line-1" name="idvaAddressLine1" autocomplete="address-line1" value="{{ data['idvaAddressLine1'] }}">
+                <input type="text" class="govuk-input" id="idva-address-line-1" name="idvaAddressLine1" autocomplete="off" value="{{ data['idvaAddressLine1'] }}">
             </div>
 
             <div class="govuk-form-group">
                 <label class="govuk-label" for="idva-address-line-2">Address line 2 (optional)</label>
-                <input type="text" class="govuk-input" id="idva-address-line-2" name="idvaAddressLine2" autocomplete="address-line2" value="{{ data['idvaAddressLine2'] }}">
+                <input type="text" class="govuk-input" id="idva-address-line-2" name="idvaAddressLine2" autocomplete="off" value="{{ data['idvaAddressLine2'] }}">
             </div>
 
             <div class="govuk-form-group">
                 <label class="govuk-label" for="idva-address-line-3">Address line 3 (optional)</label>
-                <input type="text" class="govuk-input" id="idva-address-line-3" name="idvaAddressLine3" autocomplete="address-level2" value="{{ data['idvaAddressLine3'] }}">
+                <input type="text" class="govuk-input" id="idva-address-line-3" name="idvaAddressLine3" autocomplete="off" value="{{ data['idvaAddressLine3'] }}">
             </div>
 
             <div class="govuk-form-group">
@@ -52,12 +52,12 @@
 
             <div class="govuk-form-group">
                 <label class="govuk-label" for="idva-postcode">Postcode</label>
-                <input type="text" class="govuk-input govuk-input--width-10" id="idva-postcode" name="idvaPostCode" autocomplete="postal-code" value="{{ data['idvaPostCode'] }}">
+                <input type="text" class="govuk-input govuk-input--width-10" id="idva-postcode" name="idvaPostCode" autocomplete="off" value="{{ data['idvaPostCode'] }}">
             </div>
 
             <div class="govuk-form-group">
                 <label class="govuk-label" for="idva-city">City</label>
-                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="idva-city" name="idvaCity" autocomplete="address-level2" value="{{ data['idvaCity'] }}">
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="idva-city" name="idvaCity" autocomplete="off" value="{{ data['idvaCity'] }}">
             </div>
 
             <div class="govuk-form-group">
@@ -67,12 +67,12 @@
 
             <div class="govuk-form-group" id="error-form-group-email">
                 <label class="govuk-label" for="idva-email">Email address</label>
-                <input type="text" class="govuk-input" id="idva-email" name="idvaEmailAddress" autocomplete="email" value="{{ data['idvaEmailAddress'] }}">
+                <input type="text" class="govuk-input" id="idva-email" name="idvaEmailAddress" autocomplete="off" value="{{ data['idvaEmailAddress'] }}">
             </div>
 
             <div class="govuk-form-group" id="error-form-group-telephone">
                 <label class="govuk-label" for="idva-telephone">Telephone number</label>
-                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="idva-telephone" name="idvaPhoneNumber" autocomplete="tel" value="{{ data['idvaPhoneNumber'] }}">
+                <input type="text" class="govuk-input govuk-!-width-two-thirds" id="idva-telephone" name="idvaPhoneNumber" autocomplete="off" value="{{ data['idvaPhoneNumber'] }}">
             </div>
 
             <div class="govuk-button-group">

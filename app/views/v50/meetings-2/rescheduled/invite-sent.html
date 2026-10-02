@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -11,6 +11,12 @@
 {% endblock %}
 
 {% block content %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set attendeesList = data['attendees'] %}
+{% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+{% if data['meetingFormat'] == 'in-person' %}{% set formatText = 'In person' %}{% elif data['meetingFormat'] == 'virtual' %}{% set formatText = 'Virtual call' %}{% elif data['meetingFormat'] == 'hybrid' %}{% set formatText = 'Hybrid' %}{% else %}{% set formatText = '' %}{% endif %}
+{% if data['meetingLocationType'] == 'cps' %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == 'magistrates' %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == 'crown' %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == 'police' %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == 'other' %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = '' %}{% endif %}
+{% if data['meetingRequestedBy'] == 'family' %}{% set arrangedText = victimName + "'s bereaved family requested it" %}{% elif data['meetingRequestedBy'] == 'cps' %}{% set arrangedText = 'CPS offered and ' + victimName + "'s bereaved family accepted" %}{% elif data['meetingRequestedBy'] == 'third-party' %}{% set arrangedText = 'Requested by a third party' %}{% else %}{% set arrangedText = '' %}{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
@@ -72,7 +78,7 @@
       Date and time
         </dt>
         <dd class="govuk-summary-list__value">
-          15 April 2025 at 14:00pm
+          {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
         </dd>
 
 
@@ -85,7 +91,7 @@
                <dt class="govuk-summary-list__key">
             Reason for change
                <dd class="govuk-summary-list__value">
-              Sarah Phillips not available
+              {% if data['meetingRescheduleReason'] == 'victim-unavailable' %}{{ victimName }} not available{% elif data['meetingRescheduleReason'] == 'attendee-unavailable' %}Attendee not available{% elif data['meetingRescheduleReason'] == 'incorrect-meeting-date' %}Incorrect meeting date{% elif data['meetingRescheduleReason'] == 'other' %}{{ data['meetingRescheduleReasonOther'] }}{% endif %}
                </dd>
                
              </div>
@@ -96,7 +102,7 @@
              How meeting was arranged
                </dt>
                <dd class="govuk-summary-list__value">
-               CPS offered and Sarah Phillips accepted
+               {{ arrangedText }}
                </dd>
                
              </div>
@@ -105,7 +111,7 @@
         How meeting will take place
         </dt>
         <dd class="govuk-summary-list__value">
-         In person
+         {{ formatText }}
         </dd>
 
       </div>
@@ -114,7 +120,7 @@
         Location
         </dt>
         <dd class="govuk-summary-list__value">
-  Birmingham Magistrates’ Court
+  {{ locationText }}
         </dd>
 
       </div>
@@ -124,7 +130,7 @@
       Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-        (Meeting lead) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+        (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
         </dd>
 
       </div>
@@ -134,9 +140,9 @@
 Support needs
         </dt>
         <dd class="govuk-summary-list__value">
-          Interpreter needed: No, Person for support: Yes
+          Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}{% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}: {{ data['interpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}{% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}: {{ data['supportPersonDetails'] }}{% endif %}
 <br>
-      Other support: Victim will need a room with step free access
+      Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
         </dd>
 
       </div>
@@ -180,7 +186,7 @@ Arranged meetings
         Date and time
           </dt>
           <dd class="govuk-summary-list__value">
-            11 April 2025 at 11:45am
+            {{ data['previousMeetingDate'] | formatDate }}{% if data['previousMeetingHour'] %} at {{ data['previousMeetingHour'] }}:{{ data['previousMeetingMinutes'] }}{% endif %}
           </dd>
 
         </div>
@@ -189,7 +195,7 @@ Arranged meetings
           How meeting will take place
           </dt>
           <dd class="govuk-summary-list__value">
-           In person
+           {{ formatText }}
           </dd>
 
         </div>
@@ -198,7 +204,7 @@ Arranged meetings
           Location
           </dt>
           <dd class="govuk-summary-list__value">
-    Birmingham Magistrates’ Court
+    {{ locationText }}
           </dd>
 
         </div>
@@ -208,7 +214,7 @@ Arranged meetings
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>
@@ -218,9 +224,9 @@ Arranged meetings
   Support needs
           </dt>
           <dd class="govuk-summary-list__value">
-            Interpreter needed: No, Person for support: Yes
+            Interpreter needed: {{ "Yes" if data['previousInterpreterNeeded'] == "yes" else "No" }}{% if data['previousInterpreterNeeded'] == "yes" and data['previousInterpreterDetails'] %}: {{ data['previousInterpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['previousSupportPersonNeeded'] == "yes" else "No" }}{% if data['previousSupportPersonNeeded'] == "yes" and data['previousSupportPersonDetails'] %}: {{ data['previousSupportPersonDetails'] }}{% endif %}
   <br>
-        Other support: Victim will need a room with step free access
+        Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
           </dd>
 
         </div>
@@ -257,7 +263,7 @@ Arranged meetings
         How meeting offer was accepted
             </dt>
             <dd class="govuk-summary-list__value">
-        Letter by post
+        {{ data['meetingAcceptedMethod'] }}
             </dd>
 
           </div>
@@ -266,7 +272,7 @@ Arranged meetings
       Date meeting was accepted
             </dt>
             <dd class="govuk-summary-list__value">
-            11 April 2025
+            {{ data['meetingAcceptedDate'] | formatDate }}
             </dd>
 
           </div>
@@ -294,7 +300,7 @@ Arranged meetings
           How was meeting offered
               </dt>
               <dd class="govuk-summary-list__value">
-          Letter by post
+          {{ data['meetingOfferMethod'] }}
               </dd>
 
             </div>
@@ -303,7 +309,7 @@ Arranged meetings
         Date meeting was offered
               </dt>
               <dd class="govuk-summary-list__value">
-              11 April 2025
+              {{ data['meetingOfferDate'] | formatDate }}
               </dd>
 
             </div>

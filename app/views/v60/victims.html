@@ -3,7 +3,7 @@
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v60/partials/header/victims-selected.html" %}
 {% endblock %}
 
@@ -396,7 +396,7 @@
           </label>
 
           <div style="display: flex; gap: 10px; align-items: flex-start;">
-            <input type="text" class="govuk-input moj-search__input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="" value="">
+            <input type="text" class="govuk-input moj-search__input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="on" value="">
             <button type="submit" class="govuk-button moj-search__button govuk-!-margin-bottom-0" data-module="govuk-button">
               Search
             </button>

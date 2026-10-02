@@ -1,5 +1,21 @@
 // All shared /v60/* routes are registered by v60.js (loaded first in routes.js)
 
+// The /v50 Meetings sub-tab is a single page; each outcome is a state on it.
+function v50MeetingState(state) {
+    return '/v50/meetings-2/victim-record?secondaryNav=ptm&meetingState=' + state + '&meetingSuccess=yes#communications'
+}
+
+function meetingMethodLabel(method) {
+    var labels = {
+        'letter-post': 'Letter by post',
+        'letter-email': 'Letter by email',
+        'letter-police': 'Letter by police',
+        'letter-isva': 'Letter by ISVA',
+        telephone: 'By telephone'
+    }
+    return labels[method] || ''
+}
+
 module.exports = router => {
 
     // Pre-population across /bfs/meetings-2 flows is only wanted when the user
@@ -48,7 +64,7 @@ module.exports = router => {
           router.post('/bfs/meetings-2/logging-answer', function(request, response) {
 
         var logging = request.session.data['logging']
-        if (logging == "yes"){
+        if (logging == "meeting-offer"){
             response.redirect("/bfs/meetings-2/purpose2")
         } else {
             response.redirect("/bfs/meetings-2/purpose")
@@ -56,7 +72,12 @@ module.exports = router => {
     })
 
     router.post('/logging-answer', function(request, response) {
-        response.redirect("/v50/meetings-2/purpose")
+        var logging = request.session.data['logging']
+        if (logging == "meeting-offer" || logging == "meeting-arrangments" || logging == "meeting-outcome") {
+            response.redirect("/v50/meetings-2/purpose")
+        } else {
+            response.redirect("/v50/meetings-2/purpose")
+        }
     })
 
   
@@ -93,23 +114,23 @@ module.exports = router => {
 
 
 
-    router.post('/bfs/meetings-2/purpose3-answer', function(request, response) {
+    router.post('/bfs/meetings-2/meetingPurpose-answer', function(request, response) {
 
-        var purpose3 = request.session.data['purpose3']
-        if (purpose3 == "pre-trial"){
+        var meetingPurpose = request.session.data['meetingPurpose']
+        if (meetingPurpose == "ptm"){
             response.redirect("/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         } else {
             response.redirect("/bfs/meetings-2/confirm-arrangements/who-requested-meeting")
         }
     })
 
-     router.post('/purpose3-answer', function(request, response) {
+     router.post('/meetingPurpose-answer', function(request, response) {
 
-        var purpose3 = request.session.data['purpose3']
-        if (purpose3 == "pre-trial"){
-            response.redirect("/v50/meetings-2/due-date")
+        var meetingPurpose = request.session.data['meetingPurpose']
+        if (meetingPurpose == "ptm"){
+            response.redirect("/v50/meetings-2/not-guilty-plea-date")
         } else {
-            response.redirect("/v50/meetings-2/due-date")
+            response.redirect("/v50/meetings-2/not-guilty-plea-date")
         }
     })
 
@@ -333,6 +354,37 @@ module.exports = router => {
         }
     })
 
+    router.post('/v50/meetings-2/cps-offer/not-offered-answer', function(request, response) {
+        request.session.data['meetingNotOfferedReason'] = request.body['meetingNotOfferedReason'] || ''
+        response.redirect(v50MeetingState('not-offered'))
+    })
+
+    router.post('/v50/meetings-2/cancelled/meeting-date-answer', function(request, response) {
+        response.redirect('/v50/meetings-2/cancelled/reason-why')
+    })
+
+    router.post('/v50/meetings-2/cancelled/reason-why-answer', function(request, response) {
+        response.redirect(v50MeetingState('cancelled'))
+    })
+
+    router.post('/v50/meetings-2/rescheduled/meeting-date-answer', function(request, response) {
+        var data = request.session.data
+        var arrangementKeys = ['MeetingDate', 'MeetingHour', 'MeetingMinutes', 'MeetingRequestedBy', 'MeetingFormat', 'MeetingLocationType', 'CpsLocation', 'MagistratesLocation', 'CrownLocation', 'PoliceStationLocation', 'OtherLocation', 'Attendees', 'MeetingLead', 'InterpreterNeeded', 'InterpreterDetails', 'SupportPersonNeeded', 'SupportPersonDetails', 'OtherSupportNeeds']
+        arrangementKeys.forEach(function(key) {
+            var dataKey = key.charAt(0).toLowerCase() + key.slice(1)
+            data['previous' + key] = data[dataKey]
+        })
+        response.redirect('/v50/meetings-2/rescheduled/reason-why')
+    })
+
+    router.post('/v50/meetings-2/rescheduled/reason-why-answer', function(request, response) {
+        var data = request.session.data
+        data['meetingDate'] = data['meetingRescheduledDate'] || data['meetingDate']
+        data['meetingHour'] = data['meetingRescheduledHour'] || data['meetingHour']
+        data['meetingMinutes'] = data['meetingRescheduledMinutes'] || data['meetingMinutes']
+        response.redirect('/v50/meetings-2/rescheduled/check-answers2')
+    })
+
     router.post('/format-answer', function(request, response) {
 
         var format = request.session.data['format']
@@ -406,24 +458,9 @@ module.exports = router => {
     router.post('/howoffered-answer', function(request, response) {
 
         var howoffered = request.session.data['howoffered']
-        if (howoffered == "letter-post"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-post#communications")
-    }
-    else if (howoffered == "letter-email"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-email#communications")
-        }
-
-    else if (howoffered == "letter-isva"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-isva#communications")
-        }
-
-    else if (howoffered == "letter-police"){
-    response.redirect("/v50/meetings-2/cps-offer/meeting-offered-police#communications")
-
-
-        } else {
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-telephone#communications")
-        }
+        request.session.data['meetingOfferMethod'] = meetingMethodLabel(howoffered)
+        request.session.data['meetingOfferDate'] = request.session.data['offerDate'] || ''
+        response.redirect(v50MeetingState('offered'))
     })
     
 
@@ -443,24 +480,9 @@ module.exports = router => {
        router.post('/howoffered2-answer', function(request, response) {
 
         var howoffered2 = request.session.data['howoffered2']
-        if (howoffered2 == "letter-post"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-post-2#communications")
-    }
-    else if (howoffered2 == "letter-email"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-email#communications")
-        }
-
-    else if (howoffered2 == "letter-isva"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-isva#communications")
-        }
-
-    else if (howoffered2 == "letter-police"){
-    response.redirect("/v50/meetings-2/cps-offer/meeting-offered-police#communications")
-
-
-        } else {
-            response.redirect("/v50/meetings-2/cps-offer/meeting-offered-telephone#communications")
-        }
+        request.session.data['meetingOfferMethod'] = meetingMethodLabel(howoffered2)
+        request.session.data['meetingOfferDate'] = request.session.data['offerDate2'] || ''
+        response.redirect(v50MeetingState(howoffered2 == "letter-post" ? 'offered-multi' : 'offered'))
     })
 
 
@@ -503,24 +525,9 @@ module.exports = router => {
     router.post('/recordaccepted-answer', function(request, response) {
 
         var recordaccepted = request.session.data['recordaccepted']
-        if (recordaccepted == "letter-post"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-accepted-post#communications")
-    }
-    else if (recordaccepted == "letter-email"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-accepted-email#communications")
-        }
-
-    else if (recordaccepted == "letter-isva"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-accepted-isva#communications")
-        }
-
-    else if (recordaccepted == "letter-police"){
-    response.redirect("/v50/meetings-2/cps-offer/meeting-accepted-police#communications")
-
-
-        } else {
-            response.redirect("/v50/meetings-2/cps-offer/meeting-accepted-telephone#communications")
-        }
+        request.session.data['meetingAcceptedMethod'] = meetingMethodLabel(recordaccepted)
+        request.session.data['meetingAcceptedDate'] = request.session.data['acceptDate'] || ''
+        response.redirect(v50MeetingState('accepted'))
     })
 
        router.post('/bfs/meetings-2/recorddeclined-answer', function(request, response) {
@@ -561,24 +568,9 @@ module.exports = router => {
     router.post('/recorddeclined-answer', function(request, response) {
 
         var recorddeclined = request.session.data['recorddeclined']
-        if (recorddeclined == "letter-post"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-declined-post#communications")
-    }
-    else if (recorddeclined == "letter-email"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-declined-email#communications")
-        }
-
-    else if (recorddeclined == "letter-isva"){
-            response.redirect("/v50/meetings-2/cps-offer/meeting-declined-isva#communications")
-        }
-
-    else if (recorddeclined == "letter-police"){
-    response.redirect("/v50/meetings-2/cps-offer/meeting-declined-police#communications")
-
-
-        } else {
-            response.redirect("/v50/meetings-2/cps-offer/meeting-declined-telephone#communications")
-        }
+        request.session.data['meetingDeclinedMethod'] = meetingMethodLabel(recorddeclined)
+        request.session.data['meetingDeclinedDate'] = request.session.data['declineDate'] || ''
+        response.redirect(v50MeetingState('declined'))
     })
 
 
@@ -734,6 +726,10 @@ module.exports = router => {
         } else {
             response.redirect("/v50/meetings-2/log-outcome/reason-why")
         }
+    })
+
+    router.post('/v50/meetings-2/log-outcome/reason-why-answer', function(request, response) {
+        response.redirect(v50MeetingState('outcome-no'))
     })
 
     router.post('/did-victim-request', function(request, response) {
@@ -989,6 +985,8 @@ module.exports = router => {
         request.session.data['meetingRescheduled'] = ''
         if (caBase.indexOf('/bfs') === 0) {
             response.redirect('/bfs/victim/index?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications')
+        } else if (caBase.indexOf('/v50') === 0) {
+            response.redirect(v50MeetingState('arranged'))
         } else {
             response.redirect(caBase + 'meeting-confirmed#communications')
         }
@@ -1060,7 +1058,12 @@ module.exports = router => {
     // v51 meetings — mirror of the v50 flows, redirecting to /v51 pages.
 
     router.post('/v51/logging-answer', function(request, response) {
-        response.redirect("/v51/meetings-2/purpose")
+        var logging = request.session.data['logging']
+        if (logging == "meeting-offer" || logging == "meeting-arrangments" || logging == "meeting-outcome") {
+            response.redirect("/v51/meetings-2/purpose")
+        } else {
+            response.redirect("/v51/meetings-2/purpose")
+        }
     })
 
     router.post('/v51/purpose-answer', function(request, response) {
@@ -1071,8 +1074,13 @@ module.exports = router => {
         response.redirect("/v51/meetings/has-meeting-been-offered")
     })
 
-    router.post('/v51/purpose3-answer', function(request, response) {
-        response.redirect("/v51/meetings-2/due-date")
+    router.post('/v51/meetingPurpose-answer', function(request, response) {
+        var meetingPurpose = request.session.data['meetingPurpose']
+        if (meetingPurpose == "ptm"){
+            response.redirect("/v51/meetings-2/due-date")
+        } else {
+            response.redirect("/v51/meetings-2/due-date")
+        }
     })
 
     router.post('/v51/purpose4-answer', function(request, response) {

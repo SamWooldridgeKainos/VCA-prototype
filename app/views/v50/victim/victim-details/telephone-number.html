@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Victim's telephone number" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -28,17 +28,17 @@
 
       <div class="govuk-form-group" id="error-form-group-home">
         <label class="govuk-label" for="home-phone">Home</label>
-        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="home-phone" name="victimHomePhone" autocomplete="tel" value="{{ data['victimHomePhone'] }}">
+        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="home-phone" name="victimHomePhone" autocomplete="off" value="{{ data['victimHomePhone'] }}">
       </div>
 
       <div class="govuk-form-group" id="error-form-group-mobile">
         <label class="govuk-label" for="mobile-phone">Mobile</label>
-        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="mobile-phone" name="victimPhoneNumber" autocomplete="tel" value="{{ data['victimPhoneNumber'] }}">
+        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="mobile-phone" name="victimPhoneNumber" autocomplete="off" value="{{ data['victimPhoneNumber'] }}">
       </div>
 
       <div class="govuk-form-group" id="error-form-group-work">
         <label class="govuk-label" for="work-phone">Work</label>
-        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="work-phone" name="victimWorkPhone" autocomplete="tel" value="{{ data['victimWorkPhone'] }}">
+        <input type="tel" class="govuk-input govuk-!-width-two-thirds" id="work-phone" name="victimWorkPhone" autocomplete="off" value="{{ data['victimWorkPhone'] }}">
       </div>
 
       <div class="govuk-form-group" id="error-form-group-reason">

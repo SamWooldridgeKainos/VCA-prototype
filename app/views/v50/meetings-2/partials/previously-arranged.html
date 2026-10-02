@@ -1,0 +1,52 @@
+{# Arrangement as it stood before the reschedule (previous* snapshot). #}
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['previousMeetingDate'] | formatDate }}{% if data['previousMeetingHour'] %} at {{ data['previousMeetingHour'] }}:{{ data['previousMeetingMinutes'] }}{% endif %}
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How meeting will take place
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ prevFormatText }}
+    </dd>
+  </div>
+
+  {% if prevLocationText %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Location
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ prevLocationText }}
+    </dd>
+  </div>
+  {% endif %}
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Attendees
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <p class="govuk-body">Meeting lead: {{ data['previousMeetingLead'] }}</p>
+      {% for attendee in prevAttendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Support needs
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Interpreter needed: {{ "Yes" if data['previousInterpreterNeeded'] == "yes" else "No" }}{% if data['previousInterpreterNeeded'] == "yes" and data['previousInterpreterDetails'] %}: {{ data['previousInterpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['previousSupportPersonNeeded'] == "yes" else "No" }}{% if data['previousSupportPersonNeeded'] == "yes" and data['previousSupportPersonDetails'] %}: {{ data['previousSupportPersonDetails'] }}{% endif %}
+      <br>
+      Other support: {{ data['previousOtherSupportNeeds'] if data['previousOtherSupportNeeds'] else "None" }}
+    </dd>
+  </div>
+</dl>
