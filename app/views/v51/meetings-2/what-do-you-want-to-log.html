@@ -2,7 +2,7 @@
 
 {% set pageName="Purpose of meeting" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v51/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -29,15 +29,15 @@
       },
       items: [
         {
-          value: "yes",
+          value: "meeting-offer",
           text: "A meeting offer"
         },
         {
-          value: "no",
+          value: "meeting-arrangments",
           text: "Meeting arrangement details"
         },
         {
-          value: "no",
+          value: "meeting-outcome",
           text: "Meeting outcome details"
         }
       ]

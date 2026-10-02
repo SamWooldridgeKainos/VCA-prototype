@@ -29,28 +29,28 @@
         <label class="govuk-label" for="first-name">
           First name
         </label>
-        <input class="govuk-input" id="first-name" name="floFirstName" type="text" spellcheck="false" autocomplete="given-name" value="{{ data['floFirstName'] }}">
+        <input class="govuk-input" id="first-name" name="floFirstName" type="text" spellcheck="false" autocomplete="off" value="{{ data['floFirstName'] }}">
       </div>
 
       <div class="govuk-form-group">
         <label class="govuk-label" for="last-name">
           Last name
         </label>
-        <input class="govuk-input" id="last-name" name="floLastName" type="text" spellcheck="false" autocomplete="family-name" value="{{ data['floLastName'] }}">
+        <input class="govuk-input" id="last-name" name="floLastName" type="text" spellcheck="false" autocomplete="off" value="{{ data['floLastName'] }}">
       </div>
 
       <div class="govuk-form-group">
         <label class="govuk-label" for="email">
           Email address
         </label>
-        <input class="govuk-input" id="email" name="floEmail" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" value="{{ data['floEmail'] }}">
+        <input class="govuk-input" id="email" name="floEmail" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="off" value="{{ data['floEmail'] }}">
       </div>
 
       <div class="govuk-form-group">
         <label class="govuk-label" for="phone-number">
           Telephone number
         </label>
-        <input class="govuk-input govuk-input--width-20" id="phone-number" name="floPhone" type="tel" autocomplete="tel" value="{{ data['floPhone'] }}">
+        <input class="govuk-input govuk-input--width-20" id="phone-number" name="floPhone" type="tel" autocomplete="off" value="{{ data['floPhone'] }}">
       </div>
 
       <button type="submit" class="govuk-button" data-module="govuk-button">

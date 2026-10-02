@@ -1,0 +1,43 @@
+<a href="/v50/meetings-2/purpose2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Log new meeting details<span class="govuk-visually-hidden"> to offer a {{ meetingPurpose }}</span>
+</a>
+
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose }} offer
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Response
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+    </dl>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Offered meetings
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              {{ meetingPurpose }} offered
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            {% include "/v50/meetings-2/partials/logged-offer.html" %}
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</div>

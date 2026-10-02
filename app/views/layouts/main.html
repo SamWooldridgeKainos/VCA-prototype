@@ -92,12 +92,57 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
     </div>
   </div>
 </header>
+{% block govukServiceNavigation %}
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container govuk-service-navigation__inlining-container">
+    <div class="govuk-service-navigation__container">
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/tasks">
+              Tasks
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="/v50/victims">
+              Victims
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav class="govuk-language-navigation" aria-label="Report an issue and give feedback">
+        <ul class="govuk-language-navigation__list">
+          <li class="govuk-language-navigation__list-item" style="border-right: none">
+            <a class="govuk-service-navigation__link" href="#">
+              Report an issue
+            </a>
+          </li>
+          <li class="govuk-language-navigation__list-item">
+            <a class="govuk-service-navigation__link" href="#">
+              Give feedback
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}
 {% endblock %}
 
 {% block footer %}
 <footer class="govuk-footer" style="border-top: 10px solid var(--cps-color-theme);">
   <div class="govuk-width-container">
     <h2 class="govuk-visually-hidden">About this website</h2>
+    <ul class="govuk-footer__inline-list">
+      <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="#" id="accessibility-statement-link">Accessibility statement</a>
+      </li>
+    </ul>
     <ul class="govuk-footer__inline-list">
       <li class="govuk-footer__inline-list-item">
         <a class="govuk-footer__link" href="/manage-prototype/clear-data?searchUrn" id="clear-data-link">Clear data</a>

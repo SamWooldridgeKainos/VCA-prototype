@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -11,6 +11,13 @@
 {% endblock %}
 
 {% block content %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set attendeesList = data['attendees'] %}
+{% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+{% set loggedAttendees = data['logAttended'] %}
+{% if loggedAttendees is string %}{% set loggedAttendees = [loggedAttendees] %}{% endif %}
+{% if data['meetingFormat'] == 'in-person' %}{% set formatText = 'In person' %}{% elif data['meetingFormat'] == 'virtual' %}{% set formatText = 'Virtual call' %}{% elif data['meetingFormat'] == 'hybrid' %}{% set formatText = 'Hybrid' %}{% else %}{% set formatText = '' %}{% endif %}
+{% if data['meetingLocationType'] == 'cps' %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == 'magistrates' %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == 'crown' %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == 'police' %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == 'other' %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = '' %}{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
@@ -67,93 +74,74 @@
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
+      {% if data['logDurationHours'] or data['logDurationMinutes'] %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-    Duration of the meeting
-        </dt>
+        <dt class="govuk-summary-list__key">Duration of the meeting</dt>
+        <dd class="govuk-summary-list__value">{{ data['logDurationHours'] }} hours {{ data['logDurationMinutes'] }} minutes</dd>
+      </div>
+      {% endif %}
+      {% if data['logAttended'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Attendees</dt>
         <dd class="govuk-summary-list__value">
-      3 hours 30 minutes
+          {% for attendee in loggedAttendees %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
         </dd>
-
       </div>
+      {% endif %}
+      {% if data['logMeetingLead'] %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-      Attendees
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
-        </dd>
-
+        <dt class="govuk-summary-list__key">Meeting lead</dt>
+        <dd class="govuk-summary-list__value">{{ data['logMeetingLead'] }}</dd>
       </div>
-    
-
-                          <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Counsel attended
-               </dt>
-               <dd class="govuk-summary-list__value">
-Yes
-               </dd>
-              
-
-             </div>
-
-
-                                       <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Eligible for expenses
-               </dt>
-               <dd class="govuk-summary-list__value">
-Yes
-               </dd>
-              
-
-             </div>
-
-                                  
-
-                                          <div class="govuk-summary-list__row">
-               <dt class="govuk-summary-list__key">
-Agreed to research
-               </dt>
-               <dd class="govuk-summary-list__value">
-No
-               </dd>
-              
-             </div>
-                <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-     Meeting notes
-        </dt>
-        <dd class="govuk-summary-list__value">
-Yes        </dd>
-
-      </div>
+      {% endif %}
+      {% if data['logCounselAttended'] %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-     Meeting notes to OIC
-        </dt>
-        <dd class="govuk-summary-list__value">
-Yes        </dd>
-
+        <dt class="govuk-summary-list__key">Counsel attended</dt>
+        <dd class="govuk-summary-list__value">{{ data['logCounselAttended'] | capitalize }}</dd>
       </div>
+      {% endif %}
+      {% if data['logEligibleExpenses'] %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-     Meeting notes to victim
-        </dt>
-        <dd class="govuk-summary-list__value">
-Yes        </dd>
-
+        <dt class="govuk-summary-list__key">Eligible for expenses</dt>
+        <dd class="govuk-summary-list__value">{{ data['logEligibleExpenses'] | capitalize }}</dd>
       </div>
+      {% endif %}
+      {% if data['logAgreedResearch'] %}
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-      Actions agreed
-        </dt>
-        <dd class="govuk-summary-list__value">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in feugiat sem, at facilisis diam. Ut sit amet mi ac nisi blandit rutrum.
-        </dd>
-
+        <dt class="govuk-summary-list__key">Agreed to research</dt>
+        <dd class="govuk-summary-list__value">{% if data['logAgreedResearch'] == 'not-asked' %}The question was not asked{% else %}{{ data['logAgreedResearch'] | capitalize }}{% endif %}</dd>
       </div>
+      {% endif %}
+      {% if data['logNotesInCms'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Meeting notes saved in CMS</dt>
+        <dd class="govuk-summary-list__value">{{ data['logNotesInCms'] | capitalize }}</dd>
+      </div>
+      {% endif %}
+      {% if data['logNotesToOic'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Meeting notes sent to OIC</dt>
+        <dd class="govuk-summary-list__value">{{ data['logNotesToOic'] | capitalize }}</dd>
+      </div>
+      {% endif %}
+      {% if data['logNotesToVictim'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Meeting notes sent to victim</dt>
+        <dd class="govuk-summary-list__value">{{ data['logNotesToVictim'] | capitalize }}</dd>
+      </div>
+      {% endif %}
+      {% if data['actionsAgreed2'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Actions agreed</dt>
+        <dd class="govuk-summary-list__value">{{ data['actionsAgreed2'] | capitalize }}</dd>
+      </div>
+      {% if data['actionsAgreed2'] == 'yes' and data['moreDetail'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">What was agreed</dt>
+        <dd class="govuk-summary-list__value">{{ data['moreDetail'] }}</dd>
+      </div>
+      {% endif %}
+      {% endif %}
 
 
 
@@ -182,7 +170,7 @@ Arranged meetings
         Date and time
           </dt>
           <dd class="govuk-summary-list__value">
-            11 April 2025 at 11:45am
+            {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
           </dd>
 
         </div>
@@ -191,7 +179,7 @@ Arranged meetings
           How meeting will take place
           </dt>
           <dd class="govuk-summary-list__value">
-           In person
+           {{ formatText }}
           </dd>
 
         </div>
@@ -200,7 +188,7 @@ Arranged meetings
           Location
           </dt>
           <dd class="govuk-summary-list__value">
-    Birmingham Magistrates’ Court
+    {{ locationText }}
           </dd>
 
         </div>
@@ -210,7 +198,7 @@ Arranged meetings
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+          (Meeting lead) {{ data['meetingLead'] }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>
@@ -220,9 +208,9 @@ Arranged meetings
   Support needs
           </dt>
           <dd class="govuk-summary-list__value">
-            Interpreter needed: No, Person for support: Yes
+            Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}{% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}: {{ data['interpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}{% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}: {{ data['supportPersonDetails'] }}{% endif %}
   <br>
-        Other support: Victim will need a room with step free access
+        Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
           </dd>
 
         </div>
@@ -259,7 +247,7 @@ Arranged meetings
         How meeting offer was accepted
             </dt>
             <dd class="govuk-summary-list__value">
-        Letter by post
+        {{ data['meetingAcceptedMethod'] }}
             </dd>
 
           </div>
@@ -268,7 +256,7 @@ Arranged meetings
       Date meeting was accepted
             </dt>
             <dd class="govuk-summary-list__value">
-            11 April 2025
+            {{ data['meetingAcceptedDate'] | formatDate }}
             </dd>
 
           </div>
@@ -296,7 +284,7 @@ Arranged meetings
           How was meeting offered
               </dt>
               <dd class="govuk-summary-list__value">
-          Letter by post
+          {{ data['meetingOfferMethod'] }}
               </dd>
 
             </div>
@@ -305,7 +293,7 @@ Arranged meetings
         Date meeting was offered
               </dt>
               <dd class="govuk-summary-list__value">
-              11 April 2025
+              {{ data['meetingOfferDate'] | formatDate }}
               </dd>
 
             </div>

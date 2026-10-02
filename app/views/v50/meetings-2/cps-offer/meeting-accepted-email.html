@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -69,7 +69,7 @@
   How meeting was accepted
         </dt>
         <dd class="govuk-summary-list__value">
-    Letter by email
+    {{ data['meetingAcceptedMethod'] }}
         </dd>
 
       </div>
@@ -78,7 +78,7 @@
   Date meeting was accepted
         </dt>
         <dd class="govuk-summary-list__value">
-        11 April 2025
+        {{ data['meetingAcceptedDate'] | formatDate }}
         </dd>
 
       </div>
@@ -116,7 +116,7 @@ Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-
       How meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-        Letter by post
+        {{ data['meetingOfferMethod'] }}
             </dd>
 
           </div>
@@ -125,7 +125,7 @@ Confirm arranged meeting<span class="govuk-visually-hidden"> to offer a CPS pre-
       Date meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-            11 April 2025
+            {{ data['meetingOfferDate'] | formatDate }}
             </dd>
 
           </div>

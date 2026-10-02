@@ -3,7 +3,7 @@
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/victims-selected-bfs.html" %}
 {% endblock %}
 
@@ -103,7 +103,7 @@
               Case reference
             </label>
       
-            <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" value="">
+            <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="off" value="">
             
             <button type="submit" class="govuk-button moj-search__button govuk-!-margin-top-4 govuk-!-margin-left-0" data-module="govuk-button">
               Search

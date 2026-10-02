@@ -1,20 +1,13 @@
-{% block content %}
-{% include "/v50/partials/header/cps-header.html" %}
-
+{% block govukServiceNavigation %}
 <div class="govuk-service-navigation"
   data-module="govuk-service-navigation">
-  <div class="govuk-width-container">
+  <div class="govuk-width-container govuk-service-navigation__inlining-container">
     <div class="govuk-service-navigation__container">
       <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
         <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
           Menu
         </button>
         <ul class="govuk-service-navigation__list" id="navigation">
-          <!-- <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/v50/overview">
-              Overview
-            </a>
-          </li> -->
           <li class="govuk-service-navigation__item">
             <a class="govuk-service-navigation__link" href="/v50/tasks">
               Tasks
@@ -23,6 +16,20 @@
           <li class="govuk-service-navigation__item">
             <a class="govuk-service-navigation__link" href="/v50/victims">
               Victims
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav class="govuk-language-navigation" aria-label="Report an issue and give feedback">
+        <ul class="govuk-language-navigation__list">
+          <li class="govuk-language-navigation__list-item" style="border-right: none">
+            <a class="govuk-service-navigation__link" href="#">
+              Report an issue
+            </a>
+          </li>
+          <li class="govuk-language-navigation__list-item">
+            <a class="govuk-service-navigation__link" href="#">
+              Give feedback
             </a>
           </li>
         </ul>

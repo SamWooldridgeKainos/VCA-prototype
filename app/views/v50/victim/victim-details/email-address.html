@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Victim's email address" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -30,7 +30,7 @@
             </label>
           </h1>
 
-          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="victim-email-address" name="victimEmailAddress" autocomplete="email" spell_check="false" value="{{ data['victimEmailAddress'] }}" aria-describedby="call-back-hint">
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="victim-email-address" name="victimEmailAddress" autocomplete="off" spell_check="false" value="{{ data['victimEmailAddress'] }}" aria-describedby="call-back-hint">
         </div>
 
         <div class="govuk-form-group" id="error-form-group-2">

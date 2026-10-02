@@ -4,9 +4,8 @@ import * as path from 'path';
 
 // List of routes to test
 const routes = [
-  '/v40/onb/overview',
-  '/v40/onb/tasks',
-  '/v40/onb/victims'
+  '/v50/tasks',
+  '/v50/victims'
 ];
 
 test.describe('Prototype Pages Screenshot Test', () => {
@@ -86,6 +85,142 @@ test.describe('Prototype Pages Screenshot Test', () => {
       await expect(buttons[0]).toBeVisible();
     }
   });
+
+  const meetingScenarios: {
+    name: string;
+    state: string;
+    data: Record<string, string>;
+    expected: string[];
+  }[] = [
+    {
+      name: 'offered',
+      state: 'offered',
+      data: { meetingOfferMethod: 'By telephone', meetingOfferDate: '02/10/2026' },
+      expected: ['By telephone', '2 October 2026']
+    },
+    {
+      name: 'accepted',
+      state: 'accepted',
+      data: {
+        meetingAcceptedMethod: 'By telephone', meetingAcceptedDate: '03/10/2026',
+        meetingOfferMethod: 'Letter by email', meetingOfferDate: '02/10/2026'
+      },
+      expected: ['By telephone', 'Letter by email', '2 October 2026', '3 October 2026']
+    },
+    {
+      name: 'declined',
+      state: 'declined',
+      data: {
+        meetingDeclinedMethod: 'By telephone', meetingDeclinedDate: '03/10/2026',
+        meetingOfferMethod: 'Letter by email', meetingOfferDate: '02/10/2026'
+      },
+      expected: ['By telephone', 'Letter by email', '2 October 2026', '3 October 2026']
+    },
+    {
+      name: 'no response',
+      state: 'no-response',
+      data: { meetingOfferMethod: 'Letter by email', meetingOfferDate: '02/10/2026' },
+      expected: ['Letter by email', '2 October 2026']
+    },
+    {
+      name: 'not offered',
+      state: 'not-offered',
+      data: { meetingNotOfferedReason: 'Distinct reason entered for this test' },
+      expected: ['Distinct reason entered for this test']
+    },
+    {
+      name: 'arranged',
+      state: 'arranged',
+      data: {
+        meetingDate: '02/10/2026', meetingHour: '09', meetingMinutes: '30',
+        meetingFormat: 'hybrid', meetingLocationType: 'other', otherLocation: 'Test Venue',
+        meetingRequestedBy: 'family', meetingLead: 'Test Lead', attendees: 'Test Attendee',
+        interpreterNeeded: 'yes', interpreterDetails: 'Test interpreter',
+        supportPersonNeeded: 'yes', supportPersonDetails: 'Test companion',
+        otherSupportNeeds: 'Test support', meetingAcceptedMethod: 'By telephone',
+        meetingAcceptedDate: '03/10/2026', meetingOfferMethod: 'Letter by email',
+        meetingOfferDate: '02/10/2026'
+      },
+      expected: ['2 October 2026', 'Hybrid', 'Test Venue', 'Test Lead', 'Test Attendee', 'Test interpreter', 'Test companion', 'By telephone', 'Letter by email']
+    },
+    {
+      name: 'outcome logged',
+      state: 'outcome',
+      data: {
+        meetingDate: '02/10/2026', meetingHour: '09', meetingMinutes: '30',
+        meetingFormat: 'virtual', meetingLocationType: 'other', otherLocation: 'Test Room',
+        meetingLead: 'Test Lead', attendees: 'Test Attendee', logDurationHours: '1',
+        logDurationMinutes: '15', logAttended: 'Test Attendee', logCounselAttended: 'no',
+        logEligibleExpenses: 'no', logAgreedResearch: 'not-asked', logNotesInCms: 'no',
+        logNotesToOic: 'no', logNotesToVictim: 'no', actionsAgreed2: 'yes',
+        moreDetail: 'Test action', interpreterNeeded: 'yes', interpreterDetails: 'Test interpreter',
+        supportPersonNeeded: 'yes', supportPersonDetails: 'Test support'
+      },
+      expected: ['2 October 2026', '09:30', 'Virtual call', 'Test Room', 'Test Lead', 'Test Attendee', 'Test action', 'Test interpreter', 'Test support']
+    },
+    {
+      name: 'outcome not held',
+      state: 'outcome-no',
+      data: {
+        meetingNotHappenReason: 'other', meetingNotHappenReasonOther: 'Test absence',
+        meetingDate: '02/10/2026', meetingHour: '09', meetingMinutes: '30',
+        meetingFormat: 'virtual', meetingLocationType: 'other', otherLocation: 'Test Venue',
+        meetingLead: 'Test Lead', attendees: 'Test Attendee', interpreterNeeded: 'no',
+        supportPersonNeeded: 'yes', supportPersonDetails: 'Test companion', otherSupportNeeds: 'Test support'
+      },
+      expected: ['Test absence', '2 October 2026', 'Virtual call', 'Test Venue', 'Test Lead', 'Test Attendee', 'Test companion', 'Test support']
+    },
+    {
+      name: 'cancelled',
+      state: 'cancelled',
+      data: {
+        meetingCancelledDate: '02/10/2026', meetingCancelledHour: '09',
+        meetingCancelledMinutes: '30', meetingCancelReason: 'other',
+        meetingCancelReasonOther: 'Test cancellation', meetingDate: '01/10/2026',
+        meetingFormat: 'virtual', meetingLocationType: 'other', otherLocation: 'Test Venue',
+        meetingLead: 'Test Lead', attendees: 'Test Attendee', interpreterNeeded: 'no',
+        supportPersonNeeded: 'no', otherSupportNeeds: 'None'
+      },
+      expected: ['2 October 2026', '09:30', 'Test cancellation', '1 October 2026', 'Virtual call', 'Test Venue', 'Test Lead', 'Test Attendee']
+    },
+    {
+      name: 'rescheduled',
+      state: 'rescheduled',
+      data: {
+        meetingDate: '05/10/2026', meetingHour: '13', meetingMinutes: '45',
+        meetingRescheduleReason: 'other', meetingRescheduleReasonOther: 'Test reschedule',
+        meetingFormat: 'virtual', meetingLocationType: 'other', otherLocation: 'Test Venue',
+        meetingLead: 'Test Lead', attendees: 'Test Attendee', interpreterNeeded: 'yes',
+        interpreterDetails: 'New interpreter', supportPersonNeeded: 'no',
+        otherSupportNeeds: '', previousMeetingDate: '02/10/2026', previousMeetingHour: '09',
+        previousMeetingMinutes: '30', previousMeetingFormat: 'in-person',
+        previousMeetingLocationType: 'other', previousOtherLocation: 'Old Venue',
+        previousMeetingLead: 'Old Lead', previousAttendees: 'Old Attendee',
+        previousInterpreterNeeded: 'yes', previousInterpreterDetails: 'Old interpreter',
+        previousSupportPersonNeeded: 'yes', previousSupportPersonDetails: 'Old support'
+      },
+      expected: ['5 October 2026', 'Test reschedule', 'New interpreter', '2 October 2026', 'Old interpreter', 'Old support', 'Old Venue', 'Test Venue', 'Test Lead', 'Test Attendee']
+    }
+  ];
+
+  for (const scenario of meetingScenarios) {
+    test(`Meetings sub-tab displays submitted data: ${scenario.name}`, async ({ page }) => {
+      const query = new URLSearchParams({
+        ...scenario.data,
+        secondaryNav: 'ptm',
+        meetingState: scenario.state,
+        meetingSuccess: 'yes'
+      }).toString();
+      await page.goto(`http://localhost:3000/v50/meetings-2/victim-record?${query}#communications`);
+
+      const meetingPanel = page.locator('#comms-ptm');
+      for (const value of scenario.expected) {
+        await expect(meetingPanel).toContainText(value);
+      }
+      await expect(meetingPanel).not.toContainText('11 April 2025');
+      await expect(meetingPanel).not.toContainText('Birmingham Magistrates');
+    });
+  }
 
   // Test navigation between pages
   test('Navigation test', async ({ page }) => {

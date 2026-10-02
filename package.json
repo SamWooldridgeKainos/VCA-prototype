@@ -6,17 +6,19 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "@dwp/dwp-frontend": "3.4.0",
+    "@dwp/dwp-frontend": "4.1.0",
     "@govuk-prototype-kit/common-templates": "2.0.1",
     "@govuk-prototype-kit/step-by-step": "2.2.4",
     "@govuk-prototype-kit/task-list": "2.0.0",
-    "@ministryofjustice/frontend": "7.1.1",
-    "@x-govuk/govuk-prototype-components": "^5.0.2",
-    "@x-govuk/govuk-prototype-filters": "^2.1.0",
-    "govuk-frontend": "5.14.0",
-    "govuk-prototype-kit": "13.20.0",
+    "@ministryofjustice/frontend": "^11.1.0",
+    "@x-govuk/govuk-prototype-components": "6.0.0",
+    "@x-govuk/govuk-prototype-filters": "2.2.0",
+    "govuk-frontend": "^6.5.1",
+    "govuk-prototype-kit": "13.20.5",
+    "hmrc-frontend": "7.38.0",
     "jquery": "3.7.1",
     "marked": "4.3.0",
+    "moment": "^2.31.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

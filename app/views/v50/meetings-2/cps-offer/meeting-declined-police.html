@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -70,7 +70,7 @@
   How meeting was declined
         </dt>
         <dd class="govuk-summary-list__value">
-    Letter by police
+    {{ data['meetingDeclinedMethod'] }}
         </dd>
 
       </div>
@@ -79,7 +79,7 @@
   Date meeting was declined
         </dt>
         <dd class="govuk-summary-list__value">
-        11 April 2025
+        {{ data['meetingDeclinedDate'] | formatDate }}
         </dd>
 
       </div>
@@ -111,7 +111,7 @@
       How meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-        Letter by post
+        {{ data['meetingOfferMethod'] }}
             </dd>
 
           </div>
@@ -120,7 +120,7 @@
       Date meeting was offered
             </dt>
             <dd class="govuk-summary-list__value">
-            11 April 2025
+            {{ data['meetingOfferDate'] | formatDate }}
             </dd>
 
           </div>

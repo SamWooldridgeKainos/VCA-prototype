@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -126,7 +126,7 @@
             Support needs
                     </dt>
                     <dd class="govuk-summary-list__value">
-                      Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}
+                      Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}{% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}: {{ data['interpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}{% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}: {{ data['supportPersonDetails'] }}{% endif %}
             <br>
                   Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
                     </dd>
@@ -169,7 +169,7 @@
                     How meeting offer was accepted
                         </dt>
                         <dd class="govuk-summary-list__value">
-                    Letter by post
+                    {{ data['meetingAcceptedMethod'] }}
                         </dd>
 
                       </div>
@@ -178,7 +178,7 @@
                   Date meeting was accepted
                         </dt>
                         <dd class="govuk-summary-list__value">
-                        11 April 2025
+                        {{ data['meetingAcceptedDate'] | formatDate }}
                         </dd>
 
                       </div>
@@ -206,7 +206,7 @@
                       How was meeting offered
                           </dt>
                           <dd class="govuk-summary-list__value">
-                      Letter by post
+                      {{ data['meetingOfferMethod'] }}
                           </dd>
 
                         </div>
@@ -215,7 +215,7 @@
                     Date meeting was offered
                           </dt>
                           <dd class="govuk-summary-list__value">
-                          11 April 2025
+                          {{ data['meetingOfferDate'] | formatDate }}
                           </dd>
 
                         </div>

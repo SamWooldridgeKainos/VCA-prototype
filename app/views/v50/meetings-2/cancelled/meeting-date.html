@@ -2,7 +2,7 @@
 
 {% set pageName="Telephone call details" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -16,7 +16,7 @@
 
         <h1 class="govuk-heading-l">When was the meeting cancelled?</h1>
 
-        <form action="/v20/record/telephone-call-2-details-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
+        <form action="/v50/meetings-2/cancelled/meeting-date-answer" method="post" accept-charset="UTF-8" id="myForm" name="myForm" onsubmit="return validateForm()">
 
             <div class="govuk-form-group" id="error-form-group-1">
                 <label class="govuk-label govuk-label--m" for="telephone-call-date-2">
@@ -30,10 +30,10 @@
                 <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
                     <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date-2"
-                        name="telephoneCallDate2"
+                        name="meetingCancelledDate"
                         autocomplete="off"
                         aria-describedby="telephone-call-date-hint-2"
-                        value="{{ data['telephoneCallDate2'] }}" />
+                        value="{{ data['meetingCancelledDate'] }}" />
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-hour-2">
                                     Hour
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="callHour2" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-hour-2" name="meetingCancelledHour" value="{{ data['meetingCancelledHour'] }}" type="text" inputmode="numeric">
                             </div>
                         </div>
                         <div class="govuk-date-input__item" style="margin-right: 10px;">
@@ -66,7 +66,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="call-minutes-2">
                                     Minutes
                                 </label>
-                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="callMinutes2" type="text" inputmode="numeric">
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="call-minutes-2" name="meetingCancelledMinutes" value="{{ data['meetingCancelledMinutes'] }}" type="text" inputmode="numeric">
                             </div>
                         </div>
 
@@ -78,9 +78,9 @@
 
             <div class="govuk-button-group">
 
-  <a href="reason-why" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+    <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
   Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
-  </a>
+    </button>
   <a href="#" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
   Cancel<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
   </a>

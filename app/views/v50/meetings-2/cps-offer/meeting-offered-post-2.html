@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -72,7 +72,7 @@ Offered to {{ data['victimForename'] }} {{ data['victimSurname'] }}: 2</p>
     How was meeting offered
         </dt>
         <dd class="govuk-summary-list__value">
-    Letter by post
+    {{ data['meetingOfferMethod'] }}
         </dd>
 
       </div>
@@ -81,7 +81,7 @@ Offered to {{ data['victimForename'] }} {{ data['victimSurname'] }}: 2</p>
   Date meeting was offered
         </dt>
         <dd class="govuk-summary-list__value">
-        11 April 2025
+        {{ data['meetingOfferDate'] | formatDate }}
         </dd>
 
       </div>
@@ -124,7 +124,7 @@ Log no response<span class="govuk-visually-hidden"> to offer a CPS pre-trial mee
     How was meeting offered
         </dt>
         <dd class="govuk-summary-list__value">
-    Letter by post
+    {{ data['meetingOfferMethod'] }}
         </dd>
 
       </div>
@@ -133,7 +133,7 @@ Log no response<span class="govuk-visually-hidden"> to offer a CPS pre-trial mee
   Date meeting was offered
         </dt>
         <dd class="govuk-summary-list__value">
-        24 May 2025
+        {{ data['meetingOfferDate'] | formatDate }}
         </dd>
 
       </div>
