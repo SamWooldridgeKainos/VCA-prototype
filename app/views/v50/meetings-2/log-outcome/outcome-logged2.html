@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -11,6 +11,11 @@
 {% endblock %}
 
 {% block content %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set attendeesList = data['attendees'] %}
+{% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
+{% if data['meetingFormat'] == 'in-person' %}{% set formatText = 'In person' %}{% elif data['meetingFormat'] == 'virtual' %}{% set formatText = 'Virtual call' %}{% elif data['meetingFormat'] == 'hybrid' %}{% set formatText = 'Hybrid' %}{% else %}{% set formatText = '' %}{% endif %}
+{% if data['meetingLocationType'] == 'cps' %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == 'magistrates' %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == 'crown' %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == 'police' %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == 'other' %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = '' %}{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
@@ -73,7 +78,7 @@
     Meeting took place
         </dt>
         <dd class="govuk-summary-list__value">
-    No
+    {{ "No" if data['logMeetingHappened'] == "no" else "Yes" }}
         </dd>
 
       </div>
@@ -82,7 +87,7 @@
   Reason why
         </dt>
         <dd class="govuk-summary-list__value">
-Victim did not attend      </dd>
+{% if data['meetingNotHappenReason'] == 'victim-did-not-attend' %}{{ victimName }} did not attend{% elif data['meetingNotHappenReason'] == 'key-attendee-did-not-attend' %}Key attendee did not attend{% elif data['meetingNotHappenReason'] == 'other' %}{{ data['meetingNotHappenReasonOther'] }}{% endif %}      </dd>
 
       </div>
 
@@ -114,7 +119,7 @@ Victim did not attend      </dd>
         Date and time
           </dt>
           <dd class="govuk-summary-list__value">
-            11 April 2025 at 11:45am
+            {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
           </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -122,7 +127,7 @@ Victim did not attend      </dd>
           How meeting will take place
           </dt>
           <dd class="govuk-summary-list__value">
-           In person
+           {{ formatText }}
           </dd>
 
         </div>
@@ -131,7 +136,7 @@ Victim did not attend      </dd>
           location
           </dt>
           <dd class="govuk-summary-list__value">
-    Birmingham Magistrates’ Court
+    {{ locationText }}
           </dd>
 
         </div>
@@ -141,7 +146,7 @@ Victim did not attend      </dd>
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) Police officer in charge (PC FISHER, Jane), Victim (PHILLIPS Sarah), High court advocate (SHEAF, Jessica), Family liaison officer (BIDWELL, Jane), Independent domestic violence adviser (IDVA) (SAKAMOTO, Hadji)
+          (Meeting lead) {{ data['meetingLead'] }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>
@@ -151,9 +156,9 @@ Victim did not attend      </dd>
   Support need
           </dt>
           <dd class="govuk-summary-list__value">
-            Interpreter needed: No, Person for support: Yes
+            Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}{% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}: {{ data['interpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}{% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}: {{ data['supportPersonDetails'] }}{% endif %}
   <br>
-        Other support: Victim will need a room with step free access
+        Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
           </dd>
 
         </div>

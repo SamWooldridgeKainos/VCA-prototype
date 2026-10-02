@@ -166,7 +166,7 @@ module.exports = router => {
         if (!fromCheck) {
             delete request.session.data['nextTask']
             delete request.session.data['meetingPurpose']
-            delete request.session.data['meetingPurposeDetails']
+            delete request.session.data['meetingPurposeOther']
             delete request.session.data['taskDueDate']
             delete request.session.data['manualTaskName']
             delete request.session.data['taskNote']

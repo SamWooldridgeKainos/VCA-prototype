@@ -22,8 +22,8 @@
       {% set emailHtml %}
       {{ govukTextarea({
         id: "meeting-purpose-details",
-        name: "meetingPurposeDetails",
-        value: data['meetingPurposeDetails'] if data['changeMode'] == 'true',
+        name: "meetingPurposeOther",
+        value: data['meetingPurposeOther'] if data['changeMode'] == 'true',
         type: "text",
         spellcheck: false,
         classes: "govuk-input--width-20",
@@ -45,7 +45,7 @@
       },
       items: [
         {
-          value: "pre-trial",
+          value: "ptm",
           text: "CPS pre-trial meeting"
         },
         {
@@ -53,7 +53,7 @@
           text: "Inform victim about charging decision"
         },
         {
-          value: "stopped-altered",
+          value: "vcl",
           text: "Stopped or substantially altered charge (VCL Scheme)"
         },
          {

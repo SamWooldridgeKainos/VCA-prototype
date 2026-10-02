@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Tasks" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v60/partials/header/tasks-selected.html" %}
 {% endblock %}
 
@@ -86,7 +86,7 @@
           <label class="govuk-label govuk-label--s" for="search-urn">
             Case reference or victim name
           </label>
-          <input type="text" class="govuk-input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="" value="">
+          <input type="text" class="govuk-input govuk-!-margin-bottom-0" id="search-urn" name="searchUrn" autocomplete="off" value="">
         </div>
 
         <div class="govuk-form-group">

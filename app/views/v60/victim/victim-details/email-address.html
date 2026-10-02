@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Victim's email address" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v60/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -27,7 +27,7 @@
             You might need to call back the victim to confirm their details.
           </div> -->
 
-          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="victim-email-address" name="victimEmailAddress" autocomplete="email" spell_check="false" value="{{ data['victimEmailAddress'] }}" aria-describedby="call-back-hint">
+          <input type="text" class="govuk-input govuk-!-width-two-thirds" id="victim-email-address" name="victimEmailAddress" autocomplete="off" spell_check="false" value="{{ data['victimEmailAddress'] }}" aria-describedby="call-back-hint">
         </div>
 
         <div class="govuk-form-group" id="error-form-group-2">

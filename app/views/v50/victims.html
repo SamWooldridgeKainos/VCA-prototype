@@ -3,7 +3,7 @@
 
 {% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/victims-selected.html" %}
 {% endblock %}
 
@@ -89,7 +89,7 @@
               <label class="govuk-label govuk-label--s" for="search-urn">
                 Case reference
               </label>
-              <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="" value="">
+              <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="on" value="">
             </div>
 
         </div>

@@ -1,8 +1,8 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Purpose of meeting" %}
+{% set pageName="CPS pre-trial meeting offer due date" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -16,96 +16,32 @@
 
     <form action="/v50/meetings-2/meeting-due-date-answer" method="post" id="myForm" name="myForm" onsubmit="return validateForm()">
 
-    <div class="govuk-form-group" id="error-form-group-1">
+      <h1 class="govuk-heading-l">
+        CPS pre&#8209;trial meeting offer due date
+      </h1>
 
-      <fieldset class="govuk-fieldset">
+      <p class="govuk-body">
+        The defendant pleaded not guilty on {{ data['ngpDate'] | formatDate }}.
+      </p>
 
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 class="govuk-fieldset__heading">
-            When is the offer due for the CPS pre&#8209;trial meeting?
-          </h1>
-        </legend>
+      <p class="govuk-body">
+        The CPS pre&#8209;trial meeting offer due date is <span class="govuk-!-font-weight-bold">{{ data['ngpDate'] | addDays(14) | formatDate }}</span>.
+      </p>
 
-        <div class="govuk-hint" id="ngp-date-hint1">
-          The defendant pleaded not guilty on {{ data['ngpDate'] | formatDate }}
-        </div>
+      <!-- <p class="govuk-body">
+        <a href="/v50/meetings-2/change-meeting-due-date">Choose a different date</a>
+      </p> -->
 
-        <div class="govuk-radios" data-module="govuk-radios">
+      <hr class="govuk-section-break govuk-section-break--m">
 
-          <div class="govuk-radios__item">
-            <input
-              class="govuk-radios__input"
-              id="meeting-due-plea"
-              name="meetingDueOption"
-              type="radio"
-              value="plea-date"
-            >
-            <label class="govuk-label govuk-radios__label" for="meeting-due-plea">
-              Within 14 days of the not guilty plea date
-            </label>
-            <div class="govuk-hint govuk-radios__hint" id="meeting-due-plea-hint">
-              {{ data['ngpDate'] | addDays(14) | formatDate }}
-            </div>
-          </div>
-
-          <div class="govuk-radios__item">
-            <input
-              class="govuk-radios__input"
-              id="meeting-due-other"
-              name="meetingDueOption"
-              type="radio"
-              value="other-date"
-              data-aria-controls="conditional-meeting-due-other"
-            >
-            <label class="govuk-label govuk-radios__label" for="meeting-due-other">
-              By another date
-            </label>
-          </div>
-
-          <div
-            class="govuk-radios__conditional govuk-radios__conditional--hidden"
-            id="conditional-meeting-due-other"
-          >
-
-            <div class="govuk-form-group" id="error-form-group-2">
-
-              <label class="govuk-label govuk-label--s" for="meeting-due-date">
-                Meeting offer due date
-              </label>
-
-              <div class="govuk-hint" id="meeting-due-date-hint">
-                Use the date picker or enter a date. For example, 20/08/2026
-              </div>
-
-              <div
-                class="moj-datepicker"
-                id="meeting-due-date-picker"
-                data-module="moj-date-picker"
-                data-excluded-days=""
-              >
-                <input
-                  type="text"
-                  class="govuk-input moj-js-datepicker-input"
-                  id="meeting-due-date"
-                  name="meetingDueDate"
-                  autocomplete="off"
-                  aria-describedby="meeting-due-date-hint"
-                >
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </fieldset>
-
-    </div>
-
-    <button class="govuk-button" data-module="govuk-button">
-      Continue
-    </button>
+      <div class="govuk-button-group">
+        <button class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+        <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Cancel
+        </a>
+      </div>
 
     </form>
 

@@ -44,7 +44,7 @@ function validateDate(dateString) {
     var match = dateString.match(datePattern);
 
     if (!match) {
-        return 'Enter the date in the correct format, like 20/08/2026';
+        return 'The date the defendant pleaded not guilty must be a real date';
     }
 
     var day = parseInt(match[1], 10);
@@ -53,13 +53,13 @@ function validateDate(dateString) {
 
     // Check valid month
     if (month < 1 || month > 12) {
-        return 'Enter a real date';
+        return 'The date the defendant pleaded not guilty must be a real date';
     }
 
     // Check valid day for month
     var daysInMonth = new Date(year, month, 0).getDate();
     if (day < 1 || day > daysInMonth) {
-        return 'Enter a real date';
+        return 'The date the defendant pleaded not guilty must be a real date';
     }
 
     // Must be today or in the past

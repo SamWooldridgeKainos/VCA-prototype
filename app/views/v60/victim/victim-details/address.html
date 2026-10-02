@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% set pageName="Change address" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v60/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -22,14 +22,14 @@
                 <label class="govuk-label" for="victimAddressLine1">
                     Address line 1
                 </label>
-                <input class="govuk-input" id="victimAddressLine1" name="victimAddressLine1" type="text" value="{{ data['victimAddressLine1'] }}" autocomplete="address-line1">
+                <input class="govuk-input" id="victimAddressLine1" name="victimAddressLine1" type="text" value="{{ data['victimAddressLine1'] }}" autocomplete="off">
             </div>
 
             <div class="govuk-form-group">
                 <label class="govuk-label" for="victimAddressLine2">
                     Address line 2
                 </label>
-                <input class="govuk-input" id="victimAddressLine2" name="victimAddressLine2" type="text" value="{{ data['victimAddressLine2'] }}" autocomplete="address-line2">
+                <input class="govuk-input" id="victimAddressLine2" name="victimAddressLine2" type="text" value="{{ data['victimAddressLine2'] }}" autocomplete="off">
             </div>
 
             <div class="govuk-form-group">
@@ -43,7 +43,7 @@
                 <label class="govuk-label" for="victimPostCode">
                     Postcode
                 </label>
-                <input class="govuk-input govuk-input--width-10" id="victimPostCode" name="victimPostCode" type="text" value="{{ data['victimPostCode'] }}" autocomplete="postal-code">
+                <input class="govuk-input govuk-input--width-10" id="victimPostCode" name="victimPostCode" type="text" value="{{ data['victimPostCode'] }}" autocomplete="off">
             </div>
 
             <button class="govuk-button" data-module="govuk-button">

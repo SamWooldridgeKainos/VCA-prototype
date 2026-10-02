@@ -37,14 +37,27 @@ module.exports = router => {
         response.redirect("/v50/tasks")
     })
 
-    router.post('/v50/meetings-2/due-date-answer', function(request, response) {
+    router.post('/v50/meetings-2/not-guilty-plea-date-answer', function(request, response) {
 
         response.redirect("/v50/meetings-2/meeting-due-date")
     })
 
     router.post('/v50/meetings-2/meeting-due-date-answer', function(request, response) {
 
-        response.redirect("/v50/meetings-2/meeting-offered-date")
+        if (request.session.data['meetingPurpose'] === 'ptm' && request.session.data['logging'] === 'meeting-offer') {
+            response.redirect("/v50/meetings-2/has-meeting-been-offered")
+        } else {
+            response.redirect("/v50/meetings-2/meeting-offered-date")
+        }
+    })
+
+    router.post('/v50/meetings-2/change-meeting-due-date-answer', function(request, response) {
+
+        if (request.session.data['meetingPurpose'] === 'ptm' && request.session.data['logging'] === 'meeting-offer') {
+            response.redirect("/v50/meetings-2/has-meeting-been-offered")
+        } else {
+            response.redirect("/v50/meetings-2/meeting-offered-date")
+        }
     })
 
     router.post('/v50/onb/service-lead-answer', function(request, response) {
@@ -176,7 +189,7 @@ module.exports = router => {
         if (!fromCheck) {
             delete request.session.data['nextTask']
             delete request.session.data['meetingPurpose']
-            delete request.session.data['meetingPurposeDetails']
+            delete request.session.data['meetingPurposeOther']
             delete request.session.data['taskDueDate']
             delete request.session.data['manualTaskName']
             delete request.session.data['taskNote']

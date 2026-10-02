@@ -143,19 +143,21 @@ addFilter('sortPcdDecisions', decisions => {
 // the second argument so "other" resolves to the free-text description.
 addFilter('meetingPurposeLabel', (purpose, details) => {
   const labels = {
-    'pre-trial': 'CPS pre-trial meeting',
+    'ptm': 'CPS pre&#8209;trial meeting',
+    'pre-trial': 'CPS pre&#8209;trial meeting',
     'pre-charge': 'Pre-charge meeting',
     'charging-decision': 'Inform victim about charging decision',
     'charging-decision-family': 'Inform bereaved family about charging decision',
     'conviction': 'Conviction meeting',
     'sentencing': 'Sentencing meeting',
     'acquittal': 'Acquittal meeting',
+    'vcl': 'Stopped or substantially altered charge (VCL Scheme)',
     'stopped-altered': 'Stopped or substantially altered charge (VCL Scheme)',
     'vrr': "Victims' Right to Review (VRR)",
     'joint': 'Joint CPS and Police meeting',
     'lesser-offence': 'Lesser offence meeting',
-    'complaint': 'Bereaved family complaint',
+    'complaint': 'Victim complaint',
     'other': details || 'Other'
   }
-  return labels[purpose] || 'CPS pre-trial meeting'
+  return labels[purpose] || 'CPS pre&#8209;trial meeting'
 })

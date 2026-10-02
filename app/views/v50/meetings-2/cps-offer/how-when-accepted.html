@@ -2,7 +2,7 @@
 
 {% set pageName="Telephone call details" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -67,10 +67,10 @@
                 <div class="moj-datepicker" id="telephone-call-date-picker" data-module="moj-date-picker" data-excluded-days="saturday sunday">
 
                     <input type="text" class="govuk-input moj-js-datepicker-input" id="telephone-call-date-2"
-                        name="telephoneCallDate2"
+                        name="acceptDate"
                         autocomplete="off"
                         aria-describedby="telephone-call-date-hint-2"
-                        value="{{ data['telephoneCallDate2'] }}" />
+                        value="{{ data['acceptDate'] }}" />
                 </div>
 
                           </div>

@@ -2,7 +2,7 @@
 
 {% set pageName="Victim record" %}
 
-{% block header %}
+{% block govukServiceNavigation %}
 {% include "/v50/partials/header/none-selected.html" %}
 {% endblock %}
 
@@ -79,7 +79,7 @@ Why was a meeting not offered
         <dd class="govuk-summary-list__value">
 
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam justo justo, tristique ac lacinia in.
+    {{ data['meetingNotOfferedReason'] }}
         </dd>
 
       </div>

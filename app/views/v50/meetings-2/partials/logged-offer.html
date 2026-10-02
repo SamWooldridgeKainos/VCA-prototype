@@ -1,0 +1,18 @@
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How was meeting offered
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['meetingOfferMethod'] }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date meeting was offered
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['meetingOfferDate'] | formatDate }}
+    </dd>
+  </div>
+</dl>
