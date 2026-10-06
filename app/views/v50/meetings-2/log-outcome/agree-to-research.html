@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Purpose of meeting" %}
 
@@ -22,7 +23,7 @@
       value: data['logAgreedResearch'],
       fieldset: {
         legend: {
-          text: "Did Sarah Phillips agree to be contacted for research?",
+          text: "Did " + victimName + " agree to be contacted for research?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }

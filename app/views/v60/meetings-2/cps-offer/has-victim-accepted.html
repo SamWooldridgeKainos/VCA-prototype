@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set partyName = victimName + "'s bereaved family" if data['victimDeceased'] == 'yes' else victimName %}
+
+{% set pageName="Purpose of meeting" %}
+
+{% block beforeContent %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/did-victim-request3" method="post">
+      <h1 class="govuk-heading-l">You have sent one meeting offer to {{ partyName }}</h1>
+
+      {{ govukRadios({
+      name: "meeting4",
+      value: data['meeting4'] if data['changeMode'] == 'true',
+      fieldset: {
+        legend: {
+          text: "Do you want to log an acceptance?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No – log a new CPS pre-trial meeting offer"
+        }
+      ]
+    }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

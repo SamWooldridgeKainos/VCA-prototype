@@ -36,7 +36,7 @@
     <div class="govuk-form-group{% if interpreterError %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" aria-describedby="{% if interpreterError %}interpreterNeeded-error{% endif %}">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-          Will anyone from {{ data['victimForename'] }} {{ data['victimSurname'] }}'s bereaved family need an interpreter?
+          Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need an interpreter?
         </legend>
         {% if interpreterError %}
         <p id="interpreterNeeded-error" class="govuk-error-message">
@@ -71,7 +71,7 @@
     <div class="govuk-form-group{% if supportPersonError %} govuk-form-group--error{% endif %}">
       <fieldset class="govuk-fieldset" aria-describedby="{% if supportPersonError %}supportPersonNeeded-error{% endif %}">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-          Will anyone from {{ data['victimForename'] }} {{ data['victimSurname'] }}'s bereaved family need someone to attend for support?
+          Will {{ data['victimForename'] }} {{ data['victimSurname'] }} need someone to attend for support?
         </legend>
         {% if supportPersonError %}
         <p id="supportPersonNeeded-error" class="govuk-error-message">

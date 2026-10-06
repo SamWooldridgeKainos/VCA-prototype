@@ -1,0 +1,63 @@
+{# Current arrangement, from the confirm-arrangements answers. #}
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date and time
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ data['meetingDate'] | formatDate }}{% if data['meetingHour'] %} at {{ data['meetingHour'] }}:{{ data['meetingMinutes'] }}{% endif %}
+    </dd>
+  </div>
+
+  {% if arrangedText %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How meeting was arranged
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ arrangedText }}
+    </dd>
+  </div>
+  {% endif %}
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      How meeting will take place
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ formatText }}
+    </dd>
+  </div>
+
+  {% if locationText %}
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Location
+    </dt>
+    <dd class="govuk-summary-list__value">
+      {{ locationText }}
+    </dd>
+  </div>
+  {% endif %}
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Attendees
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <p class="govuk-body">Meeting lead: {{ data['meetingLead'] }}</p>
+      {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Support needs
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Interpreter needed: {{ "Yes" if data['interpreterNeeded'] == "yes" else "No" }}{% if data['interpreterNeeded'] == "yes" and data['interpreterDetails'] %}: {{ data['interpreterDetails'] }}{% endif %}, Person for support: {{ "Yes" if data['supportPersonNeeded'] == "yes" else "No" }}{% if data['supportPersonNeeded'] == "yes" and data['supportPersonDetails'] %}: {{ data['supportPersonDetails'] }}{% endif %}
+      <br>
+      Other support: {{ data['otherSupportNeeds'] if data['otherSupportNeeds'] else "None" }}
+    </dd>
+  </div>
+</dl>

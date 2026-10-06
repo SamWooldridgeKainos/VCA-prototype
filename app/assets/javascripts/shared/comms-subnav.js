@@ -36,7 +36,7 @@
       'other': 'comms-other',
       'ptm': 'comms-ptm',
       'pcd': 'comms-pcd',
-      'vcl': 'comms-vcl'
+      'vcl': 'comms-pcd'
     };
     var params = new URLSearchParams(window.location.search);
     var secondaryNav = params.get('secondaryNav');

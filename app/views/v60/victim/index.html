@@ -15,9 +15,9 @@
   <div class="govuk-grid-column-full">
 
     {% if (data['case-locked'] == "by-someone-else") %}
-      {% include "/v60/case-locked/banner/by-someone-else.html" %}
+      {% include "/v60/partials/case-locked-banner/by-someone-else.html" %}
     {% elif (data['case-locked'] == "self-locked") %}
-      {% include "/v60/case-locked/banner/self-locked.html" %}
+      {% include "/v60/partials/case-locked-banner/self-locked.html" %}
     {% else %}
     {% endif %}
 
@@ -121,13 +121,12 @@
       {% set activeTab = "overview" %}
     {% endif %}
 
-    {% if (data['secondaryNav'] == "vcl") %}
-      {% set activeComms = "comms-vcl" %}
-    {% elif (data['secondaryNav'] == "ptm") %}
+    {% if (data['secondaryNav'] == "ptm") %}
       {% set activeComms = "comms-ptm" %}
     {% elif (data['secondaryNav'] == "other") %}
       {% set activeComms = "comms-other" %}
     {% else %}
+      {# 'vcl' lands here too - the VCL Scheme now sits inside Charging decision #}
       {% set activeComms = "comms-pcd" %}
     {% endif %}
 
@@ -135,7 +134,7 @@
       <h2 class="govuk-tabs__title">Contents</h2>
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item{% if activeTab == 'overview' %} govuk-tabs__list-item--selected{% endif %}">
-          <a class="govuk-tabs__tab" href="#overview">Case overview</a>
+          <a class="govuk-tabs__tab" href="#overview">Summary</a>
         </li>
         <li class="govuk-tabs__list-item{% if activeTab == 'victim-details' %} govuk-tabs__list-item--selected{% endif %}">
           <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
@@ -153,7 +152,11 @@
       </div>
 
       <div class="govuk-tabs__panel{% if activeTab != 'victim-details' %} govuk-tabs__panel--hidden{% endif %}" id="victim-details">
-        {% include "/v60/victim/victim-details/index.html" %}
+        {% if data['victimDeceased'] == 'yes' %}
+          {% include "/v60/victim/victim-details/deceased.html" %}
+        {% else %}
+          {% include "/v60/victim/victim-details/index.html" %}
+        {% endif %}
       </div>
 
       <div class="govuk-tabs__panel{% if activeTab != 'case-contacts' %} govuk-tabs__panel--hidden{% endif %}" id="case-contacts">
@@ -166,9 +169,6 @@
             <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-pcd' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
               <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-pcd' %} aria-current="page"{% endif %} href="#comms-pcd" data-comms-tab="comms-pcd">Charging decision</a>
             </li>
-            <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-vcl' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
-              <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-vcl' %} aria-current="page"{% endif %} href="#comms-vcl" data-comms-tab="comms-vcl">VCL Scheme</a>
-            </li>
             <li class="x-govuk-secondary-navigation__list-item{% if activeComms == 'comms-ptm' %} x-govuk-secondary-navigation__list-item--current{% endif %}">
               <a class="x-govuk-secondary-navigation__link"{% if activeComms == 'comms-ptm' %} aria-current="page"{% endif %} href="#comms-ptm" data-comms-tab="comms-ptm">Meetings</a>
             </li>
@@ -178,16 +178,14 @@
           </ul>
         </nav>
 
+        {# The VCL Scheme sits within Charging decision rather than its own sub-tab #}
         <div id="comms-pcd" class="comms-panel"{% if activeComms != 'comms-pcd' %} hidden{% endif %}>
           {% include "/v60/victim/pcd/index.html" %}
-        </div>
-
-        <div id="comms-vcl" class="comms-panel"{% if activeComms != 'comms-vcl' %} hidden{% endif %}>
           {% include "/v60/victim/vcl/index.html" %}
         </div>
 
         <div id="comms-ptm" class="comms-panel"{% if activeComms != 'comms-ptm' %} hidden{% endif %}>
-          {% include "/v60/victim/pre-trial/pre-trial-meeting/index.html" %}
+          {% include "/v60/meetings-2/meetings-panel.html" %}
         </div>
 
         <div id="comms-other" class="comms-panel"{% if activeComms != 'comms-other' %} hidden{% endif %}>

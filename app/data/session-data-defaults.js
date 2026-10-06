@@ -19,10 +19,12 @@ module.exports = {
 
   'familyMembers': [],
 
+  'victimDeceased': 'no',
   'victimSurname': 'Phillips',
   'victimForename': 'Sarah',
   'victimTitle': 'Ms',
   'victimPreferredName': 'Sara',
+  'victimDateOfDeath': '',
   'victimPhoneNumber': '+44 (0)7712345678',
   'victimEmailAddress': 'sarah.phillips@gmail.com',
   'victimAddressLine1': 'Oakhurst House',

@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Who was the offer made to?" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% set hasError = data['error'] == 'yes' %}
+
+    {% if hasError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Select who the offer was made to",
+          href: "#offer-recipient-1"
+        }
+      ]
+    }) }}
+    {% endif %}
+
+    <form class="form" action="/v60/meetings-2/who-offered-answer" method="post">
+
+      <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if hasError %}offer-recipient-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Who was the offer made to?</h1>
+          </legend>
+          <div class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if hasError %}
+          <p id="offer-recipient-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Select who the offer was made to
+          </p>
+          {% endif %}
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <input type="hidden" name="offerRecipients" value="_unchecked">
+            {% if data['familyMembers'] and data['familyMembers'].length > 0 %}
+              {% for member in data['familyMembers'] %}
+                {% set recipientValue = (member.lastName | upper) + ", " + member.firstName %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="offer-recipient-{{ loop.index }}" name="offerRecipients" type="checkbox" value="{{ recipientValue }}" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', recipientValue) }}{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-{{ loop.index }}">
+                    {{ recipientValue }}{% if member.relationship %} ({{ member.relationship }}){% endif %}
+                  </label>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="offer-recipient-1" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, Margaret" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', (data['victimSurname'] | upper) + ', Margaret') }}{% endif %}>
+                <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-1">
+                  {{ data['victimSurname'] | upper }}, Margaret (Mother)
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="offer-recipient-2" name="offerRecipients" type="checkbox" value="{{ data['victimSurname'] | upper }}, David" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', (data['victimSurname'] | upper) + ', David') }}{% endif %}>
+                <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-2">
+                  {{ data['victimSurname'] | upper }}, David (Father)
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="offer-recipient-3" name="offerRecipients" type="checkbox" value="CARTER, Emma" {% if data['changeMode'] == 'true' %}{{ checked('offerRecipients', 'CARTER, Emma') }}{% endif %}>
+                <label class="govuk-label govuk-checkboxes__label" for="offer-recipient-3">
+                  CARTER, Emma (Sister)
+                </label>
+              </div>
+            {% endif %}
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+                text: "Continue"
+              }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

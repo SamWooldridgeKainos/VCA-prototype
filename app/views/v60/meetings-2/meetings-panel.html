@@ -1,0 +1,76 @@
+{# Single Meetings sub-tab panel. State driven by data['meetingState'] + data['meetingSuccess']. #}
+{% set meetingState = data['meetingState'] %}
+{% set knownMeetingStates = ['arranged', 'offered', 'offered-multi', 'no-response', 'not-offered', 'responses', 'outcome', 'outcome-no', 'rescheduled', 'cancelled'] %}
+
+{# A meeting task created during onboarding / task creation that has not been logged yet. #}
+{% set hasPendingMeetingTask = data['existingTask'] in ['meeting-offer', 'meeting-arranged', 'meeting-outcome'] %}
+
+{# Summary card title = purpose of this meeting (set in the onboarding / task creation journey via data['meetingPurpose']). #}
+{% set meetingPurpose = data['meetingPurpose'] | meetingPurposeLabel(data['meetingPurposeDetails']) %}
+
+{% if data['meetingSuccess'] == 'yes' and meetingState in knownMeetingStates %}
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      {% if meetingState == 'arranged' %}
+        {{ meetingPurpose }} arranged.
+      {% elif meetingState == 'offered' or meetingState == 'offered-multi' %}
+        {{ meetingPurpose }} offer logged.
+      {% elif meetingState == 'no-response' %}
+        No response was logged for the {{ meetingPurpose }} offer.
+      {% elif meetingState == 'not-offered' %}
+        {{ meetingPurpose }} not offered.
+      {% elif meetingState == 'responses' %}
+        {% if data['lastResponseType'] == 'declined' %}
+          {{ meetingPurpose }} offer declined.
+        {% elif data['lastResponseType'] == 'no-response' %}
+          No response to the {{ meetingPurpose }} offer was logged.
+        {% else %}
+          {{ meetingPurpose }} offer accepted.
+        {% endif %}
+      {% elif meetingState == 'outcome' or meetingState == 'outcome-no' %}
+        {{ meetingPurpose }} outcome logged.
+      {% elif meetingState == 'rescheduled' %}
+        {{ meetingPurpose }} details changed.
+      {% elif meetingState == 'cancelled' %}
+        {{ meetingPurpose }} cancelled.
+      {% endif %}
+    </h3>
+  </div>
+</div>
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+{% if meetingState == 'arranged' %}
+  {% include "/v60/meetings-2/states/arranged.html" %}
+{% elif meetingState == 'offered' %}
+  {% include "/v60/meetings-2/states/offered.html" %}
+{% elif meetingState == 'offered-multi' %}
+  {% include "/v60/meetings-2/states/offered-multi.html" %}
+{% elif meetingState == 'no-response' %}
+  {% include "/v60/meetings-2/states/no-response.html" %}
+{% elif meetingState == 'not-offered' %}
+  {% include "/v60/meetings-2/states/not-offered.html" %}
+{% elif meetingState == 'responses' %}
+  {% include "/v60/meetings-2/states/responses.html" %}
+{% elif meetingState == 'outcome' %}
+  {% include "/v60/meetings-2/states/outcome.html" %}
+{% elif meetingState == 'outcome-no' %}
+  {% include "/v60/meetings-2/states/outcome-no.html" %}
+{% elif meetingState == 'rescheduled' %}
+  {% include "/v60/meetings-2/states/rescheduled.html" %}
+{% elif meetingState == 'cancelled' %}
+  {% include "/v60/meetings-2/states/cancelled.html" %}
+{% elif hasPendingMeetingTask %}
+  {% include "/v60/meetings-2/states/pending.html" %}
+{% else %}
+  {% include "/v60/meetings-2/states/none.html" %}
+{% endif %}
+  </div>
+</div>

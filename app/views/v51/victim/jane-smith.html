@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Victim" %}
 
@@ -94,7 +95,7 @@
                     <dt class="govuk-summary-list__key">Other victims</dt>
                     <dd class="govuk-summary-list__value">
                       <p class="govuk-body">John Doe (not onboarded yet)</p>
-                      <p class="govuk-body"><a href="/v51/victim">Sarah Phillips</a></p>
+                      <p class="govuk-body"><a href="/v51/victim">{{ victimName }}</a></p>
                       <p class="govuk-body"><a href="#">Alice Johnson</a></p>
                     </dd>
                   </div>

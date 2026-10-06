@@ -19,8 +19,8 @@
 {% endif %}
 
 {# Current arrangement (confirm-arrangements answers). #}
-{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + "'s bereaved family requested it" %}
-{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}
+{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + " requested it" %}
+{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + " accepted" %}
 {% elif data['meetingRequestedBy'] == "third-party" %}{% set arrangedText = "Requested by a third party" %}
 {% else %}{% set arrangedText = "" %}{% endif %}
 

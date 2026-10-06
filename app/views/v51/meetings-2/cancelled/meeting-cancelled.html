@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Victim record" %}
 
@@ -85,7 +86,7 @@
 Reason
         </dt>
         <dd class="govuk-summary-list__value">
-Sarah Phillips withdrew
+{{ victimName }} withdrew
         </dd>
 
       </div>

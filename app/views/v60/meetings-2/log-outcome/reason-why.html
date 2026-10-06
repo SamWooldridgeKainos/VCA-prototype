@@ -1,0 +1,85 @@
+{% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set partyName = victimName + "'s bereaved family" if data['victimDeceased'] == 'yes' else victimName %}
+
+{% set pageName="Reason why the meeting did not take place" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    <form class="form" action="/v60/meetings-2/log-outcome/reason-why-answer" method="post">
+
+    {% set textHtml %}
+    {{ govukTextarea ({
+  id: "contact-by-text",
+  name: "meetingNotHappenReasonOther",
+  value: data['meetingNotHappenReasonOther'] if data['changeMode'] == 'true',
+  type: "tel",
+  autocomplete: "tel",
+  classes: "govuk-input--width-20",
+  label: {
+    text: "Provide details"
+  }
+}) }}
+    {% endset -%}
+
+    {{ govukRadios({
+  name: "meetingNotHappenReason",
+  value: data['meetingNotHappenReason'] if data['changeMode'] == 'true',
+  fieldset: {
+    legend: {
+      text: "Why did the meeting not take place?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+
+  items: [
+    {
+      value: "victim-did-not-attend",
+      text: partyName + " did not attend"
+
+
+    },
+    {
+      value: "key-attendee-did-not-attend",
+      text: "Key attendee did not attend"
+    },
+   
+    {
+      value: "other",
+      text: "Other",
+      conditional: {
+        html: textHtml
+      }
+    }
+  ]
+}) }}
+
+    <div class="govuk-button-group">
+
+      <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+        Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+      </button>
+    </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/record/telephone-call-details.js"></script>
+{% endblock %}

@@ -17,9 +17,9 @@
     {% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
     {% if data['meetingRequestedBy'] == "family" %}
-      {% set arrangedText = victimName + "'s bereaved family requested it" %}
+      {% set arrangedText = victimName + " requested it" %}
     {% elif data['meetingRequestedBy'] == "cps" %}
-      {% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}
+      {% set arrangedText = "CPS offered and " + victimName + " accepted" %}
     {% elif data['meetingRequestedBy'] == "third-party" %}
       {% set arrangedText = "Requested by a third party" %}
     {% else %}
@@ -112,7 +112,7 @@
           Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">{{ victimName }}'s bereaved family</p>
+          <p class="govuk-body">{{ victimName }}</p>
           {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">

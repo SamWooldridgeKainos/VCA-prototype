@@ -423,11 +423,11 @@ function applyTaskFilters() {
             var matchesTaskType = selectedTaskTypes.some(function(taskType) {
                 if (taskType === 'Other') {
                     // Match anything not in the known task types
-                    var knownTypes = ['Inform of a decision to charge', 'Inform of a no further action decision', 'Inform of a stopped charge', 'Inform of a substantially altered charge', 'Arrange CPS pre&#8209;trial meeting', 'Arrange a CPS pre&#8209;trial meeting', 'Log offered meeting', 'Log arranged meeting', 'Log offer response', 'Log meeting outcome'];
+                    var knownTypes = ['Inform of a decision to charge', 'Inform of a no further action decision', 'Inform of a stopped charge', 'Inform of a substantially altered charge', 'Arrange CPS pre-trial meeting', 'Arrange a CPS pre-trial meeting', 'Log offered meeting', 'Log arranged meeting', 'Log offer response', 'Log meeting outcome'];
                     return !knownTypes.some(function(known) { return recordTask.indexOf(known) !== -1; });
                 }
-                if (taskType === 'Arrange CPS pre&#8209;trial meeting') {
-                    return recordTask.indexOf('Arrange') !== -1 && recordTask.indexOf('pre&#8209;trial meeting') !== -1;
+                if (taskType === 'Arrange CPS pre-trial meeting') {
+                    return recordTask.indexOf('Arrange') !== -1 && recordTask.indexOf('pre-trial meeting') !== -1;
                 }
                 return recordTask.indexOf(taskType) !== -1;
             });

@@ -16,7 +16,7 @@
 {% if attendeesList is string %}{% set attendeesList = [attendeesList] %}{% endif %}
 {% if data['meetingFormat'] == 'in-person' %}{% set formatText = 'In person' %}{% elif data['meetingFormat'] == 'virtual' %}{% set formatText = 'Virtual call' %}{% elif data['meetingFormat'] == 'hybrid' %}{% set formatText = 'Hybrid' %}{% else %}{% set formatText = '' %}{% endif %}
 {% if data['meetingLocationType'] == 'cps' %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == 'magistrates' %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == 'crown' %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == 'police' %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == 'other' %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = '' %}{% endif %}
-{% if data['meetingRequestedBy'] == 'family' %}{% set arrangedText = victimName + "'s bereaved family requested it" %}{% elif data['meetingRequestedBy'] == 'cps' %}{% set arrangedText = 'CPS offered and ' + victimName + "'s bereaved family accepted" %}{% elif data['meetingRequestedBy'] == 'third-party' %}{% set arrangedText = 'Requested by a third party' %}{% else %}{% set arrangedText = '' %}{% endif %}
+{% if data['meetingRequestedBy'] == 'family' %}{% set arrangedText = victimName + " requested it" %}{% elif data['meetingRequestedBy'] == 'cps' %}{% set arrangedText = 'CPS offered and ' + victimName + ' accepted' %}{% elif data['meetingRequestedBy'] == 'third-party' %}{% set arrangedText = 'Requested by a third party' %}{% else %}{% set arrangedText = '' %}{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
@@ -130,7 +130,7 @@
       Attendees
         </dt>
         <dd class="govuk-summary-list__value">
-        (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
+        (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
         </dd>
 
       </div>
@@ -214,7 +214,7 @@ Arranged meetings
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
+          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>

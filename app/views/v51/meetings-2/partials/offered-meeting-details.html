@@ -1,0 +1,22 @@
+{# Offer history shown inside a "Offered meeting" details component. #}
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose }} offer accepted
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    {% include "/v51/meetings-2/partials/logged-accepted.html" %}
+  </div>
+</div>
+
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose }} offered
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    {% include "/v51/meetings-2/partials/logged-offer.html" %}
+  </div>
+</div>

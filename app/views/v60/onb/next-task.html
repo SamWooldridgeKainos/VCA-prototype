@@ -21,7 +21,7 @@
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading">
-                        What is the next task for {{ data['victimForename'] }} {{ data['victimSurname'] }}?
+                        What is the next task for {{ data['victimForename'] }} {{ data['victimSurname'] }}{% if data['victimDeceased'] == 'yes' %}'s family{% endif %}?
                     </h1>
                 </legend>
 

@@ -12,7 +12,7 @@
 
 {% block content %}
 {% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
-{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + "'s bereaved family requested it" %}{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + "'s bereaved family accepted" %}{% elif data['meetingRequestedBy'] == "third-party" %}{% set arrangedText = "Requested by a third party" %}{% else %}{% set arrangedText = "" %}{% endif %}
+{% if data['meetingRequestedBy'] == "family" %}{% set arrangedText = victimName + " requested it" %}{% elif data['meetingRequestedBy'] == "cps" %}{% set arrangedText = "CPS offered and " + victimName + " accepted" %}{% elif data['meetingRequestedBy'] == "third-party" %}{% set arrangedText = "Requested by a third party" %}{% else %}{% set arrangedText = "" %}{% endif %}
 {% if data['meetingFormat'] == "in-person" %}{% set formatText = "In person" %}{% elif data['meetingFormat'] == "virtual" %}{% set formatText = "Virtual call" %}{% elif data['meetingFormat'] == "hybrid" %}{% set formatText = "Hybrid" %}{% else %}{% set formatText = "" %}{% endif %}
 {% if data['meetingLocationType'] == "cps" %}{% set locationText = data['cpsLocation'] %}{% elif data['meetingLocationType'] == "magistrates" %}{% set locationText = data['magistratesLocation'] %}{% elif data['meetingLocationType'] == "crown" %}{% set locationText = data['crownLocation'] %}{% elif data['meetingLocationType'] == "police" %}{% set locationText = data['policeStationLocation'] %}{% elif data['meetingLocationType'] == "other" %}{% set locationText = data['otherLocation'] %}{% else %}{% set locationText = "" %}{% endif %}
 {% set attendeesList = data['attendees'] %}
@@ -114,7 +114,7 @@
                   Attendees
                     </dt>
                     <dd class="govuk-summary-list__value">
-                    <p class="govuk-body">{{ victimName }}'s bereaved family</p>
+                    <p class="govuk-body">{{ victimName }}</p>
                     <p class="govuk-body">Meeting lead: {{ data['meetingLead'] }}</p>
                     {% for attendee in attendeesList %}{% if attendee != "_unchecked" %}<p class="govuk-body">{{ attendee }}</p>{% endif %}{% endfor %}
                     </dd>

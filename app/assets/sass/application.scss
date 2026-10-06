@@ -15,6 +15,9 @@
 @import "patterns/progress-tracker";
 @import "patterns/tasks-with-filters";
 
+
+// CPS fonts
+
 @font-face {
     font-family: 'New Transport';
     src: url('../fonts/NewTransportCPS-Regular.woff2') format('woff2'),
@@ -23,9 +26,9 @@
          url('../fonts/NewTransportCPS-Bold.woff') format('woff');
 }
 
-/*! ==============================================================================
-0. CPS Root - CSS Variables
-=============================================================================== */
+
+// CPS theme
+
 :root { 
     /* Colour - GDS Brand  */
     --gds-color-primary: #1d70b8;
@@ -41,6 +44,9 @@
     background: var(--cps-color-theme);
 }
 
+
+// Max width for containers
+
 @media (min-width: 40.0625em) {
   .govuk-width-container {
       max-width: 1320px;
@@ -48,6 +54,9 @@
       padding-left: govuk-spacing(7);
   }
 }
+
+
+// Main wrapper default and extra top padding
 
 .govuk-main-wrapper {
     padding-top: govuk-spacing(3);
@@ -57,9 +66,15 @@
     padding-top: govuk-spacing(7);
 }
 
+
+// Reading width
+
 .cps-reading-width {
     max-width: 44em
 }
+
+
+// Tabs
 
 .govuk-frontend-supported .govuk-tabs__panel {
     border: 0;
@@ -70,6 +85,9 @@
         padding: 30px 0;
     }
 }
+
+
+// Secondary navigation
 
 .x-govuk-secondary-navigation__list-item {
   @include govuk-media-query($from: desktop) {
@@ -82,6 +100,9 @@
     padding-bottom: 10px;
   }
 }
+
+
+// Filters radios and checkboxes
 
 // Ensure radios and checkboxes have white backgrounds inside
 .govuk-radios__label::before,
@@ -102,6 +123,7 @@
     width: 30%;
   }
 }
+
 
 // Summary list uses smaller font on victims pages
 .app-summary-list--small-text {
