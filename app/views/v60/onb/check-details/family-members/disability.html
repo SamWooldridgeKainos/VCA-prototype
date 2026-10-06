@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Disability or access needs" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+  <form method="post" action="/v60/check-details/family-members/detail-answer">
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="preferred-name">
+            Does {{ data['fmFirstName'] }} {{ data['fmLastName'] }} have a disability or access needs?
+          </label>
+        </h1>
+
+        <div class="govuk-radios" id="radio-group" data-module="govuk-radios">
+
+          <div class="govuk-radios__item">
+            <input type="radio" class="govuk-radios__input" id="disability-yes" name="fmDisability" value="Yes" data-aria-controls="conditional-disability-yes" {{ checked('fmDisability','Yes') }}>
+            <label class="govuk-label govuk-radios__label" for="disability-yes">
+              Yes
+            </label>
+          </div>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-disability-yes">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="disability-details">
+                Details
+              </label>
+              <textarea class="govuk-textarea" id="disability-details" name="fmDisabilityDetails" rows="3">{{ data['fmDisabilityDetails'] }}</textarea>
+            </div>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input type="radio" class="govuk-radios__input" id="disability-no" name="fmDisability" value="No" {{ checked('fmDisability','No') }}>
+            <label class="govuk-label govuk-radios__label" for="disability-no">
+              No
+            </label>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input type="radio" class="govuk-radios__input" id="disability-unknown" name="fmDisability" value="Unknown" {{ checked('fmDisability','Unknown') }}>
+            <label class="govuk-label govuk-radios__label" for="disability-unknown">
+              Unknown
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+      </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/disability.js"></script>
+{% endblock %}

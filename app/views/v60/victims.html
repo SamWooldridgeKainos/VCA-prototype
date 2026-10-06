@@ -202,6 +202,10 @@
                 <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
               </div>
               <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input service-checkbox" id="service-6" name="service" type="checkbox" value="bfs" data-label="Bereaved Family Scheme">
+                <label class="govuk-label govuk-checkboxes__label" for="service-6">Bereaved Family Scheme</label>
+              </div>
+              <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input service-checkbox" id="service-5" name="service" type="checkbox" value="not-onboarded" data-label="Not onboarded">
                 <label class="govuk-label govuk-checkboxes__label" for="service-5">Not onboarded</label>
               </div>
@@ -424,10 +428,10 @@
         <div class="govuk-!-margin-bottom-9">
           {% if data['onboardedStatus'] == 'Yes' %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            <a href="/v60/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>
+            <a href="/v60/victim?success=no" class="govuk-link govuk-link--no-visited-state">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</a>{% if data['victimDeceased'] == 'yes' %}<strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>{% endif %}
           </h2>
           {% else %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}</h2>
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}{% if data['victimDeceased'] == 'yes' %}<strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>{% endif %}</h2>
           {% endif %}
           <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
@@ -503,14 +507,17 @@
           </dl>
         </div>
         {% endif %}
+        {# The current victim is already rendered above from session data #}
+        {% set isCurrentVictim = (record.surname | lower) == (data['victimSurname'] | lower) and (record.forename | lower) == (data['victimForename'] | lower) %}
+        {% if not isCurrentVictim %}
         <div class="govuk-!-margin-bottom-9">
           {% if record.onboarded %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            <a href="#" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>
+            <a href="{% if record.deceased %}/v60/victim?success=no&victimProfile=deceased{% else %}#{% endif %}" class="govuk-link govuk-link--no-visited-state">{{ record.surname }}, {{ record.forename }}</a>{% if record.deceased %}<strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>{% endif %}
           </h2>
           {% else %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-            {{ record.surname }}, {{ record.forename }}
+            {{ record.surname }}, {{ record.forename }}{% if record.deceased %}<strong class="govuk-tag govuk-tag--grey govuk-!-margin-left-2">Deceased</strong>{% endif %}
           </h2>
           {% endif %}
           <dl class="govuk-summary-list">
@@ -580,6 +587,7 @@
             {% endif %}
           </dl>
         </div>
+        {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -748,6 +756,7 @@
           if (val === 'enhanced') return serviceValue === 'Enhanced';
           if (val === 'rasso') return serviceValue === 'RASSO';
           if (val === 'none') return serviceValue === 'Not aligned';
+          if (val === 'bfs') return serviceValue === 'Bereaved Family Scheme';
           if (val === 'not-onboarded') return serviceValue === 'Not onboarded';
           return false;
         });

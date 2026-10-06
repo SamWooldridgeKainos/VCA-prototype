@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Telephone call details" %}
 
@@ -70,7 +71,7 @@
   items: [
     {
       value: "email",
-      text: "Sarah Phillips withdrew"
+      text: victimName + " withdrew"
 
 
     },

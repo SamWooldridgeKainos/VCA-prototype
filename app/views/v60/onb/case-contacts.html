@@ -19,6 +19,11 @@
             <li>
                 <a href="#" class="govuk-link govuk-link--no-visited-state">Add an Independent Domestic Violence Advisor (IDVA)</a>
             </li>
+            {% if data['serviceLead'] == 'Bereaved Family Scheme' %}
+            <li>
+                <a href="#" class="govuk-link govuk-link--no-visited-state">Add a Victim Liaison Officer</a>
+            </li>
+            {% endif %}
         </ul>
 
         <div class="govuk-summary-card">

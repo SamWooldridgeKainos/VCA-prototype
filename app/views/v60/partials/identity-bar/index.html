@@ -7,12 +7,18 @@
           {{ data['victimSurname'] | upper }}, {{ data['victimForename'] }}
         </span>
         <span class="govuk-!-margin-right-2">{{ data['caseUrn'] }}</span>
+        {% if data['victimDeceased'] == 'yes' %}
+        <strong class="govuk-tag govuk-tag--grey govuk-!-margin-right-2">
+          Deceased
+        </strong>
+        {% else %}
         <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
           Vulnerable
         </strong>
         <strong class="govuk-tag govuk-tag--blue govuk-!-margin-right-2">
           Intimidated
         </strong>
+        {% endif %}
       </span>
     </div>
   </div>

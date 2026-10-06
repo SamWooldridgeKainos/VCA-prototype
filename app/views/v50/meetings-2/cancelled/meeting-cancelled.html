@@ -153,7 +153,7 @@ Changed meetings
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
+          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>
@@ -232,7 +232,7 @@ Arranged meetings
         Attendees
           </dt>
           <dd class="govuk-summary-list__value">
-          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}'s bereaved family{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
+          (Meeting lead) {{ data['meetingLead'] }}, {{ victimName }}{% for attendee in attendeesList %}{% if attendee != "_unchecked" %}, {{ attendee }}{% endif %}{% endfor %}
           </dd>
 
         </div>

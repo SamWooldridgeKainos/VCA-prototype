@@ -1,0 +1,31 @@
+<a href="/v51/meetings-2/purpose2" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+  Log new meeting details<span class="govuk-visually-hidden"> to offer a {{ meetingPurpose }}</span>
+</a>
+
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose }}
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Has a meeting been offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Why was a meeting not offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['meetingNotOfferedReason'] }}
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>

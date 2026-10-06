@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+{% set pageName="Email address" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <form method="post" action="/v60/check-details/family-members/detail-answer">
+
+      <div class="govuk-form-group" id="error-form-group">
+
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="email">
+            What is {{ data['fmFirstName'] }} {{ data['fmLastName'] }}'s email address?
+          </label>
+        </h1>
+
+        <input class="govuk-input" id="email" name="fmEmail" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="off" value="{{ data['fmEmail'] }}">
+
+      </div>
+  
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/public/javascripts/shared/check-details/email-address.js"></script>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="CPS pre-trial meeting offered" %}
 
@@ -22,7 +23,7 @@
       value: data['offered'],
       fieldset: {
         legend: {
-          text: "Has Sarah Phillips been offered a meeting?",
+          text: "Has " + victimName + " been offered a meeting?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }

@@ -211,7 +211,7 @@ test.describe('Prototype Pages Screenshot Test', () => {
         meetingState: scenario.state,
         meetingSuccess: 'yes'
       }).toString();
-      await page.goto(`http://localhost:3000/v50/meetings-2/victim-record?${query}#communications`);
+      await page.goto(`http://localhost:3000/v50/victim?${query}#communications`);
 
       const meetingPanel = page.locator('#comms-ptm');
       for (const value of scenario.expected) {

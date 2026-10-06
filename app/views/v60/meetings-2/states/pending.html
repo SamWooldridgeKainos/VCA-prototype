@@ -1,0 +1,49 @@
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      {{ meetingPurpose or "CPS pre-trial meeting" }}
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Status
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Not yet logged
+        </dd>
+      </div>
+      {% if data['taskDueDate'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Due date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['taskDueDate'] | formatDate }}
+        </dd>
+      </div>
+      {% endif %}
+    </dl>
+
+    <hr class="govuk-section-break govuk-section-break--m">
+
+    {% if data['nextTask'] == "meeting-offer" %}
+      <a href="/v60/meetings-2/has-meeting-been-offered" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log offer<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% elif data['nextTask'] == "meeting-arranged" %}
+      <a href="/v60/meetings-2/confirm-arrangements/who-requested-meeting" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Confirm arranged meeting<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% elif data['nextTask'] == "meeting-outcome" %}
+      <a href="/v60/meetings-2/log-outcome/did-meeting-happen" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log outcome<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% else %}
+      <a href="/v60/meetings-2/what-do-you-want-to-log" class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+          Log meeting details<span class="govuk-visually-hidden"> for {{ meetingPurpose or "CPS pre-trial meeting" }}</span>
+      </a>
+    {% endif %}
+  </div>
+</div>

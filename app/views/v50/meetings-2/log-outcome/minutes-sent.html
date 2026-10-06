@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Telephone call details" %}
 
@@ -21,7 +22,7 @@
       value: data['logNotesToVictim'],
       fieldset: {
         legend: {
-          text: "Have the meeting notes been sent to Sarah Phillips?",
+          text: "Have the meeting notes been sent to " + victimName + "?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--l"
         }
