@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Purpose of meeting" %}
 
@@ -15,7 +16,7 @@
   <div class="govuk-grid-column-one-half">
 
     <form class="form" action="/did-victim-request3" method="post">
-<h1 class="govuk-heading-l">You have sent one meeting offer to Sarah Phillips</h1>
+<h1 class="govuk-heading-l">You have sent one meeting offer to {{ victimName }}</h1>
     {{ govukRadios({
       name: "meeting4",
       value: data['meeting4'],

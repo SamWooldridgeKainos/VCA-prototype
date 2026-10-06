@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set partyName = victimName + "'s bereaved family" if data['victimDeceased'] == 'yes' else victimName %}
+
+{% set pageName="Eligible for expenses" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/v60/meetings-2/log-outcome/eligible-for-expenses-answer" method="post">
+
+      {{ govukRadios({
+      name: "eligibleForExpenses",
+      value: data['eligibleForExpenses'] if data['changeMode'] == 'true',
+      fieldset: {
+        legend: {
+          text: "Is " + partyName + " eligible for expenses?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+    }) }}
+
+      <div class="govuk-button-group">
+
+        <button type="submit" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+          Continue<span class="govuk-visually-hidden"> to offer a CPS pre-trial meeting</span>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -65,6 +65,18 @@ addFilter('formatDate', dateString => {
   return `${dayOfWeek}, ${dayOfMonth} ${month} ${year}`
 })
 
+// Same as formatDate but without the day of the week (e.g. '12 September 2026')
+addFilter('formatDateShort', dateString => {
+  if (!dateString || !dateString.includes('/')) return dateString || ''
+  const parts = dateString.split('/')
+  if (parts.length !== 3) return dateString
+  const date = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10))
+  if (isNaN(date.getTime())) return dateString
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December']
+  return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`
+})
+
 // Add N days to a dd/mm/yyyy date and return dd/mm/yyyy. Pipe to formatDate for display.
 addFilter('addDays', (dateString, days) => {
   if (!dateString || !dateString.includes('/')) return dateString
@@ -143,8 +155,8 @@ addFilter('sortPcdDecisions', decisions => {
 // the second argument so "other" resolves to the free-text description.
 addFilter('meetingPurposeLabel', (purpose, details) => {
   const labels = {
-    'ptm': 'CPS pre&#8209;trial meeting',
-    'pre-trial': 'CPS pre&#8209;trial meeting',
+    'ptm': 'CPS pre-trial meeting',
+    'pre-trial': 'CPS pre-trial meeting',
     'pre-charge': 'Pre-charge meeting',
     'charging-decision': 'Inform victim about charging decision',
     'charging-decision-family': 'Inform bereaved family about charging decision',
@@ -159,5 +171,5 @@ addFilter('meetingPurposeLabel', (purpose, details) => {
     'complaint': 'Victim complaint',
     'other': details || 'Other'
   }
-  return labels[purpose] || 'CPS pre&#8209;trial meeting'
+  return labels[purpose] || 'CPS pre-trial meeting'
 })

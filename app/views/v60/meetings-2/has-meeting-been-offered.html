@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
+{% set partyName = victimName + "'s bereaved family" if data['victimDeceased'] == 'yes' else victimName %}
+
+{% set pageName="Purpose of the meeting" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% block beforeContent %}
+{% include "/v60/partials/identity-bar/index.html" %}
+<a href="javascript:window.history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+
+    <form class="form" action="/v60/meetings-2/has-meeting-been-offered" method="post">
+
+      {{ govukRadios({
+      name: "offered",
+      value: data['offered'] if data['changeMode'] == 'true',
+      fieldset: {
+        legend: {
+          text: "Has " + partyName + " been offered a meeting?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

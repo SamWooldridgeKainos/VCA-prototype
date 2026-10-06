@@ -112,9 +112,21 @@ module.exports = [
     leadDefendant: 'DAVIS, Walter',
     area: 'East Midlands',
     dob: '5/12/1970',
-    service: 'Bereaved Family Service',
+    service: 'Bereaved Family Scheme',
     onboarded: true,
     vlo: 'MORRISON, Claire'
+  },
+  {
+    surname: 'SMITH',
+    forename: 'Fred',
+    caseRef: '42MZ1140021',
+    leadDefendant: 'WALSH, Peter',
+    area: 'London North',
+    dob: '3/2/1968',
+    service: 'Bereaved Family Scheme',
+    onboarded: true,
+    deceased: true,
+    vlo: 'THOMPSON, Sarah (you)'
   },
   {
     surname: 'MORRISON',

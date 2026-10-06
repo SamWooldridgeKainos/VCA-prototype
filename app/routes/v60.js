@@ -1,3 +1,5 @@
+const victimProfiles = require('../data/victim-profiles')
+
 // Convert DD/MM/YYYY + optional HH:MM to YYYY-MM-DDTHH:MM for sorting
 function toSortDate(dateString, hour, minutes) {
     if (!dateString || !dateString.includes('/')) return ''
@@ -9,6 +11,18 @@ function toSortDate(dateString, hour, minutes) {
 }
 
 module.exports = router => {
+
+    // Switch the victim identity via ?victimProfile=deceased|living, on any route
+    // so BFS entry points can set it too. The kit copies session.data into
+    // res.locals.data BEFORE this handler runs, so both have to be updated.
+    router.get('*', function(request, response, next) {
+        var profile = victimProfiles[request.query.victimProfile]
+        if (profile) {
+            Object.assign(request.session.data, profile)
+            Object.assign(response.locals.data, profile)
+        }
+        next()
+    })
 
     // Clear success flags when navigating between pages (GET requests).
     // Success banners are triggered via redirects with ?success=yes (or
@@ -38,7 +52,154 @@ module.exports = router => {
 
     router.post('/v60/onb/service-lead-answer', function(request, response) {
 
+        // The Bereaved Family Scheme is the deceased-victim journey
+        var isBfs = request.session.data['serviceLead'] === 'Bereaved Family Scheme'
+        request.session.data['victimDeceased'] = isBfs ? 'yes' : 'no'
+
         response.redirect("/v60/onb/check-details?successNotification=yes&onboardedStatus=Yes")
+    })
+
+    // Bereaved Family Scheme onboarding: family liaison officer and victim liaison officer
+
+    router.post('/v60/check-details/flo-answer', function(request, response) {
+
+        request.session.data['floAdded'] = 'yes'
+        request.session.data['detailChange'] = 'flo'
+        request.session.data['successNotification'] = 'yes'
+        response.redirect("/v60/onb/check-details")
+    })
+
+    router.post('/v60/check-details/check-task-vlo-answer', function(request, response) {
+
+        request.session.data['vlo'] = request.body.vlo || ''
+        request.session.data['detailChange'] = 'vlo'
+        request.session.data['successNotification'] = 'yes'
+        response.redirect("/v60/onb/check-details")
+    })
+
+    // Bereaved family members. Maps the in-progress fm* session fields to the stored object
+    var fmMap = {
+        fmFirstName: 'firstName', fmLastName: 'lastName', fmRelationship: 'relationship',
+        fmPreferredName: 'preferredName', fmRepresentative: 'representative', fmEmail: 'email',
+        fmMobile: 'mobile', fmHome: 'home', fmWork: 'work',
+        fmAddressLine1: 'addressLine1', fmAddressLine2: 'addressLine2', fmAddressLine3: 'addressLine3',
+        fmTownOrCity: 'townOrCity', fmPostCode: 'postCode',
+        fmPmoc: 'pmoc', fmLanguage: 'language',
+        fmTranslator: 'translator', fmTranslatorDetails: 'translatorDetails',
+        fmDisability: 'disability', fmDisabilityDetails: 'disabilityDetails',
+        fmReasonableAdjustments: 'reasonableAdjustments', fmContactTimes: 'contactTimes',
+        fmPoaName: 'poaName', fmPoaPhone: 'poaPhone', fmPoaEmail: 'poaEmail'
+    }
+
+    function clearInProgressFamilyMember(data) {
+        Object.keys(fmMap).forEach(function(key) { data[key] = '' })
+        data['fmEditIndex'] = ''
+        data['fmOnCheckAnswers'] = ''
+    }
+
+    // Start adding a new family member (clear any in-progress entry)
+    router.get('/v60/check-details/family-members/add', function(request, response) {
+
+        clearInProgressFamilyMember(request.session.data)
+        response.redirect("/v60/onb/check-details/family-members/name")
+    })
+
+    // Capture the entered name. Once the check answers page has been reached, changes return there
+    router.post('/v60/check-details/family-members/name-answer', function(request, response) {
+
+        request.session.data['fmFirstName'] = request.body.fmFirstName || ''
+        request.session.data['fmLastName'] = request.body.fmLastName || ''
+        if (request.session.data['fmOnCheckAnswers'] === 'yes') {
+            response.redirect("/v60/onb/check-details/family-members/check-answers")
+        } else {
+            response.redirect("/v60/onb/check-details/family-members/relationship")
+        }
+    })
+
+    router.post('/v60/check-details/family-members/relationship-answer', function(request, response) {
+
+        request.session.data['fmRelationship'] = request.body.fmRelationship || ''
+        request.session.data['fmOnCheckAnswers'] = 'yes'
+        response.redirect("/v60/onb/check-details/family-members/check-answers")
+    })
+
+    // Capture any optional detail field, then return to the check answers page
+    router.post('/v60/check-details/family-members/detail-answer', function(request, response) {
+
+        Object.keys(request.body).forEach(function(key) {
+            if (key.indexOf('fm') === 0) {
+                var value = request.body[key]
+                // Trim so whitespace-only entries count as blank and keep the Enter/Select link
+                request.session.data[key] = (typeof value === 'string') ? value.trim() : value
+            }
+        })
+        response.redirect("/v60/onb/check-details/family-members/check-answers")
+    })
+
+    // Load an existing family member into the in-progress entry so it can be viewed or changed
+    router.get('/v60/check-details/family-members/view', function(request, response) {
+
+        var members = request.session.data['familyMembers'] || []
+        var index = parseInt(request.query.index, 10)
+        var member = members[index]
+        if (member) {
+            Object.keys(fmMap).forEach(function(key) {
+                request.session.data[key] = member[fmMap[key]] || ''
+            })
+            request.session.data['fmEditIndex'] = String(index)
+            request.session.data['fmOnCheckAnswers'] = 'yes'
+        }
+        response.redirect("/v60/onb/check-details/family-members/check-answers")
+    })
+
+    // Save the in-progress family member (add a new one or update an existing one)
+    router.get('/v60/check-details/family-members/save', function(request, response) {
+
+        var members = request.session.data['familyMembers'] || []
+        var member = {}
+        Object.keys(fmMap).forEach(function(key) {
+            member[fmMap[key]] = request.session.data[key] || ''
+        })
+        var editIndex = request.session.data['fmEditIndex']
+        if (editIndex !== undefined && editIndex !== '') {
+            members[parseInt(editIndex, 10)] = member
+        } else {
+            members.push(member)
+        }
+        request.session.data['familyMembers'] = members
+        clearInProgressFamilyMember(request.session.data)
+        response.redirect("/v60/onb/check-details")
+    })
+
+    // Capture the selected bereaved family representative, then return to the check answers page
+    router.post('/v60/check-details/family-members/representative-answer', function(request, response) {
+
+        if (!request.body.familyRepresentative) {
+            response.redirect("/v60/onb/check-details/family-members/select-representative?error=yes")
+            return
+        }
+        request.session.data['familyRepresentative'] = request.body.familyRepresentative
+        response.redirect("/v60/onb/check-details")
+    })
+
+    // Render the select representative page, clearing any stale error flag unless one was just raised
+    router.get('/v60/onb/check-details/family-members/select-representative', function(request, response) {
+
+        if (request.query.error !== 'yes') {
+            delete request.session.data['error']
+        }
+        response.render('v60/onb/check-details/family-members/select-representative')
+    })
+
+    router.get('/v60/check-details/family-members/remove', function(request, response) {
+
+        var members = request.session.data['familyMembers'] || []
+        var index = parseInt(request.query.index, 10)
+        if (!isNaN(index) && index >= 0 && index < members.length) {
+            members.splice(index, 1)
+        }
+        request.session.data['familyMembers'] = members
+        response.redirect("/v60/onb/check-details")
     })
 
     router.post('/v60/check-details/case-type-answer', function(request, response) {
@@ -325,30 +486,6 @@ module.exports = router => {
     })
 
 
-    router.post('/bfs/onb/next-task-answer', function(request, response) {
-
-        var nextTask = request.session.data['nextTask']
-
-        if (nextTask == "dtc") {
-            response.redirect("/bfs/onb/new-task/next-task-due-date?pcdType=dtc")
-        } else if (nextTask == "nfa") {
-            response.redirect("/bfs/onb/new-task/next-task-due-date?pcdType=nfa")
-        } else if (nextTask == "stopped-charge") {
-            response.redirect("/bfs/onb/new-task/next-task-due-date?vclType=stopped-charge")
-        } else if (nextTask == "altered-charge") {
-            response.redirect("/bfs/onb/new-task/next-task-due-date?vclType=altered-charge")
-        } else if (nextTask == "other") {
-            response.redirect("/bfs/onb/new-task/manual-task")
-        } else if (nextTask == "no-task") {
-            response.redirect("/bfs/onb/new-task/check-task")
-        } else if (nextTask == "meeting-offer" || nextTask == "meeting-arranged" || nextTask == "meeting-outcome") {
-            response.redirect("/bfs/onb/new-task/meeting-purpose")
-        } else {
-            response.redirect("/bfs/onb/new-task/task-due-date")
-        }
-    })
-    
-
     router.post('/v50/meetings-2/new-task/next-task-answer', function(request, response) {
 
         var nextTask = request.session.data['nextTask']
@@ -406,12 +543,6 @@ module.exports = router => {
     router.post('/v60/victim/new-task/manual-task-answer', function(request, response) {
 
         response.redirect("/v60/victim/new-task/check-task?manualTask=yes")
-    })
-
-
-       router.post('/bfs/onb/new-task/manual-task-answer', function(request, response) {
-
-        response.redirect("/bfs/onb/new-task/check-task?manualTask=yes")
     })
 
     router.post('/v60/victim/new-task/check-task-answer', function(request, response) {

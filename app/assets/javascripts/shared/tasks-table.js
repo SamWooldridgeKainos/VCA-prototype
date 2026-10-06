@@ -290,7 +290,7 @@ var initialSetupComplete = false;
                 if (selectedMeetingPurposes.length > 0 && searchFormSubmitted) {
                     var rowPurpose = row.getAttribute('data-purpose') || '';
                     var matchesPurpose = selectedMeetingPurposes.some(function(purpose) {
-                        if (purpose === 'CPS pre&#8209;trial meeting') return rowPurpose.indexOf('pre-trial') !== -1;
+                        if (purpose === 'CPS pre-trial meeting') return rowPurpose.indexOf('pre-trial') !== -1;
                         if (purpose === 'Inform victim about charging decision') return rowPurpose.indexOf('charging-decision') !== -1;
                         if (purpose === 'Stopped or substantially altered charge (VCL Scheme)') return rowPurpose.indexOf('stopped-altered') !== -1;
                         if (purpose === "Victims' Right to Review (VRR)") return rowPurpose.indexOf('vrr') !== -1;

@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Victim record" %}
 
@@ -85,7 +86,7 @@
                <dt class="govuk-summary-list__key">
             Reason for change
                <dd class="govuk-summary-list__value">
-              Sarah Phillips not available
+              {{ victimName }} not available
                </dd>
                
              </div>
@@ -96,7 +97,7 @@
              How meeting was arranged
                </dt>
                <dd class="govuk-summary-list__value">
-               CPS offered and Sarah Phillips accepted
+               CPS offered and {{ victimName }} accepted
                </dd>
                
              </div>

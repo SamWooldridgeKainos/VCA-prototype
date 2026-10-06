@@ -16,9 +16,15 @@ const magistratesCourts = require('./data/magistrates-courts.json')
 const crownCourts = require('./data/crown-courts.json')
 const policeForces = require('./data/police-forces.json')
 
+// The Bereaved Family Scheme only exists in v60; every other version hides those records.
+const notBfs = (record) => record.service !== 'Bereaved Family Scheme'
+
 router.use(function (req, res, next) {
-  res.locals.victimRecords = victimRecords
-  res.locals.taskRecords = taskRecords
+  const isBfsVersion = req.path.startsWith('/v60')
+  const versionMatch = req.path.match(/^\/(v\d+)(\/|$)/)
+  res.locals.serviceVersion = versionMatch ? versionMatch[1] : ''
+  res.locals.victimRecords = isBfsVersion ? victimRecords : victimRecords.filter(notBfs)
+  res.locals.taskRecords = isBfsVersion ? taskRecords : taskRecords.filter(notBfs)
   res.locals.taskAssignees = taskAssignees
   res.locals.vloOfficers = vloOfficers
   res.locals.cpsAreas = cpsAreas

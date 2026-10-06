@@ -5,75 +5,12 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 
+{# Lets stylesheets target a single service version, e.g. .app-v60 #}
+{% set bodyClasses = ("app-" + serviceVersion) if serviceVersion else "" %}
+
 {% block stylesheets %}
   {{ super() }}
   <link href="/public/icons/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-  <link href="/public/stylesheets/accessible-autocomplete.css" rel="stylesheet" type="text/css" />
-  <style>
-    .autocomplete__wrapper {
-      position: relative;
-      display: block;
-      box-sizing: border-box;
-    }
-    .autocomplete__input {
-      display: block;
-      width: 100%;
-      padding: 8px;
-      line-height: 1.5;
-      border: 2px solid #0b0c0c;
-      box-sizing: border-box;
-      background-color: #ffffff;
-      font-weight: 400;
-      color: #0b0c0c;
-    }
-    .autocomplete__input:focus {
-      outline: 3px solid #ffbf47;
-      outline-offset: 0;
-    }
-    .autocomplete__menu {
-      position: static;
-      z-index: 100;
-      width: 100%;
-      border: 2px solid #0b0c0c;
-      border-top: 0;
-      background-color: #fff;
-      max-height: 200px;
-      overflow-y: auto;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      box-sizing: border-box;
-    }
-    .autocomplete__menu--visible {
-      display: block;
-    }
-    .autocomplete__menu--hidden {
-      display: none;
-    }
-    .autocomplete__option {
-      padding: 8px;
-      border-bottom: 1px solid #b1b4b6;
-      cursor: pointer;
-    }
-    .autocomplete__option--focused,
-    .autocomplete__option:hover {
-      background-color: #f3f2f1;
-      color: #0b0c0c;
-    }
-    .autocomplete__option[aria-selected="true"] {
-      background-color: #e8e8e8;
-      font-weight: bold;
-    }
-    #area-checkboxes-container .govuk-checkboxes__item {
-      display: none;
-    }
-    #owner-checkboxes-container .govuk-checkboxes__item {
-      display: none;
-    }
-    #vlo-checkboxes-container .govuk-checkboxes__item {
-      display: none;
-    }
-  </style>
 {% endblock %}
 
 {% block scripts %}
@@ -82,56 +19,58 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% endblock %}
 
 {% block header %}
-<header class="govuk-header" data-module="govuk-header" style="background: var(--cps-color-theme)">
-  <div class="govuk-header__container govuk-width-container">
-    <div class="govuk-header__logo">
-      <a href="#" class="govuk-header__link govuk-header__link--homepage" style="background: var(--cps-color-theme)">
-        <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
-        <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
-      </a>
+  <header class="govuk-header" data-module="govuk-header" style="background: var(--cps-color-theme)">
+    <div class="govuk-header__container govuk-width-container">
+      <div class="govuk-header__logo">
+        <a href="#" class="govuk-header__link govuk-header__link--homepage" style="background: var(--cps-color-theme)">
+          <span class="" style="color: rgb(255, 255, 255); font-size: 28px; font-weight: bold;">CPS</span>
+          <span data-expression="" class="" style="margin-left: 7px; color: rgb(255, 255, 255); font-size: 26px;">{{ serviceName }}</span>
+        </a>
+      </div>
     </div>
-  </div>
-</header>
-{% block govukServiceNavigation %}
-<div class="govuk-service-navigation"
-  data-module="govuk-service-navigation">
-  <div class="govuk-width-container govuk-service-navigation__inlining-container">
-    <div class="govuk-service-navigation__container">
-      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
-          Menu
-        </button>
-        <ul class="govuk-service-navigation__list" id="navigation">
-          <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/v50/tasks">
-              Tasks
-            </a>
-          </li>
-          <li class="govuk-service-navigation__item">
-            <a class="govuk-service-navigation__link" href="/v50/victims">
-              Victims
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <nav class="govuk-language-navigation" aria-label="Report an issue and give feedback">
-        <ul class="govuk-language-navigation__list">
-          <li class="govuk-language-navigation__list-item" style="border-right: none">
-            <a class="govuk-service-navigation__link" href="#">
-              Report an issue
-            </a>
-          </li>
-          <li class="govuk-language-navigation__list-item">
-            <a class="govuk-service-navigation__link" href="#">
-              Give feedback
-            </a>
-          </li>
-        </ul>
-      </nav>
+  </header>
+
+  {% block govukServiceNavigation %}
+    <div class="govuk-service-navigation"
+      data-module="govuk-service-navigation">
+      <div class="govuk-width-container govuk-service-navigation__inlining-container">
+        <div class="govuk-service-navigation__container">
+          <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+            <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+              Menu
+            </button>
+            <ul class="govuk-service-navigation__list" id="navigation">
+              <li class="govuk-service-navigation__item">
+                <a class="govuk-service-navigation__link" href="/v50/tasks">
+                  Tasks
+                </a>
+              </li>
+              <li class="govuk-service-navigation__item">
+                <a class="govuk-service-navigation__link" href="/v50/victims">
+                  Victims
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav class="govuk-language-navigation" aria-label="Report an issue and give feedback">
+            <ul class="govuk-language-navigation__list">
+              <li class="govuk-language-navigation__list-item" style="border-right: none">
+                <a class="govuk-service-navigation__link" href="#">
+                  Report an issue
+                </a>
+              </li>
+              <li class="govuk-language-navigation__list-item">
+                <a class="govuk-service-navigation__link" href="#">
+                  Give feedback
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-{% endblock %}
+  {% endblock %}
+
 {% endblock %}
 
 {% block footer %}

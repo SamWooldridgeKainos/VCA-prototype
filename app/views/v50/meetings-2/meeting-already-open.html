@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set victimName = data['victimForename'] + " " + data['victimSurname'] %}
 
 {% set pageName="Meeting already in progress" %}
 
@@ -16,14 +17,14 @@
 
     <form class="form" action="/did-victim-request2" method="post">
       <h1 class="govuk-heading-l">
-        There is already an active CPS pre-trial meeting for Sarah Phillips
+        There is already an active CPS pre-trial meeting for {{ victimName }}
       </h1>
 
       <p class="govuk-body">
         A meeting is already in progress for this case. You can continue to update the existing meeting.
       </p>
 
-      <a href="/v50/meetings-2/victim-record?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
+      <a href="/v50/victim?secondaryNav=ptm&meetingState=arranged&meetingSuccess=yes#communications" class="govuk-button govuk-button--primary govuk-!-margin-bottom-2" data-module="govuk-button">
         Update the meeting
       </a>
 
