@@ -198,16 +198,12 @@
                 <label class="govuk-label govuk-checkboxes__label" for="service-3">RASSO</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-4" name="service" type="checkbox" value="none" data-label="Not aligned">
-                <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
-              </div>
-              <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input service-checkbox" id="service-6" name="service" type="checkbox" value="bfs" data-label="Bereaved Family Scheme">
                 <label class="govuk-label govuk-checkboxes__label" for="service-6">Bereaved Family Scheme</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input service-checkbox" id="service-5" name="service" type="checkbox" value="not-onboarded" data-label="Not onboarded">
-                <label class="govuk-label govuk-checkboxes__label" for="service-5">Not onboarded</label>
+                <input class="govuk-checkboxes__input service-checkbox" id="service-4" name="service" type="checkbox" value="none" data-label="Not aligned">
+                <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
               </div>
             </div>
           </fieldset>
@@ -357,10 +353,30 @@
         </div>
 
         <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
+            Victim's last name
+          </label>
+          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+            Victim's first name
+          </label>
+          <div id="victim-first-name-filter-hint" class="govuk-hint">
+            Requires victim's last name
+          </div>
+          <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+        </div>
+
+        <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Victim's date of birth
             </legend>
+            <div id="dob-search-hint" class="govuk-hint">
+              Requires victim's last name
+            </div>
             <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
               <div class="govuk-date-input__item" style="margin-right: 10px;">
                 <div class="govuk-form-group">
@@ -396,7 +412,7 @@
         <div class="govuk-form-group govuk-!-margin-bottom-0">
 
           <label class="govuk-label govuk-label--s" for="search-urn">
-            Search by case reference or victim name
+            Search by case reference
           </label>
 
           <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -689,7 +705,9 @@
       var dobMonth = document.getElementById('dob-search-month');
       var dobYear = document.getElementById('dob-search-year');
       var hasDob = (dobDay && dobDay.value) || (dobMonth && dobMonth.value) || (dobYear && dobYear.value);
-      if (!hasActiveFilters && !hasDob) {
+      var hasName = getLastNameFilter() !== '' || getFirstNameFilter() !== '';
+      var hasCaseRef = getCaseReferenceSearch() !== '';
+      if (!hasActiveFilters && !hasDob && !hasName && !hasCaseRef) {
         document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
           record.setAttribute('data-filtered', 'visible');
           record.style.display = '';
@@ -703,9 +721,127 @@
       // Always hide non-victims unless "Show non-victims" is checked
       applyServiceLeadFilter();
       applyCpsAreaFilter();
+      applyVictimNameFilter();
+      applyCaseReferenceSearch();
       applyNonVictimFilter();
+      updateNoResultsMessage();
     }
     window.ensureResultsVisible = ensureResultsVisible;
+
+    function updateNoResultsMessage() {
+      var visibleCount = document.querySelectorAll('.govuk-summary-list[data-filtered="visible"]').length;
+      var message = document.getElementById('no-results-message');
+      if (visibleCount === 0) {
+        if (!message) {
+          message = document.createElement('div');
+          message.id = 'no-results-message';
+          message.className = 'govuk-inset-text govuk-!-margin-top-0';
+          var victimContainer = document.getElementById('victims-container');
+          if (victimContainer) victimContainer.parentNode.insertBefore(message, victimContainer.nextSibling);
+        }
+        message.textContent = isVictimNameFilterIncomplete()
+          ? "To filter by victim's first name or date of birth, you must enter their last name."
+          : 'No victims match your search.';
+        message.style.display = '';
+      } else if (message) {
+        message.style.display = 'none';
+      }
+    }
+
+    function getLastNameFilter() {
+      var input = document.getElementById('victim-last-name-filter');
+      return input ? input.value.trim().toLowerCase() : '';
+    }
+
+    function getFirstNameFilter() {
+      var input = document.getElementById('victim-first-name-filter');
+      return input ? input.value.trim().toLowerCase() : '';
+    }
+
+    function getCaseReferenceSearch() {
+      var input = document.getElementById('search-urn');
+      return input ? input.value.trim().toLowerCase() : '';
+    }
+
+    function hasDobFilter() {
+      return ['dob-search-day', 'dob-search-month', 'dob-search-year'].some(function(id) {
+        var input = document.getElementById(id);
+        return input && input.value.trim() !== '';
+      });
+    }
+
+    // First name and date of birth can only narrow a last name search
+    function isVictimNameFilterIncomplete() {
+      return getLastNameFilter() === '' && (getFirstNameFilter() !== '' || hasDobFilter());
+    }
+
+    function hideRecord(record) {
+      record.style.display = 'none';
+      record.setAttribute('data-filtered', 'hidden');
+      var parentWrapper = record.parentElement;
+      if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+        parentWrapper.style.display = 'none';
+      }
+    }
+
+    // Heading format is "SURNAME, Forename" with an optional "Deceased" tag
+    function getVictimNameParts(record) {
+      var parentWrapper = record.parentElement;
+      var heading = parentWrapper ? parentWrapper.querySelector('h2') : null;
+      if (!heading) return { lastName: '', firstName: '' };
+      var clone = heading.cloneNode(true);
+      clone.querySelectorAll('.govuk-tag, .govuk-visually-hidden').forEach(function(el) {
+        el.parentNode.removeChild(el);
+      });
+      var parts = clone.textContent.replace(/\s+/g, ' ').trim().split(',');
+      return {
+        lastName: (parts[0] || '').trim().toLowerCase(),
+        firstName: (parts[1] || '').trim().toLowerCase()
+      };
+    }
+
+    // Exact (non-partial) match on last name and/or first name
+    function applyVictimNameFilter() {
+      if (isVictimNameFilterIncomplete()) {
+        document.querySelectorAll('.govuk-summary-list').forEach(hideRecord);
+        if (window.recalculatePagination) recalculatePagination();
+        return;
+      }
+      var lastName = getLastNameFilter();
+      var firstName = getFirstNameFilter();
+      if (lastName === '' && firstName === '') return;
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        if (record.getAttribute('data-filtered') === 'hidden') return;
+        var name = getVictimNameParts(record);
+        var matches = (lastName === '' || name.lastName === lastName) &&
+                      (firstName === '' || name.firstName === firstName);
+        if (!matches) hideRecord(record);
+      });
+      if (window.recalculatePagination) recalculatePagination();
+    }
+    window.applyVictimNameFilter = applyVictimNameFilter;
+
+    // Top search box matches the case reference only
+    function applyCaseReferenceSearch() {
+      var searchTerm = getCaseReferenceSearch();
+      if (searchTerm === '') return;
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        if (record.getAttribute('data-filtered') === 'hidden') return;
+        var rows = record.querySelectorAll('.govuk-summary-list__row');
+        var caseReference = '';
+        for (var i = 0; i < rows.length; i++) {
+          var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+          if (keyEl && keyEl.textContent.trim() === 'Case reference') {
+            var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+            caseReference = valueEl ? valueEl.textContent.trim() : '';
+            break;
+          }
+        }
+        if (caseReference.toLowerCase().indexOf(searchTerm) === -1) hideRecord(record);
+      });
+      if (window.recalculatePagination) recalculatePagination();
+    }
+    window.applyCaseReferenceSearch = applyCaseReferenceSearch;
 
     // Apply non-victim filter: hide records where Victim = "No" unless checkbox is checked
     function applyNonVictimFilter() {
@@ -828,6 +964,35 @@
       });
     }
 
+    // Pressing Enter in a filter text input applies the filters instead of reloading
+    var filtersForm = document.getElementById('service-area-form');
+    if (filtersForm) {
+      filtersForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (applyBtn) applyBtn.click();
+      });
+    }
+
+    // Replace the shared case reference handler, which also matched on victim name
+    var caseRefSection = document.getElementById('case-reference-section');
+    var caseRefForm = caseRefSection ? caseRefSection.querySelector('form') : null;
+    if (caseRefForm) {
+      var newCaseRefForm = caseRefForm.cloneNode(true);
+      caseRefForm.parentNode.replaceChild(newCaseRefForm, caseRefForm);
+      newCaseRefForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        initialSetupComplete = false;
+        searchFormSubmitted = true;
+        if (window.applyVictimFilters) applyVictimFilters();
+        if (window.applyVictimNameDobSearch) applyVictimNameDobSearch();
+        ensureResultsVisible();
+        if (window.saveFiltersToStorage) saveFiltersToStorage();
+        var clearSearchWrapper = document.getElementById('clear-search-wrapper');
+        if (clearSearchWrapper) clearSearchWrapper.style.display = getCaseReferenceSearch() !== '' ? '' : 'none';
+        initialSetupComplete = true;
+      });
+    }
+
     // Store references to original chip renderers
     var origRenderVloChips = window.renderServiceAreaVloChips;
     var origRenderAreaChips = window.renderAreaChips;
@@ -860,6 +1025,18 @@
         areaChips.push({ label: cb.getAttribute('data-label'), input: cb });
       });
 
+      var lastNameInput = document.getElementById('victim-last-name-filter');
+      var lastNameChips = [];
+      if (lastNameInput && lastNameInput.value.trim() !== '') {
+        lastNameChips.push({ label: lastNameInput.value.trim(), input: null, type: 'last-name' });
+      }
+
+      var firstNameInput = document.getElementById('victim-first-name-filter');
+      var firstNameChips = [];
+      if (firstNameInput && firstNameInput.value.trim() !== '') {
+        firstNameChips.push({ label: firstNameInput.value.trim(), input: null, type: 'first-name' });
+      }
+
       var dobChips = [];
       var dobDay = document.getElementById('dob-search-day');
       var dobMonth = document.getElementById('dob-search-month');
@@ -872,7 +1049,8 @@
         dobChips.push({ label: dobParts.join('/'), input: null, type: 'dob' });
       }
 
-      var totalChips = vloChips.length + serviceChips.length + areaChips.length + dobChips.length;
+      var totalChips = vloChips.length + serviceChips.length + areaChips.length +
+                       lastNameChips.length + firstNameChips.length + dobChips.length;
 
       // Update heading
       if (heading) {
@@ -928,6 +1106,8 @@
               if (dobMonth) dobMonth.value = '';
               if (dobYear) dobYear.value = '';
             }
+            if (chip.type === 'last-name' && lastNameInput) lastNameInput.value = '';
+            if (chip.type === 'first-name' && firstNameInput) firstNameInput.value = '';
             searchFormSubmitted = true;
             if (window.applyVictimFilters) applyVictimFilters();
             if (window.saveFiltersToStorage) saveFiltersToStorage();
@@ -951,6 +1131,8 @@
       createSubSection('Victim liaison officer', vloChips);
       createSubSection('Service lead', serviceChips);
       createSubSection('CPS area', areaChips);
+      createSubSection("Victim's last name", lastNameChips);
+      createSubSection("Victim's first name", firstNameChips);
       createSubSection('Date of birth', dobChips);
       createSubSection('Non-victims', nonVictimChips);
       isRenderingSelectedFilters = false;
@@ -963,7 +1145,7 @@
         renderSelectedFilters();
       });
     });
-    ['dob-search-day', 'dob-search-month', 'dob-search-year'].forEach(function(id) {
+    ['dob-search-day', 'dob-search-month', 'dob-search-year', 'victim-last-name-filter', 'victim-first-name-filter'].forEach(function(id) {
       var input = document.getElementById(id);
       if (input) {
         input.addEventListener('input', function() {
@@ -1005,6 +1187,11 @@
         if (dobDay) dobDay.value = '';
         if (dobMonth) dobMonth.value = '';
         if (dobYear) dobYear.value = '';
+        // Clear victim name fields
+        var lastNameFilter = document.getElementById('victim-last-name-filter');
+        var firstNameFilter = document.getElementById('victim-first-name-filter');
+        if (lastNameFilter) lastNameFilter.value = '';
+        if (firstNameFilter) firstNameFilter.value = '';
         // Clear autocomplete inputs
         var vloInput = document.querySelector('#service-area-vlo-autocomplete-input');
         if (vloInput) vloInput.value = '';
