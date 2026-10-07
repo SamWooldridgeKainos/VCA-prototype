@@ -65,7 +65,7 @@
     <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
   </div>
 
-  <div class="govuk-grid-column-one-quarter">
+  <div class="govuk-grid-column-one-third">
     <div class="tasks-filters">
 
       <p class="govuk-body" id="selected-filters-heading">No filters selected</p>
@@ -500,7 +500,7 @@
     </div>
   </div>
 
-  <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-column-two-thirds">
 
     <div id="case-reference-section" class="moj-search govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
       <form action="#" method="post">
@@ -741,7 +741,7 @@
             Due date
           </dt>
           <dd class="govuk-summary-list__value due-date-value">
-            {% if record.dueDateTag %}<span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag">{{ record.dueDateTag }}</span><br class="due-date-break"> {% endif %}{{ record.dueDate }}
+            {% if record.dueDateTag %}<p class="govuk-body"><span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag">{{ record.dueDateTag }}</span></p>{% endif %}<p class="govuk-body"><span class="due-date-text">{{ record.dueDate }}</span></p>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
@@ -830,6 +830,10 @@
   </div>
 </div>
 
+<script>
+  // This page lays the results out in a two-thirds column rather than the shared default
+  window.TASKS_RESULTS_COLUMN_SELECTOR = '.govuk-grid-column-two-thirds';
+</script>
 <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
 <script src="/public/javascripts/shared/filter-data.js"></script>
 <script src="/public/javascripts/shared/pagination.js"></script>

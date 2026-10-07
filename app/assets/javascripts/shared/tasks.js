@@ -9,6 +9,10 @@ var searchFormSubmitted = false;
 // Track whether initial page setup is complete
 var initialSetupComplete = false;
 
+// The grid column holding the results varies by page, so allow pages to override it
+var TASKS_RESULTS_COLUMN = window.TASKS_RESULTS_COLUMN_SELECTOR || '.govuk-grid-column-three-quarters';
+var TASKS_RECORD_SELECTOR = TASKS_RESULTS_COLUMN + ' > .govuk-\\!-margin-bottom-9';
+
 // ===== localStorage Persistence for Tasks Filters =====
 // Store and restore filter settings when navigating away and returning
 (function() {
@@ -312,7 +316,7 @@ function applyTaskFilters() {
     var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0 || searchTerm !== '';
     
     // Get all task records (summary lists within margin-bottom-9 containers)
-    var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
+    var taskContainers = document.querySelectorAll(TASKS_RECORD_SELECTOR);
     var visibleCount = 0;
     
     taskContainers.forEach(function(container) {
@@ -467,7 +471,7 @@ function applyTaskFilters() {
             noResultsMessage.id = 'no-results-message';
             noResultsMessage.className = 'govuk-inset-text govuk-!-margin-top-0';
             noResultsMessage.textContent = 'No results found. Try changing your search criteria.';
-            var resultsArea = document.querySelector('.govuk-grid-column-three-quarters');
+            var resultsArea = document.querySelector(TASKS_RESULTS_COLUMN);
             if (resultsArea && resultsDivider) {
                 resultsDivider.parentNode.insertBefore(noResultsMessage, resultsDivider.nextSibling);
             }
@@ -499,7 +503,7 @@ function updateResultsCount(visibleCount) {
     var sortedByText = document.getElementById('sorted-by-text');
     
     // Get total task count
-    var totalTasks = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9').length;
+    var totalTasks = document.querySelectorAll(TASKS_RECORD_SELECTOR).length;
     
     // Determine count to show based on whether filters are active
     var countToShow = searchFormSubmitted ? visibleCount : totalTasks;
@@ -708,7 +712,7 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
     }
     
     function sortTasksByDueDate() {
-        var resultsArea = document.querySelector('.govuk-grid-column-three-quarters');
+        var resultsArea = document.querySelector(TASKS_RESULTS_COLUMN);
         if (!resultsArea) return;
         
         var taskContainers = Array.from(resultsArea.querySelectorAll(':scope > .govuk-\\!-margin-bottom-9'));

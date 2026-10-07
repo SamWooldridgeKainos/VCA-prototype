@@ -830,7 +830,7 @@
               }} due-date-tag"
               >{{ record.dueDateTag }}</span
             ><br class="due-date-break" />
-            {% endif %}{{ record.dueDate }}
+            {% endif %}<span class="due-date-text">{{ record.dueDate }}</span>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a href="#" class="govuk-link govuk-link--no-visited-state"
@@ -967,6 +967,7 @@
 <script src="/public/javascripts/accessible-autocomplete.min.js"></script>
 <script src="/public/javascripts/shared/filter-data.js"></script>
 <script src="/public/javascripts/shared/pagination.js"></script>
+<script>window.TASKS_RESULTS_PER_PAGE = 5;</script>
 <script src="/public/javascripts/shared/tasks-pagination.js"></script>
 <script src="/public/javascripts/shared/tasks.js"></script>
 <script src="/public/javascripts/shared/tasks-autocomplete.js"></script>

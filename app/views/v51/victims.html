@@ -60,8 +60,6 @@
   <div class="govuk-grid-column-one-quarter">
     <div class="tasks-filters">
 
-      <!-- <h2 class="govuk-heading-m">Search</h2> -->
-
       <form id="search-criteria-form">
         <div class="govuk-form-group govuk-!-margin-bottom-0">
           <fieldset class="govuk-fieldset">
@@ -71,10 +69,6 @@
               </h2>
             </legend>
             <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
-              <!-- <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="search-by-vlo" name="searchBy" type="radio" value="vlo-only" data-label="Victim liaison officer">
-                <label class="govuk-label govuk-radios__label" for="search-by-vlo">Victim liaison officer (VLO)</label>
-              </div> -->
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="search-by-service-area" name="searchBy" type="radio" value="service-area" data-label="Service lead, area and VLO">
                 <label class="govuk-label govuk-radios__label" for="search-by-service-area">Onboarded victims</label>
@@ -86,32 +80,6 @@
             </div>
           </fieldset>
         </div>
-
-        <!-- <div id="vlo-only-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
-
-          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-          <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset">
-              <legend id="vlo-only-legend" class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                Victim liaison officer
-              </legend>
-              <div class="govuk-form-group govuk-!-margin-bottom-2">
-                <div id="vlo-only-autocomplete"></div>
-              </div>
-              <ul id="vlo-only-chips-container" class="app-filter-tags govuk-!-margin-bottom-0 govuk-!-margin-top-2">
-              </ul>
-              <div id="vlo-only-checkboxes-container" class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes" style="display: none;">
-                {% for vlo in vloOfficers %}
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input vlo-checkbox" id="vlo-only-{{ loop.index }}" name="vlo" type="checkbox" value="{{ vlo.id }}" data-label="{{ vlo.label }}"{% if vlo.checked %} checked{% endif %}>
-                  <label class="govuk-label govuk-checkboxes__label" for="vlo-only-{{ loop.index }}">{{ vlo.label }}</label>
-                </div>
-                {% endfor %}
-              </div>
-            </fieldset>
-          </div>
-        </div> -->
 
         <div id="service-area-form" class="govuk-!-margin-bottom-0 govuk-!-padding-bottom-0" style="display: none;">
 
@@ -143,22 +111,23 @@
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                 Service lead
               </legend>
-              <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input service-radio" id="service-1" name="service" type="radio" value="universal" data-label="Universal">
-                  <label class="govuk-label govuk-radios__label" for="service-1">Universal</label>
+              <!-- Class stays "service-radio" because the shared filter logic keys off it -->
+              <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input service-radio" id="service-1" name="service" type="checkbox" value="universal" data-label="Universal">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-1">Universal</label>
                 </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input service-radio" id="service-2" name="service" type="radio" value="enhanced" data-label="Enhanced">
-                  <label class="govuk-label govuk-radios__label" for="service-2">Enhanced</label>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input service-radio" id="service-2" name="service" type="checkbox" value="enhanced" data-label="Enhanced">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-2">Enhanced</label>
                 </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input service-radio" id="service-3" name="service" type="radio" value="rasso" data-label="RASSO">
-                  <label class="govuk-label govuk-radios__label" for="service-3">RASSO</label>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input service-radio" id="service-3" name="service" type="checkbox" value="rasso" data-label="RASSO">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-3">RASSO</label>
                 </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input service-radio" id="service-4" name="service" type="radio" value="none" data-label="Not aligned to a service">
-                  <label class="govuk-label govuk-radios__label" for="service-4">Not aligned</label>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input service-radio" id="service-4" name="service" type="checkbox" value="none" data-label="Not aligned to a service">
+                  <label class="govuk-label govuk-checkboxes__label" for="service-4">Not aligned</label>
                 </div>
               </div>
             </fieldset>
@@ -184,54 +153,6 @@
               </div>
             </fieldset>
           </div>
-
-          <div class="govuk-form-group">
-            <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
-              Victim's last name
-            </label>
-            <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
-          </div>
-
-          <div class="govuk-form-group">
-            <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
-              Victim's first name
-            </label>
-            <div id="victim-first-name-filter-hint" class="govuk-hint">
-              Requires victim's last name
-            </div>
-            <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
-          </div>
-
-          <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                Victim's date of birth
-              </legend>
-              <div id="dob-search-hint" class="govuk-hint">
-                Requires victim's last name
-              </div>
-              <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
-                <div class="govuk-date-input__item" style="margin-right: 10px;">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="dob-search-day">Day</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-day" name="dob-search-day" type="text" inputmode="numeric">
-                  </div>
-                </div>
-                <div class="govuk-date-input__item" style="margin-right: 10px;">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="dob-search-month">Month</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-month" name="dob-search-month" type="text" inputmode="numeric">
-                  </div>
-                </div>
-                <div class="govuk-date-input__item" style="margin-right: 0;">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="dob-search-year">Year</label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-search-year" name="dob-search-year" type="text" inputmode="numeric">
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
         </div>
 
         <div id="case-reference-section" class="moj-search govuk-!-padding-0" style="display: none;">
@@ -243,6 +164,54 @@
               <input type="text" class="govuk-input moj-search__input" id="search-urn" name="searchUrn" autocomplete="on" value="">
             </div>
 
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
+            Victim's last name
+          </label>
+          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+            Victim's first name
+          </label>
+          <div id="victim-first-name-filter-hint" class="govuk-hint">
+            Requires victim's last name
+          </div>
+          <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+              Victim's date of birth
+            </legend>
+            <div id="dob-search-hint" class="govuk-hint">
+              Requires victim's last name
+            </div>
+            <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
+              <div class="govuk-date-input__item" style="margin-right: 10px;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-day">Day</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-day" name="dob-search-day" type="text" inputmode="numeric">
+                </div>
+              </div>
+              <div class="govuk-date-input__item" style="margin-right: 10px;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-month">Month</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-month" name="dob-search-month" type="text" inputmode="numeric">
+                </div>
+              </div>
+              <div class="govuk-date-input__item" style="margin-right: 0;">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="dob-search-year">Year</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-search-year" name="dob-search-year" type="text" inputmode="numeric">
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
 
         <button type="submit" class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" data-module="govuk-button">
@@ -498,11 +467,6 @@
       return input ? input.value.trim().toLowerCase() : '';
     }
 
-    function isServiceAreaMode() {
-      var radio = document.getElementById('search-by-service-area');
-      return !!(radio && radio.checked);
-    }
-
     function getDobFilter() {
       function partValue(id) {
         var input = document.getElementById(id);
@@ -517,6 +481,10 @@
         year: year === '' ? null : year,
         isSet: day !== '' || month !== '' || year !== ''
       };
+    }
+
+    function hasVictimNameFilter() {
+      return getLastNameFilter() !== '' || getFirstNameFilter() !== '' || getDobFilter().isSet;
     }
 
     // A first name or date of birth can only narrow a last name search
@@ -564,7 +532,6 @@
 
     // Exact (non-partial) match on last name, first name and date of birth
     function applyVictimNameFilter() {
-      if (!isServiceAreaMode()) return;
       if (isVictimNameFilterIncomplete()) {
         document.querySelectorAll('.govuk-summary-list').forEach(hideRecord);
         if (window.recalculatePagination) window.recalculatePagination();
@@ -574,6 +541,8 @@
       var firstName = getFirstNameFilter();
       var dob = getDobFilter();
       if (lastName === '' && firstName === '' && !dob.isSet) return;
+      // The case reference search hides the results area when its own box is empty
+      showResultsArea();
       document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
         if (record.getAttribute('data-filtered') === 'hidden') return;
         var name = getVictimNameParts(record);
@@ -591,23 +560,42 @@
       if (window.recalculatePagination) window.recalculatePagination();
     }
 
+    function showResultsArea() {
+      var container = document.getElementById('victims-container');
+      if (container) container.style.display = '';
+      var paginationNav = document.querySelector('nav.govuk-pagination');
+      if (paginationNav) paginationNav.style.display = '';
+    }
+
     function updateNoResultsMessage() {
+      var container = document.getElementById('victims-container');
+      var resultsAreaVisible = container && container.style.display !== 'none';
       var visibleCount = document.querySelectorAll('.govuk-summary-list[data-filtered="visible"]').length;
       var message = document.getElementById('no-results-message');
-      if (visibleCount === 0) {
+      if (visibleCount === 0 && (resultsAreaVisible || hasVictimNameFilter())) {
         if (!message) {
           message = document.createElement('div');
           message.id = 'no-results-message';
           message.className = 'govuk-inset-text govuk-!-margin-top-0';
-          var victimContainer = document.getElementById('victims-container');
-          if (victimContainer) victimContainer.parentNode.insertBefore(message, victimContainer.nextSibling);
+          if (container) container.parentNode.insertBefore(message, container.nextSibling);
         }
-        message.textContent = (isServiceAreaMode() && isVictimNameFilterIncomplete())
+        message.textContent = isVictimNameFilterIncomplete()
           ? "To filter by victim's first name or date of birth, you must enter their last name."
           : 'No results found. Try changing your search criteria.';
         message.style.display = '';
       } else if (message) {
         message.style.display = 'none';
+      }
+    }
+
+    // Default to the "Onboarded victims" search when nothing has been chosen yet
+    var searchByRadios = document.querySelectorAll('input[name="searchBy"]');
+    var hasSearchBySelection = Array.from(searchByRadios).some(function(radio) { return radio.checked; });
+    if (!hasSearchBySelection) {
+      var serviceAreaRadio = document.getElementById('search-by-service-area');
+      if (serviceAreaRadio) {
+        serviceAreaRadio.checked = true;
+        serviceAreaRadio.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
 
