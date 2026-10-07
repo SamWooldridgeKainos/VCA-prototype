@@ -4,9 +4,10 @@
 // Optional global override: TASKS_RESULTS_PER_PAGE
 (function() {
     var RESULTS_PER_PAGE = (typeof window.TASKS_RESULTS_PER_PAGE === 'number') ? window.TASKS_RESULTS_PER_PAGE : 10;
+    var RECORD_SELECTOR = (window.TASKS_RESULTS_COLUMN_SELECTOR || '.govuk-grid-column-three-quarters') + ' > .govuk-\\!-margin-bottom-9';
 
     function recalculatePagination() {
-        var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
+        var taskContainers = document.querySelectorAll(RECORD_SELECTOR);
 
         // Count visible records
         var visibleRecords = 0;
@@ -52,7 +53,7 @@
     function showPage(pageNumber, totalPages) {
         // Calculate totalPages dynamically if not provided
         if (!totalPages) {
-            var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
+            var taskContainers = document.querySelectorAll(RECORD_SELECTOR);
             var visibleCount = 0;
             taskContainers.forEach(function(container) {
                 var record = container.querySelector('.govuk-summary-list');
@@ -71,7 +72,7 @@
             return;
         }
 
-        var taskContainers = document.querySelectorAll('.govuk-grid-column-three-quarters > .govuk-\\!-margin-bottom-9');
+        var taskContainers = document.querySelectorAll(RECORD_SELECTOR);
         var visibleRecords = [];
 
         // Collect all records that pass filters

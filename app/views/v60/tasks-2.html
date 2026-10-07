@@ -65,7 +65,7 @@
     <h1 class="govuk-heading-l" id="main-heading">Tasks</h1>
   </div>
 
-  <div class="govuk-grid-column-one-quarter">
+  <div class="govuk-grid-column-one-third">
     <div class="tasks-filters">
 
       <p class="govuk-body" id="selected-filters-heading">No filters selected</p>
@@ -495,7 +495,7 @@
     </div>
   </div>
 
-  <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-column-two-thirds">
 
     <p class="govuk-body-s" id="results-count"></p>
 
@@ -605,7 +605,7 @@
             {{ record.task }}{% if record.purpose %} ({{ record.purpose }}){% endif %}
           </td>
           <td class="govuk-table__cell due-date-value">
-            {% if record.dueDateTag %}<span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag govuk-!-margin-bottom-1">{{ record.dueDateTag }}</span><br class="due-date-break"> {% endif %}{{ record.dueDate }}<br>
+            {% if record.dueDateTag %}<p class="govuk-body"><span class="govuk-tag govuk-tag--{{ record.dueDateTagColor }} due-date-tag govuk-!-margin-bottom-1">{{ record.dueDateTag }}</span></p>{% endif %}<p class="govuk-body"><span class="due-date-text">{{ record.dueDate }}</span></p>
             <a href="#" class="govuk-link govuk-link--no-visited-state">Change<span class="govuk-visually-hidden"> due date</span></a>
           </td>
           <td class="govuk-table__cell">

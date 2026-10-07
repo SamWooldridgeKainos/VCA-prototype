@@ -6,6 +6,19 @@
   }
 }
 
+// Where a tag precedes the date, only the date itself is kept on one line
+.due-date-value:has(.due-date-text) {
+  @media (min-width: 641px) {
+    white-space: normal;
+  }
+}
+
+.due-date-text {
+  @media (min-width: 641px) {
+    white-space: nowrap;
+  }
+}
+
 .due-date-break {
   @media (min-width: 641px) {
     display: none;
