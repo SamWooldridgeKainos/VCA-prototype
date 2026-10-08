@@ -1,0 +1,30 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sorry, there is a problem with the service" %}
+
+{% block govukServiceNavigation %}
+{% include "/v60/partials/header/none-selected.html" %}
+{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper-extra-padding-top" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            Sorry, there is a problem with the service
+        </h1>
+        <p class="govuk-body">
+            You have been signed out of the Victim Case Application.
+        </p>
+        <p class="govuk-body">
+            If this problem persists <a href="#" class="govuk-link">report an issue</a> or get in touch with your system administrator.
+        </p>
+        <p class="govuk-body">
+            To sign in again, log in to CMS, select the 'C' icon and sign in to the Victim Case Application.
+        </p>
+
+        <a href="#" class="govuk-button" data-module="govuk-button">Go to CMS login</a>
+    </div>
+</div>
+{% endblock %}
