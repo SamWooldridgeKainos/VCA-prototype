@@ -352,7 +352,7 @@
           </fieldset>
         </div>
 
-        <div class="govuk-form-group">
+        <!-- <div class="govuk-form-group">
           <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
             Victim's last name
           </label>
@@ -398,7 +398,7 @@
               </div>
             </div>
           </fieldset>
-        </div>
+        </div> -->
 
       </form>
 
@@ -407,7 +407,7 @@
 
   <div class="govuk-grid-column-two-thirds">
 
-    <div id="case-reference-section" class="moj-search govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
+    <!-- <div id="case-reference-section" class="moj-search govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
       <form action="#" method="post">
         <div class="govuk-form-group govuk-!-margin-bottom-0">
 
@@ -423,6 +423,67 @@
           </div>
 
         </div>
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
+        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
+      </p>
+    </div> -->
+
+    <div id="case-reference-section" class="govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
+      <form action="#" method="post">
+        <div class="govuk-form-group">
+
+          <label class="govuk-label govuk-label--s" for="search-urn">
+            Search by case reference
+          </label>
+          <input type="text" class="govuk-input" id="search-urn" name="searchUrn" autocomplete="on" value="">
+
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
+            Victim's last name
+          </label>
+          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
+        </div>
+
+        
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter by victim's first name and date of birth
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+                Victim's first name
+              </label>
+              <div id="victim-first-name-filter-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="dob-search">
+                Victim's date of birth
+              </label>
+              <div id="dob-search-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <div class="moj-datepicker" id="dob-search-picker" data-module="moj-date-picker" data-excluded-days="">
+                <input class="govuk-input moj-js-datepicker-input" id="dob-search" name="dob-search" type="text" autocomplete="off" aria-describedby="dob-search-hint">
+              </div>
+            </div>
+          </div>
+        </details>
+        
+        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+          Search
+        </button>
       </form>
 
       <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
@@ -701,10 +762,8 @@
       var hasActiveFilters = document.querySelectorAll('.service-area-vlo-checkbox:checked').length > 0 ||
                              document.querySelectorAll('.service-checkbox:checked').length > 0 ||
                              document.querySelectorAll('.area-checkbox:checked').length > 0;
-      var dobDay = document.getElementById('dob-search-day');
-      var dobMonth = document.getElementById('dob-search-month');
-      var dobYear = document.getElementById('dob-search-year');
-      var hasDob = (dobDay && dobDay.value) || (dobMonth && dobMonth.value) || (dobYear && dobYear.value);
+      var dobInput = document.getElementById('dob-search');
+      var hasDob = dobInput && dobInput.value.trim() !== '';
       var hasName = getLastNameFilter() !== '' || getFirstNameFilter() !== '';
       var hasCaseRef = getCaseReferenceSearch() !== '';
       if (!hasActiveFilters && !hasDob && !hasName && !hasCaseRef) {
@@ -764,10 +823,8 @@
     }
 
     function hasDobFilter() {
-      return ['dob-search-day', 'dob-search-month', 'dob-search-year'].some(function(id) {
-        var input = document.getElementById(id);
-        return input && input.value.trim() !== '';
-      });
+      var input = document.getElementById('dob-search');
+      return !!input && input.value.trim() !== '';
     }
 
     // First name and date of birth can only narrow a last name search
@@ -1038,15 +1095,9 @@
       }
 
       var dobChips = [];
-      var dobDay = document.getElementById('dob-search-day');
-      var dobMonth = document.getElementById('dob-search-month');
-      var dobYear = document.getElementById('dob-search-year');
-      var dobParts = [];
-      if (dobDay && dobDay.value) dobParts.push(dobDay.value);
-      if (dobMonth && dobMonth.value) dobParts.push(dobMonth.value);
-      if (dobYear && dobYear.value) dobParts.push(dobYear.value);
-      if (dobParts.length > 0) {
-        dobChips.push({ label: dobParts.join('/'), input: null, type: 'dob' });
+      var dobInput = document.getElementById('dob-search');
+      if (dobInput && dobInput.value.trim() !== '') {
+        dobChips.push({ label: dobInput.value.trim(), input: null, type: 'dob' });
       }
 
       var totalChips = vloChips.length + serviceChips.length + areaChips.length +
@@ -1102,9 +1153,7 @@
               chip.input.dispatchEvent(changeEvent);
             }
             if (chip.type === 'dob') {
-              if (dobDay) dobDay.value = '';
-              if (dobMonth) dobMonth.value = '';
-              if (dobYear) dobYear.value = '';
+              if (dobInput) dobInput.value = '';
             }
             if (chip.type === 'last-name' && lastNameInput) lastNameInput.value = '';
             if (chip.type === 'first-name' && firstNameInput) firstNameInput.value = '';
@@ -1145,10 +1194,13 @@
         renderSelectedFilters();
       });
     });
-    ['dob-search-day', 'dob-search-month', 'dob-search-year', 'victim-last-name-filter', 'victim-first-name-filter'].forEach(function(id) {
+    ['dob-search', 'victim-last-name-filter', 'victim-first-name-filter'].forEach(function(id) {
       var input = document.getElementById(id);
       if (input) {
         input.addEventListener('input', function() {
+          renderSelectedFilters();
+        });
+        input.addEventListener('change', function() {
           renderSelectedFilters();
         });
       }
@@ -1180,13 +1232,9 @@
         document.querySelectorAll('.area-checkbox').forEach(function(cb) { cb.checked = false; });
         // Uncheck non-victim checkbox
         document.querySelectorAll('.non-victim-checkbox').forEach(function(cb) { cb.checked = false; });
-        // Clear DOB fields
-        var dobDay = document.getElementById('dob-search-day');
-        var dobMonth = document.getElementById('dob-search-month');
-        var dobYear = document.getElementById('dob-search-year');
-        if (dobDay) dobDay.value = '';
-        if (dobMonth) dobMonth.value = '';
-        if (dobYear) dobYear.value = '';
+        // Clear DOB field
+        var dobField = document.getElementById('dob-search');
+        if (dobField) dobField.value = '';
         // Clear victim name fields
         var lastNameFilter = document.getElementById('victim-last-name-filter');
         var firstNameFilter = document.getElementById('victim-first-name-filter');
