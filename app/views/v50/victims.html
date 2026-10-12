@@ -420,6 +420,17 @@
 <script src="/public/javascripts/shared/victims.js"></script>
 <script src="/public/javascripts/shared/victims-autocomplete.js"></script>
 <script>
+  // Runs after the shared handler, which would otherwise leave an empty results area
+  (function() {
+    var clearSearchLink = document.getElementById('clear-search-link');
+    if (clearSearchLink) {
+      clearSearchLink.addEventListener('click', function() {
+        if (window.showAllOnboardedVictims) window.showAllOnboardedVictims();
+      });
+    }
+  })();
+</script>
+<script>
   // Show success banner if URL has success params, then remove them
   (function() {
     var url = new URL(window.location.href);

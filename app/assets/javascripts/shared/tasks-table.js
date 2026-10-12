@@ -344,7 +344,7 @@ var initialSetupComplete = false;
         var countToShow = searchFormSubmitted ? visibleCount : totalTasks;
 
         if (resultsCountTop) {
-            var RESULTS_PER_PAGE = 10;
+            var RESULTS_PER_PAGE = (typeof window.TASKS_RESULTS_PER_PAGE === 'number') ? window.TASKS_RESULTS_PER_PAGE : 10;
             var startResult = 1;
             var endResult = Math.min(RESULTS_PER_PAGE, countToShow);
             var resultsText = 'Showing results ' + startResult + ' to ' + endResult + ' of ' + countToShow + ' total results';
@@ -443,7 +443,7 @@ var initialSetupComplete = false;
 
 // ===== Table Pagination =====
 (function() {
-    var RESULTS_PER_PAGE = 10;
+    var RESULTS_PER_PAGE = (typeof window.TASKS_RESULTS_PER_PAGE === 'number') ? window.TASKS_RESULTS_PER_PAGE : 10;
 
     function recalculatePagination() {
         var rows = document.querySelectorAll('.govuk-table__body .govuk-table__row');
