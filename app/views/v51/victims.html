@@ -173,46 +173,36 @@
           <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
         </div>
 
-        <div class="govuk-form-group">
-          <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
-            Victim's first name
-          </label>
-          <div id="victim-first-name-filter-hint" class="govuk-hint">
-            Requires victim's last name
-          </div>
-          <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
-        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter by victim's first name and date of birth
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+                Victim's first name
+              </label>
+              <div id="victim-first-name-filter-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+            </div>
 
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-search-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Victim's date of birth
-            </legend>
-            <div id="dob-search-hint" class="govuk-hint">
-              Requires victim's last name
-            </div>
-            <div class="govuk-date-input" id="dob-search" style="white-space: nowrap;">
-              <div class="govuk-date-input__item" style="margin-right: 10px;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-day">Day</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-day" name="dob-search-day" type="text" inputmode="numeric">
-                </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="dob-search">
+                Victim's date of birth
+              </label>
+              <div id="dob-search-hint" class="govuk-hint">
+                You must also enter their last name
               </div>
-              <div class="govuk-date-input__item" style="margin-right: 10px;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-month">Month</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-search-month" name="dob-search-month" type="text" inputmode="numeric">
-                </div>
-              </div>
-              <div class="govuk-date-input__item" style="margin-right: 0;">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="dob-search-year">Year</label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-search-year" name="dob-search-year" type="text" inputmode="numeric">
-                </div>
+              <div class="moj-datepicker" id="dob-search-picker" data-module="moj-date-picker" data-excluded-days="">
+                <input class="govuk-input moj-js-datepicker-input" id="dob-search" name="dob-search" type="text" autocomplete="off" aria-describedby="dob-search-hint">
               </div>
             </div>
-          </fieldset>
-        </div>
+          </div>
+        </details>
 
         <button type="submit" class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" data-module="govuk-button">
           Search
@@ -468,18 +458,14 @@
     }
 
     function getDobFilter() {
-      function partValue(id) {
-        var input = document.getElementById(id);
-        return input ? input.value.trim() : '';
-      }
-      var day = partValue('dob-search-day');
-      var month = partValue('dob-search-month');
-      var year = partValue('dob-search-year');
+      var input = document.getElementById('dob-search');
+      var value = input ? input.value.trim() : '';
+      var parts = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
       return {
-        day: day === '' ? null : parseInt(day, 10),
-        month: month === '' ? null : parseInt(month, 10),
-        year: year === '' ? null : year,
-        isSet: day !== '' || month !== '' || year !== ''
+        day: parts ? parseInt(parts[1], 10) : null,
+        month: parts ? parseInt(parts[2], 10) : null,
+        year: parts ? parts[3] : null,
+        isSet: value !== ''
       };
     }
 
@@ -550,10 +536,10 @@
                       (firstName === '' || name.firstName === firstName);
         if (matches && dob.isSet) {
           var recordDob = getRecordDob(record);
-          matches = !!recordDob &&
-                    (dob.day === null || parseInt(recordDob[1], 10) === dob.day) &&
-                    (dob.month === null || parseInt(recordDob[2], 10) === dob.month) &&
-                    (dob.year === null || recordDob[3] === dob.year);
+          matches = !!recordDob && dob.day !== null &&
+                    parseInt(recordDob[1], 10) === dob.day &&
+                    parseInt(recordDob[2], 10) === dob.month &&
+                    recordDob[3] === dob.year;
         }
         if (!matches) hideRecord(record);
       });
@@ -615,10 +601,8 @@
         var firstNameInput = document.getElementById('victim-first-name-filter');
         if (lastNameInput) lastNameInput.value = '';
         if (firstNameInput) firstNameInput.value = '';
-        ['dob-search-day', 'dob-search-month', 'dob-search-year'].forEach(function(id) {
-          var input = document.getElementById(id);
-          if (input) input.value = '';
-        });
+        var dobInput = document.getElementById('dob-search');
+        if (dobInput) dobInput.value = '';
         if (window.applyVictimFilters) window.applyVictimFilters();
         updateNoResultsMessage();
       });
