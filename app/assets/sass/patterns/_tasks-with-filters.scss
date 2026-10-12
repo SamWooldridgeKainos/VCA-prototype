@@ -19,6 +19,11 @@
   }
 }
 
+// Overrides the -3px that govuk-tag ships with, so the date below clears the tag
+.due-date-tag {
+  margin-bottom: govuk-spacing(1);
+}
+
 .due-date-break {
   @media (min-width: 641px) {
     display: none;
@@ -27,12 +32,6 @@
 
 .govuk-table .due-date-break {
   display: block;
-}
-
-.due-date-tag {
-  @media (max-width: 640px) {
-    margin-bottom: govuk-spacing(1);
-  }
 }
 
 .tasks-filters {

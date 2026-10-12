@@ -578,6 +578,55 @@ function applyVictimFilters() {
     }
 }
 
+// Reveal every onboarded victim, ignoring any search criteria.
+// Used as the "cleared search" state so the list falls back to the full roll
+// rather than an empty results area.
+function showAllOnboardedVictims() {
+    var victimContainer = document.getElementById('victims-container');
+    var paginationNav = document.querySelector('nav.govuk-pagination');
+    var resultsCount = document.getElementById('results-count');
+    var sortedByText = document.getElementById('sorted-by-text');
+    var resultsDivider = document.getElementById('results-divider');
+
+    if (victimContainer) victimContainer.style.display = '';
+    if (paginationNav) paginationNav.style.display = '';
+    if (resultsCount) resultsCount.style.display = '';
+    if (sortedByText) sortedByText.style.display = '';
+    if (resultsDivider) resultsDivider.style.display = '';
+
+    document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        var isOnboarded = true;
+        var rows = record.querySelectorAll('.govuk-summary-list__row');
+        for (var i = 0; i < rows.length; i++) {
+            var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+            if (keyEl && keyEl.textContent.trim() === 'Service lead') {
+                var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+                isOnboarded = !valueEl || valueEl.textContent.indexOf('Not onboarded') === -1;
+                break;
+            }
+        }
+
+        record.setAttribute('data-filtered', isOnboarded ? 'visible' : 'hidden');
+        record.style.display = isOnboarded ? '' : 'none';
+
+        var parentWrapper = record.parentElement;
+        if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+            parentWrapper.style.display = isOnboarded ? '' : 'none';
+        }
+    });
+
+    var noResultsMessage = document.getElementById('no-results-message');
+    if (noResultsMessage) noResultsMessage.style.display = 'none';
+
+    hideServiceRowWhenOnboardedNo();
+
+    if (window.recalculatePagination) {
+        window.recalculatePagination();
+    }
+}
+
+window.showAllOnboardedVictims = showAllOnboardedVictims;
+
 // Hide Service and Victim liaison officer rows when Onboarded value is "No"
 function hideServiceRowWhenOnboardedNo() {
     var victimRecords = document.querySelectorAll('.govuk-summary-list');

@@ -441,6 +441,7 @@
 {% block pageScripts %}
 <script src="/public/javascripts/shared/filter-data.js"></script>
 <script src="/public/javascripts/shared/pagination.js"></script>
+<script>window.VICTIMS_RESULTS_PER_PAGE = 5;</script>
 <script src="/public/javascripts/shared/victims-pagination.js"></script>
 <script src="/public/javascripts/shared/victims.js"></script>
 <script src="/public/javascripts/shared/victims-autocomplete.js"></script>
@@ -487,6 +488,49 @@
       }
     }
 
+    function showRecord(record) {
+      record.style.display = '';
+      record.setAttribute('data-filtered', 'visible');
+      var parentWrapper = record.parentElement;
+      if (parentWrapper && parentWrapper.classList.contains('govuk-!-margin-bottom-9')) {
+        parentWrapper.style.display = '';
+      }
+    }
+
+    function isOnboardedVictimSearch() {
+      var radio = document.getElementById('search-by-service-area');
+      return !!(radio && radio.checked);
+    }
+
+    function hasServiceAreaVloSelection() {
+      return Array.from(document.querySelectorAll('.service-radio, .area-checkbox, .vlo-checkbox'))
+        .some(function(input) { return input.checked; });
+    }
+
+    function isRecordOnboarded(record) {
+      var rows = record.querySelectorAll('.govuk-summary-list__row');
+      for (var i = 0; i < rows.length; i++) {
+        var keyEl = rows[i].querySelector('.govuk-summary-list__key');
+        if (keyEl && keyEl.textContent.trim() === 'Service lead') {
+          var valueEl = rows[i].querySelector('.govuk-summary-list__value');
+          return !valueEl || valueEl.textContent.indexOf('Not onboarded') === -1;
+        }
+      }
+      return true;
+    }
+
+    // Without a service lead, CPS area or VLO selection the shared filter hides every
+    // record, so reinstate the full onboarded list for the name search to narrow down
+    function resetCandidatesForNameOnlySearch() {
+      document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
+        if (isRecordOnboarded(record)) {
+          showRecord(record);
+        } else {
+          hideRecord(record);
+        }
+      });
+    }
+
     // Heading format is "SURNAME, Forename" with an optional "Deceased" tag
     function getVictimNameParts(record) {
       var parentWrapper = record.parentElement;
@@ -529,6 +573,9 @@
       if (lastName === '' && firstName === '' && !dob.isSet) return;
       // The case reference search hides the results area when its own box is empty
       showResultsArea();
+      if (isOnboardedVictimSearch() && !hasServiceAreaVloSelection()) {
+        resetCandidatesForNameOnlySearch();
+      }
       document.querySelectorAll('.govuk-summary-list').forEach(function(record) {
         if (record.getAttribute('data-filtered') === 'hidden') return;
         var name = getVictimNameParts(record);
@@ -603,7 +650,8 @@
         if (firstNameInput) firstNameInput.value = '';
         var dobInput = document.getElementById('dob-search');
         if (dobInput) dobInput.value = '';
-        if (window.applyVictimFilters) window.applyVictimFilters();
+        // Runs after the shared handler, which would otherwise leave an empty results area
+        if (window.showAllOnboardedVictims) window.showAllOnboardedVictims();
         updateNoResultsMessage();
       });
     }
