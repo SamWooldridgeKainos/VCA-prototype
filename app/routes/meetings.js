@@ -131,10 +131,13 @@ module.exports = router => {
      router.post('/meetingPurpose-answer', function(request, response) {
 
         var meetingPurpose = request.session.data['meetingPurpose']
+        // The not guilty plea / meeting due date pages only apply to a CPS pre-trial meeting.
         if (meetingPurpose == "ptm"){
             response.redirect("/v50/meetings-2/not-guilty-plea-date")
+        } else if (request.session.data['logging'] === 'meeting-offer') {
+            response.redirect("/v50/meetings-2/has-meeting-been-offered")
         } else {
-            response.redirect("/v50/meetings-2/not-guilty-plea-date")
+            response.redirect("/v50/meetings-2/meeting-offered-date")
         }
     })
 

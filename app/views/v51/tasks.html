@@ -148,60 +148,60 @@
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
               Service lead
             </legend>
+            <!-- Class stays "service-radio" because the shared filter logic keys off it -->
             <div
-              class="govuk-radios govuk-radios--small"
-              data-module="govuk-radios"
+              class="govuk-checkboxes govuk-checkboxes--small"
+              data-module="govuk-checkboxes"
             >
-              <div class="govuk-radios__item">
+              <div class="govuk-checkboxes__item">
                 <input
-                  class="govuk-radios__input service-radio"
+                  class="govuk-checkboxes__input service-radio"
                   id="service-1"
                   name="service"
-                  type="radio"
+                  type="checkbox"
                   value="universal"
                   data-label="Universal"
                 />
-                <label class="govuk-label govuk-radios__label" for="service-1"
+                <label class="govuk-label govuk-checkboxes__label" for="service-1"
                   >Universal</label
                 >
               </div>
-              <div class="govuk-radios__item">
+              <div class="govuk-checkboxes__item">
                 <input
-                  class="govuk-radios__input service-radio"
+                  class="govuk-checkboxes__input service-radio"
                   id="service-2"
                   name="service"
-                  type="radio"
+                  type="checkbox"
                   value="enhanced"
                   data-label="Enhanced"
                 />
-                <label class="govuk-label govuk-radios__label" for="service-2"
+                <label class="govuk-label govuk-checkboxes__label" for="service-2"
                   >Enhanced</label
                 >
               </div>
-              <div class="govuk-radios__item">
+              <div class="govuk-checkboxes__item">
                 <input
-                  class="govuk-radios__input service-radio"
+                  class="govuk-checkboxes__input service-radio"
                   id="service-3"
                   name="service"
-                  type="radio"
+                  type="checkbox"
                   value="rasso"
                   data-label="RASSO"
                 />
-                <label class="govuk-label govuk-radios__label" for="service-3"
+                <label class="govuk-label govuk-checkboxes__label" for="service-3"
                   >RASSO</label
                 >
               </div>
-              <div class="govuk-radios__divider">or</div>
-              <div class="govuk-radios__item">
+              <div class="govuk-checkboxes__item">
                 <input
-                  class="govuk-radios__input service-radio"
+                  class="govuk-checkboxes__input service-radio"
                   id="service-4"
                   name="service"
-                  type="radio"
+                  type="checkbox"
                   value="none"
                   data-label="Not aligned to a service"
                 />
-                <label class="govuk-label govuk-radios__label" for="service-4"
+                <label class="govuk-label govuk-checkboxes__label" for="service-4"
                   >Not aligned</label
                 >
               </div>
@@ -248,6 +248,44 @@
             </div>
           </fieldset>
         </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
+            Victim's last name
+          </label>
+          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
+        </div>
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter by victim's first name and date of birth
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+                Victim's first name
+              </label>
+              <div id="victim-first-name-filter-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="dob-search">
+                Victim's date of birth
+              </label>
+              <div id="dob-search-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <div class="moj-datepicker" id="dob-search-picker" data-module="moj-date-picker" data-excluded-days="">
+                <input class="govuk-input moj-js-datepicker-input" id="dob-search" name="dob-search" type="text" autocomplete="off" aria-describedby="dob-search-hint">
+              </div>
+            </div>
+          </div>
+        </details>
 
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
@@ -644,6 +682,12 @@
           </dd>
           {% endif %}
         </div>
+        <div class="govuk-summary-list__row" style="display: none;">
+          <dt class="govuk-summary-list__key">Date of birth</dt>
+          <dd class="govuk-summary-list__value">
+            {{ data['victimDateOfBirth'] }}
+          </dd>
+        </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">Service lead</dt>
           <dd class="govuk-summary-list__value">
@@ -836,6 +880,12 @@
             <a href="#" class="govuk-link govuk-link--no-visited-state"
               >Change<span class="govuk-visually-hidden"> due date</span></a
             >
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row" style="display: none;">
+          <dt class="govuk-summary-list__key">Date of birth</dt>
+          <dd class="govuk-summary-list__value">
+            {{ record.dob }}
           </dd>
         </div>
         <div class="govuk-summary-list__row">
