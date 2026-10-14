@@ -59,6 +59,49 @@
           CPS pre-trial meeting
         </dd>
       </div>
+
+      {% if data['ngpDate'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Not guilty plea date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['ngpDate'] | formatDate }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/v50/meetings-2/not-guilty-plea-date?changeMode=true">Change<span class="govuk-visually-hidden"> not guilty plea date</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      {% if data['meetingOfferedDate'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date meeting was offered
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['meetingOfferedDate'] | formatDate }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/v50/meetings-2/meeting-offered-date?changeMode=true">Change<span class="govuk-visually-hidden"> date meeting was offered</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
+      {% if data['meetingAcceptedDate'] %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date meeting was accepted
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ data['meetingAcceptedDate'] | formatDate }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/v50/meetings-2/meeting-accepted-date?changeMode=true">Change<span class="govuk-visually-hidden"> date meeting was accepted</span></a>
+        </dd>
+      </div>
+      {% endif %}
+
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           How meeting was arranged

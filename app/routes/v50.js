@@ -37,9 +37,40 @@ module.exports = router => {
         response.redirect("/v50/tasks")
     })
 
+    // Pre-population of the meetings-2 date pages only applies when arriving from a
+    // "Change" link (?changeMode=true); clear the flag on any other GET into the flow.
+    router.get('/v50/meetings-2/*', function(request, response, next) {
+        var val = request.query.changeMode === 'true' ? 'true' : ''
+        request.session.data.changeMode = val
+        response.locals.data.changeMode = val
+        next()
+    })
+
+    // Returning from a "Change" link on the confirm arrangements check answers page.
+    function meetings2ChangeReturn(request, response, nextUrl) {
+        if (request.session.data.changeMode === 'true') {
+            request.session.data.changeMode = ''
+            return response.redirect('/v50/meetings-2/confirm-arrangements/check-answers')
+        }
+        response.redirect(nextUrl)
+    }
+
     router.post('/v50/meetings-2/not-guilty-plea-date-answer', function(request, response) {
 
-        response.redirect("/v50/meetings-2/meeting-due-date")
+        meetings2ChangeReturn(request, response, "/v50/meetings-2/meeting-due-date")
+    })
+
+    router.post('/v50/meetings-2/meeting-offered-date-answer', function(request, response) {
+
+        meetings2ChangeReturn(request, response, "/v50/meetings-2/meeting-accepted-date")
+    })
+
+    router.post('/v50/meetings-2/meeting-accepted-date-answer', function(request, response) {
+
+        var nextUrl = request.session.data['logging'] === 'meeting-arrangments'
+            ? "/v50/meetings-2/confirm-arrangements/who-requested-meeting"
+            : "/v50/meetings-2/log-outcome/did-meeting-happen"
+        meetings2ChangeReturn(request, response, nextUrl)
     })
 
     router.post('/v50/meetings-2/meeting-due-date-answer', function(request, response) {
@@ -752,12 +783,12 @@ module.exports = router => {
 
     router.post('/v50/victim/case-information/charging-type-answer', function(request, response) {
 
-        response.redirect("/v50/victim?success=yes&successReason=charging-type-updated#overview")
+        response.redirect("/v50/victim?success=yes&successReason=charging-type-updated#summary")
     })
 
     router.post('/v50/victim/case-information/area-answer', function(request, response) {
 
-        response.redirect("/v50/victim?success=yes&successReason=area-updated#overview")
+        response.redirect("/v50/victim?success=yes&successReason=area-updated#summary")
     })
 
     // Other

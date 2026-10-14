@@ -275,6 +275,54 @@ function parseDueDateFromText(dateText) {
 }
 
 // Apply filters to task list
+// ===== Victim name and date of birth filters (only present on some versions) =====
+function getVictimLastNameFilter() {
+    var input = document.getElementById('victim-last-name-filter');
+    return input ? input.value.trim().toLowerCase() : '';
+}
+
+function getVictimFirstNameFilter() {
+    var input = document.getElementById('victim-first-name-filter');
+    return input ? input.value.trim().toLowerCase() : '';
+}
+
+function getVictimDobFilter() {
+    var input = document.getElementById('dob-search');
+    var value = input ? input.value.trim() : '';
+    var parts = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    return {
+        day: parts ? parseInt(parts[1], 10) : null,
+        month: parts ? parseInt(parts[2], 10) : null,
+        year: parts ? parts[3] : null,
+        isSet: value !== ''
+    };
+}
+
+function hasVictimNameFilter() {
+    return getVictimLastNameFilter() !== '' || getVictimFirstNameFilter() !== '' || getVictimDobFilter().isSet;
+}
+
+// A first name or date of birth can only narrow a last name search
+function isVictimNameFilterIncomplete() {
+    return getVictimLastNameFilter() === '' &&
+        (getVictimFirstNameFilter() !== '' || getVictimDobFilter().isSet);
+}
+
+// Heading format is "SURNAME, Forename" with an optional "Deceased" tag
+function getVictimNameParts(container) {
+    var heading = container.querySelector('h2');
+    if (!heading) return { lastName: '', firstName: '' };
+    var clone = heading.cloneNode(true);
+    clone.querySelectorAll('.govuk-tag, .govuk-visually-hidden').forEach(function(el) {
+        el.parentNode.removeChild(el);
+    });
+    var parts = clone.textContent.replace(/\s+/g, ' ').trim().split(',');
+    return {
+        lastName: (parts[0] || '').trim().toLowerCase(),
+        firstName: (parts[1] || '').trim().toLowerCase()
+    };
+}
+
 function applyTaskFilters() {
     var taskAssigneeCheckboxes = document.querySelectorAll('.task-assignee-checkbox');
     var areaCheckboxes = document.querySelectorAll('.area-checkbox');
@@ -313,7 +361,12 @@ function applyTaskFilters() {
     var searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
     
     // Determine if search criteria filters are active
-    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0 || searchTerm !== '';
+    var hasSearchCriteria = selectedAssignees.length > 0 || selectedAreas.length > 0 || selectedServices.length > 0 || selectedDue.length > 0 || selectedTaskTypes.length > 0 || selectedMeetingPurposes.length > 0 || searchTerm !== '' || hasVictimNameFilter();
+
+    var victimLastName = getVictimLastNameFilter();
+    var victimFirstName = getVictimFirstNameFilter();
+    var victimDob = getVictimDobFilter();
+    var victimNameFilterIncomplete = isVictimNameFilterIncomplete();
     
     // Get all task records (summary lists within margin-bottom-9 containers)
     var taskContainers = document.querySelectorAll(TASKS_RECORD_SELECTOR);
@@ -447,6 +500,25 @@ function applyTaskFilters() {
             shouldShow = shouldShow && matchesMeetingPurpose;
         }
         
+        // Check victim name and date of birth filters - exact (non-partial) matches
+        if (searchFormSubmitted && hasVictimNameFilter()) {
+            if (victimNameFilterIncomplete) {
+                shouldShow = false;
+            } else {
+                var victimName = getVictimNameParts(container);
+                var matchesVictimName = (victimLastName === '' || victimName.lastName === victimLastName) &&
+                    (victimFirstName === '' || victimName.firstName === victimFirstName);
+                if (matchesVictimName && victimDob.isSet) {
+                    var recordDob = getFieldValue('Date of birth').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                    matchesVictimName = !!recordDob &&
+                        (victimDob.day === null || parseInt(recordDob[1], 10) === victimDob.day) &&
+                        (victimDob.month === null || parseInt(recordDob[2], 10) === victimDob.month) &&
+                        (victimDob.year === null || recordDob[3] === victimDob.year);
+                }
+                shouldShow = shouldShow && matchesVictimName;
+            }
+        }
+        
         // If no search criteria submitted, show all tasks
         if (!searchFormSubmitted || !hasSearchCriteria) {
             shouldShow = true;
@@ -470,12 +542,14 @@ function applyTaskFilters() {
             noResultsMessage = document.createElement('div');
             noResultsMessage.id = 'no-results-message';
             noResultsMessage.className = 'govuk-inset-text govuk-!-margin-top-0';
-            noResultsMessage.textContent = 'No results found. Try changing your search criteria.';
             var resultsArea = document.querySelector(TASKS_RESULTS_COLUMN);
             if (resultsArea && resultsDivider) {
                 resultsDivider.parentNode.insertBefore(noResultsMessage, resultsDivider.nextSibling);
             }
         }
+        noResultsMessage.textContent = victimNameFilterIncomplete
+            ? "To filter by victim's first name or date of birth, you must enter their last name."
+            : 'No results found. Try changing your search criteria.';
         noResultsMessage.style.display = '';
         if (resultsDivider) {
             resultsDivider.style.display = 'none';
@@ -909,7 +983,25 @@ initialSetupComplete = true;
             meetingPurposeChips.push({ label: cb.getAttribute('data-label'), input: cb });
         });
 
-        var totalChips = assigneeChips.length + serviceChips.length + areaChips.length + dueChips.length + taskTypeChips.length + meetingPurposeChips.length;
+        var lastNameInput = document.getElementById('victim-last-name-filter');
+        var lastNameChips = [];
+        if (lastNameInput && lastNameInput.value.trim() !== '') {
+            lastNameChips.push({ label: lastNameInput.value.trim(), input: null, type: 'last-name' });
+        }
+
+        var firstNameInput = document.getElementById('victim-first-name-filter');
+        var firstNameChips = [];
+        if (firstNameInput && firstNameInput.value.trim() !== '') {
+            firstNameChips.push({ label: firstNameInput.value.trim(), input: null, type: 'first-name' });
+        }
+
+        var dobInput = document.getElementById('dob-search');
+        var dobChips = [];
+        if (dobInput && dobInput.value.trim() !== '') {
+            dobChips.push({ label: dobInput.value.trim(), input: null, type: 'dob' });
+        }
+
+        var totalChips = assigneeChips.length + serviceChips.length + areaChips.length + dueChips.length + taskTypeChips.length + meetingPurposeChips.length + lastNameChips.length + firstNameChips.length + dobChips.length;
 
         // Update heading
         if (heading) {
@@ -960,6 +1052,9 @@ initialSetupComplete = true;
                         var changeEvent = new Event('change', { bubbles: true });
                         chip.input.dispatchEvent(changeEvent);
                     }
+                    if (chip.type === 'last-name' && lastNameInput) lastNameInput.value = '';
+                    if (chip.type === 'first-name' && firstNameInput) firstNameInput.value = '';
+                    if (chip.type === 'dob' && dobInput) dobInput.value = '';
                     searchFormSubmitted = true;
                     if (window.applyTaskFilters) window.applyTaskFilters();
                     if (window.renderInlineChips) window.renderInlineChips();
@@ -978,6 +1073,9 @@ initialSetupComplete = true;
         createSubSection('Due', dueChips);
         createSubSection('Task type', taskTypeChips);
         createSubSection('Meeting purpose', meetingPurposeChips);
+        createSubSection("Victim's last name", lastNameChips);
+        createSubSection("Victim's first name", firstNameChips);
+        createSubSection('Date of birth', dobChips);
         isRenderingSelectedFilters = false;
     }
     window.renderSelectedFilters = renderSelectedFilters;
@@ -987,6 +1085,15 @@ initialSetupComplete = true;
         cb.addEventListener('change', function() {
             renderSelectedFilters();
         });
+    });
+
+    ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search'].forEach(function(id) {
+        var input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('input', function() {
+                renderSelectedFilters();
+            });
+        }
     });
 
     // Observe inline chip containers for changes (autocomplete uses local function refs)
@@ -1023,6 +1130,11 @@ initialSetupComplete = true;
             // Clear search input
             var searchInput = document.getElementById('search-urn');
             if (searchInput) searchInput.value = '';
+            // Clear victim name and date of birth fields
+            ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search'].forEach(function(id) {
+                var input = document.getElementById(id);
+                if (input) input.value = '';
+            });
             var clearSearchWrapper = document.getElementById('clear-search-wrapper');
             if (clearSearchWrapper) clearSearchWrapper.style.display = 'none';
             // Clear inline chips
