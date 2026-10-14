@@ -29,6 +29,8 @@ var TASKS_RECORD_SELECTOR = TASKS_RESULTS_COLUMN + ' > .govuk-\\!-margin-bottom-
             meetingPurposeChecked: [],
             searchFormSubmitted: searchFormSubmitted,
             searchUrn: document.getElementById('search-urn') ? document.getElementById('search-urn').value : '',
+            dueDateFrom: document.getElementById('due-date-from') ? document.getElementById('due-date-from').value : '',
+            dueDateTo: document.getElementById('due-date-to') ? document.getElementById('due-date-to').value : '',
             taskAssigneeInput: document.querySelector('#assignee-autocomplete-input') ? document.querySelector('#assignee-autocomplete-input').value : '',
             areaInput: document.querySelector('#area-autocomplete-input') ? document.querySelector('#area-autocomplete-input').value : ''
         };
@@ -129,6 +131,12 @@ var TASKS_RECORD_SELECTOR = TASKS_RESULTS_COLUMN + ' > .govuk-\\!-margin-bottom-
                     }
                 });
             }
+            
+            // Restore custom due date range
+            var dueDateFromInput = document.getElementById('due-date-from');
+            if (dueDateFromInput) dueDateFromInput.value = state.dueDateFrom || '';
+            var dueDateToInput = document.getElementById('due-date-to');
+            if (dueDateToInput) dueDateToInput.value = state.dueDateTo || '';
             
             // Restore Task Type checkboxes
             if (state.taskTypeChecked) {
@@ -272,6 +280,16 @@ function parseDueDateFromText(dateText) {
         }
     }
     return null;
+}
+
+// Read a dd/mm/yyyy value from one of the custom due date range pickers
+function getCustomDueDate(id) {
+    var input = document.getElementById(id);
+    var parts = input ? input.value.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/) : null;
+    if (!parts) return null;
+    var date = new Date(parseInt(parts[3], 10), parseInt(parts[2], 10) - 1, parseInt(parts[1], 10));
+    date.setHours(0, 0, 0, 0);
+    return date;
 }
 
 // Apply filters to task list
@@ -456,7 +474,8 @@ function applyTaskFilters() {
                 if (due === 'Due tomorrow') {
                     return dueDateValue.indexOf('Due tomorrow') !== -1;
                 }
-                if (due === 'Due in the next 7 days') {
+                var nextDaysMatch = due.match(/^Due in the next (\d+) days$/);
+                if (nextDaysMatch) {
                     var dueDate = parseDueDateFromText(dueDateValue);
                     if (!dueDate) return false;
                     var today = new Date();
@@ -464,10 +483,21 @@ function applyTaskFilters() {
                     dueDate.setHours(0, 0, 0, 0);
                     // Exclude tasks that are already overdue
                     if (dueDate < today) return false;
-                    // Include tasks due within the next 7 calendar days (inclusive of today)
+                    // Window is inclusive of today
                     var limit = new Date(today);
-                    limit.setDate(limit.getDate() + 6);
+                    limit.setDate(limit.getDate() + parseInt(nextDaysMatch[1], 10) - 1);
                     return dueDate <= limit;
+                }
+                if (due === 'Custom range') {
+                    var from = getCustomDueDate('due-date-from');
+                    var to = getCustomDueDate('due-date-to');
+                    if (!from && !to) return false;
+                    var customDueDate = parseDueDateFromText(dueDateValue);
+                    if (!customDueDate) return false;
+                    customDueDate.setHours(0, 0, 0, 0);
+                    if (from && customDueDate < from) return false;
+                    if (to && customDueDate > to) return false;
+                    return true;
                 }
                 return false;
             });
@@ -631,6 +661,12 @@ if (clearFiltersLink) {
         uncheckAndTriggerChange(dueCheckboxes);
         uncheckAndTriggerChange(taskTypeCheckboxes);
         uncheckAndTriggerChange(meetingPurposeCheckboxes);
+        
+        // Clear custom due date range
+        ['due-date-from', 'due-date-to'].forEach(function(id) {
+            var input = document.getElementById(id);
+            if (input) input.value = '';
+        });
         
         // Clear autocomplete inputs
         var assigneeInput = document.querySelector('#assignee-autocomplete-input');
@@ -968,9 +1004,24 @@ initialSetupComplete = true;
             areaChips.push({ label: cb.getAttribute('data-label'), input: cb });
         });
 
+        var dueDateFromInput = document.getElementById('due-date-from');
+        var dueDateToInput = document.getElementById('due-date-to');
+
         var dueChips = [];
         document.querySelectorAll('.due-checkbox:checked').forEach(function(cb) {
-            dueChips.push({ label: cb.getAttribute('data-label'), input: cb });
+            var dueLabel = cb.getAttribute('data-label');
+            if (cb.value === 'custom-range') {
+                var fromValue = dueDateFromInput ? dueDateFromInput.value.trim() : '';
+                var toValue = dueDateToInput ? dueDateToInput.value.trim() : '';
+                if (fromValue && toValue) {
+                    dueLabel = fromValue + ' to ' + toValue;
+                } else if (fromValue) {
+                    dueLabel = 'From ' + fromValue;
+                } else if (toValue) {
+                    dueLabel = 'To ' + toValue;
+                }
+            }
+            dueChips.push({ label: dueLabel, input: cb, type: cb.value === 'custom-range' ? 'custom-range' : null });
         });
 
         var taskTypeChips = [];
@@ -1055,6 +1106,10 @@ initialSetupComplete = true;
                     if (chip.type === 'last-name' && lastNameInput) lastNameInput.value = '';
                     if (chip.type === 'first-name' && firstNameInput) firstNameInput.value = '';
                     if (chip.type === 'dob' && dobInput) dobInput.value = '';
+                    if (chip.type === 'custom-range') {
+                        if (dueDateFromInput) dueDateFromInput.value = '';
+                        if (dueDateToInput) dueDateToInput.value = '';
+                    }
                     searchFormSubmitted = true;
                     if (window.applyTaskFilters) window.applyTaskFilters();
                     if (window.renderInlineChips) window.renderInlineChips();
@@ -1087,7 +1142,7 @@ initialSetupComplete = true;
         });
     });
 
-    ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search'].forEach(function(id) {
+    ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search', 'due-date-from', 'due-date-to'].forEach(function(id) {
         var input = document.getElementById(id);
         if (input) {
             input.addEventListener('input', function() {
@@ -1131,7 +1186,7 @@ initialSetupComplete = true;
             var searchInput = document.getElementById('search-urn');
             if (searchInput) searchInput.value = '';
             // Clear victim name and date of birth fields
-            ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search'].forEach(function(id) {
+            ['victim-last-name-filter', 'victim-first-name-filter', 'dob-search', 'due-date-from', 'due-date-to'].forEach(function(id) {
                 var input = document.getElementById(id);
                 if (input) input.value = '';
             });
