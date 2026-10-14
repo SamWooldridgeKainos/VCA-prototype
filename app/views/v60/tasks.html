@@ -417,8 +417,34 @@
                 <label class="govuk-label govuk-checkboxes__label" for="due-3">Due tomorrow</label>
               </div>
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input due-checkbox" id="due-4" name="due" type="checkbox" value="due-next-7-days" data-label="Due in the next 7 days">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-4" name="due" type="checkbox" value="due-next-7-days" data-label="Due in the next 7 days" data-behaviour="exclusive">
                 <label class="govuk-label govuk-checkboxes__label" for="due-4">Due in the next 7 days</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-5" name="due" type="checkbox" value="due-next-14-days" data-label="Due in the next 14 days" data-behaviour="exclusive">
+                <label class="govuk-label govuk-checkboxes__label" for="due-5">Due in the next 14 days</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-6" name="due" type="checkbox" value="due-next-28-days" data-label="Due in the next 28 days" data-behaviour="exclusive">
+                <label class="govuk-label govuk-checkboxes__label" for="due-6">Due in the next 28 days</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input due-checkbox" id="due-7" name="due" type="checkbox" value="custom-range" data-label="Custom range" data-behaviour="exclusive" data-aria-controls="conditional-due-custom-range">
+                <label class="govuk-label govuk-checkboxes__label" for="due-7">Custom range</label>
+              </div>
+              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-due-custom-range">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="due-date-from">From</label>
+                  <div class="moj-datepicker" id="due-date-from-picker" data-module="moj-date-picker" data-excluded-days="">
+                    <input class="govuk-input moj-js-datepicker-input" id="due-date-from" name="due-date-from" type="text" autocomplete="off">
+                  </div>
+                </div>
+                <div class="govuk-form-group govuk-!-margin-bottom-0">
+                  <label class="govuk-label" for="due-date-to">To</label>
+                  <div class="moj-datepicker" id="due-date-to-picker" data-module="moj-date-picker" data-excluded-days="">
+                    <input class="govuk-input moj-js-datepicker-input" id="due-date-to" name="due-date-to" type="text" autocomplete="off">
+                  </div>
+                </div>
               </div>
             </div>
           </fieldset>

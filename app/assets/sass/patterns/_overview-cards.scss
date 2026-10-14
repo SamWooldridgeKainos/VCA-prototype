@@ -45,51 +45,60 @@
   hyphens: none;
 }
 
+// govuk-shade/govuk-tint were removed in GOV.UK Frontend v6, so re-create them here
+@function app-shade($colour, $percentage) {
+  @return mix(#000000, $colour, $percentage);
+}
+
+@function app-tint($colour, $percentage) {
+  @return mix(#ffffff, $colour, $percentage);
+}
+
 $statuses: (
   "grey": (
-    "colour":            govuk-shade(govuk-colour("dark-grey"), 30),
-    "background-colour": govuk-tint(govuk-colour("dark-grey"), 90),
-    "hover":             govuk-tint(govuk-colour("dark-grey"), 80)
+    "colour":            app-shade(govuk-colour("dark-grey"), 30),
+    "background-colour": app-tint(govuk-colour("dark-grey"), 90),
+    "hover":             app-tint(govuk-colour("dark-grey"), 80)
   ),
   "turquoise": (
-    "colour":            govuk-shade(govuk-colour("turquoise"), 60),
-    "background-colour": govuk-tint(govuk-colour("turquoise"), 70),
-    "hover":             govuk-tint(govuk-colour("turquoise"), 57),
+    "colour":            app-shade(govuk-colour("turquoise"), 60),
+    "background-colour": app-tint(govuk-colour("turquoise"), 70),
+    "hover":             app-tint(govuk-colour("turquoise"), 57),
   ),
   "blue": (
-    "colour":            govuk-shade(govuk-colour("blue"), 30),
-    "background-colour": govuk-tint(govuk-colour("blue"), 80),
-    "hover":             govuk-tint(govuk-colour("blue"), 70)
+    "colour":            app-shade(govuk-colour("blue"), 30),
+    "background-colour": app-tint(govuk-colour("blue"), 80),
+    "hover":             app-tint(govuk-colour("blue"), 70)
   ),
   "yellow": (
-    "colour":            govuk-shade(govuk-colour("yellow"), 65),
-    "background-colour": govuk-tint(govuk-colour("yellow"), 75),
-    "hover":             govuk-tint(govuk-colour("yellow"), 60)
+    "colour":            app-shade(govuk-colour("yellow"), 65),
+    "background-colour": app-tint(govuk-colour("yellow"), 75),
+    "hover":             app-tint(govuk-colour("yellow"), 60)
   ),
   "red": (
-    "colour":            govuk-shade(govuk-colour("red"), 30),
-    "background-colour": govuk-tint(govuk-colour("red"), 80),
-    "hover":             govuk-tint(govuk-colour("red"), 70)
+    "colour":            app-shade(govuk-colour("red"), 30),
+    "background-colour": app-tint(govuk-colour("red"), 80),
+    "hover":             app-tint(govuk-colour("red"), 70)
   ),
   "purple": (
-    "colour":            govuk-shade(govuk-colour("purple"), 20),
-    "background-colour": govuk-tint(govuk-colour("purple"), 80),
-    "hover":             govuk-tint(govuk-colour("purple"), 70)
+    "colour":            app-shade(govuk-colour("purple"), 20),
+    "background-colour": app-tint(govuk-colour("purple"), 80),
+    "hover":             app-tint(govuk-colour("purple"), 70)
   ),
   "orange": (
-    "colour":            govuk-shade(govuk-colour("orange"), 55),
-    "background-colour": govuk-tint(govuk-colour("orange"), 70),
-    "hover":             govuk-tint(govuk-colour("orange"), 55)
+    "colour":            app-shade(govuk-colour("orange"), 55),
+    "background-colour": app-tint(govuk-colour("orange"), 70),
+    "hover":             app-tint(govuk-colour("orange"), 55)
   ),
   "green": (
-    "colour":            govuk-shade(govuk-colour("green"), 20),
-    "background-colour": govuk-tint(govuk-colour("green"), 80),
-    "hover":             govuk-tint(govuk-colour("green"), 70)
+    "colour":            app-shade(govuk-colour("green"), 20),
+    "background-colour": app-tint(govuk-colour("green"), 80),
+    "hover":             app-tint(govuk-colour("green"), 70)
   ),
   "pink": (
-    "colour":            govuk-shade(govuk-colour("pink"), 30),
-    "background-colour": govuk-tint(govuk-colour("pink"), 80),
-    "hover":             govuk-tint(govuk-colour("pink"), 70)
+    "colour":            app-shade(govuk-colour("pink"), 30),
+    "background-colour": app-tint(govuk-colour("pink"), 80),
+    "hover":             app-tint(govuk-colour("pink"), 70)
   ),
 );
 
