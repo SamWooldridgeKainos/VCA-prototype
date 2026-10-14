@@ -97,7 +97,6 @@
 
   <div class="govuk-grid-column-one-quarter">
     <div class="tasks-filters">
-      <h2 class="govuk-heading-m">Search</h2>
 
       <form id="filters-form">
         <div class="govuk-form-group">
@@ -248,44 +247,6 @@
             </div>
           </fieldset>
         </div>
-
-        <div class="govuk-form-group">
-          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
-            Victim's last name
-          </label>
-          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
-        </div>
-
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              Filter by victim's first name and date of birth
-            </span>
-          </summary>
-          <div class="govuk-details__text">
-            <div class="govuk-form-group">
-              <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
-                Victim's first name
-              </label>
-              <div id="victim-first-name-filter-hint" class="govuk-hint">
-                You must also enter their last name
-              </div>
-              <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
-            </div>
-
-            <div class="govuk-form-group">
-              <label class="govuk-label govuk-label--s" for="dob-search">
-                Victim's date of birth
-              </label>
-              <div id="dob-search-hint" class="govuk-hint">
-                You must also enter their last name
-              </div>
-              <div class="moj-datepicker" id="dob-search-picker" data-module="moj-date-picker" data-excluded-days="">
-                <input class="govuk-input moj-js-datepicker-input" id="dob-search" name="dob-search" type="text" autocomplete="off" aria-describedby="dob-search-hint">
-              </div>
-            </div>
-          </div>
-        </details>
 
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
@@ -648,6 +609,65 @@
   </div>
 
   <div class="govuk-grid-column-three-quarters">
+
+    <div id="case-reference-section" class="govuk-!-margin-bottom-4" style="background-color: #f3f2f1; padding: 1.5rem;">
+      <form action="#" method="post">
+        <!-- <div class="govuk-form-group">
+
+          <label class="govuk-label govuk-label--s" for="search-urn">
+            Case reference
+          </label>
+          <input type="text" class="govuk-input" id="search-urn" name="searchUrn" autocomplete="on" value="">
+
+        </div> -->
+
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="victim-last-name-filter">
+            Victim's last name
+          </label>
+          <input class="govuk-input" id="victim-last-name-filter" name="victim-last-name-filter" type="text" autocomplete="off">
+        </div>
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter by victim's first name and date of birth
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="victim-first-name-filter">
+                Victim's first name
+              </label>
+              <div id="victim-first-name-filter-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <input class="govuk-input" id="victim-first-name-filter" name="victim-first-name-filter" type="text" autocomplete="off" aria-describedby="victim-first-name-filter-hint">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--s" for="dob-search">
+                Victim's date of birth
+              </label>
+              <div id="dob-search-hint" class="govuk-hint">
+                You must also enter their last name
+              </div>
+              <div class="moj-datepicker" id="dob-search-picker" data-module="moj-date-picker" data-excluded-days="">
+                <input class="govuk-input moj-js-datepicker-input" id="dob-search" name="dob-search" type="text" autocomplete="off" aria-describedby="dob-search-hint">
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <button type="submit" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+          Search
+        </button>
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0" id="clear-search-wrapper" style="display: none;">
+        <a class="govuk-link govuk-link--no-visited-state" href="#" id="clear-search-link">Clear search</a>
+      </p>
+    </div>
 
     <p class="govuk-body" id="results-count"></p>
 
