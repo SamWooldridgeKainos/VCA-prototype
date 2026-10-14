@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v50/partials/identity-bar/victim-page.html" %}
+{% include "/v50/partials/identity-bar/victim-page-nocreate-task.html" %}
 {% endblock %}
 
 {% block content %}
@@ -16,9 +16,10 @@
 
     <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Contents</h2>
+
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#overview">Summary</a>
+          <a class="govuk-tabs__tab" href="#summary">Summary</a>
         </li>
         <li class="govuk-tabs__list-item">
           <a class="govuk-tabs__tab" href="#victim-details">Victim details</a>
@@ -29,9 +30,12 @@
         <li class="govuk-tabs__list-item">
           <a class="govuk-tabs__tab" href="#communications">Communications</a>
         </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#tasks">Tasks</a>
+        </li>
       </ul>
 
-      <div class="govuk-tabs__panel" id="overview">
+      <div class="govuk-tabs__panel" id="summary">
         {% if (data['success'] == "yes") and (data['successReason'] == "charging-type-updated" or data['successReason'] == "area-updated") %}
           <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
             <div class="govuk-notification-banner__header">
@@ -56,7 +60,7 @@
         {% include "/v50/victim/overview.html" %}
       </div>
 
-      <div class="govuk-tabs__panel" id="victim-details">
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="victim-details">
         {% if (data['success'] == "yes") and (
           data['successReason'] == "email-address-updated" or
           data['successReason'] == "pmoc-updated" or
@@ -150,13 +154,13 @@
         {% include "/v50/victim/victim-details/index.html" %}
       </div>
 
-      <div class="govuk-tabs__panel" id="case-contacts">
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="case-contacts">
         <h2 class="govuk-heading-l govuk-!-margin-top-2">Case contacts</h2>
 
         {% include "/v50/victim/case-contacts.html" %}
       </div>
 
-      <div class="govuk-tabs__panel" id="communications">
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="communications">
         <h2 class="govuk-heading-l govuk-!-margin-top-2">Communications</h2>
 
         <nav class="x-govuk-secondary-navigation govuk-!-margin-bottom-6" aria-label="Communications">
@@ -220,6 +224,16 @@
         <div id="comms-other" class="comms-panel" hidden>
           {% include "/v50/victim/other/index.html" %}
         </div>
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="tasks">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Tasks (10)</h2>
+
+        <a href="/v50/victim/new-task/task-selection" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Create task
+        </a>
+
+        {% include "/v50/victim/tasks-v4.html" %}
       </div>
     </div>
 

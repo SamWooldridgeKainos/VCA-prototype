@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "/v60/partials/identity-bar/victim-page.html" %}
+{% include "/v60/partials/identity-bar/victim-page-nocreate-task.html" %}
 {% endblock %}
 
 {% block content %}
@@ -115,6 +115,8 @@
       {% set activeTab = "victim-details" %}
     {% elif (data['secondaryNav'] == "case-contacts") %}
       {% set activeTab = "case-contacts" %}
+    {% elif (data['secondaryNav'] == "tasks") %}
+      {% set activeTab = "tasks" %}
     {% elif (data['secondaryNav'] == "pcd") or (data['secondaryNav'] == "vcl") or (data['secondaryNav'] == "ptm") or (data['secondaryNav'] == "other") %}
       {% set activeTab = "communications" %}
     {% else %}
@@ -144,6 +146,9 @@
         </li>
         <li class="govuk-tabs__list-item{% if activeTab == 'communications' %} govuk-tabs__list-item--selected{% endif %}">
           <a class="govuk-tabs__tab" href="#communications">Communications</a>
+        </li>
+        <li class="govuk-tabs__list-item{% if activeTab == 'tasks' %} govuk-tabs__list-item--selected{% endif %}">
+          <a class="govuk-tabs__tab" href="#tasks">Tasks</a>
         </li>
       </ul>
 
@@ -192,6 +197,16 @@
           {% include "/v60/victim/other/index.html" %}
         </div>
       </div>
+
+      <div class="govuk-tabs__panel{% if activeTab != 'tasks' %} govuk-tabs__panel--hidden{% endif %}" id="tasks">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Tasks (10)</h2>
+
+        <a href="/v60/victim/new-task/task-selection" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Create task
+        </a>
+
+        {% include "/v60/victim/tasks-v4.html" %}
+      </div>
     </div>
 
   </div>
@@ -221,6 +236,36 @@
         link.setAttribute('aria-current', 'page');
 
         // Show/hide panels
+        panels.forEach(function (panel) {
+          panel.hidden = (panel.id !== targetId);
+        });
+      });
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-case-contacts-tab]');
+    var panels = document.querySelectorAll('.case-contacts-panel');
+
+    if (!links.length || !panels.length) {
+      return;
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = link.getAttribute('data-case-contacts-tab');
+
+        links.forEach(function (l) {
+          var li = l.closest('.x-govuk-secondary-navigation__list-item');
+          li.classList.remove('x-govuk-secondary-navigation__list-item--current');
+          l.removeAttribute('aria-current');
+        });
+        var activeLi = link.closest('.x-govuk-secondary-navigation__list-item');
+        activeLi.classList.add('x-govuk-secondary-navigation__list-item--current');
+        link.setAttribute('aria-current', 'page');
+
         panels.forEach(function (panel) {
           panel.hidden = (panel.id !== targetId);
         });

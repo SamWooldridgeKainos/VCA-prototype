@@ -15,6 +15,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
 
+    <form action="/v50/meetings-2/meeting-accepted-date-answer" method="post">
+
     <h1 class="govuk-label-wrapper">
       <label class="govuk-label govuk-label--l" for="meeting-accepted-date">
         When did {{ victimName }} accept the meeting offer?
@@ -40,19 +42,22 @@
           name="meetingAcceptedDate"
           autocomplete="off"
           aria-describedby="meeting-accepted-date-hint"
+          value="{{ data['meetingAcceptedDate'] }}"
         >
       </div>
 
     </div>
 
     <div class="govuk-button-group">
-      <a href="./log-outcome/did-meeting-happen.html" class="govuk-button" data-module="govuk-button">
+      <button class="govuk-button" data-module="govuk-button">
         Continue
-      </a>
+      </button>
       <a href="#" class="govuk-button govuk-button--secondary" data-module="govuk-button">
         Cancel
       </a>
     </div>
+
+    </form>
 
   </div>
 </div>

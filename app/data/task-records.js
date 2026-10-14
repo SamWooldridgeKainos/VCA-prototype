@@ -1,3 +1,5 @@
+const victimRecords = require('./victim-records')
+
 function formatDate(daysOffset) {
   var date = new Date();
   date.setDate(date.getDate() + daysOffset);
@@ -10,7 +12,27 @@ function formatDate(daysOffset) {
   return days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
 }
 
-module.exports = [
+// Tasks reuse the victim's date of birth where the names match, otherwise a stable
+// stand-in is derived from the name so every task has something to filter on.
+function dobFor(surname, forename) {
+  var match = victimRecords.find(function (victim) {
+    return victim.surname.toLowerCase() === surname.toLowerCase() &&
+      victim.forename.toLowerCase() === forename.toLowerCase();
+  });
+  if (match) return match.dob;
+
+  var name = surname + forename;
+  var hash = 0;
+  for (var i = 0; i < name.length; i++) {
+    hash = (hash * 31 + name.charCodeAt(i)) % 1000000;
+  }
+  var day = (hash % 28) + 1;
+  var month = (Math.floor(hash / 28) % 12) + 1;
+  var year = 1950 + (Math.floor(hash / 336) % 55);
+  return day + '/' + month + '/' + year;
+}
+
+const taskRecords = [
   {
     surname: 'DOE',
     forename: 'Jane',
@@ -3691,3 +3713,7 @@ module.exports = [
     nextAction: 'Continue draft'
   }
 ]
+
+module.exports = taskRecords.map(function (record) {
+  return Object.assign({ dob: dobFor(record.surname, record.forename) }, record)
+})
