@@ -746,10 +746,15 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
 // Handle case reference / victim name search form
 (function() {
     var searchInput = document.getElementById('search-urn');
-    if (!searchInput) return;
 
     var caseRefSection = document.getElementById('case-reference-section');
     var caseRefForm = caseRefSection ? caseRefSection.querySelector('form') : null;
+    if (!caseRefForm && !searchInput) return;
+
+    function hasSearchTerm() {
+        return !!searchInput && searchInput.value.trim() !== '';
+    }
+
     if (caseRefForm) {
         caseRefForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -758,7 +763,7 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
             // Show/hide clear search link
             var clearSearchWrapper = document.getElementById('clear-search-wrapper');
             if (clearSearchWrapper) {
-                clearSearchWrapper.style.display = searchInput.value.trim() !== '' ? '' : 'none';
+                clearSearchWrapper.style.display = hasSearchTerm() ? '' : 'none';
             }
             if (window.saveFiltersToStorage) window.saveFiltersToStorage();
             if (window.renderSelectedFilters) window.renderSelectedFilters();
@@ -770,7 +775,7 @@ window.updateClearFiltersVisibility = updateClearFiltersVisibility;
     if (clearSearchLink) {
         clearSearchLink.addEventListener('click', function(e) {
             e.preventDefault();
-            searchInput.value = '';
+            if (searchInput) searchInput.value = '';
             var clearSearchWrapper = document.getElementById('clear-search-wrapper');
             if (clearSearchWrapper) clearSearchWrapper.style.display = 'none';
             searchFormSubmitted = true;
